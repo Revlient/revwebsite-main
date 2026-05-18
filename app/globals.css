@@ -1445,7 +1445,11 @@ html.js .reveal.is-visible {
 /* ---------- AI prompt section (below hero) ---------- */
 
 .aiprompt {
-  /* Exact radial gradient from the supplied component's demo. */
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(3.5rem, 2.5rem + 5vw, 6.5rem);
+  /* Radial gradient from the supplied demo — enlarged so it can pan. */
   background: radial-gradient(
     125% 125% at 50% 101%,
     rgba(245, 87, 2, 1) 10.5%,
@@ -1456,10 +1460,64 @@ html.js .reveal.is-visible {
     rgba(202, 179, 214, 1) 65%,
     rgba(148, 201, 233, 1) 100%
   );
-  padding-block: clamp(3.5rem, 2.5rem + 5vw, 6.5rem);
+  background-size: 165% 165%;
+  background-position: 50% 100%;
+  animation: aiprompt-pan 20s ease-in-out infinite alternate;
+}
+
+/* Drifting warm blobs layered over the panning gradient = movement. */
+.aiprompt::before {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  z-index: -1;
+  background: radial-gradient(
+      38% 38% at 30% 68%,
+      rgba(245, 120, 2, 0.55),
+      transparent 70%
+    ),
+    radial-gradient(
+      42% 42% at 72% 58%,
+      rgba(245, 87, 2, 0.5),
+      transparent 70%
+    ),
+    radial-gradient(
+      36% 36% at 55% 85%,
+      rgba(245, 150, 40, 0.45),
+      transparent 72%
+    );
+  filter: blur(42px);
+  animation: aiprompt-blob 16s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes aiprompt-pan {
+  0% {
+    background-position: 32% 100%;
+  }
+  50% {
+    background-position: 68% 90%;
+  }
+  100% {
+    background-position: 48% 100%;
+  }
+}
+
+@keyframes aiprompt-blob {
+  0% {
+    transform: translate3d(-4%, 3%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(5%, -4%, 0) scale(1.14);
+  }
+  100% {
+    transform: translate3d(-2%, 5%, 0) scale(1.06);
+  }
 }
 
 .aiprompt__inner {
+  position: relative;
+  z-index: 1;
   text-align: center;
   display: flex;
   flex-direction: column;
