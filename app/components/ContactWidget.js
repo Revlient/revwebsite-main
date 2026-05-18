@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import EtherealShadow from "./EtherealShadow";
 import {
   WHATSAPP_URL,
   PHONE_TEL,
@@ -163,6 +164,13 @@ export default function ContactWidget() {
           role="dialog"
           aria-label="Chat with Revlient"
         >
+          <EtherealShadow
+            className="chatbot__bg"
+            style={{ position: "absolute", inset: 0 }}
+            color="rgba(43, 95, 255, 0.5)"
+            animation={{ scale: 55, speed: 50 }}
+            noise={{ opacity: 0.4, scale: 1 }}
+          />
           <div className="chatbot__head">
             <div>
               <strong>Revlient assistant</strong>

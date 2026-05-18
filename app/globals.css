@@ -1274,8 +1274,9 @@ html.js .reveal.is-visible {
 
 /* Chat bot panel */
 .chatbot {
-  width: min(360px, calc(100vw - 2rem));
-  height: min(520px, calc(100vh - 8rem));
+  position: relative;
+  width: min(440px, calc(100vw - 2rem));
+  height: min(560px, calc(100vh - 7rem));
   background: var(--panel);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-lg);
@@ -1283,6 +1284,32 @@ html.js .reveal.is-visible {
   flex-direction: column;
   overflow: hidden;
   box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
+}
+
+/* Animated ethereal-shadow backdrop + a scrim so messages stay legible. */
+.chatbot__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.chatbot__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 19, 29, 0.55),
+    rgba(15, 19, 29, 0.7)
+  );
+}
+
+.chatbot__head,
+.chatbot__body,
+.chatbot__form {
+  position: relative;
+  z-index: 1;
 }
 
 .chatbot__head {
