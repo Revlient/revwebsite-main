@@ -1,11 +1,19 @@
 import AiPromptBox from "./AiPromptBox";
+import EtherealShadow from "./EtherealShadow";
 
-// Sits directly below the hero. Background is the exact radial gradient
-// from the supplied component's demo (as requested). The prompt box
-// itself stays dark, so it reads as a panel on the colour field.
+// Sits directly below the hero. Background is the animated ethereal-shadow
+// effect (warm/orange palette) on a dark base; the dark prompt box reads
+// as a panel on top.
 export default function AiPromptSection() {
   return (
     <section className="aiprompt" aria-label="Start your brief">
+      <EtherealShadow
+        className="aiprompt__bg"
+        style={{ position: "absolute", inset: 0 }}
+        color="rgba(245, 110, 20, 0.85)"
+        animation={{ scale: 80, speed: 60 }}
+        noise={{ opacity: 0.5, scale: 1.1 }}
+      />
       <div className="container aiprompt__inner">
         <span className="aiprompt__eyebrow">Tell us what you&apos;re building</span>
         <h2 className="aiprompt__title">

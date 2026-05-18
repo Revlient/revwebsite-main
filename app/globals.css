@@ -1274,9 +1274,8 @@ html.js .reveal.is-visible {
 
 /* Chat bot panel */
 .chatbot {
-  position: relative;
-  width: min(440px, calc(100vw - 2rem));
-  height: min(560px, calc(100vh - 7rem));
+  width: min(360px, calc(100vw - 2rem));
+  height: min(520px, calc(100vh - 8rem));
   background: var(--panel);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-lg);
@@ -1284,32 +1283,6 @@ html.js .reveal.is-visible {
   flex-direction: column;
   overflow: hidden;
   box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
-}
-
-/* Animated ethereal-shadow backdrop + a scrim so messages stay legible. */
-.chatbot__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.chatbot__bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(15, 19, 29, 0.55),
-    rgba(15, 19, 29, 0.7)
-  );
-}
-
-.chatbot__head,
-.chatbot__body,
-.chatbot__form {
-  position: relative;
-  z-index: 1;
 }
 
 .chatbot__head {
@@ -1475,71 +1448,28 @@ html.js .reveal.is-visible {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  padding-block: clamp(3.5rem, 2.5rem + 5vw, 6.5rem);
-  /* Radial gradient from the supplied demo — enlarged so it can pan. */
-  background: radial-gradient(
-    125% 125% at 50% 101%,
-    rgba(245, 87, 2, 1) 10.5%,
-    rgba(245, 120, 2, 1) 16%,
-    rgba(245, 140, 2, 1) 17.5%,
-    rgba(245, 170, 100, 1) 25%,
-    rgba(238, 174, 202, 1) 40%,
-    rgba(202, 179, 214, 1) 65%,
-    rgba(148, 201, 233, 1) 100%
-  );
-  background-size: 165% 165%;
-  background-position: 50% 100%;
-  animation: aiprompt-pan 20s ease-in-out infinite alternate;
+  padding-block: clamp(4rem, 3rem + 6vw, 7.5rem);
+  background: #0a0b10;
 }
 
-/* Drifting warm blobs layered over the panning gradient = movement. */
-.aiprompt::before {
+/* Animated ethereal-shadow backdrop (warm) + scrim for text legibility. */
+.aiprompt__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.aiprompt__bg::after {
   content: "";
   position: absolute;
-  inset: -35%;
-  z-index: -1;
+  inset: 0;
   background: radial-gradient(
-      38% 38% at 30% 68%,
-      rgba(245, 120, 2, 0.55),
-      transparent 70%
-    ),
-    radial-gradient(
-      42% 42% at 72% 58%,
-      rgba(245, 87, 2, 0.5),
-      transparent 70%
-    ),
-    radial-gradient(
-      36% 36% at 55% 85%,
-      rgba(245, 150, 40, 0.45),
-      transparent 72%
-    );
-  filter: blur(42px);
-  animation: aiprompt-blob 16s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
-@keyframes aiprompt-pan {
-  0% {
-    background-position: 32% 100%;
-  }
-  50% {
-    background-position: 68% 90%;
-  }
-  100% {
-    background-position: 48% 100%;
-  }
-}
-
-@keyframes aiprompt-blob {
-  0% {
-    transform: translate3d(-4%, 3%, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(5%, -4%, 0) scale(1.14);
-  }
-  100% {
-    transform: translate3d(-2%, 5%, 0) scale(1.06);
-  }
+    100% 80% at 50% 42%,
+    rgba(10, 11, 16, 0.72),
+    rgba(10, 11, 16, 0.4) 55%,
+    transparent 85%
+  );
 }
 
 .aiprompt__inner {
@@ -1556,24 +1486,24 @@ html.js .reveal.is-visible {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(13, 16, 24, 0.6);
+  color: rgba(245, 245, 247, 0.62);
 }
 
 .aiprompt__title {
   margin-top: 0.9rem;
   font-size: var(--step-3);
-  color: #0d1018;
+  color: var(--text);
 }
 
 .aiprompt__sub {
   margin-top: 0.8rem;
-  color: rgba(13, 16, 24, 0.65);
+  color: rgba(245, 245, 247, 0.68);
   font-size: var(--step-1);
 }
 
 .aiprompt__box {
   margin-top: clamp(1.6rem, 1rem + 2vw, 2.6rem);
-  width: min(620px, 100%);
+  width: min(860px, 100%);
 }
 
 /* The prompt box itself (dark panel on the colour field) */
