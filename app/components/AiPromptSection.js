@@ -1,13 +1,13 @@
 import AiPromptBox from "./AiPromptBox";
-import GradientBackground from "./GradientBackground";
+import NeuralVortexBackground from "./NeuralVortexBackground";
 
-// Full-screen section below the hero. Background is the animated
-// paper-design grain-gradient shader; the dark prompt box reads as a
-// panel on top.
+// Full-screen section below the hero. Background is the interactive
+// neural-vortex WebGL shader; the dark prompt box reads as a panel
+// on top.
 export default function AiPromptSection() {
   return (
     <section className="aiprompt" aria-label="Start your brief">
-      <GradientBackground
+      <NeuralVortexBackground
         className="aiprompt__bg"
         style={{ position: "absolute", inset: 0 }}
       />

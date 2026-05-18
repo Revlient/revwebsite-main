@@ -3,19 +3,18 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 
-// Lazy-load the WebGL shader client-side only. ssr:false keeps the
-// canvas/WebGL off the server render so the homepage still prerenders
-// static and the shader bundle stays off the critical path.
-const GrainShader = dynamic(() => import("./GrainShader"), {
+// Lazy-load the WebGL canvas client-side only (ssr:false) so it stays
+// off the server render and the homepage still prerenders static.
+const NeuralVortex = dynamic(() => import("./NeuralVortex"), {
   ssr: false,
   loading: () => null,
 });
 
-export default function GradientBackground({ className = "", style }) {
+export default function NeuralVortexBackground({ className = "", style }) {
   const ref = useRef(null);
-  // Only mount the shader while its section is near the viewport. When
-  // the user scrolls away it fully unmounts (RAF + WebGL context freed),
-  // so it never competes with the hero shader — at most one runs at once.
+  // Only mount the shader while its section is near the viewport; it
+  // fully unmounts (RAF + WebGL freed) when scrolled away, so it never
+  // competes with the hero shader — at most one runs at a time.
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -34,7 +33,7 @@ export default function GradientBackground({ className = "", style }) {
 
   return (
     <div ref={ref} className={className} style={style} aria-hidden="true">
-      {active && <GrainShader />}
+      {active && <NeuralVortex />}
     </div>
   );
 }
