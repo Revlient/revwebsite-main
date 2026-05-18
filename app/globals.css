@@ -466,6 +466,35 @@ html.js .reveal.is-visible {
   color: transparent;
 }
 
+/* Rotating-word headline. Words stack in one inline-grid cell so the
+   box is sized to the widest word; the active word slides in, the
+   others are clipped out. */
+.rotator {
+  display: inline-grid;
+  vertical-align: top;
+  overflow: hidden;
+  padding-block: 0.06em 0.18em;
+}
+
+.rotator__word {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  transform: translateY(115%);
+  opacity: 0;
+  transition: transform 0.6s var(--ease), opacity 0.45s var(--ease);
+  will-change: transform, opacity;
+}
+
+.rotator__word.is-active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.rotator__word.is-past {
+  transform: translateY(-115%);
+  opacity: 0;
+}
+
 .hero__sub {
   margin-top: 1.6rem;
   font-size: var(--step-1);

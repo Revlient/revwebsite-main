@@ -1,5 +1,16 @@
 import HeroBackground from "./HeroBackground";
+import AnimatedHeadline from "./AnimatedHeadline";
 import { SYSTEMS_URL, CTA_HREF, CTA_LABEL } from "../lib/site";
+
+// Rotating last word — all true to a creative studio building 3D web,
+// apps and (pointed-to) systems; "legacies" ties back to the tagline.
+const HEADLINE_WORDS = [
+  "legacies",
+  "experiences",
+  "interfaces",
+  "products",
+  "systems",
+];
 
 // Server component. The message is the spine — headline, sub, CTAs and the
 // ERP/CRM fork all render server-side and are fully readable even if the
@@ -18,8 +29,9 @@ export default function Hero() {
             Revlient — Creative Studio
           </span>
 
-          <h1>
-            We craft <span className="accent">digital legacies</span>.
+          <h1 className="hero__title">
+            We craft digital{" "}
+            <AnimatedHeadline words={HEADLINE_WORDS} />
           </h1>
 
           <p className="hero__sub">
