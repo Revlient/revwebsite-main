@@ -284,7 +284,6 @@ html.js .reveal.is-visible {
   width: 24px;
   height: 24px;
   display: block;
-  color: var(--blue-light);
   flex: none;
 }
 
