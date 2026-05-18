@@ -1514,10 +1514,10 @@ html.js .reveal.is-visible {
 .aibox {
   /* Glassmorphism: translucent + blurred so the vortex shows through,
      kept dark enough that the input text stays legible. */
-  background: rgba(18, 21, 31, 0.45);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
-  backdrop-filter: blur(18px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(20, 23, 33, 0.22);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 26px;
   padding: 0.6rem;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35),
