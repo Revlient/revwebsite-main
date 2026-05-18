@@ -228,16 +228,20 @@ ul {
   transform: translateX(4px);
 }
 
-/* ---------- Reveal wrapper ---------- */
+/* ---------- Reveal wrapper ----------
+   Progressive enhancement: content is visible by default. The hidden
+   start state is only applied once JS is confirmed (html.js, set by an
+   inline script before paint), so a no-JS / JS-failed visitor still sees
+   the complete page — motion is a layer on top, never the page itself. */
 
-.reveal {
+html.js .reveal {
   opacity: 0;
   transform: translateY(26px);
   transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
   will-change: opacity, transform;
 }
 
-.reveal.is-visible {
+html.js .reveal.is-visible {
   opacity: 1;
   transform: none;
 }
@@ -1159,7 +1163,7 @@ ul {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-  .reveal {
+  html.js .reveal {
     opacity: 1;
     transform: none;
   }
