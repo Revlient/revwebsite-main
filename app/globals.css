@@ -281,9 +281,11 @@ html.js .reveal.is-visible {
 }
 
 .brand__mark {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   display: block;
+  color: var(--blue-light);
+  flex: none;
 }
 
 .nav__links {

@@ -1,3 +1,4 @@
+import Logo from "./Logo";
 import { BRAND, NAV_LINKS, SYSTEMS_URL } from "../lib/site";
 
 // TODO: real social / contact destinations before launch.
@@ -17,19 +18,7 @@ export default function Footer() {
         <div className="footer__grid">
           <div className="footer__brand">
             <a href="#top" className="brand">
-              <svg
-                className="brand__mark"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                fill="none"
-              >
-                <path
-                  d="M12 1.6 22.4 7.4v9.2L12 22.4 1.6 16.6V7.4z"
-                  stroke="#4a78ff"
-                  strokeWidth="1.4"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <Logo className="brand__mark" />
               <span>{BRAND.name}</span>
             </a>
             <p>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Logo from "./Logo";
 import {
   BRAND,
   NAV_LINKS,
@@ -25,25 +26,7 @@ export default function Nav() {
     <header className={`nav ${scrolled ? "is-scrolled" : ""}`}>
       <div className="container nav__inner">
         <a href="#top" className="brand" aria-label={`${BRAND.name} home`}>
-          <svg
-            className="brand__mark"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            fill="none"
-          >
-            <path
-              d="M12 1.6 22.4 7.4v9.2L12 22.4 1.6 16.6V7.4z"
-              stroke="#4a78ff"
-              strokeWidth="1.4"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M12 1.6v20.8M1.6 7.4 22.4 16.6M22.4 7.4 1.6 16.6"
-              stroke="#4a78ff"
-              strokeOpacity="0.45"
-              strokeWidth="1"
-            />
-          </svg>
+          <Logo className="brand__mark" />
           <span>{BRAND.name}</span>
         </a>
 
