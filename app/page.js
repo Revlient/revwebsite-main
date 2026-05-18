@@ -10,6 +10,7 @@ import Studio from "./components/Studio";
 import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
+import ContactWidget from "./components/ContactWidget";
 
 // Homepage. Server-rendered and statically prerendered.
 // Section order mirrors the buyer's questions: WHO/WHAT (Hero),
@@ -32,6 +33,7 @@ export default function HomePage() {
       </main>
       <Footer />
       <StickyCTA />
+      <ContactWidget />
     </>
   );
 }

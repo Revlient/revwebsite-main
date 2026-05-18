@@ -19,6 +19,15 @@ export const CTA_LABEL = "Start a project";
 // TODO: confirm the real production URL with the team before launch.
 export const SYSTEMS_URL = "https://systems.revlient.com";
 
+// Contact channels for the floating widget.
+// TODO: replace with the studio's real numbers before launch.
+// wa.me requires international format, digits only (no +, spaces or dashes).
+export const WHATSAPP_NUMBER = "910000000000"; // TODO: real WhatsApp number
+export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
+export const PHONE_TEL = "+910000000000"; // TODO: real phone number
+export const PHONE_DISPLAY = "+91 00000 00000"; // TODO: real phone number
+export const CONTACT_EMAIL = "hello@revlient.com"; // TODO: real enquiry inbox
+
 // In-page navigation. Each id matches a <section id="…"> in the homepage.
 export const NAV_LINKS = [
   { label: "Work", href: "#work" },
