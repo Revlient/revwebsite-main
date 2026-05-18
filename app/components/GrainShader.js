@@ -19,6 +19,10 @@ export default function GrainShader() {
   return (
     <GrainGradient
       style={{ height: "100%", width: "100%" }}
+      // Cap rendered pixels so it doesn't run full-res on large / hi-dpi
+      // screens — the single biggest GPU saving for a full-screen shader.
+      maxPixelCount={1440000}
+      minPixelRatio={1}
       colorBack="hsl(0, 0%, 0%)"
       softness={0.76}
       intensity={0.45}
