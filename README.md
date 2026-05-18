@@ -49,7 +49,7 @@ app/
     Nav.js               Persistent top nav + CTA (client)
     Hero.js              Hero content/message (server) — readable w/o 3D
     HeroBackground.js    Lazy loader for the 3D (client, next/dynamic)
-    HeroCanvas.js        Three.js scene (client)
+    HeroShader.js        Three.js GLSL shader background (client)
     ClientStrip.js       Credibility strip
     WhyRevlient.js       The sharp WHY — three pillars
     Work.js              Case studies (problem → built → result)
@@ -110,6 +110,9 @@ UI and/or with `TODO` code comments:
 3. **SEO pass** — per-page metadata, real Open Graph image, favicon,
    `sitemap.xml`, `robots.txt`.
 4. **Replace all placeholder content** with real, verified material.
-5. _(Future hero direction)_ The mark is built from separate panels so the
-   logo can later assemble from its facets on load — the per-panel loop
-   hook is marked in `HeroCanvas.js`.
+5. _(Hero background)_ The hero uses an animated GLSL shader
+   (`HeroShader.js`), lazy-loaded client-side and held to the
+   performance/accessibility contract above (DPR cap, reduced-motion
+   static frame, off-screen pause). The earlier faceted-panel scaffold
+   was replaced; to revisit a logo-assembly hero, reintroduce a
+   panel group in a new client component behind the same loader.
