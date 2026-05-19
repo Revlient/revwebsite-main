@@ -18,9 +18,9 @@ import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPa
    resources are disposed on unmount. Copy localized to Revlient. */
 
 const SECTIONS = [
-  { title: "REVLIENT", l1: "A creative studio.", l2: "We craft digital legacies." },
-  { title: "THE STUDIO", l1: "Small on purpose. Senior on purpose.", l2: "The people who pitch it are the people who make it." },
-  { title: "LEGACIES", l1: "Design-grade craft, everywhere —", l2: "built to outlive the launch." },
+  { title: "CODE", l1: "Engineered with intent.", l2: "Fast, resilient, built to last." },
+  { title: "CREATE", l1: "Design-grade craft.", l2: "Every surface considered, nothing left to chance." },
+  { title: "CONNECT", l1: "Work that resonates.", l2: "Digital legacies that outlive the launch." },
 ];
 const TOTAL = 2;
 
