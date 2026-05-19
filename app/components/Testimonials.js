@@ -27,11 +27,9 @@ const SITE = (url, name, local) => ({
   name,
   shot:
     local ||
-    // High-res capture so it stays crisp scaled up in the arc on
-    // hi-DPI screens (was 900x600 — too small, hence soft).
-    `https://s.wordpress.com/mshots/v1/${encodeURIComponent(
-      url
-    )}?w=1600&h=1067`,
+    // thum.io: sharper than mShots, free, no key. High-res 1600px-wide
+    // crop so it stays crisp scaled up in the arc on hi-DPI screens.
+    `https://image.thum.io/get/width/1600/crop/1067/${url}`,
 });
 
 const SITES = [
