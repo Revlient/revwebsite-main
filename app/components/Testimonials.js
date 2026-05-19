@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 
-// Lazy-load the canvas spiral client-side only so the homepage still
-// prerenders static and the loop stays off the critical path.
-const SpiralBg = dynamic(() => import("./SpiralBackground"), {
+// Lazy-load the canvas background client-side only so the homepage
+// still prerenders static and the loop stays off the critical path.
+const SpiralBg = dynamic(() => import("./GridGlowBackground"), {
   ssr: false,
   loading: () => null,
 });
