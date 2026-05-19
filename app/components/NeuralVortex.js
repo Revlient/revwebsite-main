@@ -66,9 +66,9 @@ const FRAG = `
     noise += pow(noise, 10.);
     noise = max(.0, noise - .5);
     noise *= (1. - length(vUv - .5));
-    color = vec3(0.5, 0.15, 0.65);
-    color = mix(color, vec3(0.02, 0.7, 0.9), 0.32 + 0.16 * sin(2.0 * u_scroll_progress + 1.2));
-    color += vec3(0.15, 0.0, 0.6) * sin(2.0 * u_scroll_progress + 1.5);
+    color = vec3(0.10, 0.21, 0.85);
+    color = mix(color, vec3(0.29, 0.47, 1.0), 0.32 + 0.16 * sin(2.0 * u_scroll_progress + 1.2));
+    color += vec3(0.04, 0.10, 0.45) * sin(2.0 * u_scroll_progress + 1.5);
     color = color * noise;
     gl_FragColor = vec4(color, noise);
   }
