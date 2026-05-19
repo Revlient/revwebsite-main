@@ -1872,6 +1872,9 @@ html.js .reveal.is-visible {
 .showcase {
   position: relative;
   background: var(--bg);
+  min-height: 100vh;
+  min-height: 100svh;
+  padding-block: clamp(3rem, 2rem + 4vw, 5.5rem);
 }
 
 .showcase__head {
