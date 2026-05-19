@@ -64,15 +64,15 @@ export default function ShowcaseCards() {
       <div className="container">
         <Reveal>
           <div className="pscard__head">
-            <h2>Create your FaceCards</h2>
-            <p className="pscard__sub">Express Yourself with this Cards</p>
+            <h2>Crafted to be unforgettable.</h2>
+            <p className="pscard__sub">Every surface, considered.</p>
             <p className="pscard__desc">
-              With our cutting-edge FaceCards feature, you can now craft
-              your own personalized bank card based on your unique facial
-              features.
+              We design and build 3D-grade websites and products —
+              premium by default, fast on a mid-range phone, and
+              unmistakably yours.
             </p>
             <a href={CTA_HREF} className="pscard__cta">
-              <span>Start today!</span>
+              <span>Start a project</span>
               <span className="pscard__cta-badge" aria-hidden="true">
                 <Arrow />
               </span>
