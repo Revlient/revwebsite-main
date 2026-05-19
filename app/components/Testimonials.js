@@ -1,6 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
+
+// Lazy-load the canvas spiral client-side only so the homepage still
+// prerenders static and the loop stays off the critical path.
+const SpiralBg = dynamic(() => import("./SpiralBackground"), {
+  ssr: false,
+  loading: () => null,
+});
 
 /* Scroll-morph showcase. Adapted from a framer-motion/Tailwind/TS demo
    to this project's stack: plain React + CSS (no framer-motion, no
@@ -161,6 +169,7 @@ export default function Testimonials() {
   return (
     <section className="section morph" id="showcase" ref={sectionRef}>
       <div className="morph__stage" ref={stageRef}>
+        <SpiralBg />
         <div
           className="morph__intro"
           style={{ opacity: introOpacity }}

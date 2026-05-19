@@ -1936,9 +1936,17 @@ html.js .reveal.is-visible {
   font-size: var(--step-0);
 }
 
+.morph__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #000;
+}
+
 .morph__field {
   position: absolute;
   inset: 0;
+  z-index: 1;
 }
 
 .morph__card {
