@@ -2,12 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { WHATSAPP_URL, PHONE_TEL, PHONE_DISPLAY } from "../lib/site";
-import {
-  GREETING,
-  QUICK_REPLIES,
-  botReply,
-  OPEN_CHAT_EVENT,
-} from "../lib/chatbot";
+import { GREETING, QUICK_REPLIES, botReply } from "../lib/chatbot";
 
 /* Persistent right-side contact widget.
    - A always-visible launcher that expands ("drop down") into
@@ -88,18 +83,6 @@ export default function ContactWidget() {
     ]);
     setDraft("");
   }, []);
-
-  // The prompt-box section dispatches this to open + drive the chat bot.
-  useEffect(() => {
-    const onOpenChat = (e) => {
-      setOpen(false);
-      setChat(true);
-      const msg = e.detail && e.detail.message;
-      if (msg) send(msg);
-    };
-    window.addEventListener(OPEN_CHAT_EVENT, onOpenChat);
-    return () => window.removeEventListener(OPEN_CHAT_EVENT, onOpenChat);
-  }, [send]);
 
   return (
     <div className="cwidget">

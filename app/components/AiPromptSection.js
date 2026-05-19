@@ -1,4 +1,4 @@
-import AiPromptBox from "./AiPromptBox";
+import AiChat from "./AiChat";
 import NeuralVortexBackground from "./NeuralVortexBackground";
 
 // Full-screen section below the hero. Background is the interactive
@@ -20,7 +20,7 @@ export default function AiPromptSection() {
           A rough idea is enough — we&apos;ll shape it with you.
         </p>
         <div className="aiprompt__box">
-          <AiPromptBox />
+          <AiChat />
         </div>
       </div>
     </section>

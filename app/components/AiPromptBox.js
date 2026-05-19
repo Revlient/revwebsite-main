@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { OPEN_CHAT_EVENT } from "../lib/chatbot";
 
 /* Project-brief prompt box. Adapted from a shadcn/Tailwind/TS + framer-
    motion + Radix + lucide component to this project's stack: plain CSS,
@@ -148,10 +147,6 @@ export default function AiPromptBox({
     const prefix = mode ? `[${mode}] ` : "";
     const message = `${prefix}${input}`.trim();
     if (typeof onSend === "function") onSend(message, preview);
-    // Hand the message to the chat bot (it opens and replies).
-    window.dispatchEvent(
-      new CustomEvent(OPEN_CHAT_EVENT, { detail: { message } })
-    );
     setInput("");
     setPreview(null);
     setMode(null);

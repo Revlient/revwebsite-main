@@ -1510,6 +1510,80 @@ html.js .reveal.is-visible {
   width: min(860px, 100%);
 }
 
+/* Inline chat thread above the prompt box */
+.aichat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.aichat__thread {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  max-height: min(42vh, 360px);
+  overflow-y: auto;
+  padding: 0.25rem;
+  text-align: left;
+}
+
+.aichat__msg {
+  max-width: 85%;
+}
+
+.aichat__msg p {
+  padding: 0.7rem 0.95rem;
+  border-radius: 16px;
+  font-size: var(--step-0);
+  line-height: 1.45;
+}
+
+.aichat__msg.is-user {
+  align-self: flex-end;
+}
+
+.aichat__msg.is-user p {
+  background: var(--blue);
+  color: #fff;
+  border-bottom-right-radius: 5px;
+}
+
+.aichat__msg.is-bot {
+  align-self: flex-start;
+}
+
+.aichat__msg.is-bot p {
+  background: rgba(20, 23, 33, 0.55);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  border-bottom-left-radius: 5px;
+}
+
+.aichat__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.aichat__chip {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.aichat__chip:hover {
+  border-color: var(--blue-light);
+  background: rgba(43, 95, 255, 0.16);
+}
+
 /* The prompt box itself (dark panel on the colour field) */
 .aibox {
   /* Glassmorphism: translucent + blurred so the vortex shows through,

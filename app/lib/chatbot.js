@@ -1,7 +1,7 @@
 // Shared rule-based chat bot logic, used by the floating ContactWidget
-// and by the prompt-box section (which opens the chat with the typed
-// message). Self-contained: keyword matching with canned answers that
-// route to the real channels — honest assistant, not an LLM.
+// and by the prompt-box section's inline chat. Self-contained: keyword
+// matching with canned answers that route to the real channels —
+// honest assistant, not an LLM.
 import {
   CTA_HREF,
   WHATSAPP_URL,
@@ -9,9 +9,6 @@ import {
   PHONE_DISPLAY,
   CONTACT_EMAIL,
 } from "./site";
-
-// Event the prompt box dispatches to open + drive the chat bot.
-export const OPEN_CHAT_EVENT = "revlient:openchat";
 
 export const GREETING =
   "Hi — I'm the Revlient assistant. What can I point you to?";
