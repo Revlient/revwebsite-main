@@ -2019,7 +2019,7 @@ html.js .reveal.is-visible {
 }
 
 .pscard .container {
-  max-width: 960px;
+  max-width: 1180px;
 }
 
 .pscard__lights {
@@ -2149,7 +2149,7 @@ html.js .reveal.is-visible {
   left: 50%;
   top: 50%;
   overflow: hidden;
-  width: clamp(244px, 25vw, 330px);
+  width: clamp(212px, 21vw, 300px);
   aspect-ratio: 1 / 1.5;
   border-radius: 22px;
   padding: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);

@@ -96,26 +96,22 @@ export default function ShowcaseCards() {
                   }`}
                   aria-hidden={o !== 0}
                   style={{
-                    // centre + adjacent upright & overlapping; the far
-                    // end cards bend back in 3D (per reference).
+                    // 3 upright cards in a row with clear gaps (not
+                    // touching); only the far end cards bend back in 3D
+                    // and fade out at the edges.
                     transform: `translate(-50%, -50%) translateX(${
-                      o * 56
-                    }%) translateZ(${a >= 2 ? -150 : 0}px) rotateY(${
-                      a >= 2 ? (o < 0 ? 44 : -44) : 0
-                    }deg) scale(${a === 0 ? 1 : a === 1 ? 0.9 : 0.82})`,
+                      o * 114
+                    }%) translateZ(${a >= 2 ? -160 : 0}px) rotateY(${
+                      a >= 2 ? (o < 0 ? 46 : -46) : 0
+                    }deg) scale(${a >= 2 ? 0.8 : 1})`,
                     opacity: visible
                       ? a === 0
                         ? 1
                         : a === 1
-                        ? 0.8
-                        : 0.32
+                        ? 0.95
+                        : 0.3
                       : 0,
-                    filter:
-                      a >= 2
-                        ? "blur(4px)"
-                        : a === 1
-                        ? "blur(1px)"
-                        : "none",
+                    filter: a >= 2 ? "blur(4px)" : "none",
                     zIndex: 20 - a,
                     pointerEvents: visible ? "auto" : "none",
                   }}
