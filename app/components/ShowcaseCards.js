@@ -96,14 +96,18 @@ export default function ShowcaseCards() {
                   }`}
                   aria-hidden={o !== 0}
                   style={{
-                    // 3 upright cards in a row with clear gaps (not
-                    // touching); only the far end cards bend back in 3D
-                    // and fade out at the edges.
+                    // Same horizontal alignment (114% step, gaps) — only
+                    // a subtle inward "globe" curve: cards turn toward
+                    // centre, recede and lift a touch with distance, so
+                    // the row bows like a slice of a sphere. Ends bend
+                    // further and fade at the edges.
                     transform: `translate(-50%, -50%) translateX(${
                       o * 114
-                    }%) translateZ(${a >= 2 ? -160 : 0}px) rotateY(${
-                      a >= 2 ? (o < 0 ? 46 : -46) : 0
-                    }deg) scale(${a >= 2 ? 0.8 : 1})`,
+                    }%) translateY(${a * a * 9}px) translateZ(${
+                      a >= 2 ? -170 : -a * 55
+                    }px) rotateY(${
+                      a >= 2 ? (o < 0 ? 46 : -46) : o * -11
+                    }deg) scale(${a >= 2 ? 0.8 : 1 - a * 0.05})`,
                     opacity: visible
                       ? a === 0
                         ? 1
