@@ -1877,6 +1877,7 @@ html.js .reveal.is-visible {
 .trust {
   text-align: center;
   overflow: hidden;
+  padding-bottom: clamp(2rem, 1rem + 3vw, 4rem);
 }
 
 .trust__head {
@@ -1951,9 +1952,10 @@ html.js .reveal.is-visible {
 
 .trust__glow {
   position: relative;
-  height: clamp(260px, 34vh, 420px);
+  height: clamp(170px, 22vh, 280px);
   width: 100%;
-  margin-top: clamp(-9rem, -5rem - 7vw, -4rem);
+  /* positive gap so the marquee has breathing room above the arc */
+  margin-top: clamp(1.5rem, 1rem + 2vw, 3rem);
   overflow: hidden;
   -webkit-mask-image: radial-gradient(
     50% 50% at 50% 50%,
@@ -1977,10 +1979,10 @@ html.js .reveal.is-visible {
 /* Big dark disc whose top edge becomes the curved "horizon". */
 .trust__horizon {
   position: absolute;
-  left: -50%;
-  top: 50%;
-  width: 200%;
-  aspect-ratio: 1 / 0.7;
+  left: -25%;
+  top: 58%;
+  width: 150%;
+  aspect-ratio: 1 / 0.5;
   border-radius: 100%;
   border-top: 1px solid rgba(245, 245, 247, 0.18);
   background: var(--bg);

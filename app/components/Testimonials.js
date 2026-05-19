@@ -24,11 +24,7 @@ export default function Testimonials() {
       <div className="container">
         <Reveal>
           <div className="trust__head">
-            <h2>
-              Trusted by teams who sweat the details.
-              <br />
-              <span>Built to be relied on.</span>
-            </h2>
+            <h2>In good company.</h2>
             <span className="proof__todo">
               Placeholder client names — replace before launch
             </span>
