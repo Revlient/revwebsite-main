@@ -8,7 +8,6 @@ import Work from "./components/Work";
 import Proof from "./components/Proof";
 import Services from "./components/Services";
 import Process from "./components/Process";
-import Studio from "./components/Studio";
 import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
@@ -32,7 +31,6 @@ export default function HomePage() {
         <Proof />
         <Services />
         <Process />
-        <Studio />
         <FinalCTA />
       </main>
       <Footer />
