@@ -11,12 +11,25 @@ import SparklesGlow from "./SparklesGlow";
    …) as if they were clients — that's false endorsement. Replaced with
    visibly-flagged placeholder wordmarks. Replace before launch. */
 const CLIENTS = [
-  "Northbridge Studyabroad",
+  "Northbridge",
   "Atlas Commerce",
-  "Meridian Agency",
+  "Meridian",
   "Kestrel Labs",
-  "Verde Hospitality",
+  "Verde",
 ];
+
+// Placeholder logo mark — stands in for a real client logo lockup.
+const Mark = () => (
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+    <path
+      d="M12 2.5 21 7.6v8.8L12 21.5 3 16.4V7.6z"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 export default function Testimonials() {
   return (
@@ -24,26 +37,25 @@ export default function Testimonials() {
       <div className="container">
         <Reveal>
           <div className="trust__head">
-            <h2>In good company.</h2>
+            <h2>
+              Trusted by experts.
+              <br />
+              <span>Used by the leaders.</span>
+            </h2>
             <span className="proof__todo">
-              Placeholder client names — replace before launch
+              Placeholder client logos — replace before launch
             </span>
           </div>
         </Reveal>
 
         <Reveal delay={120}>
           <div className="trust__logos">
-            <div className="trust__logos-track">
-              {CLIENTS.map((name) => (
-                <span key={name}>{name}</span>
-              ))}
-              {/* duplicate for a seamless marquee loop */}
-              {CLIENTS.map((name) => (
-                <span key={`dup-${name}`} aria-hidden="true">
-                  {name}
-                </span>
-              ))}
-            </div>
+            {CLIENTS.map((name) => (
+              <span key={name} className="trust__logo">
+                <Mark />
+                {name}
+              </span>
+            ))}
           </div>
         </Reveal>
       </div>
