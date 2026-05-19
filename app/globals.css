@@ -585,44 +585,6 @@ html.js .reveal.is-visible {
   }
 }
 
-/* ---------- Client strip ---------- */
-
-.clients {
-  border-block: 1px solid var(--line);
-  background: var(--bg-2);
-}
-
-.clients__label {
-  text-align: center;
-  color: var(--muted-2);
-  font-size: var(--step--1);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  margin-bottom: 1.8rem;
-}
-
-.clients__row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: clamp(1.5rem, 1rem + 4vw, 4rem);
-}
-
-.clients__row span {
-  font-size: clamp(1.05rem, 0.9rem + 0.8vw, 1.45rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--muted);
-  opacity: 0.7;
-  transition: opacity 0.3s var(--ease), color 0.3s var(--ease);
-}
-
-.clients__row span:hover {
-  opacity: 1;
-  color: var(--text);
-}
-
 /* ---------- Why (pillars) ---------- */
 
 .pillars {

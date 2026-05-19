@@ -2,7 +2,6 @@ import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import AiPromptSection from "./components/AiPromptSection";
 import Testimonials from "./components/Testimonials";
-import ClientStrip from "./components/ClientStrip";
 import WhyRevlient from "./components/WhyRevlient";
 import Work from "./components/Work";
 import Proof from "./components/Proof";
@@ -16,8 +15,8 @@ import ContactWidget from "./components/ContactWidget";
 
 // Homepage. Server-rendered and statically prerendered.
 // Section order mirrors the buyer's questions: WHO/WHAT (Hero),
-// credibility (ClientStrip), WHY (WhyRevlient), IS-THIS-REAL
-// (Work + Proof), then offer/process/team and the close.
+// WHY (WhyRevlient), IS-THIS-REAL (Work + Proof), then
+// offer/process/team and the close.
 export default function HomePage() {
   return (
     <>
@@ -26,7 +25,6 @@ export default function HomePage() {
         <Hero />
         <AiPromptSection />
         <Testimonials />
-        <ClientStrip />
         <WhyRevlient />
         <Work />
         <Proof />
