@@ -1908,14 +1908,18 @@ html.js .reveal.is-visible {
 
 .showcase__tile {
   position: relative;
+  display: block;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
   background: linear-gradient(150deg, var(--panel-2), var(--bg-2));
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
   min-height: 0;
+  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.showcase__tile:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-2px);
 }
 
 .showcase__col:not(.showcase__col--mid) .showcase__tile {
@@ -1926,65 +1930,53 @@ html.js .reveal.is-visible {
   height: 100%;
 }
 
-/* faint grid texture, like the reference */
-.showcase__tile::before {
-  content: "";
+.showcase__tile img {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(
-      to right,
-      rgba(245, 245, 247, 0.04) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(245, 245, 247, 0.04) 1px,
-      transparent 1px
-    );
-  background-size: 40px 40px;
-  -webkit-mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    #000 60%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    #000 60%,
-    transparent 100%
-  );
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s var(--ease);
 }
 
-.showcase__tile-meta {
-  position: relative;
-  padding: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
+.showcase__tile:hover img {
+  transform: scale(1.04);
 }
 
-.showcase__tile-tag {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--blue-light);
+.showcase__tile-cap {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: clamp(0.8rem, 0.6rem + 0.6vw, 1.2rem)
+    clamp(0.9rem, 0.7rem + 0.6vw, 1.3rem);
+  color: var(--text);
+  background: linear-gradient(
+    to top,
+    rgba(8, 9, 12, 0.92),
+    rgba(8, 9, 12, 0.55) 60%,
+    transparent
+  );
 }
 
 .showcase__tile-name {
-  margin-top: 0.5rem;
-  font-size: var(--step-1);
+  font-size: var(--step-0);
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: var(--text);
 }
 
-.showcase__tile-todo {
-  display: inline-block;
-  margin-top: 0.7rem;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #d8a23a;
-  border: 1px solid rgba(216, 162, 58, 0.4);
-  border-radius: 999px;
-  padding: 0.15rem 0.5rem;
+.showcase__tile-cap svg {
+  flex: none;
+  opacity: 0.7;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.showcase__tile:hover .showcase__tile-cap svg {
+  opacity: 1;
+  transform: translate(2px, -2px);
 }
 
 @media (max-width: 860px) {

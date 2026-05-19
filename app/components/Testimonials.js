@@ -1,43 +1,69 @@
 import Reveal from "./Reveal";
 
-/* Sticky-scroll work gallery. Adapted from a shadcn/Tailwind/TS + lenis
-   demo to this project's stack: the effect is pure CSS position:sticky
-   (no lenis — the site already smooth-scrolls), plain CSS, no deps.
+/* Sticky-scroll work gallery. Effect is pure CSS position:sticky (no
+   lenis — the site already smooth-scrolls), plain CSS, no deps.
 
-   PROOF RULES: these are NOT real screenshots. The demo hotlinked
-   random Unsplash photos as if they were the studio's sites — that's
-   fabricated proof. Each tile is a clearly-flagged placeholder; drop in
-   real project thumbnails before launch. */
+   Thumbnails are the live front pages of real client sites, rendered
+   via WordPress mShots (free, no key, no dependency) and linked out.
+   Display names are derived from the domains — the team can refine the
+   wording/categories, but the URLs and screenshots are real. */
+const SITE = (url, name) => ({
+  url,
+  name,
+  // mShots renders the live homepage; first hit may show a brief
+  // loading frame, then the real screenshot.
+  shot: `https://s.wordpress.com/mshots/v1/${encodeURIComponent(
+    url
+  )}?w=1200&h=900`,
+});
+
 const LEFT = [
-  { tag: "Web · Brand", name: "Study-abroad consultancy revamp" },
-  { tag: "E-commerce", name: "Headless commerce CMS" },
-  { tag: "Product", name: "Role-based agency CRM" },
-  { tag: "3D · Web", name: "3D product launch microsite" },
+  SITE("https://www.perpexbschool.com", "Perpex B-School"),
+  SITE("https://www.houseof11.in", "House of 11"),
+  SITE(
+    "https://magnate-studyabroad2.vercel.app",
+    "Magnate Study Abroad"
+  ),
+  SITE("https://ibsconsultants.in", "IBS Consultants"),
 ];
 
 const MID = [
-  { tag: "Web", name: "Hospitality booking platform" },
-  { tag: "Brand · Motion", name: "Studio identity site" },
-  { tag: "App", name: "Field-ops mobile app" },
+  SITE("https://www.covspace.in", "Covspace"),
+  SITE("https://ronspire.com", "Ronspire"),
+  SITE("https://www.perpex.in", "Perpex"),
 ];
 
 const RIGHT = [
-  { tag: "Web", name: "Fintech marketing site" },
-  { tag: "Automation", name: "Ops automation dashboard" },
-  { tag: "Web · 3D", name: "Interactive case study" },
-  { tag: "Product", name: "Internal analytics tool" },
+  SITE("https://mathleteonline.com", "Mathlete Online"),
+  SITE("https://themagnates.in", "The Magnates"),
+  SITE("https://www.bambrush.co.in", "Bambrush"),
+  SITE("https://www.soumyashyammakeup.com", "Soumya Shyam Makeup"),
 ];
 
-function Tile({ tag, name }) {
+function Tile({ url, name, shot }) {
   return (
-    <figure className="showcase__tile">
-      <figcaption className="showcase__tile-meta">
-        <span className="showcase__tile-tag">{tag}</span>
-        <div className="showcase__tile-name">{name}</div>
-        {/* TODO: replace with the real project screenshot */}
-        <span className="showcase__tile-todo">Thumbnail — TODO</span>
-      </figcaption>
-    </figure>
+    <a
+      className="showcase__tile"
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${name} — opens in a new tab`}
+    >
+      <img src={shot} alt={`${name} homepage`} loading="lazy" />
+      <span className="showcase__tile-cap">
+        <span className="showcase__tile-name">{name}</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <path
+            d="M7 17 17 7M9 7h8v8"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+    </a>
   );
 }
 
@@ -48,28 +74,28 @@ export default function Testimonials() {
         <Reveal>
           <div className="section-head showcase__head">
             <span className="eyebrow">Selected work</span>
-            <h2>A few of the things we&apos;ve built.</h2>
-            <p>Scroll — the centre column holds while the work moves past.</p>
-            <span className="proof__todo">
-              Placeholder thumbnails — replace with real screenshots
-            </span>
+            <h2>A few of the things we&apos;ve shipped.</h2>
+            <p>
+              Live sites — scroll, the centre column holds while the work
+              moves past. Tap any to open it.
+            </p>
           </div>
         </Reveal>
 
         <div className="showcase__grid">
           <div className="showcase__col">
             {LEFT.map((p) => (
-              <Tile key={p.name} {...p} />
+              <Tile key={p.url} {...p} />
             ))}
           </div>
           <div className="showcase__col showcase__col--mid">
             {MID.map((p) => (
-              <Tile key={p.name} {...p} />
+              <Tile key={p.url} {...p} />
             ))}
           </div>
           <div className="showcase__col">
             {RIGHT.map((p) => (
-              <Tile key={p.name} {...p} />
+              <Tile key={p.url} {...p} />
             ))}
           </div>
         </div>
