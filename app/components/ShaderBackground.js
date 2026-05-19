@@ -4,9 +4,11 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 
 // Lazy-load the WebGL shader client-side only (ssr:false) so the
-// homepage still prerenders static. Only mounts while the section is
-// near the viewport — it fully unmounts (RAF + WebGL freed) when
-// scrolled away, so it never competes with the hero shader.
+// homepage still prerenders static. Mounts a full viewport before the
+// section arrives and stays mounted until a viewport past it, so the
+// animation runs continuously the whole time the section is scrolled
+// through (no blank/reset mid-scroll); it still frees the RAF + WebGL
+// once you're well away.
 const ChatShader = dynamic(() => import("./ChatShader"), {
   ssr: false,
   loading: () => null,
@@ -24,7 +26,7 @@ export default function ShaderBackground({ className = "", style }) {
     }
     const io = new IntersectionObserver(
       ([entry]) => setActive(entry.isIntersecting),
-      { rootMargin: "300px 0px" }
+      { rootMargin: "100% 0px 100% 0px" }
     );
     io.observe(node);
     return () => io.disconnect();

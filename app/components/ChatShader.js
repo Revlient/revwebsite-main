@@ -113,7 +113,14 @@ export default function ChatShader() {
     let raf = 0;
     let running = false;
     const loop = () => {
-      draw();
+      // A lost GL context throws here every frame; pause instead of
+      // spinning, and the contextrestored handler resumes it.
+      try {
+        draw();
+      } catch {
+        stop();
+        return;
+      }
       raf = requestAnimationFrame(loop);
     };
     const start = () => {
@@ -139,11 +146,25 @@ export default function ChatShader() {
     };
     document.addEventListener("visibilitychange", onVis);
 
+    const canvas = renderer.domElement;
+    const onLost = (e) => {
+      e.preventDefault();
+      stop();
+    };
+    const onRestored = () => {
+      resize();
+      start();
+    };
+    canvas.addEventListener("webglcontextlost", onLost, false);
+    canvas.addEventListener("webglcontextrestored", onRestored, false);
+
     return () => {
       stop();
       if (ro) ro.disconnect();
       else window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", onVis);
+      canvas.removeEventListener("webglcontextlost", onLost);
+      canvas.removeEventListener("webglcontextrestored", onRestored);
       if (renderer.domElement.parentNode === container) {
         container.removeChild(renderer.domElement);
       }
