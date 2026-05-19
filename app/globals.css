@@ -1870,18 +1870,22 @@ html.js .reveal.is-visible {
 /* ---------- 3D testimonials marquee ---------- */
 
 .t3d {
+  position: relative;
   overflow: hidden;
-  min-height: 100vh;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-block: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+  height: 100vh;
+  height: 100svh;
+  padding-block: 0;
 }
 
 .t3d__head {
+  position: absolute;
+  top: clamp(5.5rem, 9vh, 9rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, 90vw);
+  margin: 0;
   text-align: center;
-  margin-inline: auto;
+  z-index: 6;
 }
 
 .t3d__head .eyebrow {
@@ -1889,28 +1893,25 @@ html.js .reveal.is-visible {
 }
 
 .t3d__stage {
-  position: relative;
-  margin-top: clamp(2rem, 1.5rem + 2vw, 3.5rem);
-  height: clamp(480px, 66vh, 780px);
-  width: 100%;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 320px;
+  perspective: 600px;
 }
 
 .t3d__tilt {
   display: flex;
-  gap: clamp(0.75rem, 0.4rem + 1vw, 1.25rem);
-  transform: translateX(-40px) translateZ(-90px) rotateX(20deg)
-    rotateY(-10deg) rotateZ(20deg);
+  gap: clamp(0.9rem, 0.5rem + 1vw, 1.5rem);
+  transform: rotateX(14deg) rotateY(-9deg) rotateZ(10deg) scale(1.18);
   transform-style: preserve-3d;
 }
 
 .t3d-col {
-  width: clamp(190px, 18vw, 230px);
-  height: 820px;
+  width: clamp(240px, 22vw, 320px);
+  height: 1100px;
   overflow: hidden;
   flex: none;
 }
@@ -1945,8 +1946,8 @@ html.js .reveal.is-visible {
   flex: none;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: clamp(1rem, 0.8rem + 0.6vw, 1.35rem);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.25rem, 1rem + 0.8vw, 1.75rem);
 }
 
 .t3d-card__head {
@@ -1956,14 +1957,14 @@ html.js .reveal.is-visible {
 }
 
 .t3d-card__avatar {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   flex: none;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: #fff;
   background: linear-gradient(135deg, var(--blue-deep), var(--blue));
@@ -1971,23 +1972,23 @@ html.js .reveal.is-visible {
 
 .t3d-card__name {
   display: block;
-  font-size: var(--step--1);
+  font-size: var(--step-0);
   font-weight: 600;
   letter-spacing: -0.01em;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .t3d-card__handle {
   display: block;
-  font-size: 0.74rem;
+  font-size: var(--step--1);
   color: var(--muted);
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .t3d-card__body {
-  margin-top: 0.8rem;
-  font-size: var(--step--1);
-  line-height: 1.5;
+  margin-top: 0.95rem;
+  font-size: var(--step-0);
+  line-height: 1.55;
   color: var(--text);
 }
 
@@ -2000,8 +2001,13 @@ html.js .reveal.is-visible {
 
 .t3d__fade--t {
   inset: 0 0 auto 0;
-  height: 28%;
-  background: linear-gradient(to bottom, var(--bg), transparent);
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    var(--bg),
+    var(--bg) 48%,
+    transparent
+  );
 }
 
 .t3d__fade--b {

@@ -1,4 +1,3 @@
-import Reveal from "./Reveal";
 
 /* 3D tilted testimonial marquee. Adapted from a shadcn/Tailwind/TS +
    radix-avatar component to this project's stack: plain CSS marquee
@@ -81,16 +80,14 @@ function Column({ reverse }) {
 export default function Testimonials() {
   return (
     <section className="section t3d" id="testimonials">
-      <div className="container">
-        <Reveal>
-          <div className="section-head t3d__head">
-            <span className="eyebrow">Testimonials</span>
-            <h2>In their words.</h2>
-            <span className="proof__todo">
-              Placeholder testimonials — replace before launch
-            </span>
-          </div>
-        </Reveal>
+      {/* Overlay heading (absolute) — not wrapped in Reveal, which needs
+          a flowing element to observe. */}
+      <div className="section-head t3d__head">
+        <span className="eyebrow">Testimonials</span>
+        <h2>In their words.</h2>
+        <span className="proof__todo">
+          Placeholder testimonials — replace before launch
+        </span>
       </div>
 
       <div className="t3d__stage" aria-hidden="false">
