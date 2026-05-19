@@ -1,67 +1,59 @@
 import Reveal from "./Reveal";
+import ServiceIcon from "./ServiceIcon";
+import { SERVICES } from "../lib/services";
 import { SYSTEMS_URL } from "../lib/site";
 
-// Services framed as client outcomes, not tech stacks
-// ("CRM your team will actually use", not "we use Django").
-const SERVICES = [
-  {
-    num: "01",
-    title: "Websites people remember",
-    body: "3D-grade marketing sites that make a first impression do real work — fast on a mid-range phone, unforgettable on a good screen.",
-    meta: "Creative web · brand · 3D / WebGL",
-  },
-  {
-    num: "02",
-    title: "Apps that respect people's time",
-    body: "Web and mobile products designed around the job to be done — quick to learn, quietly powerful, built to scale with you.",
-    meta: "Web & app development",
-  },
-  {
-    num: "03",
-    title: "CRM systems your team will actually use",
-    body: "Internal tools shaped around how your team really works, so the software disappears and the work gets done. Delivered with our systems division.",
-    meta: "Custom CRM · internal tools",
-  },
-  {
-    num: "04",
-    title: "Automations that delete the busywork",
-    body: "The repetitive glue between your tools, quietly handled — so people spend their hours on judgement, not copy-paste.",
-    meta: "Workflow & process automation",
-  },
-];
-
+// Services section. Every card uses the identical layout — icon,
+// name, outcome line, capability chips, "Explore" — so a visitor
+// can scan all four and immediately grasp what we do. Each card
+// links to its own detail route (/services/<slug>).
 export default function Services() {
   return (
     <section className="section" id="services">
       <div className="container">
         <Reveal>
           <div className="section-head">
-            <span className="eyebrow">What we do</span>
-            <h2>Four ways we earn the word "studio".</h2>
+            <span className="eyebrow">What we build</span>
+            <h2>Four core services, one studio standard.</h2>
             <p>
-              Stated as the outcome you get — not the framework we happen to
-              use to get there.
+              Different problems, the same craft. Stated as the outcome you
+              get — not the stack we happen to use to get there.
             </p>
           </div>
         </Reveal>
 
-        <div className="services">
+        <div className="svc-grid">
           {SERVICES.map((s, i) => (
-            <Reveal key={s.num} className="service" delay={i * 80}>
-              <span className="service__num">{s.num}</span>
-              <h3>{s.title}</h3>
-              <p>{s.body}</p>
-              <span className="service__meta">{s.meta}</span>
+            <Reveal key={s.slug} delay={i * 80}>
+              <a
+                href={`/services/${s.slug}`}
+                className="svc-card"
+                aria-label={`${s.title} — learn more`}
+              >
+                <span className="svc-card__icon">
+                  <ServiceIcon name={s.icon} />
+                </span>
+                <h3 className="svc-card__title">{s.title}</h3>
+                <p className="svc-card__desc">{s.summary}</p>
+                <ul className="svc-card__tags">
+                  {s.capabilities.map((c) => (
+                    <li key={c}>{c}</li>
+                  ))}
+                </ul>
+                <span className="svc-card__more">
+                  Explore <span aria-hidden="true">→</span>
+                </span>
+              </a>
             </Reveal>
           ))}
         </div>
 
         <Reveal>
-          {/* The one quiet cross-sell line so clients who need both the
-              creative site AND systems work aren't lost between sites. */}
+          {/* The one quiet cross-sell line so clients who need the heavy
+              ERP/CRM build aren't lost between the two sites. */}
           <p className="services__crosssell">
-            Need the heavy ERP/CRM build too? Our specialised systems team
-            handles that at{" "}
+            Need a large-scale ERP or CRM build? Our specialised systems
+            team handles that at{" "}
             <a href={SYSTEMS_URL} target="_blank" rel="noopener noreferrer">
               Revlient Systems
             </a>
