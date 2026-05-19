@@ -25,8 +25,8 @@ export default function HomePage() {
         <Hero />
         <AiPromptSection />
         <ShowcaseCards />
-        <Testimonials />
         <ProcessTimeline />
+        <Testimonials />
         <WhyRevlient />
         <Work />
         <Proof />
