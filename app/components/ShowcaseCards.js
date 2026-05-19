@@ -96,18 +96,19 @@ export default function ShowcaseCards() {
                   }`}
                   aria-hidden={o !== 0}
                   style={{
-                    // upright, overlapping cluster (per reference): centre
-                    // full + front, sides tucked partly behind & faded,
-                    // far pair faint + blurred at the edges.
+                    // centre + adjacent upright & overlapping; the far
+                    // end cards bend back in 3D (per reference).
                     transform: `translate(-50%, -50%) translateX(${
                       o * 62
-                    }%) scale(${a === 0 ? 1 : a === 1 ? 0.92 : 0.8})`,
+                    }%) translateZ(${a >= 2 ? -170 : 0}px) rotateY(${
+                      a >= 2 ? (o < 0 ? 42 : -42) : 0
+                    }deg) scale(${a === 0 ? 1 : a === 1 ? 0.92 : 0.86})`,
                     opacity: visible
                       ? a === 0
                         ? 1
                         : a === 1
                         ? 0.78
-                        : 0.3
+                        : 0.32
                       : 0,
                     filter:
                       a >= 2
