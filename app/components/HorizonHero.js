@@ -271,17 +271,22 @@ export default function HorizonHero() {
     };
   }, []);
 
-  const sec = SECTIONS[Math.min(section + 1, SECTIONS.length - 1)];
+  const active = SECTIONS[Math.min(section, SECTIONS.length - 1)];
 
   return (
     <div className="horizon">
       <canvas ref={canvasRef} className="horizon__canvas" />
 
+      {/* One fixed, centred title that swaps as you scroll — the
+         scroll panels below are invisible spacers that only create
+         the scroll distance (original behaviour, minus gsap). */}
       <div className={`horizon__hero ${ready ? "is-in" : ""}`}>
-        <h1 className="horizon__title">{SECTIONS[0].title}</h1>
-        <div className="horizon__sub">
-          <p>{SECTIONS[0].l1}</p>
-          <p>{SECTIONS[0].l2}</p>
+        <div className="horizon__swap" key={active.title}>
+          <h1 className="horizon__title">{active.title}</h1>
+          <div className="horizon__sub">
+            <p>{active.l1}</p>
+            <p>{active.l2}</p>
+          </div>
         </div>
         <a href="/#start" className="horizon__cta">
           Start a project
@@ -303,19 +308,13 @@ export default function HorizonHero() {
 
       <div className="horizon__scroller" aria-hidden="true">
         {SECTIONS.slice(1).map((s) => (
-          <section className="horizon__panel" key={s.title}>
-            <h2 className="horizon__title">{s.title}</h2>
-            <div className="horizon__sub">
-              <p>{s.l1}</p>
-              <p>{s.l2}</p>
-            </div>
-          </section>
+          <div className="horizon__panel" key={s.title} />
         ))}
       </div>
 
       {/* live current copy for assistive tech / no-3D */}
       <span className="sr-only">
-        {sec.title}. {sec.l1} {sec.l2}
+        {active.title}. {active.l1} {active.l2}
       </span>
     </div>
   );
