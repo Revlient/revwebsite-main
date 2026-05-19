@@ -2,7 +2,7 @@ import Reveal from "./Reveal";
 
 // Premium vertical process timeline. Placed under Testimonials and
 // keeps id="process" so the existing nav anchor still resolves.
-// Purple/pink accents are deliberate and scoped to this section
+// Crimson/rose accents are deliberate and scoped to this section
 // (requested look) — the rest of the site stays brand-blue.
 const STEPS = [
   {
@@ -41,8 +41,8 @@ function Mock({ i }) {
     >
       <defs>
         <linearGradient id={`ptlg${i}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#a855f7" />
-          <stop offset="1" stopColor="#ec4899" />
+          <stop offset="0" stopColor="#f43f5e" />
+          <stop offset="1" stopColor="#e11d48" />
         </linearGradient>
       </defs>
       <rect

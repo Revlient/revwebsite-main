@@ -1014,7 +1014,7 @@ html.js .reveal.is-visible {
   background: var(--bg);
 }
 
-/* soft ambient purple/pink blobs + gentle vignette */
+/* soft ambient crimson/rose blobs + gentle vignette */
 .ptl__ambient {
   position: absolute;
   inset: 0;
@@ -1022,11 +1022,11 @@ html.js .reveal.is-visible {
   pointer-events: none;
   background: radial-gradient(
       38% 30% at 50% 10%,
-      rgba(168, 85, 247, 0.16),
+      rgba(244, 63, 94, 0.16),
       transparent 70%
     ),
-    radial-gradient(34% 26% at 16% 40%, rgba(236, 72, 153, 0.09), transparent 70%),
-    radial-gradient(36% 30% at 86% 68%, rgba(139, 92, 246, 0.11), transparent 70%);
+    radial-gradient(34% 26% at 16% 40%, rgba(225, 29, 72, 0.09), transparent 70%),
+    radial-gradient(36% 30% at 86% 68%, rgba(251, 113, 133, 0.11), transparent 70%);
 }
 
 .ptl::after {
@@ -1065,7 +1065,7 @@ html.js .reveal.is-visible {
   transform: translateX(-50%);
   background: radial-gradient(
     closest-side,
-    rgba(168, 85, 247, 0.22),
+    rgba(244, 63, 94, 0.22),
     transparent 70%
   );
   filter: blur(18px);
@@ -1079,7 +1079,7 @@ html.js .reveal.is-visible {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.32em;
-  color: rgba(216, 180, 254, 0.72);
+  color: rgba(253, 164, 175, 0.72);
   margin-bottom: 1.05rem;
 }
 
@@ -1108,11 +1108,11 @@ html.js .reveal.is-visible {
   background: linear-gradient(
     180deg,
     transparent,
-    rgba(168, 85, 247, 0.55) 12%,
-    rgba(236, 72, 153, 0.5) 88%,
+    rgba(244, 63, 94, 0.55) 12%,
+    rgba(225, 29, 72, 0.5) 88%,
     transparent
   );
-  box-shadow: 0 0 16px rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 16px rgba(244, 63, 94, 0.4);
 }
 
 .ptl__row {
@@ -1156,7 +1156,7 @@ html.js .reveal.is-visible {
   font-weight: 700;
   font-size: 0.92rem;
   color: #fff;
-  background: linear-gradient(135deg, #a855f7, #ec4899);
+  background: linear-gradient(135deg, #f43f5e, #e11d48);
   border: 1px solid rgba(255, 255, 255, 0.2);
   z-index: 2;
   animation: ptlPulse 3.6s var(--ease) infinite;
@@ -1175,12 +1175,12 @@ html.js .reveal.is-visible {
 @keyframes ptlPulse {
   0%,
   100% {
-    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1),
-      0 0 18px rgba(168, 85, 247, 0.45), 0 0 32px rgba(236, 72, 153, 0.26);
+    box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.1),
+      0 0 18px rgba(244, 63, 94, 0.45), 0 0 32px rgba(225, 29, 72, 0.26);
   }
   50% {
-    box-shadow: 0 0 0 9px rgba(168, 85, 247, 0.04),
-      0 0 30px rgba(168, 85, 247, 0.68), 0 0 50px rgba(236, 72, 153, 0.42);
+    box-shadow: 0 0 0 9px rgba(244, 63, 94, 0.04),
+      0 0 30px rgba(244, 63, 94, 0.68), 0 0 50px rgba(225, 29, 72, 0.42);
   }
 }
 
@@ -1211,7 +1211,7 @@ html.js .reveal.is-visible {
   z-index: -1;
   background: radial-gradient(
     closest-side,
-    rgba(168, 85, 247, 0.15),
+    rgba(244, 63, 94, 0.15),
     transparent 75%
   );
   filter: blur(22px);
@@ -2062,7 +2062,7 @@ html.js .reveal.is-visible {
 .aibox__pill.is-on.t {
   color: #8b5cf6;
   border-color: #8b5cf6;
-  background: rgba(139, 92, 246, 0.15);
+  background: rgba(251, 113, 133, 0.15);
 }
 .aibox__pill.is-on.c {
   color: #f97316;
