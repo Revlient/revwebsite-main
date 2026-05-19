@@ -1,106 +1,78 @@
+import Reveal from "./Reveal";
 
-/* 3D tilted testimonial marquee. Adapted from a shadcn/Tailwind/TS +
-   radix-avatar component to this project's stack: plain CSS marquee
-   (no deps), initials instead of stock faces, dark-theme cards.
+/* Sticky-scroll work gallery. Adapted from a shadcn/Tailwind/TS + lenis
+   demo to this project's stack: the effect is pure CSS position:sticky
+   (no lenis — the site already smooth-scrolls), plain CSS, no deps.
 
-   PROOF RULES: every quote, name and handle is a PLACEHOLDER and is
-   visibly flagged. No fabricated testimonials or randomuser photos
-   shipped as real. Replace before launch. */
-const TESTIMONIALS = [
-  {
-    name: "TODO: name",
-    handle: "@todo",
-    body: "They treated our marketing site like a product, not a brochure. A year on it still feels fast.",
-    initials: "T",
-  },
-  {
-    name: "TODO: name",
-    handle: "@todo",
-    body: "The polish went all the way down — empty states and errors felt as crafted as the hero.",
-    initials: "T",
-  },
-  {
-    name: "TODO: name",
-    handle: "@todo",
-    body: "Our team actually likes opening the tool they built. That never happens with internal software.",
-    initials: "T",
-  },
-  {
-    name: "TODO: name",
-    handle: "@todo",
-    body: "Strategy, design and engineering from one team — nothing got lost between agencies.",
-    initials: "T",
-  },
-  {
-    name: "TODO: name",
-    handle: "@todo",
-    body: "Shipped on the date they committed to, and it held up under real traffic on launch day.",
-    initials: "T",
-  },
-  {
-    name: "TODO: name",
-    handle: "@todo",
-    body: "The 3D wowed our board, but the load time on a mid-range phone won the room.",
-    initials: "T",
-  },
+   PROOF RULES: these are NOT real screenshots. The demo hotlinked
+   random Unsplash photos as if they were the studio's sites — that's
+   fabricated proof. Each tile is a clearly-flagged placeholder; drop in
+   real project thumbnails before launch. */
+const LEFT = [
+  { tag: "Web · Brand", name: "Study-abroad consultancy revamp" },
+  { tag: "E-commerce", name: "Headless commerce CMS" },
+  { tag: "Product", name: "Role-based agency CRM" },
+  { tag: "3D · Web", name: "3D product launch microsite" },
 ];
 
-function Card({ t }) {
-  return (
-    <figure className="t3d-card">
-      <div className="t3d-card__head">
-        <span className="t3d-card__avatar" aria-hidden="true">
-          {t.initials}
-        </span>
-        <span>
-          {/* TODO: real name + handle before launch */}
-          <span className="t3d-card__name">{t.name}</span>
-          <span className="t3d-card__handle">{t.handle}</span>
-        </span>
-      </div>
-      <blockquote className="t3d-card__body">{t.body}</blockquote>
-    </figure>
-  );
-}
+const MID = [
+  { tag: "Web", name: "Hospitality booking platform" },
+  { tag: "Brand · Motion", name: "Studio identity site" },
+  { tag: "App", name: "Field-ops mobile app" },
+];
 
-function Column({ reverse }) {
-  // Rendered twice so the vertical scroll loops seamlessly.
-  const loop = [...TESTIMONIALS, ...TESTIMONIALS];
+const RIGHT = [
+  { tag: "Web", name: "Fintech marketing site" },
+  { tag: "Automation", name: "Ops automation dashboard" },
+  { tag: "Web · 3D", name: "Interactive case study" },
+  { tag: "Product", name: "Internal analytics tool" },
+];
+
+function Tile({ tag, name }) {
   return (
-    <div className={`t3d-col ${reverse ? "t3d-col--rev" : ""}`}>
-      <div className="t3d-col__track">
-        {loop.map((t, i) => (
-          <Card key={i} t={t} />
-        ))}
-      </div>
-    </div>
+    <figure className="showcase__tile">
+      <figcaption className="showcase__tile-meta">
+        <span className="showcase__tile-tag">{tag}</span>
+        <div className="showcase__tile-name">{name}</div>
+        {/* TODO: replace with the real project screenshot */}
+        <span className="showcase__tile-todo">Thumbnail — TODO</span>
+      </figcaption>
+    </figure>
   );
 }
 
 export default function Testimonials() {
   return (
-    <section className="section t3d" id="testimonials">
-      {/* Overlay heading (absolute) — not wrapped in Reveal, which needs
-          a flowing element to observe. */}
-      <div className="section-head t3d__head">
-        <span className="eyebrow">Testimonials</span>
-        <h2>In their words.</h2>
-        <span className="proof__todo">
-          Placeholder testimonials — replace before launch
-        </span>
-      </div>
+    <section className="section showcase" id="showcase">
+      <div className="container">
+        <Reveal>
+          <div className="section-head showcase__head">
+            <span className="eyebrow">Selected work</span>
+            <h2>A few of the things we&apos;ve built.</h2>
+            <p>Scroll — the centre column holds while the work moves past.</p>
+            <span className="proof__todo">
+              Placeholder thumbnails — replace with real screenshots
+            </span>
+          </div>
+        </Reveal>
 
-      <div className="t3d__stage" aria-hidden="false">
-        <div className="t3d__tilt">
-          <Column />
-          <Column reverse />
-          <Column />
-          <Column reverse />
+        <div className="showcase__grid">
+          <div className="showcase__col">
+            {LEFT.map((p) => (
+              <Tile key={p.name} {...p} />
+            ))}
+          </div>
+          <div className="showcase__col showcase__col--mid">
+            {MID.map((p) => (
+              <Tile key={p.name} {...p} />
+            ))}
+          </div>
+          <div className="showcase__col">
+            {RIGHT.map((p) => (
+              <Tile key={p.name} {...p} />
+            ))}
+          </div>
         </div>
-        <div className="t3d__fade t3d__fade--t" />
-        <div className="t3d__fade t3d__fade--b" />
-        <div className="t3d__fade t3d__fade--l" />
-        <div className="t3d__fade t3d__fade--r" />
       </div>
     </section>
   );
