@@ -17,48 +17,29 @@ import { CTA_HREF } from "../lib/site";
 const TONES = ["a", "b", "c"];
 
 const TESTIMONIALS = [
-  // TODO(content): replace ALL entries with real, approved client
-  // testimonials + real names/roles + real headshots before launch.
+  // Real client identities supplied by Revlient. QUOTE TEXT is still a
+  // placeholder — replace each with the real, approved wording (and a
+  // headshot in /public/testimonials + `img`) before launch.
+  // Order matters: index 0 is the centred card on load.
   {
     quote:
-      "Placeholder testimonial — replace with a real, approved client quote before launch.",
-    name: "Client Name",
-    role: "Founder & CEO, Company",
+      "Placeholder testimonial — replace with the real, approved quote before launch.",
+    name: "Anil Chakkrapani",
+    role: "Founder, Medcity International Academy",
     img: "",
   },
   {
     quote:
-      "Placeholder testimonial — replace with a real, approved client quote before launch.",
-    name: "Client Name",
-    role: "Managing Director, Company",
+      "Placeholder testimonial — replace with the real, approved quote before launch.",
+    name: "Aswin Pradeep",
+    role: "Magnate Study Abroad",
     img: "",
   },
   {
     quote:
-      "Placeholder testimonial — replace with a real, approved client quote before launch.",
-    name: "Client Name",
-    role: "Co-founder, Company",
-    img: "",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with a real, approved client quote before launch.",
-    name: "Client Name",
-    role: "Head of Product, Company",
-    img: "",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with a real, approved client quote before launch.",
-    name: "Client Name",
-    role: "CEO, Company",
-    img: "",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with a real, approved client quote before launch.",
-    name: "Client Name",
-    role: "Director, Company",
+      "Placeholder testimonial — replace with the real, approved quote before launch.",
+    name: "Johnson",
+    role: "Founder, IBS Consultancy",
     img: "",
   },
 ].map((t, i) => ({
