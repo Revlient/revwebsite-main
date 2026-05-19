@@ -27,9 +27,11 @@ const SITE = (url, name, local) => ({
   name,
   shot:
     local ||
+    // High-res capture so it stays crisp scaled up in the arc on
+    // hi-DPI screens (was 900x600 — too small, hence soft).
     `https://s.wordpress.com/mshots/v1/${encodeURIComponent(
       url
-    )}?w=900&h=600`,
+    )}?w=1600&h=1067`,
 });
 
 const SITES = [
