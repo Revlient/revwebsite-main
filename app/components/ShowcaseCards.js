@@ -96,21 +96,25 @@ export default function ShowcaseCards() {
                   }`}
                   aria-hidden={o !== 0}
                   style={{
-                    // straight, side-by-side row (no tilt, no stacking):
-                    // each card sits a full card-width apart; centre is
-                    // full size, the two sides slightly smaller, the far
-                    // pair faint at the edges.
+                    // upright, overlapping cluster (per reference): centre
+                    // full + front, sides tucked partly behind & faded,
+                    // far pair faint + blurred at the edges.
                     transform: `translate(-50%, -50%) translateX(${
-                      o * 112
-                    }%) scale(${a === 0 ? 1 : a === 1 ? 0.95 : 0.86})`,
+                      o * 62
+                    }%) scale(${a === 0 ? 1 : a === 1 ? 0.92 : 0.8})`,
                     opacity: visible
                       ? a === 0
                         ? 1
                         : a === 1
-                        ? 0.92
+                        ? 0.78
                         : 0.3
                       : 0,
-                    filter: a >= 2 ? "blur(2px)" : "none",
+                    filter:
+                      a >= 2
+                        ? "blur(4px)"
+                        : a === 1
+                        ? "blur(1px)"
+                        : "none",
                     zIndex: 20 - a,
                     pointerEvents: visible ? "auto" : "none",
                   }}
