@@ -99,15 +99,15 @@ export default function ShowcaseCards() {
                     // centre + adjacent upright & overlapping; the far
                     // end cards bend back in 3D (per reference).
                     transform: `translate(-50%, -50%) translateX(${
-                      o * 62
-                    }%) translateZ(${a >= 2 ? -170 : 0}px) rotateY(${
-                      a >= 2 ? (o < 0 ? 42 : -42) : 0
-                    }deg) scale(${a === 0 ? 1 : a === 1 ? 0.92 : 0.86})`,
+                      o * 56
+                    }%) translateZ(${a >= 2 ? -150 : 0}px) rotateY(${
+                      a >= 2 ? (o < 0 ? 44 : -44) : 0
+                    }deg) scale(${a === 0 ? 1 : a === 1 ? 0.9 : 0.82})`,
                     opacity: visible
                       ? a === 0
                         ? 1
                         : a === 1
-                        ? 0.78
+                        ? 0.8
                         : 0.32
                       : 0,
                     filter:
