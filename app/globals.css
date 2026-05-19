@@ -2059,28 +2059,6 @@ html.js .reveal.is-visible {
   );
 }
 
-/* faint blurred ghost cards at the far edges for depth */
-.pscard__ghost {
-  position: absolute;
-  top: 56%;
-  transform: translateY(-50%);
-  width: clamp(150px, 16vw, 210px);
-  aspect-ratio: 1 / 1.58;
-  border-radius: 22px;
-  background: linear-gradient(160deg, #3a1018, #140509);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  filter: blur(7px);
-  opacity: 0.45;
-}
-.pscard__ghost.gl {
-  left: -4%;
-  rotate: -10deg;
-}
-.pscard__ghost.gr {
-  right: -4%;
-  rotate: 10deg;
-}
-
 .pscard .container {
   position: relative;
   z-index: 1;
@@ -2142,16 +2120,17 @@ html.js .reveal.is-visible {
 }
 
 .pscard__deck {
+  position: relative;
   margin-top: clamp(2.5rem, 2rem + 3vw, 4.5rem);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: clamp(0.4rem, -0.6rem + 2vw, 1.25rem);
-  perspective: 1400px;
+  height: clamp(330px, 46vw, 440px);
+  perspective: 1500px;
+  transform-style: preserve-3d;
 }
 
 .pscard__card {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 50%;
   overflow: hidden;
   width: clamp(200px, 21vw, 270px);
   aspect-ratio: 1 / 1.58;
@@ -2162,18 +2141,13 @@ html.js .reveal.is-visible {
   border: 1px solid rgba(255, 255, 255, 0.16);
   box-shadow: 0 34px 64px -26px rgba(0, 0, 0, 0.85),
     inset 0 1px 0 rgba(255, 255, 255, 0.14);
-  transform: translateY(calc(var(--i) * -16px))
-    rotate(calc(var(--i) * 4deg));
-  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
-  will-change: transform;
+  transition: transform 0.55s var(--ease), opacity 0.55s var(--ease);
+  will-change: transform, opacity;
 }
 
-.pscard__card:hover {
-  transform: translateY(calc(var(--i) * -16px - 14px))
-    rotate(calc(var(--i) * 4deg)) scale(1.03);
-  box-shadow: 0 44px 84px -24px rgba(0, 0, 0, 0.9),
+.pscard__card.is-active {
+  box-shadow: 0 46px 92px -22px rgba(0, 0, 0, 0.9),
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
-  z-index: 3;
 }
 
 .pscard__photo {
@@ -2284,20 +2258,64 @@ html.js .reveal.is-visible {
   display: flex;
 }
 
+.pscard__nav {
+  margin-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.pscard__navbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 40px;
+  padding: 0 0.55rem;
+  min-width: 40px;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--step--1);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+
+.pscard__navbtn--next {
+  padding: 0 1.1rem 0 1.25rem;
+  background: #fff;
+  color: #0a0b10;
+  border-color: #fff;
+}
+
+.pscard__navbtn:hover {
+  transform: translateY(-2px);
+}
+
+.pscard__navbtn:not(.pscard__navbtn--next):hover {
+  border-color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.pscard__count {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
 @media (max-width: 720px) {
   .pscard__deck {
-    flex-direction: column;
-    gap: 1.25rem;
+    height: clamp(360px, 124vw, 520px);
   }
   .pscard__card {
-    width: min(300px, 80vw);
-    transform: none;
-  }
-  .pscard__card:hover {
-    transform: translateY(-6px) scale(1.02);
-  }
-  .pscard__ghost {
-    display: none;
+    width: min(248px, 66vw);
   }
 }
 
