@@ -4,43 +4,75 @@ import { useState } from "react";
 import Reveal from "./Reveal";
 import { CTA_HREF } from "../lib/site";
 
-/* Project-showcase carousel — each card is a real client site: it
-   links out and shows the site's live thumbnail. Coverflow with a
-   subtle globe curve, Next/Prev. Vanilla JS + plain CSS, no deps.
+/* Testimonial carousel — same coverflow/globe alignment as before,
+   card content swapped from project thumbnail+URL to a client quote
+   with a CEO avatar. Vanilla JS + plain CSS, no deps.
 
-   Thumbnails via thum.io (free, no key); House of 11 uses the uploaded
-   self-hosted screenshot. Display names derived from the domains. */
+   PROOF RULE: we never invent client quotes or use a fake person's
+   photo. Every entry below is a clearly-marked placeholder. To go
+   live: drop the real headshot in /public/testimonials/<file> and
+   set `img` to that path, and replace quote/name/role with the
+   real, approved testimonial. Until `img` is set it falls back to
+   an initials avatar (no fabricated face). */
 const TONES = ["a", "b", "c"];
-const SITE = (url, name, local) => {
-  const host = url.replace(/^https?:\/\//, "").replace(/\/.*$/, "");
-  return {
-    url,
-    name,
-    host,
-    img: local || `https://image.thum.io/get/width/1200/crop/1500/${url}`,
-  };
-};
 
-const CARDS = [
-  SITE("https://www.perpexbschool.com", "Perpex B-School"),
-  SITE("https://www.houseof11.in", "House of 11", "/work/houseof11.png"),
-  SITE("https://magnate-studyabroad2.vercel.app", "Magnate Study Abroad"),
-  SITE("https://ibsconsultants.in", "IBS Consultants"),
-  SITE("https://www.covspace.in", "Covspace"),
-  SITE("https://ronspire.com", "Ronspire"),
-  SITE("https://www.perpex.in", "Perpex"),
-  SITE("https://mathleteonline.com", "Mathlete Online"),
-  SITE("https://themagnates.in", "The Magnates"),
-  SITE("https://www.bambrush.co.in", "Bambrush"),
-  SITE("https://www.soumyashyammakeup.com", "Soumya Shyam Makeup"),
-].map((s, i) => ({ ...s, tone: TONES[i % 3] }));
-const N = CARDS.length;
+const TESTIMONIALS = [
+  // TODO(content): replace ALL entries with real, approved client
+  // testimonials + real names/roles + real headshots before launch.
+  {
+    quote:
+      "Placeholder testimonial — replace with a real, approved client quote before launch.",
+    name: "Client Name",
+    role: "Founder & CEO, Company",
+    img: "",
+  },
+  {
+    quote:
+      "Placeholder testimonial — replace with a real, approved client quote before launch.",
+    name: "Client Name",
+    role: "Managing Director, Company",
+    img: "",
+  },
+  {
+    quote:
+      "Placeholder testimonial — replace with a real, approved client quote before launch.",
+    name: "Client Name",
+    role: "Co-founder, Company",
+    img: "",
+  },
+  {
+    quote:
+      "Placeholder testimonial — replace with a real, approved client quote before launch.",
+    name: "Client Name",
+    role: "Head of Product, Company",
+    img: "",
+  },
+  {
+    quote:
+      "Placeholder testimonial — replace with a real, approved client quote before launch.",
+    name: "Client Name",
+    role: "CEO, Company",
+    img: "",
+  },
+  {
+    quote:
+      "Placeholder testimonial — replace with a real, approved client quote before launch.",
+    name: "Client Name",
+    role: "Director, Company",
+    img: "",
+  },
+].map((t, i) => ({
+  ...t,
+  tone: TONES[i % 3],
+  initials: t.name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase(),
+}));
+const N = TESTIMONIALS.length;
 
-const Mark = () => (
-  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-    <path fill="currentColor" d="M12 2c.6 3.3 2.7 5.4 6 6-3.3.6-5.4 2.7-6 6-.6-3.3-2.7-5.4-6-6 3.3-.6 5.4-2.7 6-6Zm6.5 11c.4 2 1.6 3.2 3.5 3.5-2 .4-3.1 1.6-3.5 3.5-.4-2-1.6-3.1-3.5-3.5 2-.4 3.1-1.6 3.5-3.5Z" />
-  </svg>
-);
 const Arrow = ({ dir = 1 }) => (
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
     <path
@@ -59,7 +91,7 @@ export default function ShowcaseCards() {
   const go = (step) => setActive((a) => (a + step + N) % N);
 
   return (
-    <section className="section pscard" aria-label="Showcase">
+    <section className="section pscard" aria-label="Client testimonials">
       <div className="pscard__lights" aria-hidden="true">
         <span className="pscard__streak s1" />
         <span className="pscard__streak s2" />
@@ -70,12 +102,11 @@ export default function ShowcaseCards() {
       <div className="container">
         <Reveal>
           <div className="pscard__head">
-            <h2>Crafted to be unforgettable.</h2>
-            <p className="pscard__sub">Every surface, considered.</p>
+            <h2>What our clients say.</h2>
+            <p className="pscard__sub">In their words.</p>
             <p className="pscard__desc">
-              We design and build 3D-grade websites and products —
-              premium by default, fast on a mid-range phone, and
-              unmistakably yours.
+              We partner closely with founders and teams — and let the
+              relationship, and the work, speak for itself.
             </p>
             <a href={CTA_HREF} className="pscard__cta">
               <span>Start a project</span>
@@ -88,19 +119,16 @@ export default function ShowcaseCards() {
 
         <div className="pscard__stage">
           <div className="pscard__deck">
-            {CARDS.map((c, i) => {
+            {TESTIMONIALS.map((c, i) => {
               // signed wrap distance from the active card (-3..3)
               let o = (i - active + N) % N;
               if (o > N / 2) o -= N;
               const a = Math.abs(o);
               const visible = a <= 2;
               return (
-                <a
-                  key={c.name}
-                  href={c.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${c.name} — opens in a new tab`}
+                <div
+                  key={i}
+                  aria-hidden={visible ? undefined : "true"}
                   className={`pscard__card t-${c.tone} ${
                     o === 0 ? "is-active" : ""
                   }`}
@@ -129,36 +157,22 @@ export default function ShowcaseCards() {
                     pointerEvents: visible ? "auto" : "none",
                   }}
                 >
-                  <img
-                    className="pscard__photo"
-                    src={c.img}
-                    alt=""
-                    loading="lazy"
-                    draggable={false}
-                  />
-                  <span className="pscard__tint" aria-hidden="true" />
-                  <div className="pscard__card-top">
-                    <span className="pscard__logo">
-                      <Mark />
-                      <span>Revlient</span>
-                    </span>
+                  <span className="pscard__avatar">
+                    {c.img ? (
+                      <img src={c.img} alt={c.name} draggable={false} />
+                    ) : (
+                      <span className="pscard__initials">{c.initials}</span>
+                    )}
+                  </span>
+                  <span className="pscard__quotemark" aria-hidden="true">
+                    &#8220;
+                  </span>
+                  <blockquote className="pscard__quote">{c.quote}</blockquote>
+                  <div className="pscard__person">
+                    <span className="pscard__name">{c.name}</span>
+                    <span className="pscard__role">{c.role}</span>
                   </div>
-                  <div className="pscard__card-foot">
-                    <div className="pscard__field">
-                      <span className="pscard__lbl">Project</span>
-                      <span className="pscard__val">{c.name}</span>
-                    </div>
-                    <div className="pscard__row">
-                      <div className="pscard__field">
-                        <span className="pscard__lbl">Website</span>
-                        <span className="pscard__val">{c.host}</span>
-                      </div>
-                      <span className="pscard__contactless" aria-hidden="true">
-                        <Arrow />
-                      </span>
-                    </div>
-                  </div>
-                </a>
+                </div>
               );
             })}
           </div>
@@ -167,7 +181,7 @@ export default function ShowcaseCards() {
             <button
               type="button"
               className="pscard__navbtn"
-              aria-label="Previous card"
+              aria-label="Previous testimonial"
               onClick={() => go(-1)}
             >
               <Arrow dir={-1} />
@@ -179,7 +193,7 @@ export default function ShowcaseCards() {
             <button
               type="button"
               className="pscard__navbtn pscard__navbtn--next"
-              aria-label="Next card"
+              aria-label="Next testimonial"
               onClick={() => go(1)}
             >
               Next
