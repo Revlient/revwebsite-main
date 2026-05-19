@@ -1788,20 +1788,6 @@ html.js .reveal.is-visible {
   color: #ef4444;
 }
 
-.aibox__sent {
-  padding: 0.5rem 0.6rem 0.3rem;
-  font-size: var(--step--1);
-  color: #cbd5e1;
-}
-
-.aibox__sent a {
-  color: #6f9bff;
-  font-weight: 600;
-}
-
-.aibox__sent a:hover {
-  text-decoration: underline;
-}
 
 .aibox__modal {
   position: fixed;

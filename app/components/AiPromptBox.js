@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { CTA_HREF, WHATSAPP_URL } from "../lib/site";
+import { OPEN_CHAT_EVENT } from "../lib/chatbot";
 
 /* Project-brief prompt box. Adapted from a shadcn/Tailwind/TS + framer-
    motion + Radix + lucide component to this project's stack: plain CSS,
@@ -76,7 +76,6 @@ export default function AiPromptBox({
   const [recording, setRecording] = useState(false);
   const [secs, setSecs] = useState(0);
   const [mode, setMode] = useState(null); // search | think | canvas
-  const [sent, setSent] = useState(false);
   const taRef = useRef(null);
   const fileRef = useRef(null);
   const timerRef = useRef(null);
@@ -149,10 +148,13 @@ export default function AiPromptBox({
     const prefix = mode ? `[${mode}] ` : "";
     const message = `${prefix}${input}`.trim();
     if (typeof onSend === "function") onSend(message, preview);
+    // Hand the message to the chat bot (it opens and replies).
+    window.dispatchEvent(
+      new CustomEvent(OPEN_CHAT_EVENT, { detail: { message } })
+    );
     setInput("");
     setPreview(null);
     setMode(null);
-    setSent(true);
   };
 
   const toggle = (m) => setMode((cur) => (cur === m ? null : m));
@@ -198,10 +200,7 @@ export default function AiPromptBox({
               ? "Sketch the idea…"
               : placeholder
           }
-          onChange={(e) => {
-            setInput(e.target.value);
-            setSent(false);
-          }}
+          onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
@@ -303,7 +302,6 @@ export default function AiPromptBox({
             if (recording) {
               setRecording(false);
               setSecs(0);
-              setSent(true);
             } else if (hasContent) {
               submit();
             } else {
@@ -322,16 +320,6 @@ export default function AiPromptBox({
         </button>
       </div>
 
-      {sent && (
-        <p className="aibox__sent" role="status">
-          Thanks — we&apos;ll pick this up.{" "}
-          <a href={CTA_HREF}>Continue your enquiry →</a> or{" "}
-          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-            message us on WhatsApp
-          </a>
-          .
-        </p>
-      )}
 
       {zoom && preview && (
         <div

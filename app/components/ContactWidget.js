@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { WHATSAPP_URL, PHONE_TEL, PHONE_DISPLAY } from "../lib/site";
 import {
-  WHATSAPP_URL,
-  PHONE_TEL,
-  PHONE_DISPLAY,
-  CONTACT_EMAIL,
-  CTA_HREF,
-} from "../lib/site";
+  GREETING,
+  QUICK_REPLIES,
+  botReply,
+  OPEN_CHAT_EVENT,
+} from "../lib/chatbot";
 
 /* Persistent right-side contact widget.
    - A always-visible launcher that expands ("drop down") into
@@ -15,72 +15,6 @@ import {
    - A self-contained, rule-based chat bot (no external SDK, no API key,
      no new dependency — keyword matching with canned answers that route
      to the real channels). Honest: it's an assistant, not an LLM. */
-
-// Bot knowledge. Keep answers honest; route specifics to a human.
-// TODO: tighten copy / numbers once the team confirms real details.
-const GREETING =
-  "Hi — I'm the Revlient assistant. What can I point you to?";
-
-const QUICK_REPLIES = [
-  "Start a project",
-  "What do you do?",
-  "Pricing & timeline",
-  "Talk to a human",
-];
-
-function botReply(input) {
-  const q = input.toLowerCase();
-  if (/(price|pricing|cost|budget|quote|timeline|how long)/.test(q)) {
-    return {
-      text: "Every project is scoped to its goals, so we don't list flat prices. Share a short brief and we'll come back with a clear estimate and timeline.",
-      actions: [{ label: "Start a project", href: CTA_HREF }],
-    };
-  }
-  if (/(human|person|call|whatsapp|talk|contact|speak|sales)/.test(q)) {
-    return {
-      text: "Happy to connect you with the team directly:",
-      actions: [
-        { label: "WhatsApp us", href: WHATSAPP_URL, external: true },
-        { label: `Call ${PHONE_DISPLAY}`, href: `tel:${PHONE_TEL}` },
-        { label: `Email ${CONTACT_EMAIL}`, href: `mailto:${CONTACT_EMAIL}` },
-      ],
-    };
-  }
-  if (/(what|do you|service|offer|build|design|app|website|3d)/.test(q)) {
-    return {
-      text: "Revlient is a creative studio: 3D-grade websites and web/app development, plus CRM and automation through our systems division. The Services section has the detail.",
-      actions: [
-        { label: "See services", href: "#services" },
-        { label: "See our work", href: "#work" },
-      ],
-    };
-  }
-  if (/(work|portfolio|case|example|project you)/.test(q)) {
-    return {
-      text: "There are three short case studies (problem → built → result) in the Work section.",
-      actions: [{ label: "Jump to Work", href: "#work" }],
-    };
-  }
-  if (/(start|project|hire|engage|brief|begin|quote me)/.test(q)) {
-    return {
-      text: "Great — tell us the goal, budget range and a short brief and we'll take it from there.",
-      actions: [
-        { label: "Start a project", href: CTA_HREF },
-        { label: "WhatsApp us", href: WHATSAPP_URL, external: true },
-      ],
-    };
-  }
-  if (/(hi|hello|hey|yo|good)/.test(q)) {
-    return { text: "Hello! Ask me about what we do, pricing, or starting a project — or tap a human channel below." };
-  }
-  return {
-    text: "I'll point you to the team for that one:",
-    actions: [
-      { label: "Start a project", href: CTA_HREF },
-      { label: "WhatsApp us", href: WHATSAPP_URL, external: true },
-    ],
-  };
-}
 
 const IconChat = () => (
   <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
@@ -143,7 +77,7 @@ export default function ContactWidget() {
     }
   }, [messages, chat]);
 
-  const send = (text) => {
+  const send = useCallback((text) => {
     const value = text.trim();
     if (!value) return;
     const reply = botReply(value);
@@ -153,7 +87,19 @@ export default function ContactWidget() {
       { from: "bot", text: reply.text, actions: reply.actions || null },
     ]);
     setDraft("");
-  };
+  }, []);
+
+  // The prompt-box section dispatches this to open + drive the chat bot.
+  useEffect(() => {
+    const onOpenChat = (e) => {
+      setOpen(false);
+      setChat(true);
+      const msg = e.detail && e.detail.message;
+      if (msg) send(msg);
+    };
+    window.addEventListener(OPEN_CHAT_EVENT, onOpenChat);
+    return () => window.removeEventListener(OPEN_CHAT_EVENT, onOpenChat);
+  }, [send]);
 
   return (
     <div className="cwidget">
