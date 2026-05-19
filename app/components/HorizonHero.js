@@ -53,13 +53,29 @@ export default function HorizonHero() {
 
     let renderer;
     try {
-      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: false,
+        alpha: true,
+        powerPreference: "high-performance",
+      });
     } catch {
       return;
     }
     r.renderer = renderer;
+
+    // Postprocessing (bloom) allocates several full-resolution render
+    // targets, so keep the backing store within a pixel budget —
+    // unbounded DPR on a large display is what crashes the GPU/tab.
+    const pixelRatio = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const px = window.innerWidth * window.innerHeight * dpr * dpr;
+      const MAX = 1600000;
+      return px > MAX ? dpr * Math.sqrt(MAX / px) : dpr;
+    };
+
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+    renderer.setPixelRatio(pixelRatio());
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 0.5;
 
@@ -67,7 +83,11 @@ export default function HorizonHero() {
     r.composer.addPass(new RenderPass(r.scene, r.camera));
     r.composer.addPass(
       new UnrealBloomPass(
-        new THREE.Vector2(window.innerWidth, window.innerHeight),
+        // half-res bloom: same look, a quarter of the target memory
+        new THREE.Vector2(
+          Math.round(window.innerWidth / 2),
+          Math.round(window.innerHeight / 2)
+        ),
         0.7,
         0.4,
         0.85
@@ -226,7 +246,14 @@ export default function HorizonHero() {
         mt.position.x = Math.sin(t * 0.1) * 2 * pf;
         mt.position.y = 50 + Math.cos(t * 0.15) * 1 * pf;
       });
-      r.composer.render();
+      // If the GL context dies, render() throws every frame and Safari
+      // kills the tab ("This page couldn't load") — bail out instead.
+      try {
+        r.composer.render();
+      } catch {
+        stop();
+        return;
+      }
       raf = requestAnimationFrame(animate);
     };
     const start = () => {
@@ -241,15 +268,30 @@ export default function HorizonHero() {
 
     setReady(true);
     if (reduced) {
-      r.composer.render();
+      try {
+        r.composer.render();
+      } catch {
+        /* no GL — the page still shows the dark hero overlay */
+      }
     } else start();
 
     const onVis = () => (document.hidden ? stop() : start());
     document.addEventListener("visibilitychange", onVis);
 
+    // A lost GL context (GPU reset / memory pressure) must not be left
+    // to throw in a loop; pause cleanly and resume if it comes back.
+    const onLost = (e) => {
+      e.preventDefault();
+      stop();
+    };
+    const onRestored = () => start();
+    canvas.addEventListener("webglcontextlost", onLost, false);
+    canvas.addEventListener("webglcontextrestored", onRestored, false);
+
     const onResize = () => {
       r.camera.aspect = window.innerWidth / window.innerHeight;
       r.camera.updateProjectionMatrix();
+      renderer.setPixelRatio(pixelRatio());
       renderer.setSize(window.innerWidth, window.innerHeight);
       r.composer.setSize(window.innerWidth, window.innerHeight);
     };
@@ -286,6 +328,8 @@ export default function HorizonHero() {
     return () => {
       stop();
       document.removeEventListener("visibilitychange", onVis);
+      canvas.removeEventListener("webglcontextlost", onLost);
+      canvas.removeEventListener("webglcontextrestored", onRestored);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("scroll", onScroll);
       r.stars.forEach((s) => {
