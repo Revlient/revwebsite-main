@@ -4,35 +4,41 @@ import { useState } from "react";
 import Reveal from "./Reveal";
 import { CTA_HREF } from "../lib/site";
 
-/* Project-showcase carousel: 6 duotone "FaceCards"-style cards in a
-   coverflow — centre card flat, side cards angled in 3D perspective —
-   advanced with a Next/Prev button. Vanilla JS + plain CSS, no deps;
-   hardware-accelerated CSS transforms only.
+/* Project-showcase carousel — each card is a real client site: it
+   links out and shows the site's live thumbnail. Coverflow with a
+   subtle globe curve, Next/Prev. Vanilla JS + plain CSS, no deps.
 
-   Copy localized to Revlient (source was a fintech "FaceCards" demo).
-   Card portraits are decorative Unsplash placeholders for the mockup. */
+   Thumbnails via thum.io (free, no key); House of 11 uses the uploaded
+   self-hosted screenshot. Display names derived from the domains. */
+const TONES = ["a", "b", "c"];
+const SITE = (url, name, local) => {
+  const host = url.replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+  return {
+    url,
+    name,
+    host,
+    img: local || `https://image.thum.io/get/width/1200/crop/1500/${url}`,
+  };
+};
+
 const CARDS = [
-  { name: "MARGARET O. GUIDRY", no: "8758  ****  ****  0947", exp: "10/14", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80&auto=format&fit=crop", tone: "a" },
-  { name: "ROBERT M. MCCRAY", no: "3759  ****  ****  9456", exp: "12/30", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80&auto=format&fit=crop", tone: "b" },
-  { name: "JANICE W. SEYMOUR", no: "9270  ****  ****  1554", exp: "07/06", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&q=80&auto=format&fit=crop", tone: "c" },
-  { name: "DECLAN A. ROWE", no: "6142  ****  ****  3380", exp: "04/27", img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&q=80&auto=format&fit=crop", tone: "b" },
-  { name: "PRIYA N. KAPOOR", no: "5023  ****  ****  7719", exp: "09/29", img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&q=80&auto=format&fit=crop", tone: "a" },
-  { name: "TOMÁS E. REYES", no: "4710  ****  ****  6628", exp: "01/26", img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=500&q=80&auto=format&fit=crop", tone: "c" },
-];
+  SITE("https://www.perpexbschool.com", "Perpex B-School"),
+  SITE("https://www.houseof11.in", "House of 11", "/work/houseof11.png"),
+  SITE("https://magnate-studyabroad2.vercel.app", "Magnate Study Abroad"),
+  SITE("https://ibsconsultants.in", "IBS Consultants"),
+  SITE("https://www.covspace.in", "Covspace"),
+  SITE("https://ronspire.com", "Ronspire"),
+  SITE("https://www.perpex.in", "Perpex"),
+  SITE("https://mathleteonline.com", "Mathlete Online"),
+  SITE("https://themagnates.in", "The Magnates"),
+  SITE("https://www.bambrush.co.in", "Bambrush"),
+  SITE("https://www.soumyashyammakeup.com", "Soumya Shyam Makeup"),
+].map((s, i) => ({ ...s, tone: TONES[i % 3] }));
 const N = CARDS.length;
 
 const Mark = () => (
   <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
     <path fill="currentColor" d="M12 2c.6 3.3 2.7 5.4 6 6-3.3.6-5.4 2.7-6 6-.6-3.3-2.7-5.4-6-6 3.3-.6 5.4-2.7 6-6Zm6.5 11c.4 2 1.6 3.2 3.5 3.5-2 .4-3.1 1.6-3.5 3.5-.4-2-1.6-3.1-3.5-3.5 2-.4 3.1-1.6 3.5-3.5Z" />
-  </svg>
-);
-const Contactless = () => (
-  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-    <g fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
-      <path d="M8 8.5a6 6 0 0 1 0 7" />
-      <path d="M11 6a9.5 9.5 0 0 1 0 12" />
-      <path d="M14 4a13 13 0 0 1 0 16" />
-    </g>
   </svg>
 );
 const Arrow = ({ dir = 1 }) => (
@@ -89,12 +95,15 @@ export default function ShowcaseCards() {
               const a = Math.abs(o);
               const visible = a <= 2;
               return (
-                <article
+                <a
                   key={c.name}
+                  href={c.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${c.name} — opens in a new tab`}
                   className={`pscard__card t-${c.tone} ${
                     o === 0 ? "is-active" : ""
                   }`}
-                  aria-hidden={o !== 0}
                   style={{
                     // Same horizontal alignment (114% step, gaps) — only
                     // a subtle inward "globe" curve: cards turn toward
@@ -131,31 +140,25 @@ export default function ShowcaseCards() {
                   <div className="pscard__card-top">
                     <span className="pscard__logo">
                       <Mark />
-                      <span>
-                        Personal Cards <sup>®</sup>
-                      </span>
+                      <span>Revlient</span>
                     </span>
                   </div>
                   <div className="pscard__card-foot">
                     <div className="pscard__field">
-                      <span className="pscard__lbl">Card No</span>
-                      <span className="pscard__val">{c.no}</span>
-                    </div>
-                    <div className="pscard__field">
-                      <span className="pscard__lbl">Card Holder</span>
+                      <span className="pscard__lbl">Project</span>
                       <span className="pscard__val">{c.name}</span>
                     </div>
                     <div className="pscard__row">
                       <div className="pscard__field">
-                        <span className="pscard__lbl">Exp Date</span>
-                        <span className="pscard__val">{c.exp}</span>
+                        <span className="pscard__lbl">Website</span>
+                        <span className="pscard__val">{c.host}</span>
                       </div>
                       <span className="pscard__contactless" aria-hidden="true">
-                        <Contactless />
+                        <Arrow />
                       </span>
                     </div>
                   </div>
-                </article>
+                </a>
               );
             })}
           </div>
