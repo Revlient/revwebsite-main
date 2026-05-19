@@ -7,19 +7,21 @@ import Reveal from "./Reveal";
    via WordPress mShots (free, no key, no dependency) and linked out.
    Display names are derived from the domains — the team can refine the
    wording/categories, but the URLs and screenshots are real. */
-const SITE = (url, name) => ({
+// `local` overrides the live mShots capture with a self-hosted
+// screenshot in /public/work — sharper, no third-party dependency.
+const SITE = (url, name, local) => ({
   url,
   name,
-  // mShots renders the live homepage; first hit may show a brief
-  // loading frame, then the real screenshot.
-  shot: `https://s.wordpress.com/mshots/v1/${encodeURIComponent(
-    url
-  )}?w=1200&h=900`,
+  shot:
+    local ||
+    `https://s.wordpress.com/mshots/v1/${encodeURIComponent(
+      url
+    )}?w=1200&h=900`,
 });
 
 const LEFT = [
   SITE("https://www.perpexbschool.com", "Perpex B-School"),
-  SITE("https://www.houseof11.in", "House of 11"),
+  SITE("https://www.houseof11.in", "House of 11", "/work/houseof11.png"),
   SITE(
     "https://magnate-studyabroad2.vercel.app",
     "Magnate Study Abroad"
