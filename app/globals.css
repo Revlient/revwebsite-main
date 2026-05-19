@@ -1138,9 +1138,20 @@ html.js .reveal.is-visible {
   pointer-events: auto;
 }
 
+/* glassmorphic floating CTA */
 .sticky-cta .btn {
-  box-shadow: 0 14px 40px -10px rgba(0, 0, 0, 0.6),
-    0 8px 30px -10px var(--blue-glow);
+  background: rgba(43, 95, 255, 0.22);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #fff;
+  box-shadow: 0 14px 40px -12px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.sticky-cta .btn:hover {
+  background: rgba(74, 120, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.32);
 }
 
 /* ---------- Floating contact widget + chat bot ---------- */
