@@ -1,5 +1,6 @@
 import Reveal from "./Reveal";
 import SparklesGlow from "./SparklesGlow";
+import ProgressiveBlur from "./ProgressiveBlur";
 
 /* "Trusted by" section. Adapted from a shadcn/Tailwind/TS + tsparticles
    demo to this project's stack: the sparkles field uses tsparticles
@@ -50,12 +51,35 @@ export default function Testimonials() {
 
         <Reveal delay={120}>
           <div className="trust__logos">
-            {CLIENTS.map((name) => (
-              <span key={name} className="trust__logo">
-                <Mark />
-                {name}
-              </span>
-            ))}
+            <div className="trust__logos-track">
+              {CLIENTS.map((name) => (
+                <span key={name} className="trust__logo">
+                  <Mark />
+                  {name}
+                </span>
+              ))}
+              {/* duplicate for a seamless marquee loop */}
+              {CLIENTS.map((name) => (
+                <span
+                  key={`dup-${name}`}
+                  className="trust__logo"
+                  aria-hidden="true"
+                >
+                  <Mark />
+                  {name}
+                </span>
+              ))}
+            </div>
+            <ProgressiveBlur
+              direction="left"
+              blurIntensity={1}
+              className="trust__blur trust__blur--l"
+            />
+            <ProgressiveBlur
+              direction="right"
+              blurIntensity={1}
+              className="trust__blur trust__blur--r"
+            />
           </div>
         </Reveal>
       </div>

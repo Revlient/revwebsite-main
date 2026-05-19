@@ -1893,19 +1893,40 @@ html.js .reveal.is-visible {
   color: var(--muted);
 }
 
-/* Static centered logo row, above the arc (like the reference). */
+/* Infinite logo marquee with progressive-blur edges, above the arc. */
 .trust__logos {
-  margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+  margin-top: clamp(2rem, 1.5rem + 2vw, 3.5rem);
   position: relative;
   z-index: 2;
+  height: 96px;
+  overflow: hidden;
+}
+
+.trust__logos-track {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  width: max-content;
+  height: 100%;
   align-items: center;
-  gap: clamp(1.75rem, 1rem + 4vw, 4.5rem);
+  gap: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+  animation: trust-marquee 30s linear infinite;
+  will-change: transform;
+}
+
+.trust__logos:hover .trust__logos-track {
+  animation-play-state: paused;
+}
+
+@keyframes trust-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .trust__logo {
+  flex: none;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
@@ -1914,15 +1935,25 @@ html.js .reveal.is-visible {
   letter-spacing: -0.02em;
   white-space: nowrap;
   color: rgba(245, 245, 247, 0.88);
-  transition: color 0.3s var(--ease);
 }
 
 .trust__logo svg {
   color: rgba(245, 245, 247, 0.65);
 }
 
-.trust__logo:hover {
-  color: #fff;
+.trust__blur {
+  top: 0;
+  height: 100%;
+  width: clamp(90px, 16vw, 200px);
+  z-index: 3;
+}
+
+.trust__blur--l {
+  left: 0;
+}
+
+.trust__blur--r {
+  right: 0;
 }
 
 .trust__glow {
