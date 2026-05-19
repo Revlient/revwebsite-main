@@ -374,6 +374,20 @@ html.js .reveal.is-visible {
   overflow: hidden;
 }
 
+/* Fade the hero's bottom into the chat section's exact colour so the
+   two full-screen WebGL sections blend instead of seaming. */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(140px, 20vh, 260px);
+  background: linear-gradient(to top, #0a0b10, rgba(10, 11, 16, 0));
+  z-index: 2;
+  pointer-events: none;
+}
+
 /* Immediate paint: depth gradient shows in <1s, before/without WebGL. */
 .hero__bg {
   position: absolute;
@@ -2033,7 +2047,17 @@ html.js .reveal.is-visible {
 /* Testimonials — black & white (light) theme, scoped to this section.
    White ground, black text, like the component's original design. */
 .testimonials {
-  background: #fff;
+  /* Blend in from the dark chat section above and out to the dark
+     section below, so the white block doesn't read as a separate site.
+     Extra vertical padding keeps the heading/cards on the white band. */
+  background: linear-gradient(
+    to bottom,
+    #0a0b10 0,
+    #ffffff clamp(120px, 16vh, 240px),
+    #ffffff calc(100% - clamp(120px, 16vh, 240px)),
+    var(--bg-2) 100%
+  );
+  padding-block: clamp(7rem, 5rem + 9vw, 12rem);
 }
 
 .testimonials .eyebrow {
