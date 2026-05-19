@@ -137,6 +137,38 @@ export default function HorizonHero() {
       r.scene.add(r.nebula);
     }
 
+    // sun — self-luminous core + soft additive halo, sat on the
+    // horizon along the fly-through path so bloom turns it into a
+    // glowing light ball the camera moves toward
+    {
+      const core = new THREE.Mesh(
+        new THREE.SphereGeometry(110, 40, 40),
+        new THREE.ShaderMaterial({
+          uniforms: { time: { value: 0 } },
+          vertexShader: `varying vec3 vN;void main(){vN=normalize(normalMatrix*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
+          fragmentShader: `varying vec3 vN;uniform float time;void main(){float f=clamp(pow(0.62-dot(vN,vec3(0.0,0.0,1.0)),1.4),0.0,1.0);float pulse=sin(time*1.2)*0.06+0.94;vec3 c=mix(vec3(1.0,0.96,0.86),vec3(1.0,0.78,0.45),f)*pulse;gl_FragColor=vec4(c,1.0);}`,
+        })
+      );
+      const halo = new THREE.Mesh(
+        new THREE.SphereGeometry(300, 40, 40),
+        new THREE.ShaderMaterial({
+          uniforms: { time: { value: 0 } },
+          vertexShader: `varying vec3 vN;void main(){vN=normalize(normalMatrix*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
+          fragmentShader: `varying vec3 vN;uniform float time;void main(){float i=pow(0.72-dot(vN,vec3(0.0,0.0,1.0)),2.0);float pulse=sin(time*1.2)*0.08+0.92;gl_FragColor=vec4(vec3(1.0,0.83,0.55)*i*pulse,i*0.55);}`,
+          side: THREE.BackSide,
+          blending: THREE.AdditiveBlending,
+          transparent: true,
+          depthWrite: false,
+        })
+      );
+      r.sun = new THREE.Group();
+      r.sun.add(core, halo);
+      r.sun.position.set(0, 6, -1600);
+      r.sunMats = [core.material, halo.material];
+      r.sunGeos = [core.geometry, halo.geometry];
+      r.scene.add(r.sun);
+    }
+
     // mountains
     r.mountains = [];
     [
@@ -179,6 +211,7 @@ export default function HorizonHero() {
       const t = Date.now() * 0.001;
       r.stars.forEach((s) => (s.material.uniforms.time.value = t));
       if (r.nebula) r.nebula.material.uniforms.time.value = t * 0.5;
+      if (r.sunMats) r.sunMats.forEach((mt) => (mt.uniforms.time.value = t));
       if (r.targetCameraX !== undefined) {
         smooth.current.x += (r.targetCameraX - smooth.current.x) * 0.05;
         smooth.current.y += (r.targetCameraY - smooth.current.y) * 0.05;
@@ -267,6 +300,8 @@ export default function HorizonHero() {
         r.nebula.geometry.dispose();
         r.nebula.material.dispose();
       }
+      if (r.sunGeos) r.sunGeos.forEach((gm) => gm.dispose());
+      if (r.sunMats) r.sunMats.forEach((mt) => mt.dispose());
       renderer.dispose();
     };
   }, []);
