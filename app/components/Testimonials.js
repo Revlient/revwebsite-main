@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 
 // Lazy-load the canvas background client-side only so the homepage
 // still prerenders static and the loop stays off the critical path.
-const SpiralBg = dynamic(() => import("./GridGlowBackground"), {
+const SpiralBg = dynamic(() => import("./CosmicBackground"), {
   ssr: false,
   loading: () => null,
 });
@@ -183,7 +183,11 @@ export default function Testimonials() {
           className="morph__arc-text"
           style={{
             opacity: arcOpacity,
-            transform: `translateY(${lerp(20, 0, arcOpacity)}px)`,
+            transform: `translate(-50%, -50%) translateY(${lerp(
+              20,
+              0,
+              arcOpacity
+            )}px)`,
           }}
           aria-hidden={arcOpacity === 0}
         >
