@@ -64,11 +64,12 @@ export default function ShowcaseCards() {
       <div className="container">
         <Reveal>
           <div className="pscard__head">
-            <h2>Designed down to the last detail.</h2>
-            <p className="pscard__sub">Premium, by default — not by accident.</p>
+            <h2>Create your FaceCards</h2>
+            <p className="pscard__sub">Express Yourself with this Cards</p>
             <p className="pscard__desc">
-              We treat every surface like a flagship product: considered
-              materials, real depth, and motion that earns its place.
+              With our cutting-edge FaceCards feature, you can now craft
+              your own personalized bank card based on your unique facial
+              features.
             </p>
             <a href={CTA_HREF} className="pscard__cta">
               <span>Start today!</span>
@@ -95,12 +96,15 @@ export default function ShowcaseCards() {
                   }`}
                   aria-hidden={o !== 0}
                   style={{
+                    // straight (upright) cards — no rotateY; depth via
+                    // translateX overlap + scale + opacity, like the ref
                     transform: `translate(-50%, -50%) translateX(${
-                      o * 54
-                    }%) translateZ(${-a * 130}px) rotateY(${
-                      o * -34
-                    }deg) scale(${1 - Math.min(a, 2) * 0.06})`,
-                    opacity: visible ? (a === 0 ? 1 : a === 1 ? 0.7 : 0.35) : 0,
+                      o * 48
+                    }%) translateZ(${-a * 60}px) scale(${
+                      1 - Math.min(a, 2) * 0.09
+                    })`,
+                    opacity: visible ? (a === 0 ? 1 : a === 1 ? 0.6 : 0.28) : 0,
+                    filter: a >= 2 ? "blur(2px)" : "none",
                     zIndex: 20 - a,
                     pointerEvents: visible ? "auto" : "none",
                   }}
