@@ -2123,44 +2123,35 @@ html.js .reveal.is-visible {
   height: 100%;
   object-fit: cover;
   object-position: center 22%;
-  /* full monochrome so the graphite wash stays neutral over any shot */
-  filter: grayscale(1) contrast(1.08) brightness(0.7);
+  /* normal colour — only a hair of brightness to seat it on the dark UI */
+  filter: brightness(0.94);
 }
 
-/* neutral graphite duotone, bottom-darkened for legible text, with a
-   faint inner edge so all cards read as one designed set */
+/* no colour wash — just a bottom darken so the overlaid card text
+   stays legible, plus a faint neutral edge for card definition */
 .pscard__tint {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-      180deg,
-      rgba(12, 14, 20, 0.42),
-      rgba(12, 14, 20, 0.16) 38%,
-      rgba(5, 6, 9, 0.93) 86%
-    ),
-    linear-gradient(150deg, rgba(38, 42, 54, 0.36), rgba(16, 18, 24, 0.48));
-  box-shadow: inset 0 0 0 1px rgba(200, 205, 220, 0.1);
+    180deg,
+    transparent 0%,
+    transparent 46%,
+    rgba(5, 6, 9, 0.55) 72%,
+    rgba(4, 5, 8, 0.92) 100%
+  );
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   mix-blend-mode: normal;
 }
 
-.pscard__card.t-b .pscard__tint {
-  background: linear-gradient(
-      180deg,
-      rgba(16, 18, 24, 0.44),
-      rgba(16, 18, 24, 0.18) 38%,
-      rgba(6, 7, 10, 0.93) 86%
-    ),
-    linear-gradient(150deg, rgba(52, 57, 70, 0.36), rgba(20, 22, 28, 0.48));
-}
-
+.pscard__card.t-b .pscard__tint,
 .pscard__card.t-c .pscard__tint {
   background: linear-gradient(
-      180deg,
-      rgba(8, 9, 13, 0.5),
-      rgba(8, 9, 13, 0.2) 38%,
-      rgba(3, 4, 6, 0.95) 86%
-    ),
-    linear-gradient(150deg, rgba(30, 33, 42, 0.42), rgba(12, 13, 17, 0.5));
+    180deg,
+    transparent 0%,
+    transparent 46%,
+    rgba(5, 6, 9, 0.55) 72%,
+    rgba(4, 5, 8, 0.92) 100%
+  );
 }
 
 .pscard__card > *:not(.pscard__photo):not(.pscard__tint) {
