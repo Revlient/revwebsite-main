@@ -3,11 +3,11 @@ import Hero from "./components/Hero";
 import AiPromptSection from "./components/AiPromptSection";
 import ShowcaseCards from "./components/ShowcaseCards";
 import Testimonials from "./components/Testimonials";
+import ProcessTimeline from "./components/ProcessTimeline";
 import WhyRevlient from "./components/WhyRevlient";
 import Work from "./components/Work";
 import Proof from "./components/Proof";
 import Services from "./components/Services";
-import Process from "./components/Process";
 import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
@@ -26,11 +26,11 @@ export default function HomePage() {
         <AiPromptSection />
         <ShowcaseCards />
         <Testimonials />
+        <ProcessTimeline />
         <WhyRevlient />
         <Work />
         <Proof />
         <Services />
-        <Process />
         <FinalCTA />
       </main>
       <Footer />
