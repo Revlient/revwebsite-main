@@ -3,18 +3,17 @@
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 
-// Lazy-load the WebGL canvas client-side only (ssr:false) so it stays
-// off the server render and the homepage still prerenders static.
-const NeuralVortex = dynamic(() => import("./NeuralVortex"), {
+// Lazy-load the WebGL shader client-side only (ssr:false) so the
+// homepage still prerenders static. Only mounts while the section is
+// near the viewport — it fully unmounts (RAF + WebGL freed) when
+// scrolled away, so it never competes with the hero shader.
+const ChatShader = dynamic(() => import("./ChatShader"), {
   ssr: false,
   loading: () => null,
 });
 
-export default function NeuralVortexBackground({ className = "", style }) {
+export default function ShaderBackground({ className = "", style }) {
   const ref = useRef(null);
-  // Only mount the shader while its section is near the viewport; it
-  // fully unmounts (RAF + WebGL freed) when scrolled away, so it never
-  // competes with the hero shader — at most one runs at a time.
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ export default function NeuralVortexBackground({ className = "", style }) {
 
   return (
     <div ref={ref} className={className} style={style} aria-hidden="true">
-      {active && <NeuralVortex />}
+      {active && <ChatShader />}
     </div>
   );
 }

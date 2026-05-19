@@ -1,13 +1,12 @@
 import AiChat from "./AiChat";
-import NeuralVortexBackground from "./NeuralVortexBackground";
+import ShaderBackground from "./ShaderBackground";
 
-// Full-screen section below the hero. Background is the interactive
-// neural-vortex WebGL shader; the dark prompt box reads as a panel
-// on top.
+// Full-screen section below the hero. Background is the radiating-line
+// WebGL shader; the dark prompt box reads as a panel on top.
 export default function AiPromptSection() {
   return (
     <section className="aiprompt" aria-label="Start your brief">
-      <NeuralVortexBackground
+      <ShaderBackground
         className="aiprompt__bg"
         style={{ position: "absolute", inset: 0 }}
       />
