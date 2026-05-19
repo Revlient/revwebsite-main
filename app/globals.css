@@ -1871,6 +1871,12 @@ html.js .reveal.is-visible {
 
 .t3d {
   overflow: hidden;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
 }
 
 .t3d__head {
@@ -1885,7 +1891,7 @@ html.js .reveal.is-visible {
 .t3d__stage {
   position: relative;
   margin-top: clamp(2rem, 1.5rem + 2vw, 3.5rem);
-  height: clamp(440px, 60vh, 620px);
+  height: clamp(480px, 66vh, 780px);
   width: 100%;
   overflow: hidden;
   display: flex;
