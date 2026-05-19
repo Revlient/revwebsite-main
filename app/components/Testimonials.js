@@ -35,10 +35,20 @@ export default function Testimonials() {
           </div>
         </Reveal>
 
-        <Reveal className="trust__logos" delay={120}>
-          {CLIENTS.map((name) => (
-            <span key={name}>{name}</span>
-          ))}
+        <Reveal delay={120}>
+          <div className="trust__logos">
+            <div className="trust__logos-track">
+              {CLIENTS.map((name) => (
+                <span key={name}>{name}</span>
+              ))}
+              {/* duplicate for a seamless marquee loop */}
+              {CLIENTS.map((name) => (
+                <span key={`dup-${name}`} aria-hidden="true">
+                  {name}
+                </span>
+              ))}
+            </div>
+          </div>
         </Reveal>
       </div>
 

@@ -1894,17 +1894,51 @@ html.js .reveal.is-visible {
 
 .trust__logos {
   margin-top: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+}
+
+.trust__logos-track {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  width: max-content;
   align-items: center;
-  gap: clamp(1.5rem, 1rem + 4vw, 4rem);
+  gap: clamp(2rem, 1.5rem + 4vw, 5rem);
+  animation: trust-marquee 28s linear infinite;
+  will-change: transform;
+}
+
+.trust__logos:hover .trust__logos-track {
+  animation-play-state: paused;
+}
+
+@keyframes trust-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .trust__logos span {
+  flex: none;
   font-size: clamp(1rem, 0.85rem + 0.8vw, 1.4rem);
   font-weight: 600;
   letter-spacing: -0.02em;
+  white-space: nowrap;
   color: var(--muted);
   opacity: 0.65;
   transition: opacity 0.3s var(--ease), color 0.3s var(--ease);
