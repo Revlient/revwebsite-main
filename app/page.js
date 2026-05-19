@@ -1,6 +1,7 @@
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import AiPromptSection from "./components/AiPromptSection";
+import ShowcaseCards from "./components/ShowcaseCards";
 import Testimonials from "./components/Testimonials";
 import WhyRevlient from "./components/WhyRevlient";
 import Work from "./components/Work";
@@ -24,6 +25,7 @@ export default function HomePage() {
       <main>
         <Hero />
         <AiPromptSection />
+        <ShowcaseCards />
         <Testimonials />
         <WhyRevlient />
         <Work />
