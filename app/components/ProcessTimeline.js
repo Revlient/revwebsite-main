@@ -1,5 +1,3 @@
-import Reveal from "./Reveal";
-
 // Premium vertical process timeline. Placed under Testimonials and
 // keeps id="process" so the existing nav anchor still resolves.
 // Crimson/rose accents are deliberate and scoped to this section
@@ -74,17 +72,15 @@ export default function ProcessTimeline() {
     <section id="process" className="ptl">
       <div className="ptl__ambient" aria-hidden="true" />
       <div className="container">
-        <Reveal>
-          <div className="ptl__head">
-            <span className="ptl__eyebrow">A simple step-by-step process</span>
-            <h2 className="ptl__title">Design without the hassle</h2>
-            <p className="ptl__sub">
-              Four deliberate stages — from the first conversation to the day
-              after launch. You know exactly where the project is at every
-              step.
-            </p>
-          </div>
-        </Reveal>
+        <div className="ptl__head">
+          <span className="ptl__eyebrow">A simple step-by-step process</span>
+          <h2 className="ptl__title">Design without the hassle</h2>
+          <p className="ptl__sub">
+            Four deliberate stages — from the first conversation to the day
+            after launch. You know exactly where the project is at every
+            step.
+          </p>
+        </div>
 
         <div className="ptl__timeline">
           <span className="ptl__line" aria-hidden="true" />
