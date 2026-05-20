@@ -537,13 +537,15 @@ html.js .reveal.is-visible {
 .herobd__vignette {
   position: absolute;
   inset: 0;
-  /* the last vertical stop is the page bg (no alpha) so the image
-     fades cleanly into the next section instead of cutting off */
+  /* aggressive bottom fade so the image is fully gone before the
+     section ends — guarantees an opaque var(--bg) strip at the
+     bottom that meets the next section without any visible step */
   background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.35) 0%,
       transparent 18%,
-      transparent 68%,
+      transparent 52%,
+      var(--bg) 86%,
       var(--bg) 100%
     ),
     linear-gradient(
@@ -1836,19 +1838,19 @@ html.js .reveal.is-visible {
 
 /* wide blue halo around the beam, slowly breathing */
 .chatbd__halo {
-  top: -8%;
+  top: 2%;
   bottom: -8%;
   left: 78%;
-  width: 60%;
+  width: 70%;
   transform: translateX(-50%);
   background: radial-gradient(
-    ellipse 26% 70% at 50% 50%,
-    rgba(80, 145, 255, 0.32),
-    rgba(50, 110, 220, 0.18) 30%,
+    ellipse 34% 70% at 50% 50%,
+    rgba(80, 145, 255, 0.36),
+    rgba(50, 110, 220, 0.2) 30%,
     rgba(20, 60, 160, 0.08) 55%,
     transparent 72%
   );
-  filter: blur(36px);
+  filter: blur(42px);
   animation: chatbdHaloBreath 8s ease-in-out infinite;
   will-change: transform, opacity;
 }
@@ -1858,50 +1860,51 @@ html.js .reveal.is-visible {
   50%      { transform: translateX(-50%) scale(1.08); opacity: 1; }
 }
 
-/* the bright vertical beam itself, anchored to the right */
+/* the bright vertical beam itself, anchored to the right.
+   wider + softer top fade so it grows in instead of starting hard */
 .chatbd__beam {
-  top: -4%;
+  top: 8%;
   bottom: 14%;
   left: 78%;
-  width: 9px;
+  width: 18px;
   transform: translateX(-50%);
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(180, 220, 255, 0.85) 8%,
-    rgba(255, 255, 255, 1) 35%,
+    rgba(180, 220, 255, 0.85) 14%,
+    rgba(255, 255, 255, 1) 38%,
     rgba(220, 235, 255, 1) 78%,
     rgba(140, 195, 255, 0.85) 100%
   );
   border-radius: 999px;
-  filter: blur(1px);
+  filter: blur(2px);
   box-shadow:
-    0 0 18px rgba(180, 220, 255, 0.95),
-    0 0 36px rgba(110, 170, 255, 0.7),
-    0 0 80px rgba(70, 140, 240, 0.55),
-    0 0 150px rgba(50, 110, 220, 0.4),
-    0 0 240px rgba(40, 90, 200, 0.3);
+    0 0 24px rgba(180, 220, 255, 0.95),
+    0 0 52px rgba(110, 170, 255, 0.72),
+    0 0 110px rgba(70, 140, 240, 0.58),
+    0 0 190px rgba(50, 110, 220, 0.42),
+    0 0 300px rgba(40, 90, 200, 0.32);
 }
 
 /* a brighter band flowing downward inside/along the beam */
 .chatbd__flow {
-  top: -4%;
+  top: 8%;
   bottom: 14%;
   left: 78%;
-  width: 72px;
+  width: 140px;
   transform: translateX(-50%);
   background-image: linear-gradient(
     180deg,
     transparent 0%,
     transparent 38%,
-    rgba(220, 235, 255, 0.55) 50%,
+    rgba(220, 235, 255, 0.6) 50%,
     transparent 62%,
     transparent 100%
   );
   background-repeat: no-repeat;
   background-size: 100% 240%;
   background-position: 0% -110%;
-  filter: blur(10px);
+  filter: blur(14px);
   mix-blend-mode: screen;
   animation: chatbdFlowDown 4.2s linear infinite;
   will-change: background-position;
@@ -1936,12 +1939,13 @@ html.js .reveal.is-visible {
 /* left-biased darkening so the centred prompt text stays legible */
 .chatbd__vignette {
   inset: 0;
-  /* bottom stop is the page bg so the beam scene blends into the
-     next section instead of cutting off */
+  /* both top and bottom stops are the page bg, so the section
+     joins seamlessly to whatever sits above and below */
   background: linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.4) 0%,
-      transparent 22%,
+      var(--bg) 0%,
+      var(--bg) 6%,
+      transparent 18%,
       transparent 70%,
       var(--bg) 100%
     ),
