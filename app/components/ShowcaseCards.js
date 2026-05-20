@@ -20,6 +20,9 @@ const TESTIMONIALS = [
   // Real client identities supplied by Revlient. QUOTE TEXT is still a
   // placeholder — replace each with the real, approved wording (and a
   // headshot in /public/testimonials + `img`) before launch.
+  // The four "Client Name" entries between Aswin and Johnson are
+  // TODO placeholders kept so the coverflow has bent end-cards at
+  // ±2; replace with more real clients once you have them.
   // Order matters: index 0 is the centred card on load.
   {
     quote:
@@ -33,6 +36,35 @@ const TESTIMONIALS = [
       "Placeholder testimonial — replace with the real, approved quote before launch.",
     name: "Aswin Pradeep",
     role: "Magnate Study Abroad",
+    img: "",
+  },
+  // TODO(content): real client — replace before launch
+  {
+    quote:
+      "Placeholder testimonial — replace with the real, approved quote before launch.",
+    name: "Client Name",
+    role: "Founder, Company",
+    img: "",
+  },
+  {
+    quote:
+      "Placeholder testimonial — replace with the real, approved quote before launch.",
+    name: "Client Name",
+    role: "Managing Director, Company",
+    img: "",
+  },
+  {
+    quote:
+      "Placeholder testimonial — replace with the real, approved quote before launch.",
+    name: "Client Name",
+    role: "Co-founder, Company",
+    img: "",
+  },
+  {
+    quote:
+      "Placeholder testimonial — replace with the real, approved quote before launch.",
+    name: "Client Name",
+    role: "CEO, Company",
     img: "",
   },
   {
