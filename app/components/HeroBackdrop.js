@@ -1,22 +1,15 @@
-// Hero backdrop adapted from a Framer-motion + Tailwind reference
-// (Kokonut "shape-landing-hero"). Five rounded gradient pills drift
-// gently above a soft indigo→rose wash, with a top/bottom vignette.
-// Plain CSS animations — no framer-motion / Tailwind / TypeScript /
-// shadcn — pure server component, prerendered static. Reduced-motion
-// settles the entrance + float (global rule).
-const SHAPES = [1, 2, 3, 4, 5];
-
+// Cinematic warm-torus hero backdrop — CSS recreation of an uploaded
+// reference (warm orange ring / eclipse on deep black). Pure CSS,
+// stacked radial gradients form the ring + inner hole + specular
+// rim; a slow conic shimmer adds shine; an atmospheric warm spill
+// fades into the dark left; a top/bottom + left vignette keeps hero
+// text legible. No new deps, no WebGL. Reduced-motion settles it.
 export default function HeroBackdrop() {
   return (
     <div className="herobd" aria-hidden="true">
-      <div className="herobd__wash" />
-      <div className="herobd__shapes">
-        {SHAPES.map((n) => (
-          <span key={n} className={`herobd__shape herobd__shape--${n}`}>
-            <span className="herobd__shapeinner" />
-          </span>
-        ))}
-      </div>
+      <div className="herobd__atmosphere" />
+      <div className="herobd__torus" />
+      <div className="herobd__shimmer" />
       <div className="herobd__vignette" />
     </div>
   );
