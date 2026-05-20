@@ -1953,19 +1953,21 @@ html.js .reveal.is-visible {
   50%      { transform: translateX(-50%) scale(1.08); opacity: 1; }
 }
 
-/* flared funnel — wider neck at the top, curving outward to a
-   wide base. Many polygon points approximate the smooth side curve */
+/* flared funnel — wider neck at the top, curving outward to a wide
+   base. SVG mask gives proper bezier sides (preserveAspectRatio:
+   none stretches the curve to whatever container size we set). */
 .chatbd__tornado {
   top: 2%;
   bottom: 8%;
   left: 78%;
   width: clamp(440px, 48vw, 780px);
   transform: translateX(-50%);
-  clip-path: polygon(
-    36% 0%, 64% 0%,
-    62% 14%, 64% 30%, 68% 48%, 74% 64%, 82% 80%, 91% 92%, 96% 100%,
-    4% 100%, 9% 92%, 18% 80%, 26% 64%, 32% 48%, 36% 30%, 38% 14%
-  );
+  -webkit-mask-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M 36 0 L 64 0 C 62 26 74 56 96 100 L 4 100 C 26 56 38 26 36 0 Z' fill='white'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M 36 0 L 64 0 C 62 26 74 56 96 100 L 4 100 C 26 56 38 26 36 0 Z' fill='white'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
   overflow: hidden;
 }
 
