@@ -78,18 +78,25 @@ export default function ProcessTimeline() {
           <div className="ptl__head">
             <span className="ptl__eyebrow">A simple step-by-step process</span>
             <h2 className="ptl__title">Design without the hassle</h2>
+            <p className="ptl__sub">
+              Four deliberate stages — from the first conversation to the day
+              after launch. You know exactly where the project is at every
+              step.
+            </p>
           </div>
         </Reveal>
 
         <div className="ptl__timeline">
           <span className="ptl__line" aria-hidden="true" />
+          {/* Rows render visible from the start (no scroll-reveal gating) so
+              the timeline is fully populated when you jump to #process via
+              the nav, instead of showing only the line until you scroll. */}
           {STEPS.map((s, i) => (
-            <Reveal
+            <div
               key={s.n}
               className={`ptl__row ${
                 i % 2 ? "ptl__row--right" : "ptl__row--left"
               }`}
-              delay={i * 90}
             >
               <span className="ptl__node" aria-hidden="true">
                 <span>{s.n}</span>
@@ -101,7 +108,7 @@ export default function ProcessTimeline() {
                 <h3 className="ptl__cardtitle">{s.title}</h3>
                 <p className="ptl__cardbody">{s.body}</p>
               </article>
-            </Reveal>
+            </div>
           ))}
         </div>
       </div>

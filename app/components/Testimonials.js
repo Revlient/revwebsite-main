@@ -72,8 +72,11 @@ export default function Testimonials() {
         <Reveal>
           <div className="tsection__head">
             <span className="tsection__badge">Testimonials</span>
-            <h2>What clients say</h2>
-            <p>Real, attributed client words go here.</p>
+            <h2>The work, in their words.</h2>
+            <p>
+              Quick reactions from across the projects we ship — short notes
+              from the people we build alongside.
+            </p>
             <span className="proof__todo">
               Placeholder testimonials — replace before launch
             </span>

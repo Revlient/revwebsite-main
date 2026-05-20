@@ -1162,8 +1162,18 @@ html.js .reveal.is-visible {
   position: relative;
   z-index: 1;
   text-align: center;
-  max-width: 22ch;
-  margin: 0 auto clamp(3rem, 2rem + 4vw, 5rem);
+  max-width: 56ch;
+  margin: 0 auto clamp(2.5rem, 1.8rem + 3vw, 4rem);
+}
+
+.ptl__sub {
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  max-width: 44ch;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ptl__head::before {
@@ -1232,7 +1242,7 @@ html.js .reveal.is-visible {
   grid-template-columns: 1fr 1fr;
   column-gap: clamp(3rem, 2rem + 5vw, 6.5rem);
   align-items: center;
-  margin-bottom: clamp(3.5rem, 2.5rem + 4vw, 6rem);
+  margin-bottom: clamp(2.4rem, 1.8rem + 2.5vw, 3.6rem);
 }
 
 .ptl__row:last-child {
