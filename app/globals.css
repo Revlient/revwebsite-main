@@ -1953,15 +1953,19 @@ html.js .reveal.is-visible {
   50%      { transform: translateX(-50%) scale(1.08); opacity: 1; }
 }
 
-/* tornado funnel — wide at top, narrowing toward the base */
+/* flared funnel — narrow column at the top, curving outward to a
+   wide base. Many polygon points approximate the smooth side curve */
 .chatbd__tornado {
   top: 2%;
-  bottom: 12%;
+  bottom: 8%;
   left: 78%;
-  width: clamp(360px, 38vw, 620px);
+  width: clamp(440px, 48vw, 780px);
   transform: translateX(-50%);
-  /* trapezoidal clip — 86%-wide top, 16%-wide bottom */
-  clip-path: polygon(8% 0%, 92% 0%, 58% 100%, 42% 100%);
+  clip-path: polygon(
+    47% 0%, 53% 0%,
+    54% 12%, 58% 28%, 64% 46%, 72% 64%, 82% 82%, 92% 94%, 96% 100%,
+    4% 100%, 8% 94%, 18% 82%, 28% 64%, 36% 46%, 42% 28%, 46% 12%
+  );
   overflow: hidden;
 }
 
