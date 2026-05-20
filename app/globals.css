@@ -393,7 +393,7 @@ html.js .reveal.is-visible {
   overflow: hidden;
 }
 
-/* ---- Hero backdrop: uploaded reference image + legibility scrim ---- */
+/* ---- Hero backdrop: uploaded image + subtle breath + warm shimmer ---- */
 .herobd {
   position: absolute;
   inset: 0;
@@ -408,14 +408,47 @@ html.js .reveal.is-visible {
   inset: 0;
   background-image: url("/hero-bg.jpg");
   background-repeat: no-repeat;
-  /* the reference is portrait — anchor the torus to the right and
-     cover so it fills any aspect ratio without distortion */
   background-position: right center;
   background-size: cover;
+  /* slow breath — scaled from the right so the torus stays anchored;
+     the slight oversize keeps the image edges out of view at all
+     points of the loop */
+  transform-origin: 80% 50%;
+  animation: herobdBreath 14s ease-in-out infinite;
+  will-change: transform;
 }
 
-/* keep the white hero text on the left fully legible without
-   washing out the warm right-side glow */
+@keyframes herobdBreath {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.04); }
+}
+
+/* slow rotating warm conic — adds a quiet "alive" shine across the
+   torus. mix-blend: screen keeps it additive; low opacity keeps it
+   subtle and never neon */
+.herobd__shimmer {
+  position: absolute;
+  inset: -8%;
+  background: conic-gradient(
+    from 0deg at 62% 50%,
+    transparent 0deg,
+    rgba(255, 200, 130, 0.12) 60deg,
+    transparent 120deg,
+    rgba(255, 160, 90, 0.09) 200deg,
+    transparent 260deg,
+    rgba(255, 180, 110, 0.12) 320deg,
+    transparent 360deg
+  );
+  mix-blend-mode: screen;
+  animation: herobdSpin 75s linear infinite;
+  will-change: transform;
+}
+
+@keyframes herobdSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
 .herobd__vignette {
   position: absolute;
   inset: 0;
