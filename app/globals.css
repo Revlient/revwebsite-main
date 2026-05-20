@@ -1557,6 +1557,44 @@ html.js .reveal.is-visible {
 
 /* ---------- Floating contact widget + chat bot ---------- */
 
+/* ---------- Background-music toggle ---------- */
+.musictog {
+  position: fixed;
+  bottom: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  /* sits just to the left of the contact widget (bottom-right) */
+  right: calc(clamp(1rem, 0.5rem + 1.5vw, 2rem) + 60px);
+  z-index: 92;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: rgba(20, 25, 45, 0.78);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+  box-shadow: 0 10px 28px -10px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  transition: background 0.3s var(--ease), color 0.3s var(--ease),
+    border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.musictog:hover {
+  background: rgba(43, 95, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.musictog.is-on {
+  color: var(--blue-light);
+  background: rgba(43, 95, 255, 0.32);
+  border-color: rgba(120, 150, 255, 0.4);
+}
+
 .cwidget {
   position: fixed;
   right: clamp(1rem, 0.5rem + 1.5vw, 2rem);

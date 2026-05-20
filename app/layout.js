@@ -1,5 +1,6 @@
 import "./globals.css";
 import { BRAND } from "./lib/site";
+import MusicToggle from "./components/MusicToggle";
 
 // FOLLOW-ON TASK (SEO pass): per-page metadata, real OG image, favicon,
 // sitemap.xml, robots.txt. This is a sound baseline only.
@@ -50,6 +51,8 @@ export default function RootLayout({ children }) {
           }}
         />
         {children}
+        {/* Persists across route changes (lives in the root layout). */}
+        <MusicToggle />
       </body>
     </html>
   );
