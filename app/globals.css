@@ -412,44 +412,134 @@ html.js .reveal.is-visible {
   overflow: hidden;
 }
 
-/* ---- Hero backdrop: animated microchip + circuit network ---- */
+/* ---- Hero backdrop: uploaded image + subtle breath + warm shimmer ---- */
 .herobd {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  /* same base as every other section so the seams disappear; the
+     image is what carries the visual and a bottom-fade vignette
+     blends it into the next section */
   background: var(--bg);
   pointer-events: none;
+  /* shifts the warm-torus image (and the warm shimmer + flow lines
+     composited above it) to a brand-blue palette in one place */
+  filter: hue-rotate(200deg) saturate(0.85);
 }
 
-/* soft brand-blue halo behind the chip, slowly breathing */
-.herobd__halo {
+.herobd__image {
   position: absolute;
-  top: 50%;
-  right: -10%;
-  width: min(900px, 90vh);
-  aspect-ratio: 1 / 1;
-  transform: translateY(-50%);
-  background: radial-gradient(
-    closest-side,
-    rgba(43, 95, 255, 0.32),
-    rgba(30, 70, 200, 0.16) 35%,
-    rgba(20, 40, 100, 0.06) 60%,
-    transparent 75%
-  );
-  filter: blur(60px);
-  animation: herobdHaloBreath 9s ease-in-out infinite;
-  will-change: transform, opacity;
+  inset: 0;
+  background-image: url("/hero-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: cover;
+  /* slow breath — scaled from the right so the torus stays anchored;
+     the slight oversize keeps the image edges out of view at all
+     points of the loop */
+  transform-origin: 80% 50%;
+  animation: herobdBreath 14s ease-in-out infinite;
+  will-change: transform;
 }
 
-@keyframes herobdHaloBreath {
-  0%, 100% { transform: translateY(-50%) scale(1);    opacity: 0.85; }
-  50%      { transform: translateY(-50%) scale(1.08); opacity: 1; }
+@keyframes herobdBreath {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.04); }
+}
+
+/* slow rotating warm conic — adds a quiet "alive" shine across the
+   torus. mix-blend: screen keeps it additive; low opacity keeps it
+   subtle and never neon */
+.herobd__shimmer {
+  position: absolute;
+  inset: -8%;
+  background: conic-gradient(
+    from 0deg at 62% 50%,
+    transparent 0deg,
+    rgba(255, 200, 130, 0.12) 60deg,
+    transparent 120deg,
+    rgba(255, 160, 90, 0.09) 200deg,
+    transparent 260deg,
+    rgba(255, 180, 110, 0.12) 320deg,
+    transparent 360deg
+  );
+  mix-blend-mode: screen;
+  animation: herobdSpin 75s linear infinite;
+  will-change: transform;
+}
+
+@keyframes herobdSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* left-to-right current flows — soft warm bands sweeping across the
+   field as if energy were being fed into the torus. Screen-blended
+   so the highlights only add light over the dark areas. */
+.herobd__flow {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.herobd__flowline {
+  position: absolute;
+  left: 0;
+  width: 50vw;
+  height: 90px;
+  background: radial-gradient(
+    50% 100% at 50% 50%,
+    rgba(255, 210, 140, 0.85),
+    rgba(255, 150, 70, 0.32) 45%,
+    transparent 78%
+  );
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  opacity: 0.75;
+  will-change: transform;
+  animation: herobdFlow 9s linear infinite;
+}
+
+.herobd__flowline--1 {
+  top: 40%;
+  width: 52vw;
+  height: 100px;
+  animation-duration: 9s;
+  animation-delay: 0s;
+}
+
+.herobd__flowline--2 {
+  top: 58%;
+  width: 36vw;
+  height: 70px;
+  filter: blur(8px);
+  opacity: 0.6;
+  animation-duration: 11s;
+  animation-delay: -4s;
+}
+
+.herobd__flowline--3 {
+  top: 28%;
+  width: 60vw;
+  height: 120px;
+  filter: blur(14px);
+  opacity: 0.55;
+  animation-duration: 13s;
+  animation-delay: -7s;
+}
+
+@keyframes herobdFlow {
+  from { transform: translateX(-110%); }
+  to   { transform: translateX(220%); }
 }
 
 .herobd__vignette {
   position: absolute;
   inset: 0;
+  /* aggressive bottom fade so the image is fully gone before the
+     section ends — guarantees an opaque var(--bg) strip at the
+     bottom that meets the next section without any visible step */
   background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.35) 0%,
@@ -460,141 +550,10 @@ html.js .reveal.is-visible {
     ),
     linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.78) 0%,
-      rgba(0, 0, 0, 0.35) 30%,
-      transparent 58%
+      rgba(0, 0, 0, 0.72) 0%,
+      rgba(0, 0, 0, 0.28) 36%,
+      transparent 60%
     );
-}
-
-/* ---- the chip + traces + nodes ---- */
-.herochip {
-  position: absolute;
-  top: 50%;
-  right: -6%;
-  width: min(820px, 92vh);
-  aspect-ratio: 1 / 1;
-  transform: translateY(-50%);
-  pointer-events: none;
-  /* soft outer glow lift */
-  filter: drop-shadow(0 0 70px rgba(43, 95, 255, 0.25));
-}
-
-.herochip__svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  overflow: visible;
-}
-
-/* dim base traces */
-.herochip__trace {
-  fill: none;
-  stroke: rgba(56, 189, 248, 0.2);
-  stroke-width: 1.2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* travelling pulse — a short bright dash looping along the path */
-.herochip__pulse {
-  fill: none;
-  stroke: #22d3ee;
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  stroke-dasharray: 22 600;
-  stroke-dashoffset: 0;
-  filter: drop-shadow(0 0 5px rgba(34, 211, 238, 0.85))
-    drop-shadow(0 0 12px rgba(56, 189, 248, 0.55));
-  animation: herochipPulse 3.6s linear infinite;
-}
-
-@keyframes herochipPulse {
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: -622; }
-}
-
-.herochip__pulses path:nth-child(1) { animation-delay: 0s; }
-.herochip__pulses path:nth-child(2) { animation-delay: -0.45s; }
-.herochip__pulses path:nth-child(3) { animation-delay: -0.9s; }
-.herochip__pulses path:nth-child(4) { animation-delay: -1.35s; }
-.herochip__pulses path:nth-child(5) { animation-delay: -1.8s; }
-.herochip__pulses path:nth-child(6) { animation-delay: -2.25s; }
-.herochip__pulses path:nth-child(7) { animation-delay: -2.7s; }
-.herochip__pulses path:nth-child(8) { animation-delay: -3.15s; }
-
-/* nodes brighten in time with their trace's arriving current */
-.herochip__node {
-  fill: rgba(8, 13, 24, 0.92);
-  stroke: rgba(34, 211, 238, 0.55);
-  stroke-width: 1.4;
-  filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.45));
-  animation: herochipNode 3.6s ease-in-out infinite;
-}
-
-.herochip__nodedot {
-  fill: rgba(190, 235, 255, 0.95);
-  animation: herochipNodeDot 3.6s ease-in-out infinite;
-}
-
-@keyframes herochipNode {
-  0%, 100% {
-    stroke-opacity: 0.4;
-    filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.35));
-  }
-  50% {
-    stroke-opacity: 1;
-    filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.95));
-  }
-}
-
-@keyframes herochipNodeDot {
-  0%, 100% { opacity: 0.55; }
-  50%      { opacity: 1; }
-}
-
-.herochip__nodes > g:nth-child(1) .herochip__node,
-.herochip__nodes > g:nth-child(1) .herochip__nodedot { animation-delay: 0s; }
-.herochip__nodes > g:nth-child(2) .herochip__node,
-.herochip__nodes > g:nth-child(2) .herochip__nodedot { animation-delay: -0.45s; }
-.herochip__nodes > g:nth-child(3) .herochip__node,
-.herochip__nodes > g:nth-child(3) .herochip__nodedot { animation-delay: -0.9s; }
-.herochip__nodes > g:nth-child(4) .herochip__node,
-.herochip__nodes > g:nth-child(4) .herochip__nodedot { animation-delay: -1.35s; }
-.herochip__nodes > g:nth-child(5) .herochip__node,
-.herochip__nodes > g:nth-child(5) .herochip__nodedot { animation-delay: -1.8s; }
-.herochip__nodes > g:nth-child(6) .herochip__node,
-.herochip__nodes > g:nth-child(6) .herochip__nodedot { animation-delay: -2.25s; }
-.herochip__nodes > g:nth-child(7) .herochip__node,
-.herochip__nodes > g:nth-child(7) .herochip__nodedot { animation-delay: -2.7s; }
-.herochip__nodes > g:nth-child(8) .herochip__node,
-.herochip__nodes > g:nth-child(8) .herochip__nodedot { animation-delay: -3.15s; }
-
-/* chip core gently breathes */
-.herochip__corehalo {
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  animation: herochipCore 4.4s ease-in-out infinite;
-  filter: drop-shadow(0 0 16px rgba(43, 130, 240, 0.6));
-}
-
-.herochip__coredot {
-  animation: herochipNodeDot 2.6s ease-in-out infinite;
-}
-
-@keyframes herochipCore {
-  0%, 100% { opacity: 0.85; transform: scale(1); }
-  50%      { opacity: 1;    transform: scale(1.08); }
-}
-
-.herochip__chip {
-  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.55));
-}
-
-.herochip__brand {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 7px;
-  letter-spacing: 0.32em;
-  fill: rgba(140, 200, 255, 0.5);
 }
 .hero__inner {
   position: relative;
