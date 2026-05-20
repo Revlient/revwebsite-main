@@ -1822,12 +1822,57 @@ html.js .reveal.is-visible {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  min-height: 80vh;
-  min-height: 80svh;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
-  padding-block: clamp(3rem, 2rem + 4vw, 5rem);
+  padding-block: clamp(2.5rem, 2rem + 3vw, 4rem);
   background: var(--bg);
+}
+
+/* chatting mode: section becomes a full-screen chat surface — the
+   inner stretches to full height, the .aichat thread fills the
+   middle (scrollable), and the prompt box sticks to the bottom */
+.aiprompt.is-chatting {
+  /* lock to viewport height so the thread overflow stays inside the
+     section instead of pushing the section taller as messages grow */
+  height: 100vh;
+  height: 100svh;
+  max-height: 100vh;
+  max-height: 100svh;
+  flex-direction: column;
+  align-items: stretch;
+  padding-top: clamp(4.5rem, 3.5rem + 2vw, 5.5rem); /* room under nav */
+}
+
+.aiprompt.is-chatting .aiprompt__inner {
+  flex: 1;
+  min-height: 0;
+  text-align: left;
+  align-items: stretch;
+}
+
+.aiprompt.is-chatting .aiprompt__box {
+  margin-top: 0;
+  flex: 1;
+  width: 100%;
+  max-width: 860px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.aiprompt.is-chatting .aichat {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.aiprompt.is-chatting .aichat__thread {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
 }
 
 /* ---- Chat-section backdrop: right-side blue beam flowing top->down ---- */

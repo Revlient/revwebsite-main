@@ -7,7 +7,7 @@ import { botReply } from "../lib/chatbot";
 // Inline chat for the prompt section. The conversation happens right
 // here — the message is answered in place, it does not open the
 // floating contact widget. Same shared rule-based bot.
-export default function AiChat() {
+export default function AiChat({ onChattingChange }) {
   const [messages, setMessages] = useState([]);
   const threadRef = useRef(null);
 
@@ -16,6 +16,13 @@ export default function AiChat() {
       threadRef.current.scrollTop = threadRef.current.scrollHeight;
     }
   }, [messages]);
+
+  // Bubble the active state up so the section can switch into its
+  // full-screen chat layout (prompt pinned to the bottom, thread
+  // expands to fill, messages scroll inside the thread).
+  useEffect(() => {
+    if (onChattingChange) onChattingChange(messages.length > 0);
+  }, [messages.length, onChattingChange]);
 
   const handleSend = (message) => {
     const value = (message || "").trim();
