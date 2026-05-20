@@ -1953,7 +1953,7 @@ html.js .reveal.is-visible {
   50%      { transform: translateX(-50%) scale(1.08); opacity: 1; }
 }
 
-/* flared funnel — narrow column at the top, curving outward to a
+/* flared funnel — wider neck at the top, curving outward to a
    wide base. Many polygon points approximate the smooth side curve */
 .chatbd__tornado {
   top: 2%;
@@ -1962,9 +1962,9 @@ html.js .reveal.is-visible {
   width: clamp(440px, 48vw, 780px);
   transform: translateX(-50%);
   clip-path: polygon(
-    47% 0%, 53% 0%,
-    54% 12%, 58% 28%, 64% 46%, 72% 64%, 82% 82%, 92% 94%, 96% 100%,
-    4% 100%, 8% 94%, 18% 82%, 28% 64%, 36% 46%, 42% 28%, 46% 12%
+    36% 0%, 64% 0%,
+    62% 14%, 64% 30%, 68% 48%, 74% 64%, 82% 80%, 91% 92%, 96% 100%,
+    4% 100%, 9% 92%, 18% 80%, 26% 64%, 32% 48%, 36% 30%, 38% 14%
   );
   overflow: hidden;
 }
@@ -2023,6 +2023,34 @@ html.js .reveal.is-visible {
     0 0 60px rgba(110, 170, 255, 0.7),
     0 0 130px rgba(70, 140, 240, 0.55),
     0 0 230px rgba(50, 110, 220, 0.4);
+}
+
+/* a wide brighter band that continuously travels top -> bottom
+   along the funnel — the visible "light flowing down" effect.
+   Clipped automatically by the .chatbd__tornado parent. */
+.chatbd__flowdown {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  top: 0;
+  height: 36%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(200, 230, 255, 0.55) 35%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(200, 230, 255, 0.55) 65%,
+    transparent 100%
+  );
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  animation: chatbdLightFlow 4.2s linear infinite;
+  will-change: transform;
+}
+
+@keyframes chatbdLightFlow {
+  from { transform: translateY(-110%); }
+  to   { transform: translateY(310%); }
 }
 
 /* floor flare where the funnel lands — spreads into the bottom half */
