@@ -1822,12 +1822,9 @@ html.js .reveal.is-visible {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  min-height: 100vh;
-  min-height: 100svh;
   display: flex;
   align-items: center;
-  padding-block: clamp(3rem, 2rem + 5vw, 6rem);
-  /* Same near-black as the hero/page so the two read as one site. */
+  padding-block: clamp(3rem, 2rem + 4vw, 5rem);
   background: var(--bg);
 }
 
