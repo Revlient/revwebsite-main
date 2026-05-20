@@ -1560,10 +1560,11 @@ html.js .reveal.is-visible {
 /* ---------- Background-music toggle ---------- */
 .musictog {
   position: fixed;
-  bottom: clamp(1rem, 0.5rem + 1.5vw, 2rem);
-  /* sits just to the left of the contact widget (bottom-right) */
-  right: calc(clamp(1rem, 0.5rem + 1.5vw, 2rem) + 60px);
-  z-index: 92;
+  right: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  /* stack directly above the contact widget so we never share
+     pointer-event territory with it */
+  bottom: calc(clamp(1rem, 0.5rem + 1.5vw, 2rem) + 60px);
+  z-index: 96;
   display: inline-flex;
   align-items: center;
   justify-content: center;
