@@ -1816,24 +1816,137 @@ html.js .reveal.is-visible {
   background: var(--bg);
 }
 
-/* Animated ethereal-shadow backdrop (warm) + scrim for text legibility. */
+/* ---- Chat-section backdrop: right-side blue beam flowing top->down ---- */
 .aiprompt__bg {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
+  background: #04050a;
   pointer-events: none;
 }
 
-.aiprompt__bg::after {
-  content: "";
+.aiprompt__bg > * {
   position: absolute;
-  inset: 0;
+  pointer-events: none;
+}
+
+/* wide blue halo around the beam, slowly breathing */
+.chatbd__halo {
+  top: -8%;
+  bottom: -8%;
+  left: 78%;
+  width: 60%;
+  transform: translateX(-50%);
   background: radial-gradient(
-    100% 80% at 50% 42%,
-    rgba(10, 11, 16, 0.72),
-    rgba(10, 11, 16, 0.4) 55%,
-    transparent 85%
+    ellipse 26% 70% at 50% 50%,
+    rgba(80, 145, 255, 0.32),
+    rgba(50, 110, 220, 0.18) 30%,
+    rgba(20, 60, 160, 0.08) 55%,
+    transparent 72%
   );
+  filter: blur(36px);
+  animation: chatbdHaloBreath 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes chatbdHaloBreath {
+  0%, 100% { transform: translateX(-50%) scale(1);    opacity: 0.85; }
+  50%      { transform: translateX(-50%) scale(1.08); opacity: 1; }
+}
+
+/* the bright vertical beam itself, anchored to the right */
+.chatbd__beam {
+  top: -4%;
+  bottom: 14%;
+  left: 78%;
+  width: 9px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(180, 220, 255, 0.85) 8%,
+    rgba(255, 255, 255, 1) 35%,
+    rgba(220, 235, 255, 1) 78%,
+    rgba(140, 195, 255, 0.85) 100%
+  );
+  border-radius: 999px;
+  filter: blur(1px);
+  box-shadow:
+    0 0 18px rgba(180, 220, 255, 0.95),
+    0 0 36px rgba(110, 170, 255, 0.7),
+    0 0 80px rgba(70, 140, 240, 0.55),
+    0 0 150px rgba(50, 110, 220, 0.4),
+    0 0 240px rgba(40, 90, 200, 0.3);
+}
+
+/* a brighter band flowing downward inside/along the beam */
+.chatbd__flow {
+  top: -4%;
+  bottom: 14%;
+  left: 78%;
+  width: 72px;
+  transform: translateX(-50%);
+  background-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(220, 235, 255, 0.55) 50%,
+    transparent 62%,
+    transparent 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 240%;
+  background-position: 0% -110%;
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  animation: chatbdFlowDown 4.2s linear infinite;
+  will-change: background-position;
+}
+
+@keyframes chatbdFlowDown {
+  from { background-position: 0% -110%; }
+  to   { background-position: 0% 220%; }
+}
+
+/* floor flare where the beam lands — spreads into the bottom half */
+.chatbd__floor {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 38%;
+  background: radial-gradient(
+      ellipse 28% 90% at 78% 100%,
+      rgba(220, 235, 255, 0.7),
+      rgba(120, 180, 255, 0.32) 22%,
+      rgba(60, 130, 240, 0.14) 50%,
+      transparent 72%
+    ),
+    radial-gradient(
+      60% 100% at 78% 100%,
+      rgba(50, 110, 220, 0.12),
+      transparent 70%
+    ),
+    linear-gradient(180deg, transparent 0%, rgba(20, 35, 70, 0.25) 80%, rgba(25, 40, 80, 0.45) 100%);
+}
+
+/* left-biased darkening so the centred prompt text stays legible */
+.chatbd__vignette {
+  inset: 0;
+  background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.4) 0%,
+      transparent 22%,
+      transparent 78%,
+      rgba(0, 0, 0, 0.45) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(8, 10, 16, 0.78) 0%,
+      rgba(8, 10, 16, 0.4) 28%,
+      rgba(8, 10, 16, 0.18) 48%,
+      transparent 64%
+    );
 }
 
 .aiprompt__inner {

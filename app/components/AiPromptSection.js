@@ -1,15 +1,13 @@
 import AiChat from "./AiChat";
-import ShaderBackground from "./ShaderBackground";
+import ChatBackdrop from "./ChatBackdrop";
 
-// Full-screen section below the hero. Background is the radiating-line
-// WebGL shader; the dark prompt box reads as a panel on top.
+// Full-screen section below the hero. Background is a vertical blue
+// light beam on the right that flows top-down into a floor flare;
+// the dark prompt box reads as a panel on top.
 export default function AiPromptSection() {
   return (
     <section className="aiprompt" aria-label="Start your brief">
-      <ShaderBackground
-        className="aiprompt__bg"
-        style={{ position: "absolute", inset: 0 }}
-      />
+      <ChatBackdrop />
       <div className="container aiprompt__inner">
         <span className="aiprompt__eyebrow">Tell us what you&apos;re building</span>
         <h2 className="aiprompt__title">
