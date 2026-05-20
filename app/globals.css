@@ -449,6 +449,66 @@ html.js .reveal.is-visible {
   to   { transform: rotate(360deg); }
 }
 
+/* left-to-right current flows — soft warm bands sweeping across the
+   field as if energy were being fed into the torus. Screen-blended
+   so the highlights only add light over the dark areas. */
+.herobd__flow {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.herobd__flowline {
+  position: absolute;
+  left: 0;
+  width: 50vw;
+  height: 90px;
+  background: radial-gradient(
+    50% 100% at 50% 50%,
+    rgba(255, 210, 140, 0.85),
+    rgba(255, 150, 70, 0.32) 45%,
+    transparent 78%
+  );
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  opacity: 0.75;
+  will-change: transform;
+  animation: herobdFlow 9s linear infinite;
+}
+
+.herobd__flowline--1 {
+  top: 40%;
+  width: 52vw;
+  height: 100px;
+  animation-duration: 9s;
+  animation-delay: 0s;
+}
+
+.herobd__flowline--2 {
+  top: 58%;
+  width: 36vw;
+  height: 70px;
+  filter: blur(8px);
+  opacity: 0.6;
+  animation-duration: 11s;
+  animation-delay: -4s;
+}
+
+.herobd__flowline--3 {
+  top: 28%;
+  width: 60vw;
+  height: 120px;
+  filter: blur(14px);
+  opacity: 0.55;
+  animation-duration: 13s;
+  animation-delay: -7s;
+}
+
+@keyframes herobdFlow {
+  from { transform: translateX(-110%); }
+  to   { transform: translateX(220%); }
+}
+
 .herobd__vignette {
   position: absolute;
   inset: 0;
@@ -2832,6 +2892,9 @@ html.js .reveal.is-visible {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+  .herobd__flow {
+    display: none;
   }
   html.js .reveal {
     opacity: 1;
