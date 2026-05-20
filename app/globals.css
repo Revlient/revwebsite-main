@@ -1822,6 +1822,8 @@ html.js .reveal.is-visible {
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  min-height: 80vh;
+  min-height: 80svh;
   display: flex;
   align-items: center;
   padding-block: clamp(3rem, 2rem + 4vw, 5rem);
@@ -1845,19 +1847,19 @@ html.js .reveal.is-visible {
 
 /* wide blue halo around the beam, slowly breathing */
 .chatbd__halo {
-  top: 2%;
-  bottom: -8%;
+  top: 0;
+  bottom: -10%;
   left: 78%;
-  width: 70%;
+  width: 92%;
   transform: translateX(-50%);
   background: radial-gradient(
-    ellipse 34% 70% at 50% 50%,
-    rgba(80, 145, 255, 0.36),
-    rgba(50, 110, 220, 0.2) 30%,
+    ellipse 44% 76% at 50% 48%,
+    rgba(80, 145, 255, 0.42),
+    rgba(50, 110, 220, 0.22) 30%,
     rgba(20, 60, 160, 0.08) 55%,
     transparent 72%
   );
-  filter: blur(42px);
+  filter: blur(56px);
   animation: chatbdHaloBreath 8s ease-in-out infinite;
   will-change: transform, opacity;
 }
@@ -1867,77 +1869,90 @@ html.js .reveal.is-visible {
   50%      { transform: translateX(-50%) scale(1.08); opacity: 1; }
 }
 
-/* the bright vertical beam itself, anchored to the right.
-   wider + softer top fade so it grows in instead of starting hard */
-.chatbd__beam {
-  top: 8%;
-  bottom: 14%;
+/* tornado funnel — wide at top, narrowing toward the base */
+.chatbd__tornado {
+  top: 2%;
+  bottom: 12%;
   left: 78%;
-  width: 18px;
+  width: clamp(360px, 38vw, 620px);
+  transform: translateX(-50%);
+  /* trapezoidal clip — 86%-wide top, 16%-wide bottom */
+  clip-path: polygon(8% 0%, 92% 0%, 58% 100%, 42% 100%);
+  overflow: hidden;
+}
+
+/* rotating conic swirl inside the funnel — gives the spinning look.
+   Sized larger than the funnel so the rotation stays seamless */
+.chatbd__swirl {
+  position: absolute;
+  inset: -30%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(180, 220, 255, 0.45) 0deg,
+    rgba(255, 255, 255, 0.85) 22deg,
+    rgba(150, 200, 255, 0.35) 50deg,
+    rgba(60, 120, 220, 0.15) 90deg,
+    rgba(200, 230, 255, 0.55) 120deg,
+    rgba(255, 255, 255, 0.8) 145deg,
+    rgba(150, 200, 255, 0.32) 175deg,
+    rgba(60, 120, 220, 0.14) 210deg,
+    rgba(200, 230, 255, 0.5) 240deg,
+    rgba(255, 255, 255, 0.78) 265deg,
+    rgba(150, 200, 255, 0.32) 295deg,
+    rgba(60, 120, 220, 0.14) 330deg,
+    rgba(180, 220, 255, 0.45) 360deg
+  );
+  filter: blur(12px);
+  mix-blend-mode: screen;
+  animation: chatbdTornadoSpin 9s linear infinite;
+  will-change: transform;
+}
+
+@keyframes chatbdTornadoSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* bright vertical core down the centre of the funnel */
+.chatbd__core {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 32px;
   transform: translateX(-50%);
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(180, 220, 255, 0.85) 14%,
-    rgba(255, 255, 255, 1) 38%,
-    rgba(220, 235, 255, 1) 78%,
-    rgba(140, 195, 255, 0.85) 100%
+    rgba(180, 220, 255, 0.85) 12%,
+    rgba(255, 255, 255, 1) 40%,
+    rgba(225, 240, 255, 1) 78%,
+    rgba(160, 210, 255, 0.9) 100%
   );
-  border-radius: 999px;
-  filter: blur(2px);
+  filter: blur(3px);
   box-shadow:
-    0 0 24px rgba(180, 220, 255, 0.95),
-    0 0 52px rgba(110, 170, 255, 0.72),
-    0 0 110px rgba(70, 140, 240, 0.58),
-    0 0 190px rgba(50, 110, 220, 0.42),
-    0 0 300px rgba(40, 90, 200, 0.32);
+    0 0 28px rgba(180, 220, 255, 0.95),
+    0 0 60px rgba(110, 170, 255, 0.7),
+    0 0 130px rgba(70, 140, 240, 0.55),
+    0 0 230px rgba(50, 110, 220, 0.4);
 }
 
-/* a brighter band flowing downward inside/along the beam */
-.chatbd__flow {
-  top: 8%;
-  bottom: 14%;
-  left: 78%;
-  width: 140px;
-  transform: translateX(-50%);
-  background-image: linear-gradient(
-    180deg,
-    transparent 0%,
-    transparent 38%,
-    rgba(220, 235, 255, 0.6) 50%,
-    transparent 62%,
-    transparent 100%
-  );
-  background-repeat: no-repeat;
-  background-size: 100% 240%;
-  background-position: 0% -110%;
-  filter: blur(14px);
-  mix-blend-mode: screen;
-  animation: chatbdFlowDown 4.2s linear infinite;
-  will-change: background-position;
-}
-
-@keyframes chatbdFlowDown {
-  from { background-position: 0% -110%; }
-  to   { background-position: 0% 220%; }
-}
-
-/* floor flare where the beam lands — spreads into the bottom half */
+/* floor flare where the funnel lands — spreads into the bottom half */
 .chatbd__floor {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 38%;
+  height: 42%;
   background: radial-gradient(
-      ellipse 28% 90% at 78% 100%,
-      rgba(220, 235, 255, 0.7),
-      rgba(120, 180, 255, 0.32) 22%,
-      rgba(60, 130, 240, 0.14) 50%,
+      ellipse 32% 90% at 78% 100%,
+      rgba(220, 235, 255, 0.78),
+      rgba(120, 180, 255, 0.36) 22%,
+      rgba(60, 130, 240, 0.16) 50%,
       transparent 72%
     ),
     radial-gradient(
-      60% 100% at 78% 100%,
-      rgba(50, 110, 220, 0.12),
+      72% 100% at 78% 100%,
+      rgba(50, 110, 220, 0.14),
       transparent 70%
     ),
     linear-gradient(180deg, transparent 0%, rgba(20, 35, 70, 0.2) 75%, var(--bg) 100%);
@@ -1958,9 +1973,9 @@ html.js .reveal.is-visible {
     ),
     linear-gradient(
       90deg,
-      rgba(8, 10, 16, 0.78) 0%,
-      rgba(8, 10, 16, 0.4) 28%,
-      rgba(8, 10, 16, 0.18) 48%,
+      rgba(8, 10, 16, 0.82) 0%,
+      rgba(8, 10, 16, 0.46) 28%,
+      rgba(8, 10, 16, 0.22) 48%,
       transparent 64%
     );
 }
