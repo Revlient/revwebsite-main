@@ -418,7 +418,10 @@ html.js .reveal.is-visible {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: #020203;
+  /* same base as every other section so the seams disappear; the
+     image is what carries the visual and a bottom-fade vignette
+     blends it into the next section */
+  background: var(--bg);
   pointer-events: none;
   /* shifts the warm-torus image (and the warm shimmer + flow lines
      composited above it) to a brand-blue palette in one place */
@@ -534,12 +537,14 @@ html.js .reveal.is-visible {
 .herobd__vignette {
   position: absolute;
   inset: 0;
+  /* the last vertical stop is the page bg (no alpha) so the image
+     fades cleanly into the next section instead of cutting off */
   background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.35) 0%,
       transparent 18%,
-      transparent 80%,
-      rgba(0, 0, 0, 0.55) 100%
+      transparent 68%,
+      var(--bg) 100%
     ),
     linear-gradient(
       90deg,
@@ -876,8 +881,7 @@ html.js .reveal.is-visible {
 /* ---------- Proof (testimonial) ---------- */
 
 .proof {
-  background: var(--bg-2);
-  border-block: 1px solid var(--line);
+  background: var(--bg);
 }
 
 .proof__quote {
@@ -1435,8 +1439,7 @@ html.js .reveal.is-visible {
 /* ---------- Footer ---------- */
 
 .footer {
-  border-top: 1px solid var(--line);
-  background: var(--bg-2);
+  background: var(--bg);
   padding-block: clamp(3rem, 2rem + 3vw, 4.5rem);
 }
 
@@ -1822,7 +1825,7 @@ html.js .reveal.is-visible {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: #04050a;
+  background: var(--bg);
   pointer-events: none;
 }
 
@@ -1927,18 +1930,20 @@ html.js .reveal.is-visible {
       rgba(50, 110, 220, 0.12),
       transparent 70%
     ),
-    linear-gradient(180deg, transparent 0%, rgba(20, 35, 70, 0.25) 80%, rgba(25, 40, 80, 0.45) 100%);
+    linear-gradient(180deg, transparent 0%, rgba(20, 35, 70, 0.2) 75%, var(--bg) 100%);
 }
 
 /* left-biased darkening so the centred prompt text stays legible */
 .chatbd__vignette {
   inset: 0;
+  /* bottom stop is the page bg so the beam scene blends into the
+     next section instead of cutting off */
   background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.4) 0%,
       transparent 22%,
-      transparent 78%,
-      rgba(0, 0, 0, 0.45) 100%
+      transparent 70%,
+      var(--bg) 100%
     ),
     linear-gradient(
       90deg,
