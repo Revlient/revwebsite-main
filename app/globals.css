@@ -420,6 +420,9 @@ html.js .reveal.is-visible {
   overflow: hidden;
   background: #020203;
   pointer-events: none;
+  /* shifts the warm-torus image (and the warm shimmer + flow lines
+     composited above it) to a brand-blue palette in one place */
+  filter: hue-rotate(200deg) saturate(0.85);
 }
 
 .herobd__image {
