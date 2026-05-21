@@ -2015,6 +2015,31 @@ html.js .reveal.is-visible {
   opacity: 0.95;
 }
 
+/* flow pass — a soft, wide bright wave that travels top -> bottom
+   along each path so the cascade reads as actually falling.
+   Long visible dash + long invisible gap = exactly one wave per
+   cycle; staggered per strand so the whole field is constantly
+   moving without sync. Soft blur + lower opacity = a flowing wave
+   of brightness, not a sharp pulse. */
+.chatbd__strand--flow {
+  fill: none;
+  stroke: url(#chatbdStrand);
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 220 1100;
+  filter: blur(2px)
+          drop-shadow(0 0 6px rgba(180, 220, 255, 0.7));
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  animation: chatbdStrandFlow 6s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+@keyframes chatbdStrandFlow {
+  from { stroke-dashoffset: 1320; }
+  to   { stroke-dashoffset: 0; }
+}
+
 @keyframes chatbdStrandsBreath {
   0%, 100% { opacity: 0.9; }
   50%      { opacity: 1; }
@@ -2047,10 +2072,59 @@ html.js .reveal.is-visible {
 
 /* haze = 10x the base (wide molten outer glow);
    body =  5x  (the molten bulk);
-   core =  0.45x (the sharp bright spine) */
+   core =  0.45x (the sharp bright spine);
+   flow =  3x  (a wider wave that rides through the body) */
 .chatbd__strand--haze { stroke-width: calc(var(--w, 1.6) * 10); }
 .chatbd__strand--body { stroke-width: calc(var(--w, 1.6) * 5); }
 .chatbd__strand--core { stroke-width: calc(var(--w, 1.6) * 0.45); }
+.chatbd__strand--flow { stroke-width: calc(var(--w, 1.6) * 3); }
+
+/* stagger every strand's flow wave so the whole field is
+   constantly moving instead of all strands beating together */
+.chatbd__strand--flow.chatbd__strand--1  { animation-delay:  0s;    animation-duration: 6.4s; }
+.chatbd__strand--flow.chatbd__strand--2  { animation-delay: -0.25s; animation-duration: 5.8s; }
+.chatbd__strand--flow.chatbd__strand--3  { animation-delay: -0.5s;  animation-duration: 6.2s; }
+.chatbd__strand--flow.chatbd__strand--4  { animation-delay: -0.8s;  animation-duration: 5.6s; }
+.chatbd__strand--flow.chatbd__strand--5  { animation-delay: -1.1s;  animation-duration: 6s;   }
+.chatbd__strand--flow.chatbd__strand--6  { animation-delay: -1.4s;  animation-duration: 6.4s; }
+.chatbd__strand--flow.chatbd__strand--7  { animation-delay: -1.7s;  animation-duration: 5.8s; }
+.chatbd__strand--flow.chatbd__strand--8  { animation-delay: -2s;    animation-duration: 6.2s; }
+.chatbd__strand--flow.chatbd__strand--9  { animation-delay: -2.3s;  animation-duration: 5.6s; }
+.chatbd__strand--flow.chatbd__strand--10 { animation-delay: -2.6s;  animation-duration: 6s;   }
+.chatbd__strand--flow.chatbd__strand--11 { animation-delay: -2.9s;  animation-duration: 6.4s; }
+.chatbd__strand--flow.chatbd__strand--12 { animation-delay: -3.2s;  animation-duration: 5.8s; }
+.chatbd__strand--flow.chatbd__strand--13 { animation-delay: -3.5s;  animation-duration: 6.2s; }
+.chatbd__strand--flow.chatbd__strand--14 { animation-delay: -3.8s;  animation-duration: 5.6s; }
+.chatbd__strand--flow.chatbd__strand--15 { animation-delay: -4.1s;  animation-duration: 6s;   }
+.chatbd__strand--flow.chatbd__strand--16 { animation-delay: -4.4s;  animation-duration: 6.4s; }
+.chatbd__strand--flow.chatbd__strand--17 { animation-delay: -4.7s;  animation-duration: 5.8s; }
+.chatbd__strand--flow.chatbd__strand--18 { animation-delay: -5s;    animation-duration: 6.2s; }
+.chatbd__strand--flow.chatbd__strand--19 { animation-delay: -5.3s;  animation-duration: 5.6s; }
+.chatbd__strand--flow.chatbd__strand--20 { animation-delay: -5.6s;  animation-duration: 6s;   }
+.chatbd__strand--flow.chatbd__strand--21 { animation-delay: -0.15s; animation-duration: 6.4s; }
+.chatbd__strand--flow.chatbd__strand--22 { animation-delay: -0.4s;  animation-duration: 5.8s; }
+.chatbd__strand--flow.chatbd__strand--23 { animation-delay: -0.65s; animation-duration: 6.2s; }
+.chatbd__strand--flow.chatbd__strand--24 { animation-delay: -0.9s;  animation-duration: 5.6s; }
+.chatbd__strand--flow.chatbd__strand--25 { animation-delay: -1.15s; animation-duration: 6s;   }
+.chatbd__strand--flow.chatbd__strand--26 { animation-delay: -1.4s;  animation-duration: 6.4s; }
+.chatbd__strand--flow.chatbd__strand--27 { animation-delay: -1.65s; animation-duration: 5.8s; }
+.chatbd__strand--flow.chatbd__strand--28 { animation-delay: -1.9s;  animation-duration: 6.2s; }
+.chatbd__strand--flow.chatbd__strand--29 { animation-delay: -2.15s; animation-duration: 5.6s; }
+.chatbd__strand--flow.chatbd__strand--30 { animation-delay: -2.4s;  animation-duration: 6s;   }
+.chatbd__strand--flow.chatbd__strand--31 { animation-delay: -2.65s; animation-duration: 6.4s; }
+.chatbd__strand--flow.chatbd__strand--32 { animation-delay: -2.9s;  animation-duration: 5.8s; }
+.chatbd__strand--flow.chatbd__strand--33 { animation-delay: -3.15s; animation-duration: 6.2s; }
+.chatbd__strand--flow.chatbd__strand--34 { animation-delay: -3.4s;  animation-duration: 5.6s; }
+.chatbd__strand--flow.chatbd__strand--35 { animation-delay: -3.65s; animation-duration: 6s;   }
+.chatbd__strand--flow.chatbd__strand--36 { animation-delay: -3.9s;  animation-duration: 6.4s; }
+.chatbd__strand--flow.chatbd__strand--37 { animation-delay: -4.15s; animation-duration: 5.8s; }
+.chatbd__strand--flow.chatbd__strand--38 { animation-delay: -4.4s;  animation-duration: 6.2s; }
+.chatbd__strand--flow.chatbd__strand--39 { animation-delay: -4.65s; animation-duration: 5.6s; }
+.chatbd__strand--flow.chatbd__strand--40 { animation-delay: -4.9s;  animation-duration: 6s;   }
+.chatbd__strand--flow.chatbd__strand--41 { animation-delay: -5.15s; animation-duration: 6.4s; }
+.chatbd__strand--flow.chatbd__strand--42 { animation-delay: -5.4s;  animation-duration: 5.8s; }
+.chatbd__strand--flow.chatbd__strand--43 { animation-delay: -5.65s; animation-duration: 6.2s; }
+.chatbd__strand--flow.chatbd__strand--44 { animation-delay: -5.9s;  animation-duration: 5.6s; }
 
 /* bright central pillar — dim at the top, brightest near the base */
 .chatbd__pillar {
