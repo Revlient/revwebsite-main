@@ -12,17 +12,18 @@ import { SYSTEMS_URL } from "../lib/site";
    Path coords are tuned for a 1400x600 viewBox so they meet each
    card's inner edge cleanly under preserveAspectRatio="xMidYMid
    meet". Node dots terminate at the card endpoints. */
-// Path start x's moved outboard (580 / 820) so they emerge cleanly
-// from outside the central chip body instead of clipping into it.
+// Path start x's at 620/780 — 80vbu from the orb centre at 700,
+// matching the orb's outer rim so traces emerge cleanly from
+// the glow halo.
 const NODES = [
   // tl
-  { d: "M 580 254 L 410 254 L 410 168", end: [410, 168] },
+  { d: "M 620 254 L 410 254 L 410 168", end: [410, 168] },
   // tr
-  { d: "M 820 254 L 990 254 L 990 168", end: [990, 168] },
+  { d: "M 780 254 L 990 254 L 990 168", end: [990, 168] },
   // bl
-  { d: "M 580 346 L 410 346 L 410 432", end: [410, 432] },
+  { d: "M 620 346 L 410 346 L 410 432", end: [410, 432] },
   // br
-  { d: "M 820 346 L 990 346 L 990 432", end: [990, 432] },
+  { d: "M 780 346 L 990 346 L 990 432", end: [990, 432] },
 ];
 
 function Preview({ kind }) {
@@ -142,13 +143,13 @@ export default function Services() {
                   <circle
                     cx={n.end[0]}
                     cy={n.end[1]}
-                    r="13"
+                    r="9"
                     className="svc-eco__nodering"
                   />
                   <circle
                     cx={n.end[0]}
                     cy={n.end[1]}
-                    r="5"
+                    r="3.4"
                     className="svc-eco__nodedot"
                   />
                 </g>
@@ -156,20 +157,14 @@ export default function Services() {
             </g>
           </svg>
 
-          <div className="svc-chip" aria-hidden="true">
-            <span className="svc-chip__pins svc-chip__pins--top" />
-            <span className="svc-chip__pins svc-chip__pins--bottom" />
-            <span className="svc-chip__pins svc-chip__pins--left" />
-            <span className="svc-chip__pins svc-chip__pins--right" />
-            <span className="svc-chip__body">
-              <span className="svc-chip__die">
-                <span className="svc-chip__core" />
-                <span className="svc-chip__brand">REVLIENT</span>
-              </span>
-              <span className="svc-chip__sheen" />
-            </span>
+          <div className="svc-orb" aria-hidden="true">
+            <span className="svc-orb__ring svc-orb__ring--3" />
+            <span className="svc-orb__ring svc-orb__ring--2" />
+            <span className="svc-orb__ring svc-orb__ring--1" />
+            <span className="svc-orb__plasma" />
+            <span className="svc-orb__core" />
           </div>
-          <span className="svc-chip__label" aria-hidden="true">
+          <span className="svc-orb__label" aria-hidden="true">
             <span>Revlient</span>
             <span>Intelligence Core</span>
           </span>
