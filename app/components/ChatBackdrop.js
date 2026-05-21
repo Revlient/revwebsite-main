@@ -39,12 +39,20 @@ export default function ChatBackdrop() {
               <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
             </linearGradient>
           </defs>
-          {/* molten "lava" streams. Each strand is drawn twice on
-             the same path: a thick blurred "body" of glowing fluid
-             and a thinner sharp bright "core" running through it,
-             so the strand reads as flowing molten matter, not a
-             line. */}
+          {/* molten "lava" streams. Each strand is drawn three times
+             on the same path: a very wide soft "haze" (outer glow
+             halo of the lava), a thick blurred "body" of glowing
+             fluid, and a thin sharp bright "core" running through
+             it. The heavy blurs make adjacent strands merge into
+             one molten mass instead of reading as parallel lines. */}
           <g className="chatbd__strands">
+            {STRANDS.map((d, i) => (
+              <path
+                key={`h${i}`}
+                d={d}
+                className={`chatbd__strand chatbd__strand--haze chatbd__strand--${i + 1}`}
+              />
+            ))}
             {STRANDS.map((d, i) => (
               <path
                 key={`b${i}`}

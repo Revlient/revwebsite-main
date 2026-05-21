@@ -1981,16 +1981,28 @@ html.js .reveal.is-visible {
   animation: chatbdStrandsBreath 6.5s ease-in-out infinite;
 }
 
+/* outer haze — very wide, very soft halo of glowing molten fluid;
+   adjacent strands' hazes overlap and merge into a single bright
+   mass so the cascade reads as continuous lava, not parallel lines */
+.chatbd__strand--haze {
+  fill: none;
+  stroke: url(#chatbdStrand);
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  filter: blur(9px);
+  opacity: 0.55;
+}
+
 /* "molten" body — thick blurred stream of glowing blue fluid */
 .chatbd__strand--body {
   fill: none;
   stroke: url(#chatbdStrand);
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
-  filter: blur(2.5px)
+  filter: blur(3.5px)
           drop-shadow(0 0 6px rgba(150, 200, 255, 0.7))
-          drop-shadow(0 0 16px rgba(80, 140, 240, 0.4));
-  opacity: 0.85;
+          drop-shadow(0 0 18px rgba(80, 140, 240, 0.42));
+  opacity: 0.9;
 }
 
 /* inner core — thin sharp bright spine running through the body */
@@ -2033,9 +2045,12 @@ html.js .reveal.is-visible {
 .chatbd__strand--21, .chatbd__strand--24 { --w: 2.4; }
 .chatbd__strand--22, .chatbd__strand--23 { --w: 2.3; }
 
-/* body = 4x the base; core = 0.5x */
-.chatbd__strand--body { stroke-width: calc(var(--w, 1.6) * 4); }
-.chatbd__strand--core { stroke-width: calc(var(--w, 1.6) * 0.5); }
+/* haze = 10x the base (wide molten outer glow);
+   body =  5x  (the molten bulk);
+   core =  0.45x (the sharp bright spine) */
+.chatbd__strand--haze { stroke-width: calc(var(--w, 1.6) * 10); }
+.chatbd__strand--body { stroke-width: calc(var(--w, 1.6) * 5); }
+.chatbd__strand--core { stroke-width: calc(var(--w, 1.6) * 0.45); }
 
 /* bright central pillar — dim at the top, brightest near the base */
 .chatbd__pillar {
