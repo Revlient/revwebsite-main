@@ -1929,306 +1929,42 @@ html.js .reveal.is-visible {
   pointer-events: none;
 }
 
-/* wide blue halo around the beam, slowly breathing */
-.chatbd__halo {
-  top: 0;
-  bottom: -10%;
-  left: 50%;
-  width: 90%;
-  transform: translateX(-50%);
-  background: radial-gradient(
-    ellipse 38% 74% at 50% 56%,
-    rgba(80, 145, 255, 0.42),
-    rgba(50, 110, 220, 0.22) 30%,
-    rgba(20, 60, 160, 0.08) 55%,
-    transparent 72%
-  );
-  filter: blur(60px);
-  animation: chatbdHaloBreath 8s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-@keyframes chatbdHaloBreath {
-  0%, 100% { transform: translateX(-50%) scale(1);    opacity: 0.85; }
-  50%      { transform: translateX(-50%) scale(1.06); opacity: 1; }
-}
-
-/* cascade container — centred horizontally, holds the SVG strands
-   + the bright central pillar */
-.chatbd__cascade {
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: clamp(560px, 70vw, 1100px);
-  transform: translateX(-50%);
-  overflow: hidden;
-}
-
-.chatbd__svg {
+/* video-backed chat backdrop */
+.chatbd__video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  display: block;
-  overflow: visible;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
 }
 
-/* curved strands — narrow cluster at top, fanning to a wide base.
-   Smooth continuous strokes: the linear gradient along each path
-   carries the brightness flow without any dashes, and a very
-   gentle group-level opacity breath gives quiet life. */
-.chatbd__strands {
-  animation: chatbdStrandsBreath 6.5s ease-in-out infinite;
-}
-
-/* outer haze — very wide, very soft halo of glowing molten fluid;
-   adjacent strands' hazes overlap and merge into a single bright
-   mass so the cascade reads as continuous lava, not parallel lines */
-.chatbd__strand--haze {
-  fill: none;
-  stroke: url(#chatbdStrand);
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-  filter: blur(9px);
-  opacity: 0.55;
-}
-
-/* "molten" body — thick blurred stream of glowing blue fluid */
-.chatbd__strand--body {
-  fill: none;
-  stroke: url(#chatbdStrand);
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-  filter: blur(3.5px)
-          drop-shadow(0 0 6px rgba(150, 200, 255, 0.7))
-          drop-shadow(0 0 18px rgba(80, 140, 240, 0.42));
-  opacity: 0.9;
-}
-
-/* inner core — thin sharp bright spine running through the body */
-.chatbd__strand--core {
-  fill: none;
-  stroke: url(#chatbdStrand);
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-  filter: drop-shadow(0 0 2px rgba(220, 235, 255, 0.9));
-  opacity: 0.95;
-}
-
-/* flow pass — a soft, wide bright wave that travels top -> bottom
-   along each path so the cascade reads as actually falling.
-   Long visible dash + long invisible gap = exactly one wave per
-   cycle; staggered per strand so the whole field is constantly
-   moving without sync. Soft blur + lower opacity = a flowing wave
-   of brightness, not a sharp pulse. */
-.chatbd__strand--flow {
-  fill: none;
-  stroke: url(#chatbdStrand);
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-  stroke-dasharray: 220 1100;
-  filter: blur(2px)
-          drop-shadow(0 0 6px rgba(180, 220, 255, 0.7));
-  opacity: 0.7;
-  mix-blend-mode: screen;
-  animation: chatbdStrandFlow 6s linear infinite;
-  will-change: stroke-dashoffset;
-}
-
-@keyframes chatbdStrandFlow {
-  from { stroke-dashoffset: 1320; }
-  to   { stroke-dashoffset: 0; }
-}
-
-@keyframes chatbdStrandsBreath {
-  0%, 100% { opacity: 0.9; }
-  50%      { opacity: 1; }
-}
-
-/* per-strand base width (--w) — body and core compute different
-   widths from it. Centre strands thick, outer strands thin. */
-.chatbd__strand--1,  .chatbd__strand--44 { --w: 0.9; }
-.chatbd__strand--2,  .chatbd__strand--43 { --w: 1;   }
-.chatbd__strand--3,  .chatbd__strand--42 { --w: 1.1; }
-.chatbd__strand--4,  .chatbd__strand--41 { --w: 1.2; }
-.chatbd__strand--5,  .chatbd__strand--40 { --w: 1.3; }
-.chatbd__strand--6,  .chatbd__strand--39 { --w: 1.4; }
-.chatbd__strand--7,  .chatbd__strand--38 { --w: 1.5; }
-.chatbd__strand--8,  .chatbd__strand--37 { --w: 1.6; }
-.chatbd__strand--9,  .chatbd__strand--36 { --w: 1.7; }
-.chatbd__strand--10, .chatbd__strand--35 { --w: 1.8; }
-.chatbd__strand--11, .chatbd__strand--34 { --w: 1.9; }
-.chatbd__strand--12, .chatbd__strand--33 { --w: 2;   }
-.chatbd__strand--13, .chatbd__strand--32 { --w: 2.1; }
-.chatbd__strand--14, .chatbd__strand--31 { --w: 2.2; }
-.chatbd__strand--15, .chatbd__strand--30 { --w: 2.3; }
-.chatbd__strand--16, .chatbd__strand--29 { --w: 2.4; }
-.chatbd__strand--17, .chatbd__strand--28 { --w: 2.5; }
-.chatbd__strand--18, .chatbd__strand--27 { --w: 2.6; }
-.chatbd__strand--19, .chatbd__strand--26 { --w: 2.6; }
-.chatbd__strand--20, .chatbd__strand--25 { --w: 2.5; }
-.chatbd__strand--21, .chatbd__strand--24 { --w: 2.4; }
-.chatbd__strand--22, .chatbd__strand--23 { --w: 2.3; }
-
-/* haze = 10x the base (wide molten outer glow);
-   body =  5x  (the molten bulk);
-   core =  0.45x (the sharp bright spine);
-   flow =  3x  (a wider wave that rides through the body) */
-.chatbd__strand--haze { stroke-width: calc(var(--w, 1.6) * 10); }
-.chatbd__strand--body { stroke-width: calc(var(--w, 1.6) * 5); }
-.chatbd__strand--core { stroke-width: calc(var(--w, 1.6) * 0.45); }
-.chatbd__strand--flow { stroke-width: calc(var(--w, 1.6) * 3); }
-
-/* stagger every strand's flow wave so the whole field is
-   constantly moving instead of all strands beating together */
-.chatbd__strand--flow.chatbd__strand--1  { animation-delay:  0s;    animation-duration: 6.4s; }
-.chatbd__strand--flow.chatbd__strand--2  { animation-delay: -0.25s; animation-duration: 5.8s; }
-.chatbd__strand--flow.chatbd__strand--3  { animation-delay: -0.5s;  animation-duration: 6.2s; }
-.chatbd__strand--flow.chatbd__strand--4  { animation-delay: -0.8s;  animation-duration: 5.6s; }
-.chatbd__strand--flow.chatbd__strand--5  { animation-delay: -1.1s;  animation-duration: 6s;   }
-.chatbd__strand--flow.chatbd__strand--6  { animation-delay: -1.4s;  animation-duration: 6.4s; }
-.chatbd__strand--flow.chatbd__strand--7  { animation-delay: -1.7s;  animation-duration: 5.8s; }
-.chatbd__strand--flow.chatbd__strand--8  { animation-delay: -2s;    animation-duration: 6.2s; }
-.chatbd__strand--flow.chatbd__strand--9  { animation-delay: -2.3s;  animation-duration: 5.6s; }
-.chatbd__strand--flow.chatbd__strand--10 { animation-delay: -2.6s;  animation-duration: 6s;   }
-.chatbd__strand--flow.chatbd__strand--11 { animation-delay: -2.9s;  animation-duration: 6.4s; }
-.chatbd__strand--flow.chatbd__strand--12 { animation-delay: -3.2s;  animation-duration: 5.8s; }
-.chatbd__strand--flow.chatbd__strand--13 { animation-delay: -3.5s;  animation-duration: 6.2s; }
-.chatbd__strand--flow.chatbd__strand--14 { animation-delay: -3.8s;  animation-duration: 5.6s; }
-.chatbd__strand--flow.chatbd__strand--15 { animation-delay: -4.1s;  animation-duration: 6s;   }
-.chatbd__strand--flow.chatbd__strand--16 { animation-delay: -4.4s;  animation-duration: 6.4s; }
-.chatbd__strand--flow.chatbd__strand--17 { animation-delay: -4.7s;  animation-duration: 5.8s; }
-.chatbd__strand--flow.chatbd__strand--18 { animation-delay: -5s;    animation-duration: 6.2s; }
-.chatbd__strand--flow.chatbd__strand--19 { animation-delay: -5.3s;  animation-duration: 5.6s; }
-.chatbd__strand--flow.chatbd__strand--20 { animation-delay: -5.6s;  animation-duration: 6s;   }
-.chatbd__strand--flow.chatbd__strand--21 { animation-delay: -0.15s; animation-duration: 6.4s; }
-.chatbd__strand--flow.chatbd__strand--22 { animation-delay: -0.4s;  animation-duration: 5.8s; }
-.chatbd__strand--flow.chatbd__strand--23 { animation-delay: -0.65s; animation-duration: 6.2s; }
-.chatbd__strand--flow.chatbd__strand--24 { animation-delay: -0.9s;  animation-duration: 5.6s; }
-.chatbd__strand--flow.chatbd__strand--25 { animation-delay: -1.15s; animation-duration: 6s;   }
-.chatbd__strand--flow.chatbd__strand--26 { animation-delay: -1.4s;  animation-duration: 6.4s; }
-.chatbd__strand--flow.chatbd__strand--27 { animation-delay: -1.65s; animation-duration: 5.8s; }
-.chatbd__strand--flow.chatbd__strand--28 { animation-delay: -1.9s;  animation-duration: 6.2s; }
-.chatbd__strand--flow.chatbd__strand--29 { animation-delay: -2.15s; animation-duration: 5.6s; }
-.chatbd__strand--flow.chatbd__strand--30 { animation-delay: -2.4s;  animation-duration: 6s;   }
-.chatbd__strand--flow.chatbd__strand--31 { animation-delay: -2.65s; animation-duration: 6.4s; }
-.chatbd__strand--flow.chatbd__strand--32 { animation-delay: -2.9s;  animation-duration: 5.8s; }
-.chatbd__strand--flow.chatbd__strand--33 { animation-delay: -3.15s; animation-duration: 6.2s; }
-.chatbd__strand--flow.chatbd__strand--34 { animation-delay: -3.4s;  animation-duration: 5.6s; }
-.chatbd__strand--flow.chatbd__strand--35 { animation-delay: -3.65s; animation-duration: 6s;   }
-.chatbd__strand--flow.chatbd__strand--36 { animation-delay: -3.9s;  animation-duration: 6.4s; }
-.chatbd__strand--flow.chatbd__strand--37 { animation-delay: -4.15s; animation-duration: 5.8s; }
-.chatbd__strand--flow.chatbd__strand--38 { animation-delay: -4.4s;  animation-duration: 6.2s; }
-.chatbd__strand--flow.chatbd__strand--39 { animation-delay: -4.65s; animation-duration: 5.6s; }
-.chatbd__strand--flow.chatbd__strand--40 { animation-delay: -4.9s;  animation-duration: 6s;   }
-.chatbd__strand--flow.chatbd__strand--41 { animation-delay: -5.15s; animation-duration: 6.4s; }
-.chatbd__strand--flow.chatbd__strand--42 { animation-delay: -5.4s;  animation-duration: 5.8s; }
-.chatbd__strand--flow.chatbd__strand--43 { animation-delay: -5.65s; animation-duration: 6.2s; }
-.chatbd__strand--flow.chatbd__strand--44 { animation-delay: -5.9s;  animation-duration: 5.6s; }
-
-/* bright central pillar — dim at the top, brightest near the base */
-.chatbd__pillar {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: clamp(80px, 9vw, 140px);
-  transform: translateX(-50%);
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(130, 190, 255, 0.16) 18%,
-    rgba(180, 220, 255, 0.48) 42%,
-    rgba(225, 240, 255, 0.92) 70%,
-    rgba(240, 248, 255, 1) 92%,
-    transparent 100%
-  );
-  filter: blur(10px);
-  box-shadow:
-    0 0 36px rgba(190, 225, 255, 0.85),
-    0 0 90px rgba(110, 170, 255, 0.6),
-    0 0 180px rgba(70, 140, 240, 0.45),
-    0 0 320px rgba(50, 110, 220, 0.3);
-}
-
-/* thin almost-white core, also brightest near the base */
-.chatbd__pillarCore {
-  position: absolute;
-  left: 50%;
-  top: 6%;
-  bottom: 6%;
-  width: clamp(10px, 1.2vw, 18px);
-  transform: translateX(-50%);
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.45) 22%,
-    rgba(255, 255, 255, 0.95) 56%,
-    rgba(255, 255, 255, 1) 88%,
-    transparent 100%
-  );
-  filter: blur(1.5px);
-  box-shadow: 0 0 22px rgba(220, 235, 255, 1);
-}
-
-/* molten floor pool — white-hot landing centre, ring of orange and
-   deep-red ground glow */
-.chatbd__floor {
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 46%;
-  background:
-    /* the white-hot landing pool */
-    radial-gradient(
-      ellipse 32% 90% at 50% 100%,
-      rgba(255, 245, 200, 0.92),
-      rgba(255, 175, 70, 0.5) 18%,
-      rgba(220, 70, 20, 0.28) 42%,
-      transparent 72%
-    ),
-    /* a wider, dimmer red-orange wash around it */
-    radial-gradient(
-      ellipse 78% 100% at 50% 100%,
-      rgba(160, 35, 10, 0.22),
-      transparent 70%
-    ),
-    /* faint horizontal "ground" sheen — embers along the very floor */
-    repeating-linear-gradient(
-      90deg,
-      transparent 0,
-      transparent 8px,
-      rgba(255, 180, 90, 0.06) 9px,
-      transparent 10px
-    ),
-    linear-gradient(
-      180deg,
-      transparent 0%,
-      rgba(60, 18, 6, 0.22) 70%,
-      var(--bg) 100%
-    );
-}
-
-/* lighter, centred darkening — keeps the prompt text legible
-   directly over the bright pillar without killing the column */
+/* edge fade + slight left darkening keeps the centred prompt
+   text legible no matter what the video frame shows */
 .chatbd__vignette {
+  position: absolute;
   inset: 0;
+  pointer-events: none;
   background:
+    /* top + bottom fade into the page bg so the section joins
+       seamlessly to whatever sits above and below */
     linear-gradient(
       180deg,
       var(--bg) 0%,
-      var(--bg) 6%,
+      var(--bg) 4%,
       transparent 18%,
-      transparent 70%,
+      transparent 78%,
       var(--bg) 100%
     ),
-    /* soft dark wash at the prompt's mid-section so the heading
-       and chat input stay readable in front of the column */
-    radial-gradient(
-      ellipse 36% 28% at 50% 40%,
-      rgba(8, 10, 16, 0.62),
-      rgba(8, 10, 16, 0.32) 50%,
-      transparent 80%
+    /* soft left bias so the chat heading + prompt box have a
+       darker surface to sit against */
+    linear-gradient(
+      90deg,
+      rgba(8, 10, 16, 0.55) 0%,
+      rgba(8, 10, 16, 0.22) 32%,
+      transparent 60%
     );
 }
 
