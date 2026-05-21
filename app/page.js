@@ -26,11 +26,11 @@ export default function HomePage() {
         <AiPromptSection />
         <ShowcaseCards />
         <ProcessTimeline />
+        <Services />
         <Testimonials />
         <WhyRevlient />
         <Work />
         <Proof />
-        <Services />
         <FinalCTA />
       </main>
       <Footer />
