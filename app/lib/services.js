@@ -1,15 +1,18 @@
 // The four core services. Shared by the homepage Services section and
-// the per-service detail routes (/services/<slug>) so the name, summary
-// and capability list stay in one place. Framed as the outcome the
-// client gets — not the framework we happen to use.
+// the per-service detail routes (/services/<slug>). Order matters —
+// the homepage ecosystem renders them at positions tl/tr/bl/br
+// (top-left / top-right / bottom-left / bottom-right) around the
+// central Intelligence Core.
 
 export const SERVICES = [
   {
-    slug: "website-development",
+    slug: "web-development",
+    pos: "tl",
     icon: "web",
-    title: "Website Development",
+    preview: "browser",
+    title: "Web Development",
     summary:
-      "High-end marketing and brand sites — 3D-grade visuals, fast on every device, engineered to convert and to last.",
+      "Custom high-performance websites and platforms built for scale.",
     capabilities: [
       "Brand & marketing sites",
       "3D / WebGL experiences",
@@ -17,39 +20,45 @@ export const SERVICES = [
     ],
   },
   {
-    slug: "application-development",
-    icon: "app",
-    title: "Application Development",
+    slug: "branding-ux",
+    pos: "tr",
+    icon: "brand",
+    preview: "swatch",
+    title: "Branding & UI/UX",
     summary:
-      "Web and mobile products built around the job to be done — quick to learn, quietly powerful, ready to scale with you.",
+      "Premium visual identity and conversion-focused interface systems.",
     capabilities: [
-      "Web applications",
-      "Mobile applications",
-      "UX & product design",
+      "Visual identity",
+      "Product UI / UX",
+      "Design systems",
     ],
   },
   {
-    slug: "software-development",
-    icon: "code",
-    title: "Software Development",
+    slug: "seo-growth",
+    pos: "bl",
+    icon: "growth",
+    preview: "chart",
+    title: "SEO & Growth",
     summary:
-      "Custom software and platforms shaped around how your business actually works — from APIs to the tools your team lives in.",
+      "Search optimization and growth strategies for visibility and lead generation.",
     capabilities: [
-      "Custom platforms",
-      "APIs & integrations",
-      "Internal tools",
+      "Technical SEO",
+      "Content & keywords",
+      "Lead funnels",
     ],
   },
   {
-    slug: "automation-systems",
-    icon: "automation",
-    title: "Automation Systems",
+    slug: "ai-automation",
+    pos: "br",
+    icon: "ai",
+    preview: "flow",
+    title: "AI Automation",
     summary:
-      "The repetitive glue between your tools, quietly handled — so your people spend their hours on judgement, not busywork.",
+      "Intelligent workflows, AI integrations, and business automation systems.",
     capabilities: [
       "Workflow automation",
+      "AI integrations",
       "Process & ops",
-      "Tool integrations",
     ],
   },
 ];
