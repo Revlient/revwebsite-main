@@ -32,11 +32,12 @@ export default function ChatBackdrop() {
         >
           <defs>
             <linearGradient id="chatbdStrand" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stopColor="rgba(140, 195, 255, 0)" />
-              <stop offset="22%"  stopColor="rgba(150, 200, 255, 0.55)" />
-              <stop offset="60%"  stopColor="rgba(220, 235, 255, 0.95)" />
-              <stop offset="92%"  stopColor="rgba(255, 255, 255, 1)" />
-              <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
+              <stop offset="0%"   stopColor="rgba(255, 160, 50, 0)" />
+              <stop offset="22%"  stopColor="rgba(255, 130, 30, 0.55)" />
+              <stop offset="55%"  stopColor="rgba(255, 170, 60, 0.92)" />
+              <stop offset="82%"  stopColor="rgba(255, 220, 130, 1)" />
+              <stop offset="95%"  stopColor="rgba(255, 245, 200, 1)" />
+              <stop offset="100%" stopColor="rgba(255, 245, 200, 0)" />
             </linearGradient>
           </defs>
           {/* smooth, continuous strands (visual structure) */}
