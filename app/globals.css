@@ -1048,7 +1048,7 @@ html.js .reveal.is-visible {
 
 .svc-eco__trace {
   fill: none;
-  stroke: rgba(56, 189, 248, 0.22);
+  stroke: rgba(120, 165, 255, 0.28);
   stroke-width: 1.4;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -1056,16 +1056,17 @@ html.js .reveal.is-visible {
 
 /* small slow spark — one short bright dash drifting along each
    path, with a long invisible gap so only one spark is visible
-   per loop. Calmer than the previous chunky pulse. */
+   per loop. White-hot core with a brand-blue + soft rose glow */
 .svc-eco__pulse {
   fill: none;
-  stroke: rgba(220, 240, 255, 1);
+  stroke: rgba(225, 240, 255, 1);
   stroke-width: 2.2;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 6 600;
-  filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.95))
-    drop-shadow(0 0 10px rgba(56, 189, 248, 0.55));
+  filter: drop-shadow(0 0 4px rgba(160, 200, 255, 1))
+    drop-shadow(0 0 11px rgba(74, 120, 255, 0.7))
+    drop-shadow(0 0 22px rgba(244, 63, 94, 0.32));
   animation: svcEcoPulse 5.6s linear infinite;
 }
 
@@ -1082,25 +1083,25 @@ html.js .reveal.is-visible {
 
 .svc-eco__nodering {
   fill: rgba(8, 13, 24, 0.92);
-  stroke: rgba(34, 211, 238, 0.55);
+  stroke: rgba(140, 180, 255, 0.6);
   stroke-width: 1.4;
-  filter: drop-shadow(0 0 5px rgba(34, 211, 238, 0.4));
+  filter: drop-shadow(0 0 5px rgba(74, 120, 255, 0.5));
   animation: svcEcoNode 5.6s ease-in-out infinite;
 }
 
 .svc-eco__nodedot {
-  fill: rgba(200, 240, 255, 0.95);
+  fill: rgba(220, 235, 255, 0.95);
   animation: svcEcoNode 5.6s ease-in-out infinite;
 }
 
 @keyframes svcEcoNode {
   0%, 100% {
-    stroke-opacity: 0.45;
-    filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.4));
+    stroke-opacity: 0.4;
+    filter: drop-shadow(0 0 4px rgba(74, 120, 255, 0.4));
   }
   50% {
     stroke-opacity: 1;
-    filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.95));
+    filter: drop-shadow(0 0 14px rgba(140, 180, 255, 0.95));
   }
 }
 
@@ -1109,90 +1110,95 @@ html.js .reveal.is-visible {
 .svc-eco__nodes > g:nth-child(3) circle { animation-delay: -2.8s; }
 .svc-eco__nodes > g:nth-child(4) circle { animation-delay: -4.2s; }
 
-/* ---- central orb ---- */
-.svc-orb {
+/* ---- central wireframe globe ---- */
+.svc-globe {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(170px, 18vw, 240px);
+  width: clamp(190px, 20vw, 260px);
   aspect-ratio: 1;
   z-index: 2;
   pointer-events: none;
 }
 
-.svc-orb__ring {
+.svc-globe__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 0 24px rgba(74, 120, 255, 0.45))
+          drop-shadow(0 0 60px rgba(43, 95, 255, 0.28));
+  animation: svcGlobeSpin 32s linear infinite;
+}
+
+/* the meridians slowly spin to suggest the globe rotating */
+@keyframes svcGlobeSpin {
+  to { transform: rotate(360deg); }
+}
+
+.svc-globe__meridians ellipse {
+  fill: none;
+  stroke: rgba(140, 185, 255, 0.55);
+  stroke-width: 0.9;
+  vector-effect: non-scaling-stroke;
+}
+
+.svc-globe__parallels ellipse {
+  fill: none;
+  stroke: rgba(140, 185, 255, 0.4);
+  stroke-width: 0.9;
+  vector-effect: non-scaling-stroke;
+}
+
+/* equator + outer ring use a rose accent to give the brand
+   two-tone (blue + red) look */
+.svc-globe__equator {
+  stroke: rgba(244, 63, 94, 0.7);
+  stroke-width: 1.2;
+}
+
+.svc-globe__meridians ellipse:first-child {
+  stroke: rgba(180, 210, 255, 0.7);
+  stroke-width: 1.2;
+}
+
+.svc-globe__axis {
+  stroke: rgba(180, 210, 255, 0.32);
+  stroke-width: 0.6;
+  stroke-dasharray: 2 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.svc-globe__shine {
+  fill: rgba(220, 235, 255, 0.32);
+  filter: blur(6px);
+}
+
+/* atmospheric halo behind the globe — blue body, faint rose
+   outer edge so the rim catches a hint of red */
+.svc-globe__halo {
   position: absolute;
+  inset: -22%;
   border-radius: 50%;
-  border: 1px solid rgba(120, 200, 255, 0.28);
+  background:
+    radial-gradient(circle, rgba(74, 120, 255, 0.32), rgba(43, 95, 255, 0.12) 38%, rgba(20, 40, 120, 0) 62%),
+    radial-gradient(circle, transparent 56%, rgba(244, 63, 94, 0.22) 70%, transparent 84%);
+  filter: blur(22px);
+  z-index: -1;
+  animation: svcGlobeHalo 6s ease-in-out infinite;
 }
 
-.svc-orb__ring--1 {
-  inset: 22%;
-  animation: svcOrbSpinSlow 22s linear infinite;
-}
-.svc-orb__ring--2 {
-  inset: 8%;
-  border-style: dashed;
-  border-color: rgba(120, 200, 255, 0.38);
-  animation: svcOrbSpin 16s linear infinite reverse;
-}
-.svc-orb__ring--3 {
-  inset: -6%;
-  border-color: rgba(120, 200, 255, 0.18);
-  animation: svcOrbSpinSlow 30s linear infinite;
+@keyframes svcGlobeHalo {
+  0%, 100% { transform: scale(1);    opacity: 0.85; }
+  50%      { transform: scale(1.06); opacity: 1; }
 }
 
-@keyframes svcOrbSpin     { to { transform: rotate(360deg); } }
-@keyframes svcOrbSpinSlow { to { transform: rotate(-360deg); } }
-
-.svc-orb__plasma {
-  position: absolute;
-  inset: 16%;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg at 50% 50%,
-    rgba(140, 200, 255, 0.32),
-    rgba(34, 211, 238, 0.7),
-    rgba(74, 120, 255, 0.55),
-    rgba(140, 200, 255, 0.32),
-    rgba(34, 211, 238, 0.7),
-    rgba(140, 200, 255, 0.32)
-  );
-  filter: blur(12px);
-  mix-blend-mode: screen;
-  opacity: 0.8;
-  animation: svcOrbSpin 13s linear infinite;
-}
-
-.svc-orb__core {
-  position: absolute;
-  inset: 28%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 50% 42%,
-    rgba(230, 245, 255, 1) 0%,
-    rgba(150, 210, 255, 0.92) 30%,
-    rgba(50, 110, 240, 0.7) 62%,
-    rgba(20, 40, 100, 0) 100%
-  );
-  box-shadow:
-    0 0 34px rgba(150, 210, 255, 0.75),
-    0 0 90px rgba(70, 140, 240, 0.5),
-    0 0 170px rgba(50, 110, 220, 0.32);
-  animation: svcOrbPulse 5s ease-in-out infinite;
-}
-
-@keyframes svcOrbPulse {
-  0%, 100% { transform: scale(1);    opacity: 0.92; }
-  50%      { transform: scale(1.07); opacity: 1; }
-}
-
-.svc-orb__label {
+.svc-globe__label {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, calc(50% + clamp(110px, 12vw, 160px)));
+  transform: translate(-50%, calc(50% + clamp(120px, 13vw, 170px)));
   z-index: 3;
   display: flex;
   flex-direction: column;
@@ -1208,8 +1214,8 @@ html.js .reveal.is-visible {
   white-space: nowrap;
 }
 
-.svc-orb__label span:last-child {
-  color: rgba(140, 195, 250, 0.55);
+.svc-globe__label span:last-child {
+  color: rgba(244, 63, 94, 0.6);
 }
 
 /* ---- service cards ---- */
@@ -1350,8 +1356,8 @@ html.js .reveal.is-visible {
     min-height: 0;
   }
   .svc-eco__paths,
-  .svc-orb,
-  .svc-orb__label {
+  .svc-globe,
+  .svc-globe__label {
     display: none;
   }
   .svc-eco__cards {
