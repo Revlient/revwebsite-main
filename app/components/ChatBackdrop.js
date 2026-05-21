@@ -3,7 +3,7 @@
 // the base, where they land in a wide bright floor pool. A solid
 // bright central pillar runs down the middle. Centred horizontally
 // to match the supplied reference. No motion libs.
-const STRAND_COUNT = 26;
+const STRAND_COUNT = 44;
 const VB_W = 800;
 const VB_H = 900;
 const CX = VB_W / 2;
@@ -39,12 +39,24 @@ export default function ChatBackdrop() {
               <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
             </linearGradient>
           </defs>
+          {/* smooth, continuous strands (visual structure) */}
           <g className="chatbd__strands">
             {STRANDS.map((d, i) => (
               <path
                 key={i}
                 d={d}
                 className={`chatbd__strand chatbd__strand--${i + 1}`}
+              />
+            ))}
+          </g>
+          {/* electric flow — short bright sparks travelling top -> bottom
+             along the same paths, staggered per strand */}
+          <g className="chatbd__pulses">
+            {STRANDS.map((d, i) => (
+              <path
+                key={i}
+                d={d}
+                className={`chatbd__pulse chatbd__pulse--${i + 1}`}
               />
             ))}
           </g>
