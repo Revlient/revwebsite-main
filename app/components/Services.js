@@ -48,8 +48,8 @@ function Preview({ kind }) {
         <rect x="2" y="2" width="156" height="52" rx="6" stroke="currentColor" strokeOpacity="0.22" fill="rgba(255,255,255,0.02)" />
         {[
           ["#4a78ff", 10],
-          ["#f43f5e", 36],
-          ["#f43f5e", 62],
+          ["#4a78ff", 36],
+          ["#4a78ff", 62],
           ["#f0abfc", 88],
           ["#fbbf24", 114],
         ].map(([c, x]) => (
@@ -64,16 +64,16 @@ function Preview({ kind }) {
     return (
       <svg viewBox="0 0 160 56" className="svc-eco-card__svg">
         <rect x="2" y="2" width="156" height="52" rx="6" stroke="currentColor" strokeOpacity="0.22" fill="rgba(255,255,255,0.02)" />
-        <path d="M10 46 L36 36 L60 40 L86 24 L112 18 L150 10" fill="none" stroke="#f43f5e" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M10 46 L36 36 L60 40 L86 24 L112 18 L150 10" fill="none" stroke="#4a78ff" strokeWidth="1.6" strokeLinecap="round" />
         <path d="M10 46 L36 36 L60 40 L86 24 L112 18 L150 10 L150 50 L10 50 Z" fill="url(#svcChartFill)" opacity="0.5" />
         <defs>
           <linearGradient id="svcChartFill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#f43f5e" stopOpacity="0.4" />
-            <stop offset="1" stopColor="#f43f5e" stopOpacity="0" />
+            <stop offset="0" stopColor="#4a78ff" stopOpacity="0.4" />
+            <stop offset="1" stopColor="#4a78ff" stopOpacity="0" />
           </linearGradient>
         </defs>
         {[36, 60, 86, 112, 150].map((x) => (
-          <circle key={x} cx={x} cy={x === 36 ? 36 : x === 60 ? 40 : x === 86 ? 24 : x === 112 ? 18 : 10} r="1.6" fill="#f43f5e" />
+          <circle key={x} cx={x} cy={x === 36 ? 36 : x === 60 ? 40 : x === 86 ? 24 : x === 112 ? 18 : 10} r="1.6" fill="#4a78ff" />
         ))}
       </svg>
     );
@@ -88,13 +88,13 @@ function Preview({ kind }) {
           <text key={y} x="13" y={y} textAnchor="middle" fontSize="5" fill="currentColor" fillOpacity="0.32">{i + 1}</text>
         ))}
         {/* code-like lines (varying widths, cyan accents) */}
-        <rect x="24" y="12" width="34" height="3.4" rx="1" fill="#f43f5e" opacity="0.6" />
+        <rect x="24" y="12" width="34" height="3.4" rx="1" fill="#4a78ff" opacity="0.6" />
         <rect x="62" y="12" width="48" height="3.4" rx="1" fill="currentColor" fillOpacity="0.18" />
-        <rect x="32" y="22" width="22" height="3.4" rx="1" fill="#f43f5e" opacity="0.45" />
+        <rect x="32" y="22" width="22" height="3.4" rx="1" fill="#4a78ff" opacity="0.45" />
         <rect x="58" y="22" width="60" height="3.4" rx="1" fill="currentColor" fillOpacity="0.14" />
         <rect x="32" y="32" width="44" height="3.4" rx="1" fill="currentColor" fillOpacity="0.18" />
-        <rect x="80" y="32" width="32" height="3.4" rx="1" fill="#f43f5e" opacity="0.4" />
-        <rect x="24" y="42" width="20" height="3.4" rx="1" fill="#f43f5e" opacity="0.55" />
+        <rect x="80" y="32" width="32" height="3.4" rx="1" fill="#4a78ff" opacity="0.4" />
+        <rect x="24" y="42" width="20" height="3.4" rx="1" fill="#4a78ff" opacity="0.55" />
       </svg>
     );
   }
@@ -106,12 +106,12 @@ function Preview({ kind }) {
         <rect x="10" y="6" width="26" height="44" rx="4" stroke="currentColor" strokeOpacity="0.4" fill="rgba(255,255,255,0.04)" />
         <rect x="14" y="12" width="18" height="3" rx="1" fill="currentColor" fillOpacity="0.35" />
         <rect x="14" y="18" width="12" height="3" rx="1" fill="currentColor" fillOpacity="0.2" />
-        <rect x="14" y="26" width="18" height="13" rx="2" fill="#f43f5e" opacity="0.35" />
+        <rect x="14" y="26" width="18" height="13" rx="2" fill="#4a78ff" opacity="0.35" />
         <circle cx="23" cy="44" r="1.6" fill="currentColor" fillOpacity="0.45" />
         {/* card list on the right */}
         <rect x="44" y="8" width="108" height="11" rx="3" fill="currentColor" fillOpacity="0.06" />
         <rect x="48" y="11" width="42" height="3.5" rx="1" fill="currentColor" fillOpacity="0.28" />
-        <rect x="124" y="11" width="22" height="4" rx="2" fill="#f43f5e" opacity="0.5" />
+        <rect x="124" y="11" width="22" height="4" rx="2" fill="#4a78ff" opacity="0.5" />
         <rect x="44" y="22" width="108" height="11" rx="3" fill="currentColor" fillOpacity="0.06" />
         <rect x="48" y="25" width="52" height="3.5" rx="1" fill="currentColor" fillOpacity="0.22" />
         <rect x="44" y="36" width="108" height="11" rx="3" fill="currentColor" fillOpacity="0.06" />
@@ -126,7 +126,7 @@ function Preview({ kind }) {
       <path d="M22 28 L52 28 L62 14 L100 14 L110 28 L138 28" stroke="currentColor" strokeOpacity="0.35" fill="none" strokeWidth="1.2" />
       <path d="M62 42 L100 42 L110 28" stroke="currentColor" strokeOpacity="0.22" fill="none" strokeWidth="1.2" />
       {[[22, 28], [62, 14], [100, 14], [62, 42], [100, 42], [138, 28]].map(([cx, cy], i) => (
-        <circle key={i} cx={cx} cy={cy} r="3.4" fill="rgba(8,13,24,0.92)" stroke="#f43f5e" strokeWidth="1.2" />
+        <circle key={i} cx={cx} cy={cy} r="3.4" fill="rgba(8,13,24,0.92)" stroke="#4a78ff" strokeWidth="1.2" />
       ))}
     </svg>
   );

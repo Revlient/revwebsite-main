@@ -1066,7 +1066,7 @@ html.js .reveal.is-visible {
   stroke-dasharray: 6 600;
   filter: drop-shadow(0 0 4px rgba(160, 200, 255, 1))
     drop-shadow(0 0 11px rgba(74, 120, 255, 0.7))
-    drop-shadow(0 0 22px rgba(244, 63, 94, 0.32));
+    drop-shadow(0 0 24px rgba(43, 95, 255, 0.4));
   animation: svcEcoPulse 5.6s linear infinite;
 }
 
@@ -1147,8 +1147,8 @@ html.js .reveal.is-visible {
   border-radius: 50%;
   pointer-events: none;
   background:
-    radial-gradient(circle, rgba(74, 120, 255, 0.32), rgba(43, 95, 255, 0.12) 38%, rgba(20, 40, 120, 0) 62%),
-    radial-gradient(circle, transparent 56%, rgba(244, 63, 94, 0.22) 70%, transparent 84%);
+    radial-gradient(circle, rgba(74, 120, 255, 0.38), rgba(43, 95, 255, 0.18) 38%, rgba(20, 40, 120, 0) 62%),
+    radial-gradient(circle, transparent 58%, rgba(110, 170, 255, 0.28) 72%, transparent 86%);
   filter: blur(22px);
   z-index: -1;
   animation: svcGlobeHalo 6s ease-in-out infinite;
@@ -1180,7 +1180,7 @@ html.js .reveal.is-visible {
 }
 
 .svc-globe__label span:last-child {
-  color: rgba(244, 63, 94, 0.6);
+  color: rgba(140, 180, 255, 0.6);
 }
 
 /* ---- service cards ---- */
