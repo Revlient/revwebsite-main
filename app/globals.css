@@ -2611,13 +2611,15 @@ html.js .reveal.is-visible {
   inset: 0;
   pointer-events: none;
   background:
-    /* top + bottom fade into the page bg so the section joins
-       seamlessly to whatever sits above and below */
+    /* top fades from the hero's white foot through grey into the
+       section's dark interior; bottom returns to the page bg so the
+       next section joins seamlessly */
     linear-gradient(
       180deg,
-      var(--bg) 0%,
-      var(--bg) 4%,
-      transparent 18%,
+      #ffffff 0%,
+      rgba(255, 255, 255, 0.85) 3%,
+      rgba(120, 120, 120, 0.45) 9%,
+      transparent 20%,
       transparent 78%,
       var(--bg) 100%
     ),
