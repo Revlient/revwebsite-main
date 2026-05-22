@@ -1,5 +1,6 @@
 import Reveal from "./Reveal";
 import ServiceIcon from "./ServiceIcon";
+import BlueGlobe from "./BlueGlobe";
 import { SERVICES } from "../lib/services";
 import { SYSTEMS_URL } from "../lib/site";
 
@@ -198,58 +199,9 @@ export default function Services() {
             </g>
           </svg>
 
-          <div className="svc-globe" aria-hidden="true">
-            <svg
-              className="svc-globe__svg"
-              viewBox="0 0 200 200"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <radialGradient id="svcGlobeFill" cx="34%" cy="28%" r="78%">
-                  <stop offset="0%"   stopColor="rgba(180, 210, 255, 0.55)" />
-                  <stop offset="32%"  stopColor="rgba(74, 120, 255, 0.42)" />
-                  <stop offset="62%"  stopColor="rgba(43, 95, 255, 0.22)" />
-                  <stop offset="100%" stopColor="rgba(20, 32, 80, 0.08)" />
-                </radialGradient>
-                <radialGradient id="svcGlobeRim" cx="50%" cy="50%" r="50%">
-                  <stop offset="86%" stopColor="rgba(244, 63, 94, 0)" />
-                  <stop offset="98%" stopColor="rgba(244, 63, 94, 0.45)" />
-                  <stop offset="100%" stopColor="rgba(244, 63, 94, 0)" />
-                </radialGradient>
-              </defs>
-
-              {/* sphere surface */}
-              <circle cx="100" cy="100" r="80" fill="url(#svcGlobeFill)" />
-
-              {/* meridians — vertical great-circles (ellipses with
-                 varying rx to suggest curvature on a sphere) */}
-              <g className="svc-globe__meridians">
-                <ellipse cx="100" cy="100" rx="80" ry="80" />
-                <ellipse cx="100" cy="100" rx="62" ry="80" />
-                <ellipse cx="100" cy="100" rx="38" ry="80" />
-                <ellipse cx="100" cy="100" rx="12" ry="80" />
-              </g>
-
-              {/* parallels — horizontal latitudes with a brand-blue
-                 equator and rose-tinted polar rings */}
-              <g className="svc-globe__parallels">
-                <ellipse cx="100" cy="100" rx="80" ry="2"  className="svc-globe__equator" />
-                <ellipse cx="100" cy="100" rx="78" ry="22" />
-                <ellipse cx="100" cy="100" rx="72" ry="42" />
-                <ellipse cx="100" cy="100" rx="60" ry="60" />
-                <ellipse cx="100" cy="100" rx="38" ry="72" />
-              </g>
-
-              {/* polar axis hint */}
-              <line x1="100" y1="20" x2="100" y2="180" className="svc-globe__axis" />
-
-              {/* rose rim glow */}
-              <circle cx="100" cy="100" r="80" fill="url(#svcGlobeRim)" />
-
-              {/* upper-left specular highlight */}
-              <ellipse cx="74" cy="68" rx="22" ry="14" className="svc-globe__shine" transform="rotate(-25 74 68)" />
-            </svg>
-            <span className="svc-globe__halo" />
+          <div className="svc-globe">
+            <span className="svc-globe__halo" aria-hidden="true" />
+            <BlueGlobe />
           </div>
           <span className="svc-globe__label" aria-hidden="true">
             <span>Revlient</span>
