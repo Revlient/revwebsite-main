@@ -181,34 +181,37 @@ ul {
   transform: translateY(-2px);
 }
 
+/* White glassmorphic primary CTA — translucent white + backdrop blur,
+   so every "Start a project" button across the site (hero, sticky,
+   FinalCTA, service pages) shares one frosted treatment. */
 .btn--primary {
-  --btn-bg: var(--blue);
-  --btn-fg: #fff;
-  box-shadow: 0 8px 30px -10px var(--blue-glow);
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+  box-shadow: 0 14px 40px -14px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .btn--primary:hover {
-  --btn-bg: var(--blue-light);
-  box-shadow: 0 14px 40px -12px var(--blue-glow);
+  background: rgba(255, 255, 255, 0.26);
+  border-color: rgba(255, 255, 255, 0.48);
+  box-shadow: 0 18px 48px -14px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32);
 }
 
-/* Hero "Start a project" — glassmorphic over the animated 3D bg.
-   Scoped to the hero so other primary CTAs stay solid blue. */
+/* Hero scope keeps the same frosted-white look; explicit here so the
+   ghost CTA's neighbouring rules don't accidentally win the cascade. */
 .hero__actions .btn--primary {
-  background: rgba(43, 95, 255, 0.2);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
-  backdrop-filter: blur(16px) saturate(160%);
-  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.3);
   color: #fff;
-  box-shadow: 0 14px 40px -12px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .hero__actions .btn--primary:hover {
-  background: rgba(74, 120, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.34);
-  box-shadow: 0 18px 48px -12px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.46);
 }
 
 /* Hero "See our work" — matching glass treatment in neutral white
@@ -3580,7 +3583,7 @@ a.feat-reach__line:hover {
   line-height: 1.55;
 }
 
-/* small white pill + dark circular arrow badge — not oversized */
+/* small frosted-white pill + dark circular arrow badge */
 .pscard__cta {
   display: inline-flex;
   align-items: center;
@@ -3588,16 +3591,24 @@ a.feat-reach__line:hover {
   margin-top: 1.4rem;
   padding: 0.32rem 0.38rem 0.32rem 1rem;
   border-radius: 999px;
-  background: #fff;
-  color: #0a0b10;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
   font-weight: 600;
   font-size: var(--step--1);
-  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  box-shadow: 0 12px 28px -14px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition: transform 0.3s var(--ease), background 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
 }
 
 .pscard__cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px -14px rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 16px 36px -14px rgba(0, 0, 0, 0.6);
 }
 
 .pscard__cta-badge {
