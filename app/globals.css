@@ -418,14 +418,25 @@ html.js .reveal.is-visible {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  /* same base as every other section so the seams disappear; the
-     image is what carries the visual and a bottom-fade vignette
-     blends it into the next section */
-  background: var(--bg);
+  /* Black-from-top → white-from-bottom gradient theme. The image,
+     shimmer and flow children below are hidden so this gradient
+     reads cleanly on its own. */
+  background: linear-gradient(
+    180deg,
+    #000000 0%,
+    #000000 55%,
+    #6b6b6b 82%,
+    #ffffff 100%
+  );
   pointer-events: none;
-  /* shifts the warm-torus image (and the warm shimmer + flow lines
-     composited above it) to a brand-blue palette in one place */
-  filter: hue-rotate(200deg) saturate(0.85);
+  filter: none;
+}
+
+.herobd__image,
+.herobd__shimmer,
+.herobd__flow,
+.herobd__vignette {
+  display: none;
 }
 
 .herobd__image {
@@ -674,7 +685,8 @@ html.js .reveal.is-visible {
   bottom: 1.6rem;
   transform: translateX(-50%);
   z-index: 3;
-  color: var(--muted-2);
+  /* sits on the white strip at the foot of the gradient — dark so it reads */
+  color: rgba(10, 10, 12, 0.55);
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -687,7 +699,7 @@ html.js .reveal.is-visible {
 .hero__scroll .line {
   width: 1px;
   height: 36px;
-  background: linear-gradient(var(--muted-2), transparent);
+  background: linear-gradient(rgba(10, 10, 12, 0.55), transparent);
   animation: scrollline 2.2s var(--ease) infinite;
 }
 
