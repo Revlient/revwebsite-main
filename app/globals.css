@@ -3061,141 +3061,423 @@ html.js .reveal.is-visible {
   }
 }
 
-/* ---------- Testimonials columns ---------- */
+/* ---------- Features section (dark portfolio-style multi-card) ----------
+   Replaces the legacy three-column testimonial marquee. Layout is a
+   three-column grid on large screens, two on medium, one on small.
+   Each card has its own treatment: video-backed BACKGROUND timeline,
+   CLIENT VOICE quote on a slate plate, a big-numeral METRIC card on
+   video, a DAILY SOFTWARE card with two opposing marquee rows, and a
+   REACH ME contact plate. The helpers (.liquid-glass / marquee
+   keyframes / .noise-overlay) are reusable. */
 
-.tsection {
-  background: var(--bg);
+.feat-section {
+  background: #0a0a0a;
+  color: #fff;
+  padding: clamp(1.5rem, 1rem + 2vw, 2.5rem) clamp(1rem, 0.5rem + 2vw, 3.5rem);
 }
 
-.tsection__head {
-  text-align: center;
-  max-width: 540px;
-  margin-inline: auto;
+.feat-shell {
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.tsection__badge {
-  display: inline-block;
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  padding: 0.25rem 1rem;
-  font-size: var(--step--1);
-  font-weight: 600;
-  color: var(--muted);
-}
-
-.tsection__head h2 {
-  margin-top: 1.2rem;
-  font-size: var(--step-3);
-}
-
-.tsection__head p {
-  margin-top: 1rem;
-  color: var(--muted);
-}
-
-.tcols {
+.feat-header {
   display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.feat-header__copy {
+  max-width: 720px;
+}
+
+.feat-header__title {
+  font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.75rem);
+  line-height: 1.15;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.feat-header__sub {
+  margin-top: 0.9rem;
+  max-width: 760px;
+  font-size: clamp(0.875rem, 0.82rem + 0.2vw, 0.95rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.feat-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: transform 0.25s var(--ease, ease);
+}
+
+.feat-cta:hover {
+  transform: translateY(-1px);
+}
+
+.feat-grid {
+  margin-top: clamp(2rem, 1.4rem + 2vw, 3rem);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .feat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .feat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.feat-col {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1.25rem;
+}
+
+.feat-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #000;
+  isolation: isolate;
+  min-height: 240px;
+}
+
+.feat-card--voice,
+.feat-card--reach {
+  background: #324444;
+  min-height: 220px;
+}
+
+.feat-card__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.feat-card__inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
+  gap: clamp(0.9rem, 0.6rem + 0.8vw, 1.4rem);
+}
+
+.feat-card__inner--center {
+  align-items: center;
   justify-content: center;
-  gap: clamp(1rem, 0.6rem + 1.5vw, 1.5rem);
-  margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
-  max-height: 740px;
+  text-align: center;
+}
+
+.feat-card--bg {
+  /* tall enough to host both the label and the timeline cleanly */
+  min-height: clamp(360px, 38vw, 520px);
+}
+
+.feat-card--bg .feat-card__inner {
+  justify-content: space-between;
+}
+
+/* Section labels (Sparkle · TEXT · Sparkle) */
+
+.feat-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.feat-label--center {
+  align-self: center;
+}
+
+.feat-label--start {
+  align-self: flex-start;
+}
+
+.feat-label__icon {
+  width: 12px;
+  height: 12px;
+  flex: none;
+}
+
+/* BACKGROUND timeline */
+
+.feat-timeline {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.feat-timeline__row {
+  display: contents;
+}
+
+.feat-timeline__period {
+  color: rgba(255, 255, 255, 0.7);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.feat-timeline__sep {
+  width: 12px;
+  height: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.feat-timeline__role {
+  color: #fff;
+}
+
+.feat-timeline__org {
+  color: rgba(255, 255, 255, 0.6);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* CLIENT VOICE */
+
+.feat-voice__quote {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0;
+}
+
+.feat-voice__meta {
+  margin-top: auto;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.feat-voice__meta strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* 10M+ style metric card */
+
+.feat-metric__big {
+  font-size: clamp(3.5rem, 2.5rem + 4vw, 5.5rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
+}
+
+.feat-metric__cap {
+  margin-top: auto;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.95rem;
+}
+
+/* DAILY SOFTWARE marquees */
+
+.feat-marquees {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.feat-marquee {
   overflow: hidden;
   -webkit-mask-image: linear-gradient(
-    to bottom,
+    to right,
     transparent,
-    #000 22%,
-    #000 78%,
+    #000 8%,
+    #000 92%,
     transparent
   );
   mask-image: linear-gradient(
-    to bottom,
+    to right,
     transparent,
-    #000 22%,
-    #000 78%,
+    #000 8%,
+    #000 92%,
     transparent
   );
 }
 
-.tcol {
-  width: min(340px, 86vw);
-  flex: none;
-}
-
-@media (max-width: 1024px) {
-  .tcol--lg {
-    display: none;
-  }
-}
-@media (max-width: 768px) {
-  .tcol--md {
-    display: none;
-  }
-}
-
-.tcol__track {
+.feat-marquee__track {
   display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  animation: tcol-up linear infinite;
+  gap: 0.5rem;
+  width: max-content;
   will-change: transform;
 }
 
-.tcol:hover .tcol__track {
-  animation-play-state: paused;
+.feat-marquee__track--left {
+  animation: marquee-left 22s linear infinite;
 }
 
-@keyframes tcol-up {
+.feat-marquee__track--right {
+  animation: marquee-right 26s linear infinite;
+}
+
+@keyframes marquee-left {
   from {
-    transform: translateY(0);
+    transform: translateX(0);
   }
   to {
-    transform: translateY(-50%);
+    transform: translateX(-50%);
   }
 }
 
-.tcard {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  padding: clamp(1.6rem, 1.2rem + 1.5vw, 2.5rem);
-  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.6);
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
-.tcard__text {
-  color: var(--text);
-  font-size: var(--step-0);
-  line-height: 1.55;
-}
-
-.tcard__meta {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  margin-top: 1.25rem;
-}
-
-.tcard__avatar {
-  width: 40px;
-  height: 40px;
+.feat-tile {
   flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feat-tile svg {
+  width: 22px;
+  height: 22px;
+}
+
+@media (min-width: 768px) {
+  .feat-tile {
+    width: 64px;
+    height: 64px;
+  }
+  .feat-tile svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* REACH ME */
+
+.feat-card--reach {
+  position: relative;
+}
+
+.feat-reach__cta {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  background: linear-gradient(135deg, var(--blue-deep), var(--blue));
+  transition: transform 0.25s var(--ease, ease);
 }
 
-.tcard__name {
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
+.feat-reach__cta:hover {
+  transform: translate(2px, -2px);
 }
 
-.tcard__role {
-  color: var(--muted);
-  font-size: var(--step--1);
-  line-height: 1.25;
+.feat-reach__cta-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.feat-reach__lines {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.feat-reach__line {
+  color: #fff;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+a.feat-reach__line:hover {
+  text-decoration: underline;
+}
+
+/* ---- Liquid-glass utility (used by CTA, marquee tiles, reach button) ---- */
+
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ---- Soft noise overlay for the slate cards ---- */
+
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
 }
 
 /* ---------- Project showcase (duotone cards + neon) ---------- */
