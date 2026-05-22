@@ -24,10 +24,10 @@ export default function HomePage() {
       <main>
         <Hero />
         <AiPromptSection />
+        <Features />
         <ShowcaseCards />
         <ProcessTimeline />
         <Services />
-        <Features />
         <WhyRevlient />
         <Work />
         <Proof />
