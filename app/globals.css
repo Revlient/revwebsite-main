@@ -421,14 +421,11 @@ html.js .reveal.is-visible {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  /* same base as every other section so the seams disappear; the
-     image is what carries the visual and a bottom-fade vignette
-     blends it into the next section */
-  background: var(--bg);
+  /* Black-from-top → white-from-bottom theme. The image is forced
+     grayscale below, and .herobd__vignette overlays the actual
+     dark→light gradient on top of it. */
+  background: #ffffff;
   pointer-events: none;
-  /* Black-and-white theme: drops all colour from the image,
-     shimmer and flow lines so the whole backdrop reads monochrome
-     while the breath/spin/flow animations still play. */
   filter: grayscale(1) contrast(1.05);
 }
 
@@ -541,23 +538,19 @@ html.js .reveal.is-visible {
 .herobd__vignette {
   position: absolute;
   inset: 0;
-  /* aggressive bottom fade so the image is fully gone before the
-     section ends — guarantees an opaque var(--bg) strip at the
-     bottom that meets the next section without any visible step */
+  /* Drives the B/W theme. Top of the ring is bathed in black, the
+     mid-section reveals the underlying grayscale image, then the
+     bottom washes out to pure white. */
   background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.35) 0%,
-      transparent 18%,
-      transparent 52%,
-      var(--bg) 86%,
-      var(--bg) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.72) 0%,
-      rgba(0, 0, 0, 0.28) 36%,
-      transparent 60%
-    );
+    180deg,
+    #000000 0%,
+    rgba(0, 0, 0, 0.88) 14%,
+    rgba(0, 0, 0, 0.35) 36%,
+    rgba(0, 0, 0, 0.08) 50%,
+    rgba(255, 255, 255, 0.25) 64%,
+    rgba(255, 255, 255, 0.85) 86%,
+    #ffffff 100%
+  );
 }
 .hero__inner {
   position: relative;
@@ -678,7 +671,8 @@ html.js .reveal.is-visible {
   bottom: 1.6rem;
   transform: translateX(-50%);
   z-index: 3;
-  color: var(--muted-2);
+  /* sits on the white foot of the hero gradient — dark so it reads */
+  color: rgba(10, 10, 12, 0.55);
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -691,7 +685,7 @@ html.js .reveal.is-visible {
 .hero__scroll .line {
   width: 1px;
   height: 36px;
-  background: linear-gradient(var(--muted-2), transparent);
+  background: linear-gradient(rgba(10, 10, 12, 0.55), transparent);
   animation: scrollline 2.2s var(--ease) infinite;
 }
 
