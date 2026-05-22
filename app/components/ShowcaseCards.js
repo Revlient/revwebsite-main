@@ -4,87 +4,155 @@ import { useState } from "react";
 import Reveal from "./Reveal";
 import { CTA_HREF } from "../lib/site";
 
-/* Testimonial carousel — same coverflow/globe alignment as before,
-   card content swapped from project thumbnail+URL to a client quote
-   with a CEO avatar. Vanilla JS + plain CSS, no deps.
+/* Projects carousel — same coverflow/globe alignment as the original
+   testimonial deck, but each card is now a logo-only thumbnail of a
+   real client project. Vanilla JS + plain CSS, no deps.
 
-   PROOF RULE: we never invent client quotes or use a fake person's
-   photo. Every entry below is a clearly-marked placeholder. To go
-   live: drop the real headshot in /public/testimonials/<file> and
-   set `img` to that path, and replace quote/name/role with the
-   real, approved testimonial. Until `img` is set it falls back to
-   an initials avatar (no fabricated face). */
+   PROOF RULE: only real clients supplied by Revlient. Each entry's
+   `logo` is rendered as a hand-built inline mark + wordmark in the
+   brand's actual colours so we don't ship a fabricated/mis-aligned
+   PNG. To swap to a real exported logo file later, drop the asset at
+   /public/work/<slug>.<ext> and replace the entry's `logo` field
+   with `<img src="/work/<slug>.png" alt={name} />`. */
+
+function Study2IndiaLogo() {
+  return (
+    <span className="pscard__logo pscard__logo--s2i" aria-hidden="true">
+      <svg viewBox="0 0 96 56" className="pscard__logo-mark">
+        {/* mortarboard cap */}
+        <path
+          d="M48 6 L86 22 L48 38 L10 22 Z"
+          fill="#111418"
+        />
+        <path
+          d="M30 28 L30 40 C30 46 38 49 48 49 C58 49 66 46 66 40 L66 28"
+          fill="none"
+          stroke="#111418"
+          strokeWidth="3"
+          strokeLinejoin="round"
+        />
+        {/* tassel */}
+        <line x1="84" y1="22" x2="84" y2="36" stroke="#f78a1f" strokeWidth="2.4" strokeLinecap="round" />
+        <circle cx="84" cy="38" r="2.4" fill="#f78a1f" />
+      </svg>
+      <span className="pscard__logo-wm">
+        <span className="pscard__logo-wm-a">Study</span>
+        <span className="pscard__logo-wm-accent">2</span>
+        <span className="pscard__logo-wm-a">India</span>
+      </span>
+    </span>
+  );
+}
+
+function GloriaLogo() {
+  return (
+    <span className="pscard__logo pscard__logo--gloria" aria-hidden="true">
+      <svg viewBox="0 0 80 80" className="pscard__logo-mark pscard__logo-mark--lg">
+        {/* stylised G — partial ring with a tongue inward */}
+        <path
+          d="M70 40 A30 30 0 1 1 40 10"
+          fill="none"
+          stroke="#0f9b8e"
+          strokeWidth="9"
+          strokeLinecap="round"
+        />
+        <path
+          d="M70 40 L52 40 L52 30"
+          fill="none"
+          stroke="#0f9b8e"
+          strokeWidth="9"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+      <span className="pscard__logo-wm pscard__logo-wm--stacked">
+        <span>GLORIA</span>
+        <span>GLOBAL</span>
+        <span>VENTURES</span>
+      </span>
+    </span>
+  );
+}
+
+function StumigoLogo() {
+  return (
+    <span className="pscard__logo pscard__logo--stumigo" aria-hidden="true">
+      <svg viewBox="0 0 72 72" className="pscard__logo-mark pscard__logo-mark--lg">
+        {/* folded ribbon / quad mark */}
+        <path
+          d="M14 18 L40 14 L58 30 L32 34 Z"
+          fill="#f08a1c"
+        />
+        <path
+          d="M32 34 L58 30 L52 56 L26 60 Z"
+          fill="#d97316"
+        />
+        <path
+          d="M14 18 L32 34 L26 60 L8 44 Z"
+          fill="#f7a544"
+        />
+      </svg>
+      <span className="pscard__logo-wm">
+        <span className="pscard__logo-wm-a">Stumigo</span>
+      </span>
+    </span>
+  );
+}
+
+function StumigoMarkLogo() {
+  return (
+    <span className="pscard__logo pscard__logo--stumark" aria-hidden="true">
+      <svg viewBox="0 0 96 96" className="pscard__logo-mark pscard__logo-mark--xl">
+        <circle cx="48" cy="48" r="44" fill="#f08a1c" />
+        <path
+          d="M28 32 L52 28 L70 44 L46 48 Z"
+          fill="#fff"
+        />
+        <path
+          d="M46 48 L70 44 L64 68 L40 72 Z"
+          fill="#fdecd0"
+        />
+        <path
+          d="M28 32 L46 48 L40 72 L22 56 Z"
+          fill="#ffffffcc"
+        />
+      </svg>
+    </span>
+  );
+}
+
+const PROJECTS = [
+  {
+    slug: "study2india",
+    name: "Study2India",
+    sector: "Overseas education platform",
+    logo: <Study2IndiaLogo />,
+  },
+  {
+    slug: "gloria-global-ventures",
+    name: "Gloria Global Ventures",
+    sector: "Global ventures group",
+    logo: <GloriaLogo />,
+  },
+  {
+    slug: "stumigo",
+    name: "Stumigo",
+    sector: "Student migration platform",
+    logo: <StumigoLogo />,
+  },
+  {
+    slug: "stumigo-app",
+    name: "Stumigo — App",
+    sector: "Mobile experience",
+    logo: <StumigoMarkLogo />,
+  },
+];
 const TONES = ["a", "b", "c"];
-
-const TESTIMONIALS = [
-  // Real client identities supplied by Revlient. QUOTE TEXT is still a
-  // placeholder — replace each with the real, approved wording (and a
-  // headshot in /public/testimonials + `img`) before launch.
-  // The four "Client Name" entries between Aswin and Johnson are
-  // TODO placeholders kept so the coverflow has bent end-cards at
-  // ±2; replace with more real clients once you have them.
-  // Order matters: index 0 is the centred card on load.
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Anil Chakkrapani",
-    role: "Founder, Medcity International Academy",
-    img: "",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Aswin Pradeep",
-    role: "Magnate Study Abroad",
-    img: "",
-  },
-  // TODO(content): real client — replace before launch
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Client Name",
-    role: "Founder, Company",
-    img: "",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Client Name",
-    role: "Managing Director, Company",
-    img: "",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Client Name",
-    role: "Co-founder, Company",
-    img: "",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Client Name",
-    role: "CEO, Company",
-    img: "",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Johnson",
-    role: "Founder, IBS Consultancy",
-    img: "",
-  },
-].map((t, i) => ({
-  ...t,
+const PROJECTS_WITH_TONE = PROJECTS.map((p, i) => ({
+  ...p,
   tone: TONES[i % 3],
-  initials: t.name
-    .split(/\s+/)
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase(),
 }));
-const N = TESTIMONIALS.length;
+const N = PROJECTS_WITH_TONE.length;
 
 const Arrow = ({ dir = 1 }) => (
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
@@ -104,7 +172,7 @@ export default function ShowcaseCards() {
   const go = (step) => setActive((a) => (a + step + N) % N);
 
   return (
-    <section className="section pscard" aria-label="Client testimonials">
+    <section className="section pscard" aria-label="Selected projects">
       <div className="pscard__lights" aria-hidden="true">
         <span className="pscard__streak s1" />
         <span className="pscard__streak s2" />
@@ -115,11 +183,12 @@ export default function ShowcaseCards() {
       <div className="container">
         <Reveal>
           <div className="pscard__head">
-            <h2>What our clients say.</h2>
-            <p className="pscard__sub">In their words.</p>
+            <h2>Selected projects.</h2>
+            <p className="pscard__sub">Recent work.</p>
             <p className="pscard__desc">
-              We partner closely with founders and teams — and let the
-              relationship, and the work, speak for itself.
+              A glimpse of the teams we&apos;ve partnered with — products,
+              platforms and brands shipped end-to-end through the
+              Revlient stack.
             </p>
             <a href={CTA_HREF} className="pscard__cta">
               <span>Start a project</span>
@@ -132,7 +201,7 @@ export default function ShowcaseCards() {
 
         <div className="pscard__stage">
           <div className="pscard__deck">
-            {TESTIMONIALS.map((c, i) => {
+            {PROJECTS_WITH_TONE.map((c, i) => {
               // signed wrap distance from the active card (-3..3)
               let o = (i - active + N) % N;
               if (o > N / 2) o -= N;
@@ -140,17 +209,15 @@ export default function ShowcaseCards() {
               const visible = a <= 2;
               return (
                 <div
-                  key={i}
+                  key={c.slug}
                   aria-hidden={visible ? undefined : "true"}
                   className={`pscard__card t-${c.tone} ${
                     o === 0 ? "is-active" : ""
                   }`}
                   style={{
-                    // Same horizontal alignment (114% step, gaps) — only
-                    // a subtle inward "globe" curve: cards turn toward
-                    // centre, recede and lift a touch with distance, so
-                    // the row bows like a slice of a sphere. Ends bend
-                    // further and fade at the edges.
+                    // Locked coverflow math (do not change): 114% step,
+                    // a*a*9 lift, globe-curve rotation, ±46° end-card
+                    // bend at a>=2 with blur.
                     transform: `translate(-50%, -50%) translateX(${
                       o * 114
                     }%) translateY(${a * a * 9}px) translateZ(${
@@ -170,20 +237,10 @@ export default function ShowcaseCards() {
                     pointerEvents: visible ? "auto" : "none",
                   }}
                 >
-                  <span className="pscard__avatar">
-                    {c.img ? (
-                      <img src={c.img} alt={c.name} draggable={false} />
-                    ) : (
-                      <span className="pscard__initials">{c.initials}</span>
-                    )}
-                  </span>
-                  <span className="pscard__quotemark" aria-hidden="true">
-                    &#8220;
-                  </span>
-                  <blockquote className="pscard__quote">{c.quote}</blockquote>
-                  <div className="pscard__person">
-                    <span className="pscard__name">{c.name}</span>
-                    <span className="pscard__role">{c.role}</span>
+                  <div className="pscard__thumb">{c.logo}</div>
+                  <div className="pscard__meta">
+                    <span className="pscard__projname">{c.name}</span>
+                    <span className="pscard__projsector">{c.sector}</span>
                   </div>
                 </div>
               );
@@ -194,7 +251,7 @@ export default function ShowcaseCards() {
             <button
               type="button"
               className="pscard__navbtn"
-              aria-label="Previous testimonial"
+              aria-label="Previous project"
               onClick={() => go(-1)}
             >
               <Arrow dir={-1} />
@@ -206,7 +263,7 @@ export default function ShowcaseCards() {
             <button
               type="button"
               className="pscard__navbtn pscard__navbtn--next"
-              aria-label="Next testimonial"
+              aria-label="Next project"
               onClick={() => go(1)}
             >
               Next
