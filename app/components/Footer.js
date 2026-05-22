@@ -7,7 +7,7 @@ import {
   SYSTEMS_URL,
   WHATSAPP_URL,
 } from "../lib/site";
-import BrandMark from "./BrandMark";
+import Logo from "./Logo";
 
 // Inspired by the Kresna footer composition (video card + light card +
 // floating lucky badge + giant watermark) — rebuilt in vanilla JS +
@@ -110,7 +110,7 @@ export default function Footer() {
 
           <div className="footer-logo">
             <span className="footer-logo-mark" aria-hidden="true">
-              <BrandMark className="footer-logo-mark-svg" />
+              <Logo className="footer-logo-mark-svg" />
             </span>
             <span className="footer-logo-name">{BRAND.name}</span>
           </div>
@@ -147,7 +147,7 @@ export default function Footer() {
         <div className="footer-right">
           <div className="footer-lucky-graphic" aria-hidden="true">
             <div className="lucky-cube">
-              <BrandMark className="lucky-cube-mark" />
+              <Logo className="lucky-cube-mark" />
             </div>
             <div className="lucky-text-row">
               <svg className="lucky-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
