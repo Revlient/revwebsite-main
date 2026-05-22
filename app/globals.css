@@ -1138,54 +1138,6 @@ html.js .reveal.is-visible {
   cursor: grabbing;
 }
 
-/* wireframe overlay on top of the canvas — decorative meridians +
-   parallels + rose equator + rim glow + shine, slowly spinning so
-   it reads as a planet underneath. pointer-events: none so the
-   canvas underneath still receives drag-to-rotate. */
-.svc-globe__wire {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  overflow: visible;
-  animation: svcGlobeWireSpin 38s linear infinite;
-  filter: drop-shadow(0 0 8px rgba(74, 120, 255, 0.4));
-}
-
-@keyframes svcGlobeWireSpin {
-  to { transform: rotate(360deg); }
-}
-
-.svc-globe__meridians ellipse {
-  fill: none;
-  stroke: rgba(180, 210, 255, 0.42);
-  stroke-width: 0.8;
-  vector-effect: non-scaling-stroke;
-}
-
-.svc-globe__parallels ellipse {
-  fill: none;
-  stroke: rgba(180, 210, 255, 0.32);
-  stroke-width: 0.8;
-  vector-effect: non-scaling-stroke;
-}
-
-/* equator + outer meridian use the rose accent for the brand
-   two-tone (blue + red) look */
-.svc-globe__equator {
-  stroke: rgba(244, 63, 94, 0.7);
-  stroke-width: 1.2;
-}
-
-.svc-globe__meridians ellipse:first-child {
-  stroke: rgba(200, 220, 255, 0.6);
-  stroke-width: 1.1;
-}
-
-.svc-globe__shine {
-  fill: rgba(220, 235, 255, 0.22);
-  filter: blur(6px);
-}
 
 /* atmospheric halo behind the globe — blue body, faint rose
    outer edge so the rim catches a hint of red */

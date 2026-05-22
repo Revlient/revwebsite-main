@@ -202,51 +202,6 @@ export default function Services() {
           <div className="svc-globe">
             <span className="svc-globe__halo" aria-hidden="true" />
             <BlueGlobe />
-            {/* wireframe meridian / parallel overlay on top of the
-               canvas dots — purely decorative, never intercepts the
-               drag-to-rotate pointer events from the canvas below */}
-            <svg
-              className="svc-globe__wire"
-              viewBox="0 0 200 200"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <radialGradient id="svcGlobeRim" cx="50%" cy="50%" r="50%">
-                  <stop offset="84%" stopColor="rgba(244, 63, 94, 0)" />
-                  <stop offset="97%" stopColor="rgba(244, 63, 94, 0.45)" />
-                  <stop offset="100%" stopColor="rgba(244, 63, 94, 0)" />
-                </radialGradient>
-              </defs>
-
-              <g className="svc-globe__meridians">
-                <ellipse cx="100" cy="100" rx="80" ry="80" />
-                <ellipse cx="100" cy="100" rx="62" ry="80" />
-                <ellipse cx="100" cy="100" rx="38" ry="80" />
-                <ellipse cx="100" cy="100" rx="12" ry="80" />
-              </g>
-
-              <g className="svc-globe__parallels">
-                <ellipse cx="100" cy="100" rx="80" ry="2" className="svc-globe__equator" />
-                <ellipse cx="100" cy="100" rx="78" ry="22" />
-                <ellipse cx="100" cy="100" rx="72" ry="42" />
-                <ellipse cx="100" cy="100" rx="60" ry="60" />
-                <ellipse cx="100" cy="100" rx="38" ry="72" />
-              </g>
-
-              {/* rose rim glow */}
-              <circle cx="100" cy="100" r="80" fill="url(#svcGlobeRim)" />
-
-              {/* upper-left specular highlight */}
-              <ellipse
-                cx="74"
-                cy="68"
-                rx="22"
-                ry="14"
-                className="svc-globe__shine"
-                transform="rotate(-25 74 68)"
-              />
-            </svg>
           </div>
           <span className="svc-globe__label" aria-hidden="true">
             <span>Revlient</span>
