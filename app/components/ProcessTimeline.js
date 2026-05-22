@@ -39,8 +39,8 @@ function Mock({ i }) {
     >
       <defs>
         <linearGradient id={`ptlg${i}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#f43f5e" />
-          <stop offset="1" stopColor="#e11d48" />
+          <stop offset="0" stopColor="#4a78ff" />
+          <stop offset="1" stopColor="#2b5fff" />
         </linearGradient>
       </defs>
       <rect
