@@ -418,25 +418,15 @@ html.js .reveal.is-visible {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  /* Black-from-top → white-from-bottom gradient theme. The image,
-     shimmer and flow children below are hidden so this gradient
-     reads cleanly on its own. */
-  background: linear-gradient(
-    180deg,
-    #000000 0%,
-    #000000 55%,
-    #6b6b6b 82%,
-    #ffffff 100%
-  );
+  /* same base as every other section so the seams disappear; the
+     image is what carries the visual and a bottom-fade vignette
+     blends it into the next section */
+  background: var(--bg);
   pointer-events: none;
-  filter: none;
-}
-
-.herobd__image,
-.herobd__shimmer,
-.herobd__flow,
-.herobd__vignette {
-  display: none;
+  /* Black-and-white theme: drops all colour from the image,
+     shimmer and flow lines so the whole backdrop reads monochrome
+     while the breath/spin/flow animations still play. */
+  filter: grayscale(1) contrast(1.05);
 }
 
 .herobd__image {
@@ -685,8 +675,7 @@ html.js .reveal.is-visible {
   bottom: 1.6rem;
   transform: translateX(-50%);
   z-index: 3;
-  /* sits on the white strip at the foot of the gradient — dark so it reads */
-  color: rgba(10, 10, 12, 0.55);
+  color: var(--muted-2);
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -699,7 +688,7 @@ html.js .reveal.is-visible {
 .hero__scroll .line {
   width: 1px;
   height: 36px;
-  background: linear-gradient(rgba(10, 10, 12, 0.55), transparent);
+  background: linear-gradient(var(--muted-2), transparent);
   animation: scrollline 2.2s var(--ease) infinite;
 }
 
