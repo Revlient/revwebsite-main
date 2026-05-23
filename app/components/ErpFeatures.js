@@ -531,7 +531,7 @@ export default function ErpFeatures() {
               </div>
             </article>
 
-            <article className="feat-card feat-card--reach noise-overlay feat-card--projects">
+            <article className="feat-card feat-card--projects">
               <a
                 href={CTA_HREF}
                 className="feat-reach__cta liquid-glass"
@@ -540,7 +540,10 @@ export default function ErpFeatures() {
                 <ArrowUpRight className="feat-reach__cta-icon" />
               </a>
               <div className="feat-card__inner">
-                <SectionLabel align="start">COUNSELLOR WORKSPACE</SectionLabel>
+                <span className="tally-badge">
+                  <strong>13</strong>
+                  <span>Active projects · Pipeline live</span>
+                </span>
 
                 {/* Faithful inline replica of the Revlient OS Projects
                     screen (real values from the shared screenshot).

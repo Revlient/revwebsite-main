@@ -4495,8 +4495,18 @@ html.js .reveal.is-visible {
 
 /* ---- Projects screen mockup (third feature card) ---- */
 
+/* Match the Tally card's outer shell — same dark base, hairline
+   border and min height — so the two showcase boxes feel like a
+   matched pair. */
 .feat-card--projects {
-  background: #050507;
+  background: #0a0b10;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  min-height: 460px;
+  position: relative;
+}
+
+.feat-card--projects .feat-card__inner {
+  gap: 0.8rem;
 }
 
 .rprojects {
