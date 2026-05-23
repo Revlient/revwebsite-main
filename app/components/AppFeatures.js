@@ -129,28 +129,43 @@ export default function AppFeatures() {
         </header>
 
         <div className="feat-grid">
-          {/* Column 1 — JOURNEY */}
-          <article className="feat-card feat-card--video feat-card--bg">
-            <video
-              className="feat-card__video"
-              src={JOURNEY_VIDEO}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
-            />
+          {/* Column 1 — APTITUDE TESTS mockup */}
+          <article className="feat-card feat-card--bg feat-card--aptitude">
             <div className="feat-card__inner">
-              <SectionLabel>STUDENT JOURNEY</SectionLabel>
-              <div className="feat-timeline">
-                {JOURNEY.map((row) => (
-                  <div className="feat-timeline__row" key={row.period}>
-                    <span className="feat-timeline__period">{row.period}</span>
-                    <Sparkle className="feat-timeline__sep" />
-                    <span className="feat-timeline__role">{row.role}</span>
-                    <span className="feat-timeline__org">{row.org}</span>
+              <SectionLabel>APTITUDE TESTS</SectionLabel>
+              <div className="aptitude">
+                <h3 className="aptitude__heading">
+                  Take guided tests before choosing your stream,
+                  course, or career path.
+                </h3>
+                <p className="aptitude__desc">
+                  Explore curated assessments that help students
+                  understand strengths, interests, and the academic
+                  direction that fits best.
+                </p>
+                <div className="aptitude__chips">
+                  <span>6 assessments</span>
+                  <span>Career & stream guidance</span>
+                  <span>Embedded inside Revlient</span>
+                </div>
+                <div className="aptitude__cta">
+                  <span className="aptitude__cta-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 2.5C7.34 2.5 6 3.84 6 5.5v10a3.5 3.5 0 0 0 6 3 3.5 3.5 0 0 0 6-3v-10c0-1.66-1.34-3-3-3a3 3 0 0 0-3 1.5 3 3 0 0 0-3-1.5Z" />
+                      <path d="M12 6v15" />
+                      <path d="M9 9.5h.01" />
+                      <path d="M15 9.5h.01" />
+                    </svg>
+                  </span>
+                  <div className="aptitude__cta-copy">
+                    <strong>Choose a test and start instantly.</strong>
+                    <p>Compare multiple assessments from one page and open the one you need without leaving the app.</p>
                   </div>
-                ))}
+                  <a href={CTA_HREF} className="aptitude__cta-btn">
+                    Explore Tests
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
               </div>
             </div>
           </article>
@@ -195,21 +210,52 @@ export default function AppFeatures() {
 
           {/* Column 3 */}
           <div className="feat-col">
-            <article className="feat-card feat-card--video feat-card--software">
-              <video
-                className="feat-card__video"
-                src={COUNTRIES_VIDEO}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-              />
+            <article className="feat-card feat-card--software feat-card--aichat">
               <div className="feat-card__inner">
-                <SectionLabel>DESTINATIONS COVERED</SectionLabel>
-                <div className="feat-marquees">
-                  <Marquee items={DESTINATIONS.slice(0, 8)} direction="left" />
-                  <Marquee items={DESTINATIONS.slice(4)} direction="right" />
+                <SectionLabel>AI COUNSELLOR</SectionLabel>
+                <div className="aichat" aria-label="AI Counsellor chat preview">
+                  <header className="aichat__head">
+                    <span className="aichat__avatar" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="9" y="2" width="6" height="3" rx="1" />
+                        <rect x="4" y="6" width="16" height="13" rx="3" />
+                        <circle cx="9" cy="13" r="1.5" fill="#fff" />
+                        <circle cx="15" cy="13" r="1.5" fill="#fff" />
+                      </svg>
+                    </span>
+                    <span className="aichat__title">AI Counsellor</span>
+                    <span className="aichat__close" aria-hidden="true">×</span>
+                  </header>
+                  <div className="aichat__body">
+                    <div className="aichat__msg aichat__msg--user">
+                      <span className="aichat__bubble">Hey</span>
+                      <span className="aichat__userpic" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 4-6 8-6s8 2 8 6" /></svg>
+                      </span>
+                    </div>
+                    <div className="aichat__msg aichat__msg--bot">
+                      <span className="aichat__botpic" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <rect x="9" y="2" width="6" height="3" rx="1" />
+                          <rect x="4" y="6" width="16" height="13" rx="3" />
+                          <circle cx="9" cy="13" r="1.5" fill="#fff" />
+                          <circle cx="15" cy="13" r="1.5" fill="#fff" />
+                        </svg>
+                      </span>
+                      <p className="aichat__bubble">
+                        Hello, welcome to our university admissions
+                        platform. I&apos;m here to help you find your
+                        perfect university match. What brings you here
+                        today?
+                      </p>
+                    </div>
+                  </div>
+                  <div className="aichat__input">
+                    <span className="aichat__placeholder">Ask something…</span>
+                    <span className="aichat__send" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 21l19-9L3 3v6l13 3-13 3z" /></svg>
+                    </span>
+                  </div>
                 </div>
               </div>
             </article>
