@@ -4493,6 +4493,743 @@ html.js .reveal.is-visible {
   height: 22px;
 }
 
+/* ---- Projects screen mockup (third feature card) ---- */
+
+.feat-card--projects {
+  background: #050507;
+}
+
+.rprojects {
+  position: relative;
+  margin-top: 0.6rem;
+  padding: 14px;
+  border-radius: 14px;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.rprojects__head h4 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.rprojects__head p {
+  margin: 3px 0 8px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.rprojects__new {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 7px;
+  background: #3b82f6;
+  color: #0b1320;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.rprojects__searchwrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.rprojects__searchicon {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.rprojects__searchlabel {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.rprojects__filterrow {
+  display: flex;
+  align-items: center;
+}
+
+.rprojects__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 9px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.rprojects__tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.rprojects__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.rprojects__tab.is-active {
+  background: #fff;
+  color: #0a0a0c;
+  border-color: #fff;
+  font-weight: 700;
+}
+
+.rprojects__tab-count {
+  opacity: 0.5;
+  font-weight: 500;
+}
+
+.rprojects__tab.is-active .rprojects__tab-count {
+  opacity: 0.55;
+}
+
+.rprojects__card {
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rprojects__card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rprojects__card-head h5 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.rprojects__card-head p {
+  margin: 2px 0 0;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.rprojects__status {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(16, 185, 129, 0.32);
+}
+
+.rprojects__progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rprojects__progress-bar {
+  flex: 1;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.rprojects__progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.rprojects__progress-value {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.rprojects__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.rprojects__meta-warn {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.rprojects__card-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.rprojects__pm-label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
+  text-align: right;
+}
+
+.rprojects__pm-name {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #fff;
+  text-align: right;
+}
+
+.rprojects__reassign {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ---- Student app screens (rapp) inside AppShowcase phones ---- */
+
+.rapp-shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #ffffff;
+  color: #0a0a0c;
+  font-size: 9px;
+}
+
+.rapp-shell__body {
+  flex: 1;
+  overflow: hidden;
+  padding: 38px 12px 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* default home screen */
+.rapp {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+}
+
+.rapp__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rapp__brandmark {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a0a0c;
+}
+
+.rapp__brandmark svg {
+  width: 16px;
+  height: 16px;
+}
+
+.rapp__topbar-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.rapp__icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 11px;
+  color: #0a0a0c;
+}
+
+.rapp__bell-dot {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ef4444;
+  border: 1px solid #fff;
+}
+
+.rapp__welcome p {
+  margin: 0;
+  font-size: 8.5px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.rapp__welcome h4 {
+  margin: 1px 0 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: #0a0a0c;
+  letter-spacing: -0.01em;
+}
+
+.rapp__heroCard {
+  position: relative;
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fb923c, #ea580c 70%);
+  color: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+}
+
+.rapp__heroCard::before,
+.rapp__heroCard::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+.rapp__heroCard::before {
+  width: 80px;
+  height: 80px;
+  top: -30px;
+  right: -20px;
+}
+
+.rapp__heroCard::after {
+  width: 60px;
+  height: 60px;
+  bottom: -20px;
+  left: -10px;
+}
+
+.rapp__heroCard-icon {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.rapp__heroCard-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.rapp__heroCard h5 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  position: relative;
+}
+
+.rapp__heroCard p {
+  margin: 0;
+  font-size: 8.5px;
+  line-height: 1.35;
+  position: relative;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.rapp__tiles {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.rapp__tile {
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: space-between;
+  overflow: hidden;
+  min-height: 64px;
+}
+
+.rapp__tile::before,
+.rapp__tile::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  pointer-events: none;
+}
+
+.rapp__tile::before {
+  width: 36px;
+  height: 36px;
+  top: -10px;
+  right: -10px;
+}
+
+.rapp__tile::after {
+  width: 26px;
+  height: 26px;
+  bottom: -10px;
+  right: 8px;
+}
+
+.rapp__tile--colleges {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.rapp__tile--saved {
+  background: linear-gradient(135deg, #ec4899, #db2777);
+}
+
+.rapp__tile--scholarships {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.rapp__tile--ai {
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+}
+
+.rapp__tile--exams {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #fb923c, #ea580c);
+}
+
+.rapp__tile-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.22);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rapp__tile-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.rapp__tile-label {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.rapp__tile-sub {
+  display: block;
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* AI Match screen */
+.rapp--aim {
+  background: #ffffff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.rapp__aimhead {
+  margin: -38px -12px 0;
+  padding: 44px 14px 18px;
+  background: linear-gradient(160deg, #1e1b4b, #312e81);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.rapp__aimhead p {
+  margin: 0;
+  font-size: 9.5px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.rapp__aimcard {
+  margin: -22px 4px 0;
+  padding: 14px 12px 12px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 16px 30px -18px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.rapp__aimcard-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(99, 102, 241, 0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rapp__aimcard-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.rapp__aimcard h5 {
+  margin: 2px 0 0;
+  font-size: 12px;
+  font-weight: 800;
+  color: #0a0a0c;
+  letter-spacing: -0.01em;
+}
+
+.rapp__aimcard p {
+  margin: 0;
+  font-size: 8.5px;
+  line-height: 1.45;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.rapp__aimbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: #4f46e5;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.rapp__aimtags {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.rapp__aimtags span {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.rapp__aimworks {
+  margin: 8px 4px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px dashed rgba(99, 102, 241, 0.35);
+  font-size: 10px;
+  font-weight: 700;
+  color: #4338ca;
+  text-align: left;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Explore Colleges screen */
+.rapp--explore {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 8px;
+}
+
+.rapp__exhead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.rapp__exhead h5 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: #0a0a0c;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  letter-spacing: -0.01em;
+}
+
+.rapp__pin {
+  color: #f97316;
+}
+
+.rapp__exhead p {
+  margin: 2px 0 0;
+  font-size: 8.5px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.rapp__exviewall {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #f97316;
+}
+
+.rapp__exsearch {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rapp__exsearch-input {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 8px;
+  border-radius: 9px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 9px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.rapp__exsearch-filter {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.rapp__excard {
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.rapp__excard-image {
+  height: 56px;
+  background:
+    radial-gradient(120% 100% at 30% 100%, rgba(34, 139, 34, 0.35), transparent 70%),
+    linear-gradient(180deg, #93c5fd 0%, #fcd34d 100%);
+}
+
+.rapp__excard-body {
+  padding: 7px 9px 8px;
+}
+
+.rapp__excard-body h6 {
+  margin: 0;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #0a0a0c;
+  letter-spacing: -0.01em;
+}
+
+.rapp__excard-body p {
+  margin: 2px 0 5px;
+  font-size: 8.5px;
+  color: rgba(0, 0, 0, 0.5);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.rapp__excard-tag {
+  display: inline-block;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.06);
+  font-size: 7.5px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Bottom tab bar shared by all three screens */
+.rapp__tabbar {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  padding: 8px 4px 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  background: #fff;
+}
+
+.rapp__tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 6.5px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.rapp__tab-icon {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.rapp__tab.is-active {
+  color: #0a0a0c;
+}
+
+.rapp__tab.is-active .rapp__tab-icon {
+  background: #f97316;
+}
+
 /* ---- Revlient OS mobile mockup (rosphone) ---- */
 
 .rosphone {

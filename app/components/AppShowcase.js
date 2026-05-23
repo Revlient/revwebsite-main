@@ -5,9 +5,11 @@ import { CTA_HREF } from "../lib/site";
 /* Application showcase placed under the ErpFeatures grid on /work.
    Three stylised phone frames — one taller centre device flanked by
    two tilted side devices — over an ambient glow + faint orbit
-   line. Each device is a clearly-marked slot (data-screen) ready to
-   be replaced with a real screenshot <img> later. No motion/react,
-   no Tailwind, no lucide-react. */
+   line. Each device renders a faithful inline replica of one of the
+   real Revlient student-app screens (Home in the centre, AI Match
+   on the left, Explore Colleges on the right). Swap any
+   <Screen /> for an <img src="/work/app-<key>.png" /> when the real
+   PNGs are committed. */
 
 function ArrowDown({ className = "" }) {
   return (
@@ -40,74 +42,178 @@ function StoreBadge({ store, label, sub }) {
   );
 }
 
-function PhoneFrame({ variant, screen }) {
+/* ----- screens ----- */
+
+function HomeScreen() {
+  const tiles = [
+    { key: "colleges", label: "Find Colleges", sub: "Browse all", icon: "search" },
+    { key: "saved", label: "Saved Courses", sub: "Your picks", icon: "heart" },
+    { key: "scholarships", label: "Scholarships", sub: "Apply now", icon: "cap" },
+    { key: "ai", label: "AI Match", sub: "Get Recommendations", icon: "spark" },
+    { key: "exams", label: "Entrance Exams", sub: "", icon: "clip" },
+  ];
   return (
-    <div
-      className={`appshow__phone appshow__phone--${variant}`}
-      data-screen={screen}
-    >
+    <div className="rapp rapp--home">
+      <div className="rapp__topbar">
+        <span className="rapp__brandmark" aria-hidden="true">
+          <svg viewBox="0 0 96 110" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true">
+            <path d="M18 30 L46 19 L46 50 L36 56 L18 45 Z" />
+            <path d="M78 30 L50 19 L50 50 L60 56 L78 45 Z" />
+            <path d="M18 58 L36 58 L46 64 L46 94 L24 94 L18 80 Z" />
+            <path d="M78 58 L60 58 L50 64 L50 94 L72 94 L78 80 Z" />
+          </svg>
+        </span>
+        <div className="rapp__topbar-actions">
+          <span className="rapp__icon rapp__icon--bell">
+            <span className="rapp__bell-dot" />
+          </span>
+          <span className="rapp__icon">⌕</span>
+        </div>
+      </div>
+
+      <div className="rapp__welcome">
+        <p>Welcome back</p>
+        <h4>Hello, Student! <span aria-hidden="true">👋</span></h4>
+      </div>
+
+      <div className="rapp__heroCard">
+        <span className="rapp__heroCard-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M2 9l10-5 10 5-10 5z" />
+            <path d="M6 11v5c2 1.5 4 2 6 2s4-.5 6-2v-5" />
+          </svg>
+        </span>
+        <h5>Your Future Starts Here</h5>
+        <p>Explore top colleges and courses tailored for your career goals.</p>
+      </div>
+
+      <div className="rapp__tiles">
+        {tiles.map((t) => (
+          <div key={t.key} className={`rapp__tile rapp__tile--${t.key}`}>
+            <span className="rapp__tile-icon" aria-hidden="true">
+              {t.icon === "search" && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
+              )}
+              {t.icon === "heart" && (
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.5-9-9c-1-3 1-6 4-6 2 0 3 1 5 3 2-2 3-3 5-3 3 0 5 3 4 6-2 4.5-9 9-9 9z" /></svg>
+              )}
+              {t.icon === "cap" && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 9l10-5 10 5-10 5z" /><path d="M6 11v5c2 1.5 4 2 6 2s4-.5 6-2v-5" /></svg>
+              )}
+              {t.icon === "spark" && (
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 3l1.6 4.6L17 9l-4.4 1.4L11 15l-1.6-4.6L5 9l4.4-1.4z" /><path d="M18 14l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z" /></svg>
+              )}
+              {t.icon === "clip" && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="4" width="12" height="17" rx="2" /><path d="M9 4h6v3H9z" /></svg>
+              )}
+            </span>
+            <div className="rapp__tile-text">
+              <span className="rapp__tile-label">{t.label}</span>
+              {t.sub && <span className="rapp__tile-sub">{t.sub}</span>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AIMatchScreen() {
+  return (
+    <div className="rapp rapp--aim">
+      <div className="rapp__aimhead">
+        <p>Get personalized college and course recommendations based on your profile, GPA, and interests.</p>
+      </div>
+      <div className="rapp__aimcard">
+        <span className="rapp__aimcard-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="#4338ca" aria-hidden="true">
+            <path d="M11 3l1.6 4.6L17 9l-4.4 1.4L11 15l-1.6-4.6L5 9l4.4-1.4z" />
+            <path d="M18 14l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z" />
+          </svg>
+        </span>
+        <h5>Personalized Recommendations</h5>
+        <p>Our AI engine analyzes your GPA, test scores, budget, and interests to find the best-fit colleges for you.</p>
+        <span className="rapp__aimbtn">
+          <span aria-hidden="true">✦</span>
+          Generate My List
+        </span>
+        <div className="rapp__aimtags">
+          <span><span aria-hidden="true">🏆</span> ASPIRATIONAL</span>
+          <span><span aria-hidden="true">◎</span> TARGET</span>
+          <span><span aria-hidden="true">🛡</span> SAFETY</span>
+        </div>
+      </div>
+      <div className="rapp__aimworks">
+        <span aria-hidden="true">✦</span>
+        How AI Matchmaking Works
+      </div>
+    </div>
+  );
+}
+
+function ExploreScreen() {
+  const colleges = [
+    { name: "Apex Culinary Academy", loc: "Paris, France", tag: "Diploma in Culinary Arts" },
+    { name: "CyberSec University", loc: "Austin, TX", tag: "B.Sc. Cybersecurity" },
+  ];
+  return (
+    <div className="rapp rapp--explore">
+      <header className="rapp__exhead">
+        <div>
+          <h5>
+            <span className="rapp__pin" aria-hidden="true">◉</span>
+            Explore Colleges
+          </h5>
+          <p>Top picks based on popularity</p>
+        </div>
+        <span className="rapp__exviewall">View All →</span>
+      </header>
+      <div className="rapp__exsearch">
+        <span className="rapp__exsearch-input">
+          <span aria-hidden="true">⌕</span>
+          Search colleges by name or location
+        </span>
+        <span className="rapp__exsearch-filter" aria-hidden="true">≡</span>
+      </div>
+      {colleges.map((c) => (
+        <article key={c.name} className="rapp__excard">
+          <div className="rapp__excard-image" aria-hidden="true" />
+          <div className="rapp__excard-body">
+            <h6>{c.name}</h6>
+            <p>
+              <span className="rapp__pin" aria-hidden="true">◉</span>
+              {c.loc}
+            </p>
+            <span className="rapp__excard-tag">{c.tag}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function TabBar({ active }) {
+  const tabs = ["Home", "Saved", "Scholarships", "Exams", "Alerts", "Profile"];
+  return (
+    <nav className="rapp__tabbar" aria-hidden="true">
+      {tabs.map((t) => (
+        <span key={t} className={`rapp__tab ${t === active ? "is-active" : ""}`.trim()}>
+          <span className="rapp__tab-icon" />
+          {t}
+        </span>
+      ))}
+    </nav>
+  );
+}
+
+function PhoneFrame({ variant, activeTab, children }) {
+  return (
+    <div className={`appshow__phone appshow__phone--${variant}`}>
       <span className="appshow__phone-notch" aria-hidden="true" />
-      <span className="appshow__phone-button appshow__phone-button--vol-up" aria-hidden="true" />
-      <span className="appshow__phone-button appshow__phone-button--vol-dn" aria-hidden="true" />
-      <span className="appshow__phone-button appshow__phone-button--power" aria-hidden="true" />
       <div className="appshow__phone-screen">
-        {/* Placeholder visual until the real screenshot is dropped in.
-            To swap: replace this block with
-              <img src="/work/app-<variant>.png" alt="…" />
-            (or any path you commit at public/work/). */}
-        <div className={`appshow__placeholder appshow__placeholder--${screen}`}>
-          <div className="appshow__placeholder-bar" />
-          <div className="appshow__placeholder-body">
-            {screen === "list" && (
-              <>
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <span key={i} className="appshow__placeholder-row">
-                    <span className="appshow__placeholder-row-dot" />
-                    <span className="appshow__placeholder-row-lines">
-                      <span className="appshow__placeholder-line" />
-                      <span className="appshow__placeholder-line appshow__placeholder-line--sm" />
-                    </span>
-                    <span className="appshow__placeholder-row-tag" />
-                  </span>
-                ))}
-              </>
-            )}
-            {screen === "dashboard" && (
-              <>
-                <span className="appshow__placeholder-greeting" />
-                <span className="appshow__placeholder-greeting appshow__placeholder-greeting--sm" />
-                <div className="appshow__placeholder-kpis">
-                  <span className="appshow__placeholder-kpi appshow__placeholder-kpi--accent" />
-                  <span className="appshow__placeholder-kpi" />
-                  <span className="appshow__placeholder-kpi" />
-                  <span className="appshow__placeholder-kpi appshow__placeholder-kpi--alt" />
-                </div>
-                <span className="appshow__placeholder-chart" />
-              </>
-            )}
-            {screen === "detail" && (
-              <>
-                <span className="appshow__placeholder-hero" />
-                <span className="appshow__placeholder-line appshow__placeholder-line--lg" />
-                <span className="appshow__placeholder-line" />
-                <span className="appshow__placeholder-line appshow__placeholder-line--md" />
-                <div className="appshow__placeholder-actions">
-                  <span className="appshow__placeholder-pill appshow__placeholder-pill--primary" />
-                  <span className="appshow__placeholder-pill" />
-                </div>
-                <span className="appshow__placeholder-row appshow__placeholder-row--block">
-                  <span className="appshow__placeholder-row-dot" />
-                  <span className="appshow__placeholder-row-lines">
-                    <span className="appshow__placeholder-line" />
-                    <span className="appshow__placeholder-line appshow__placeholder-line--sm" />
-                  </span>
-                </span>
-              </>
-            )}
-          </div>
-          <div className="appshow__placeholder-tabbar">
-            <span /><span /><span className="is-active" /><span /><span />
-          </div>
+        <div className="rapp-shell">
+          <div className="rapp-shell__body">{children}</div>
+          <TabBar active={activeTab} />
         </div>
         <span className="appshow__phone-reflection" aria-hidden="true" />
       </div>
@@ -127,11 +233,11 @@ export default function AppShowcase() {
           <span className="appshow__dot" />
           Now shipping · iOS & Android
         </span>
-        <h2 className="appshow__title">Mission control, in your pocket.</h2>
+        <h2 className="appshow__title">Your study-abroad journey, in your pocket.</h2>
         <p className="appshow__sub">
-          The full Revlient OS — pipeline, projects and tally — built
-          for the way the team moves between desks, meetings and the
-          commute home.
+          Explore top colleges, save the courses worth shortlisting,
+          track scholarships and let AI matchmake an aspirational /
+          target / safety list — all from one home screen.
         </p>
 
         <div className="appshow__stores">
@@ -145,9 +251,15 @@ export default function AppShowcase() {
       </header>
 
       <div className="appshow__cluster">
-        <PhoneFrame variant="left" screen="list" />
-        <PhoneFrame variant="center" screen="dashboard" />
-        <PhoneFrame variant="right" screen="detail" />
+        <PhoneFrame variant="left" activeTab="Home">
+          <AIMatchScreen />
+        </PhoneFrame>
+        <PhoneFrame variant="center" activeTab="Home">
+          <HomeScreen />
+        </PhoneFrame>
+        <PhoneFrame variant="right" activeTab="Home">
+          <ExploreScreen />
+        </PhoneFrame>
       </div>
 
       <div className="appshow__floor" aria-hidden="true" />

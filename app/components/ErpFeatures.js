@@ -531,7 +531,7 @@ export default function ErpFeatures() {
               </div>
             </article>
 
-            <article className="feat-card feat-card--reach noise-overlay">
+            <article className="feat-card feat-card--reach noise-overlay feat-card--projects">
               <a
                 href={CTA_HREF}
                 className="feat-reach__cta liquid-glass"
@@ -541,10 +541,69 @@ export default function ErpFeatures() {
               </a>
               <div className="feat-card__inner">
                 <SectionLabel align="start">COUNSELLOR WORKSPACE</SectionLabel>
-                <div className="feat-reach__lines">
-                  <span className="feat-reach__line">Pipeline that stays current</span>
-                  <span className="feat-reach__line">Documents reviewed in-app</span>
-                  <span className="feat-reach__line">AI drafts the next step</span>
+
+                {/* Faithful inline replica of the Revlient OS Projects
+                    screen (real values from the shared screenshot).
+                    Swap for <img src="/work/revlient-os-projects.png" />
+                    once the real PNG is committed. */}
+                <div className="rprojects" aria-label="Revlient OS — Projects">
+                  <header className="rprojects__head">
+                    <h4>Projects</h4>
+                    <p>13 total · 0 awaiting assignment</p>
+                    <span className="rprojects__new">+ New project</span>
+                  </header>
+
+                  <div className="rprojects__searchwrap">
+                    <span className="rprojects__searchicon" aria-hidden="true">⌕</span>
+                    <span className="rprojects__searchlabel">
+                      Search project, client, deal title…
+                    </span>
+                  </div>
+
+                  <div className="rprojects__filterrow">
+                    <span className="rprojects__filter">
+                      All statuses
+                      <span aria-hidden="true">⌄</span>
+                    </span>
+                  </div>
+
+                  <div className="rprojects__tabs">
+                    <span className="rprojects__tab is-active">
+                      All <span className="rprojects__tab-count">13</span>
+                    </span>
+                    <span className="rprojects__tab">
+                      Unassigned <span className="rprojects__tab-count">0</span>
+                    </span>
+                  </div>
+
+                  <article className="rprojects__card">
+                    <div className="rprojects__card-head">
+                      <div>
+                        <h5>Vidya pilot LMS</h5>
+                        <p>Vidya Learning Lab</p>
+                      </div>
+                      <span className="rprojects__status">launch</span>
+                    </div>
+                    <div className="rprojects__progress">
+                      <span className="rprojects__progress-bar">
+                        <span className="rprojects__progress-fill" style={{ width: "100%" }} />
+                      </span>
+                      <span className="rprojects__progress-value">100%</span>
+                    </div>
+                    <div className="rprojects__meta">
+                      <span>3 of 3 milestones paid</span>
+                      <span className="rprojects__meta-warn">overdue by 28 days</span>
+                    </div>
+                    <footer className="rprojects__card-foot">
+                      <div>
+                        <span className="rprojects__pm-label">PM</span>
+                        <span className="rprojects__pm-name">Vivek M.</span>
+                      </div>
+                      <span className="rprojects__reassign" aria-hidden="true">
+                        ↻ Reassign PM
+                      </span>
+                    </footer>
+                  </article>
                 </div>
               </div>
             </article>
