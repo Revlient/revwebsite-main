@@ -7896,11 +7896,12 @@ a.feat-reach__line:hover {
      converges around where the dashboard frame sits */
   object-position: center 45%;
   pointer-events: none;
-  /* hue lands the shaft in the blue → violet → red range:
-     - shadows / cool tones map to deep blue
-     - mids map to violet / magenta
-     - highlights pick up a warm reddish edge */
-  filter: hue-rotate(285deg) saturate(1.6) brightness(1.08);
+  /* sepia(1) first flattens every original colour into a single
+     warm channel, then saturate(3) + hue-rotate(255deg) rotates
+     that single channel into the blue → violet → red range. This
+     pipeline cannot leave any green pixels behind, because the
+     source spectrum is collapsed before the rotation. */
+  filter: sepia(1) saturate(3) hue-rotate(255deg) brightness(1.05);
   mix-blend-mode: screen;
   /* mask: fade in from the top, stay strong through the dashboard
      band, then fade out so the beam never bleeds into the features
