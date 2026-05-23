@@ -1855,6 +1855,79 @@ html.js .reveal.is-visible {
   isolation: isolate;
 }
 
+/* ----- Centred editorial head for the Services section -----
+   Overrides the generic .section-head (left-aligned utility) just
+   inside .svc-section. Title mixes DM Sans + Cormorant italic so
+   the typography reads more crafted than a flat h2. */
+.svc-section .section-head.svc-section__head {
+  max-width: 760px;
+  margin: 0 auto clamp(2.5rem, 2rem + 2vw, 4rem);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.svc-section__head .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1.2rem;
+}
+
+.svc-section__eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--blue-light);
+  box-shadow: 0 0 10px rgba(111, 140, 255, 0.75);
+}
+
+.svc-section__head h2 {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: clamp(2.2rem, 1.4rem + 2.8vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0;
+}
+
+.svc-section__head h2 em {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  /* sit the italic word slightly larger so the cursive arcs read
+     dominant against the sans surrounding it */
+  font-size: 1.08em;
+  background: linear-gradient(135deg, #c084fc 0%, #6f8cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.svc-section__head p {
+  max-width: 540px;
+  margin: 1.4rem auto 0;
+  color: var(--muted);
+  font-size: var(--step-0);
+  line-height: 1.55;
+}
+
+.svc-section__rule {
+  display: block;
+  width: 60px;
+  height: 1px;
+  margin: 1.6rem auto 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(140, 160, 200, 0.55),
+    transparent
+  );
+}
+
 /* ---- the ecosystem stage ---- */
 .svc-eco {
   position: relative;

@@ -30,8 +30,8 @@ export default function WorkPage() {
         <ErpFeatures />
         <AppShowcase />
         <AppFeatures />
-        <WorthCrafting />
         <WorkProjects />
+        <WorthCrafting />
         <FinalCTA />
       </main>
       <Footer />

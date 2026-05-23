@@ -33,14 +33,22 @@ export default function Services() {
     <section className="section svc-section" id="services">
       <div className="container">
         <Reveal>
-          <div className="section-head">
-            <span className="eyebrow">What we build</span>
-            <h2>An intelligent service ecosystem.</h2>
+          <div className="section-head svc-section__head">
+            <span className="eyebrow">
+              <span className="svc-section__eyebrow-dot" aria-hidden="true" />
+              What we build
+            </span>
+            <h2>
+              An <em>intelligent</em> service
+              <br />
+              <em>ecosystem.</em>
+            </h2>
             <p>
               Every service runs through one connected core — design,
               engineering, growth and intelligence working as a single
               system, not four agencies.
             </p>
+            <span className="svc-section__rule" aria-hidden="true" />
           </div>
         </Reveal>
 
