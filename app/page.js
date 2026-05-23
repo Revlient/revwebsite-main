@@ -23,7 +23,13 @@ export default function HomePage() {
         <AiPromptSection />
         <Features />
         <ProcessSpine />
-        <WorkFeatureSection />
+        <WorkFeatureSection
+          pill="Included with every active project"
+          heading="CRM access for clients."
+          sub="Every active engagement comes with a private CRM workspace — track project phases live, transfer assets, raise enquiries, and watch the build pulse in real time."
+          greeting="Good afternoon, Kevin"
+          showcaseLabel="Client portal · Project phases · Asset transfer · Enquiries"
+        />
         <Services />
         <ShowcaseCards />
         <WhyRevlient />

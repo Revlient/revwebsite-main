@@ -15,7 +15,16 @@
 
 import { CTA_HREF } from "../lib/site";
 
-export default function WorkFeatureSection() {
+// Optional props (all with defaults that keep the /work page rendering
+// identically) so this same component can be reused on the home page
+// with CRM-access-for-clients framing.
+export default function WorkFeatureSection({
+  pill = "AI-integrated · 10× faster operations",
+  heading = "A modern ERP, shaped around your business.",
+  sub = "Not the old CRM playbook. Projects, clients, quotations, invoicing, tally, timesheets and finance — fully customisable to how your team actually works, and accelerated by AI features that take routine work off the desk.",
+  greeting = "Good afternoon, admin",
+  showcaseLabel = "Showcase · Customisable ERP · AI-integrated",
+} = {}) {
   return (
     <section className="wfs">
       <video
@@ -38,7 +47,7 @@ export default function WorkFeatureSection() {
 
       <div className="wfs__inner">
         <a href={CTA_HREF} className="wfs__pill">
-          <span>AI-integrated · 10× faster operations</span>
+          <span>{pill}</span>
           <span className="wfs__pill-divider" />
           <span className="wfs__pill-arrow">
             <span className="wfs__pill-arrow-track">
@@ -58,14 +67,8 @@ export default function WorkFeatureSection() {
           </span>
         </a>
 
-        <h2 className="wfs__heading">A modern ERP, shaped around your business.</h2>
-        <p className="wfs__sub">
-          Not the old CRM playbook. Projects, clients, quotations,
-          invoicing, tally, timesheets and finance — fully
-          customisable to how your team actually works, and
-          accelerated by AI features that take routine work off the
-          desk.
-        </p>
+        <h2 className="wfs__heading">{heading}</h2>
+        <p className="wfs__sub">{sub}</p>
 
         <div className="wfs__actions">
           <span className="wfs__cta-wrap">
@@ -81,7 +84,7 @@ export default function WorkFeatureSection() {
 
       <div className="wfs__showcase-label">
         <span className="wfs__showcase-pulse" />
-        Showcase · Customisable ERP · AI-integrated
+        {showcaseLabel}
       </div>
 
       {/* Faithful inline replica of the live Revlient OS web dashboard
@@ -176,7 +179,7 @@ export default function WorkFeatureSection() {
             <main className="wfs__screen-main">
               <header className="wfs__screen-header">
                 <div>
-                  <span className="wfs__screen-title">Good afternoon, admin</span>
+                  <span className="wfs__screen-title">{greeting}</span>
                   <span className="wfs__screen-subtitle">
                     Saturday, May 23, 2026 · 5:19 PM · Mission control
                   </span>
