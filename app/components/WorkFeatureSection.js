@@ -1,3 +1,10 @@
+// 🔒 LOCKED — ERP showcase template. Do not modify the dashboard
+// mockup (sidebar groups, KPIs, trend + AI panel, bottom row) or
+// the surrounding heading/sub copy without an explicit request from
+// the team. Real numbers shown here mirror the live
+// erp.revlient.com dashboard; the layout was finalised on the
+// pass that brought it in line with the live reference.
+//
 // Hero-section-1 (tailark) block placed under the WorkHero on /work.
 // Adapted from a shadcn/framer-motion/lucide-react brief to vanilla
 // JS + plain CSS — Tailwind utilities are rebuilt as scoped .wfs-*
@@ -5,12 +12,6 @@
 // transition-delay, lucide-react replaced with inline SVG. The
 // navbar from the source is intentionally dropped (the page already
 // has the WorkHero's in-card nav).
-//
-// PROOF RULE: the brief shipped real customer wordmarks (NVIDIA,
-// GitHub, OpenAI, etc.) which we don't have permission to use, so
-// the customers row is replaced with abstract grey logo bars. The
-// app-screen "screenshot" is a stylised inline mockup rather than
-// an external image so nothing rots when the source URL changes.
 
 import { CTA_HREF } from "../lib/site";
 

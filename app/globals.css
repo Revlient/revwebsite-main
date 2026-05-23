@@ -4125,81 +4125,8 @@ html.js .reveal.is-visible {
 
 .feat-card--voice,
 .feat-card--reach {
-  /* Animated multi-stop gradient replaces the old flat slate. The
-     background-position drifts on a 22s loop so the card breathes
-     between pure black and a brand-red haze; the noise-overlay
-     adds the same paper texture as before. */
-  background: linear-gradient(
-    135deg,
-    #0a0a0c 0%,
-    #1a0707 22%,
-    #2f0a0a 40%,
-    #4a0c0c 60%,
-    #1a0707 78%,
-    #0a0a0c 100%
-  );
-  background-size: 280% 280%;
-  animation: voiceGradient 22s ease-in-out infinite;
+  background: #11161e;
   min-height: 220px;
-}
-
-@keyframes voiceGradient {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .feat-card--voice,
-  .feat-card--reach {
-    animation: none;
-    background-position: 50% 50%;
-  }
-}
-
-/* Thin animated gradient accent ribbon at the top edge of the
-   Client Voice card — a quiet brand-pulse the eye picks up. */
-.feat-card--voice {
-  position: relative;
-}
-
-.feat-card--voice > .feat-card__inner > .feat-label::before {
-  content: "";
-  position: absolute;
-  left: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
-  right: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
-  top: 0;
-  height: 1.5px;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.9) 30%,
-    rgba(239, 68, 68, 0.95) 55%,
-    rgba(255, 255, 255, 0.9) 80%,
-    transparent 100%
-  );
-  background-size: 220% 100%;
-  animation: voiceRibbon 6s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes voiceRibbon {
-  0% {
-    background-position: 100% 0;
-  }
-  100% {
-    background-position: -120% 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .feat-card--voice > .feat-card__inner > .feat-label::before {
-    animation: none;
-  }
 }
 
 .feat-card__video {
@@ -4238,36 +4165,17 @@ html.js .reveal.is-visible {
   justify-content: space-between;
 }
 
-/* Animated gradient blob backdrop — first introduced on the phone
-   card, now shared across every ErpFeatures box for a cohesive look.
-   isolation: isolate + z-index: -1 keeps the blobs strictly behind
-   the card content. Smaller boxes use a lighter opacity so the
-   atmosphere never washes out the data. */
-.feat-card--phone .feat-card__inner,
-.feat-card--voice .feat-card__inner,
-.feat-card--tally .feat-card__inner,
-.feat-card--software .feat-card__inner,
-.feat-card--projects .feat-card__inner {
-  align-items: stretch;
+/* Phone card keeps its own atmospheric backdrop (the rest of the
+   ErpFeatures boxes were reverted to plain dark surfaces). */
+.feat-card--phone .feat-card__inner {
+  align-items: center;
+  justify-content: flex-start;
   position: relative;
   isolation: isolate;
 }
 
-.feat-card--phone .feat-card__inner {
-  align-items: center;
-  justify-content: flex-start;
-}
-
 .feat-card--phone .feat-card__inner::before,
-.feat-card--phone .feat-card__inner::after,
-.feat-card--voice .feat-card__inner::before,
-.feat-card--voice .feat-card__inner::after,
-.feat-card--tally .feat-card__inner::before,
-.feat-card--tally .feat-card__inner::after,
-.feat-card--software .feat-card__inner::before,
-.feat-card--software .feat-card__inner::after,
-.feat-card--projects .feat-card__inner::before,
-.feat-card--projects .feat-card__inner::after {
+.feat-card--phone .feat-card__inner::after {
   content: "";
   position: absolute;
   inset: 8% 0 4%;
@@ -4295,41 +4203,6 @@ html.js .reveal.is-visible {
   animation: featPhoneGlowB 19s ease-in-out infinite alternate;
 }
 
-/* Smaller cards use the same recipe at ~60% intensity */
-.feat-card--voice .feat-card__inner::before,
-.feat-card--tally .feat-card__inner::before,
-.feat-card--software .feat-card__inner::before,
-.feat-card--projects .feat-card__inner::before {
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgba(239, 68, 68, 0.42),
-    transparent 70%
-  );
-  animation: featPhoneGlowA 14s ease-in-out infinite alternate;
-}
-
-.feat-card--voice .feat-card__inner::after,
-.feat-card--tally .feat-card__inner::after,
-.feat-card--software .feat-card__inner::after,
-.feat-card--projects .feat-card__inner::after {
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgba(255, 255, 255, 0.16),
-    transparent 70%
-  );
-  animation: featPhoneGlowB 19s ease-in-out infinite alternate;
-}
-
-/* Stagger so the four boxes never breathe in unison */
-.feat-card--voice .feat-card__inner::before { animation-delay: -2s; }
-.feat-card--voice .feat-card__inner::after { animation-delay: -5s; }
-.feat-card--tally .feat-card__inner::before { animation-delay: -4s; }
-.feat-card--tally .feat-card__inner::after { animation-delay: -8s; }
-.feat-card--software .feat-card__inner::before { animation-delay: -6s; }
-.feat-card--software .feat-card__inner::after { animation-delay: -11s; }
-.feat-card--projects .feat-card__inner::before { animation-delay: -10s; }
-.feat-card--projects .feat-card__inner::after { animation-delay: -14s; }
-
 .feat-card--phone .rosphone {
   position: relative;
   z-index: 1;
@@ -4355,15 +4228,7 @@ html.js .reveal.is-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .feat-card--phone .feat-card__inner::before,
-  .feat-card--phone .feat-card__inner::after,
-  .feat-card--voice .feat-card__inner::before,
-  .feat-card--voice .feat-card__inner::after,
-  .feat-card--tally .feat-card__inner::before,
-  .feat-card--tally .feat-card__inner::after,
-  .feat-card--software .feat-card__inner::before,
-  .feat-card--software .feat-card__inner::after,
-  .feat-card--projects .feat-card__inner::before,
-  .feat-card--projects .feat-card__inner::after {
+  .feat-card--phone .feat-card__inner::after {
     animation: none;
   }
 }
