@@ -15,8 +15,6 @@ import { CTA_HREF } from "../lib/site";
    stated product claim (10× faster operations) rather than a
    fabricated dollar figure. */
 
-const SPEED_VIDEO =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260507_154543_d5b83fc1-9cea-44f3-b5e8-8f325935211a.mp4";
 const INTEG_VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260507_153148_d7a3e1dd-e5d0-4ce6-8306-00d7522ecc44.mp4";
 
@@ -408,21 +406,106 @@ export default function ErpFeatures() {
               </div>
             </article>
 
-            <article className="feat-card feat-card--video feat-card--metric">
-              <video
-                className="feat-card__video"
-                src={SPEED_VIDEO}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-              />
-              <div className="feat-card__inner feat-card__inner--center">
-                <span className="feat-metric__big">10×</span>
-                <span className="feat-metric__cap">
-                  Faster operations with AI assistance
+            <article className="feat-card feat-card--tally">
+              <div className="feat-card__inner">
+                <span className="tally-badge">
+                  <strong>10×</strong>
+                  <span>Faster operations · AI-assisted</span>
                 </span>
+
+                {/* Faithful inline replica of the Revlient OS Tally
+                    screen. Numbers are exactly what the team showed
+                    in the shared screenshot. Swap this whole block
+                    for <img src="/work/revlient-os-tally.png" /> when
+                    the real PNG is committed. */}
+                <div className="tally" aria-label="Revlient OS — Tally module">
+                  <header className="tally__head">
+                    <h4>Tally</h4>
+                    <p>income, expenses, cash flow and ledger control</p>
+                    <div className="tally__actions">
+                      <span className="tally__action" aria-hidden="true">↑</span>
+                      <span className="tally__action" aria-hidden="true">↓</span>
+                      <span className="tally__action tally__action--text">+ New entry</span>
+                      <span className="tally__action tally__action--primary">
+                        <span className="tally__action-icon" aria-hidden="true">▤</span>
+                        Generate invoice
+                      </span>
+                    </div>
+                  </header>
+
+                  <div className="tally__range">
+                    <span className="tally__range-pill">Week</span>
+                    <span className="tally__range-pill is-active">Month</span>
+                    <span className="tally__range-pill">Quarter</span>
+                    <span className="tally__range-pill">Year</span>
+                  </div>
+                  <p className="tally__rangenote">
+                    Showing last 12 months · this month highlighted
+                  </p>
+
+                  <section className="tally__hero">
+                    <span className="tally__hero-icon" aria-hidden="true">↗</span>
+                    <div className="tally__hero-copy">
+                      <span className="tally__hero-eyebrow">
+                        Company position · all time
+                      </span>
+                      <span className="tally__hero-value">
+                        In Profit · ₹2,66,937.05
+                      </span>
+                    </div>
+                    <div className="tally__hero-stats">
+                      <div>
+                        <span className="tally__stat-label">Total income</span>
+                        <span className="tally__stat-value tally__stat-value--up">
+                          ₹3,78,679
+                        </span>
+                      </div>
+                      <div>
+                        <span className="tally__stat-label">Total expenses</span>
+                        <span className="tally__stat-value tally__stat-value--down">
+                          ₹1,11,741.95
+                        </span>
+                      </div>
+                      <div>
+                        <span className="tally__stat-label">Margin</span>
+                        <span className="tally__stat-value">70%</span>
+                      </div>
+                    </div>
+                  </section>
+
+                  <div className="tally__mini">
+                    <div className="tally__minicard">
+                      <span className="tally__mini-label">Income (this month)</span>
+                      <span className="tally__mini-value">₹3.1L</span>
+                      <span className="tally__mini-delta tally__mini-delta--up">
+                        ↗ +100% vs prev
+                      </span>
+                      <svg className="tally__mini-chart" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true">
+                        <polyline
+                          fill="none"
+                          stroke="#22c55e"
+                          strokeWidth="1.6"
+                          points="2,22 18,21 34,22 50,21 66,22 82,18 98,5"
+                        />
+                      </svg>
+                    </div>
+                    <div className="tally__minicard">
+                      <span className="tally__mini-label">Expenses (this month)</span>
+                      <span className="tally__mini-value">₹0.6L</span>
+                      <span className="tally__mini-delta tally__mini-delta--down">
+                        +100% vs prev
+                      </span>
+                      <svg className="tally__mini-chart" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true">
+                        <polyline
+                          fill="none"
+                          stroke="#ef4444"
+                          strokeWidth="1.6"
+                          points="2,22 18,20 34,22 50,17 66,22 82,16 98,12"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
             </article>
           </div>

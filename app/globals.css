@@ -4234,6 +4234,265 @@ html.js .reveal.is-visible {
   }
 }
 
+/* ---- Tally screen mockup (second feature card) ---- */
+
+.feat-card--tally {
+  background: #0a0b10;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  min-height: 460px;
+}
+
+.feat-card--tally .feat-card__inner {
+  gap: 0.8rem;
+}
+
+.tally-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  align-self: flex-start;
+  padding: 0.28rem 0.8rem 0.28rem 0.32rem;
+  border-radius: 999px;
+  border: 1px solid rgba(74, 120, 255, 0.32);
+  background: linear-gradient(120deg, rgba(74, 120, 255, 0.18), rgba(168, 85, 247, 0.1));
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.tally-badge strong {
+  font-size: 13px;
+  font-weight: 800;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #4a78ff, #2b5fff);
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.tally {
+  position: relative;
+  border-radius: 14px;
+  padding: 14px;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.tally__head h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.tally__head p {
+  margin: 3px 0 8px;
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.35;
+}
+
+.tally__actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tally__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 9.5px;
+  font-weight: 500;
+}
+
+.tally__action--text {
+  font-weight: 600;
+}
+
+.tally__action--primary {
+  background: #3b82f6;
+  color: #0b1320;
+  border-color: rgba(255, 255, 255, 0.12);
+  font-weight: 600;
+}
+
+.tally__action-icon {
+  font-size: 10px;
+}
+
+.tally__range {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  align-self: flex-start;
+}
+
+.tally__range-pill {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 9.5px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.tally__range-pill.is-active {
+  background: #3b82f6;
+  color: #fff;
+  font-weight: 600;
+}
+
+.tally__rangenote {
+  margin: -2px 0 0;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.tally__hero {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  row-gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, rgba(34, 197, 94, 0.16), rgba(34, 197, 94, 0.04));
+  border: 1px solid rgba(34, 197, 94, 0.32);
+}
+
+.tally__hero-icon {
+  grid-row: span 2;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(34, 197, 94, 0.18);
+  border: 1px solid rgba(34, 197, 94, 0.32);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #4ade80;
+}
+
+.tally__hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tally__hero-eyebrow {
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.tally__hero-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #4ade80;
+  letter-spacing: -0.01em;
+}
+
+.tally__hero-stats {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tally__stat-label {
+  display: block;
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 2px;
+}
+
+.tally__stat-value {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.tally__stat-value--up {
+  color: #4ade80;
+}
+
+.tally__stat-value--down {
+  color: #f87171;
+}
+
+.tally__mini {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.tally__minicard {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.tally__mini-label {
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.tally__mini-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.tally__mini-delta {
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.tally__mini-delta--up {
+  color: #4ade80;
+}
+
+.tally__mini-delta--down {
+  color: #f87171;
+}
+
+.tally__mini-chart {
+  margin-top: auto;
+  width: 100%;
+  height: 22px;
+}
+
 /* ---- Revlient OS mobile mockup (rosphone) ---- */
 
 .rosphone {
@@ -5959,22 +6218,65 @@ a.feat-reach__line:hover {
   transform-style: preserve-3d;
 }
 
+/* Each phone floats on a slow loop with its own period / phase so the
+   trio drifts independently. Tilts are baked into the keyframes so
+   the base transform survives. */
 .appshow__phone--center {
   z-index: 3;
   max-width: 300px;
   transform: translateY(-32px);
+  animation: appshowFloatCenter 7s ease-in-out infinite alternate;
 }
 
 .appshow__phone--left {
   z-index: 2;
   max-width: 250px;
   transform: rotate(-9deg) translateY(20px);
+  animation: appshowFloatLeft 8.5s ease-in-out infinite alternate;
+  animation-delay: -1.8s;
 }
 
 .appshow__phone--right {
   z-index: 2;
   max-width: 250px;
   transform: rotate(9deg) translateY(20px);
+  animation: appshowFloatRight 9.2s ease-in-out infinite alternate;
+  animation-delay: -3.6s;
+}
+
+@keyframes appshowFloatCenter {
+  0% {
+    transform: translateY(-32px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-48px) rotate(-0.6deg);
+  }
+}
+
+@keyframes appshowFloatLeft {
+  0% {
+    transform: rotate(-9deg) translateY(20px);
+  }
+  100% {
+    transform: rotate(-10.5deg) translateY(6px);
+  }
+}
+
+@keyframes appshowFloatRight {
+  0% {
+    transform: rotate(9deg) translateY(20px);
+  }
+  100% {
+    transform: rotate(10.5deg) translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appshow__phone--center,
+  .appshow__phone--left,
+  .appshow__phone--right {
+    animation: none;
+  }
 }
 
 @media (max-width: 720px) {
