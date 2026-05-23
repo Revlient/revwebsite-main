@@ -129,11 +129,16 @@ export default function AppFeatures() {
         </header>
 
         <div className="feat-grid">
-          {/* Column 1 — APTITUDE TESTS mockup */}
+          {/* Column 1 — APTITUDE TESTS mockup (matches the live app screen) */}
           <article className="feat-card feat-card--bg feat-card--aptitude">
             <div className="feat-card__inner">
-              <SectionLabel>APTITUDE TESTS</SectionLabel>
               <div className="aptitude">
+                <span className="aptitude__pill">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 3 L13.6 10.4 L21 12 L13.6 13.6 L12 21 L10.4 13.6 L3 12 L10.4 10.4 Z" />
+                  </svg>
+                  APTITUDE TESTS
+                </span>
                 <h3 className="aptitude__heading">
                   Take guided tests before choosing your stream,
                   course, or career path.
@@ -145,22 +150,20 @@ export default function AppFeatures() {
                 </p>
                 <div className="aptitude__chips">
                   <span>6 assessments</span>
-                  <span>Career & stream guidance</span>
+                  <span>Career and stream guidance</span>
                   <span>Embedded inside Revlient</span>
                 </div>
                 <div className="aptitude__cta">
                   <span className="aptitude__cta-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M9 2.5C7.34 2.5 6 3.84 6 5.5v10a3.5 3.5 0 0 0 6 3 3.5 3.5 0 0 0 6-3v-10c0-1.66-1.34-3-3-3a3 3 0 0 0-3 1.5 3 3 0 0 0-3-1.5Z" />
-                      <path d="M12 6v15" />
-                      <path d="M9 9.5h.01" />
-                      <path d="M15 9.5h.01" />
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M9 4.5C7.6 4.5 6.5 5.6 6.5 7v9a3 3 0 0 0 5.5 1.7 3 3 0 0 0 5.5-1.7V7c0-1.4-1.1-2.5-2.5-2.5a2.6 2.6 0 0 0-2.5 1.6 2.6 2.6 0 0 0-2.5-1.6Z" />
+                      <path d="M12 6.1V20" />
+                      <path d="M9 9h.01" />
+                      <path d="M15 9h.01" />
                     </svg>
                   </span>
-                  <div className="aptitude__cta-copy">
-                    <strong>Choose a test and start instantly.</strong>
-                    <p>Compare multiple assessments from one page and open the one you need without leaving the app.</p>
-                  </div>
+                  <strong>Choose a test and start instantly.</strong>
+                  <p>Compare multiple assessments from one page and open the one you need without leaving the app.</p>
                   <a href={CTA_HREF} className="aptitude__cta-btn">
                     Explore Tests
                     <span aria-hidden="true">→</span>
@@ -212,8 +215,13 @@ export default function AppFeatures() {
           <div className="feat-col">
             <article className="feat-card feat-card--software feat-card--aimatch">
               <div className="feat-card__inner">
-                <SectionLabel>HOW AI MATCHMAKING WORKS</SectionLabel>
                 <div className="aimatch" aria-label="AI matchmaking pipeline">
+                  <header className="aimatch__head">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 3 L13.6 10.4 L21 12 L13.6 13.6 L12 21 L10.4 13.6 L3 12 L10.4 10.4 Z" />
+                    </svg>
+                    <span>How AI Matchmaking Works</span>
+                  </header>
                   {[
                     {
                       title: "Profile Analysis",
@@ -264,7 +272,6 @@ export default function AppFeatures() {
 
             <article className="feat-card feat-card--reach noise-overlay feat-card--aichat-slot">
               <div className="feat-card__inner">
-                <SectionLabel align="start">AI COUNSELLOR</SectionLabel>
                 <div className="aichat" aria-label="AI Counsellor chat preview">
                   <header className="aichat__head">
                     <span className="aichat__avatar" aria-hidden="true">
