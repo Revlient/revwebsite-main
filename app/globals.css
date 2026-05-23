@@ -12215,189 +12215,232 @@ a.feat-reach__line:hover {
   justify-content: center;
 }
 
-.pscard__deck {
-  position: relative;
-  margin-top: clamp(1.4rem, 1.1rem + 1.5vw, 2.3rem);
-  height: clamp(340px, 34vw, 440px);
-  perspective: 1500px;
-  transform-style: preserve-3d;
-}
-
-.pscard__card {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  overflow: hidden;
-  width: clamp(212px, 21vw, 300px);
-  aspect-ratio: 1 / 1.5;
-  border-radius: 22px;
-  padding: clamp(1.3rem, 1rem + 1vw, 1.9rem);
+/* Featured pull-quote — Cormorant italic, full-bleed, dominates the
+   section. key={active} on the wrapper re-mounts it on change so this
+   one-shot keyframe runs the crossfade. */
+.pscard__feature {
+  max-width: 900px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  gap: 0.9rem;
-  /* glassmorphism — translucent fill + backdrop blur so the
-     section's beam and atmosphere read softly through the cards */
-  background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.07),
-      rgba(255, 255, 255, 0.025) 65%,
-      rgba(255, 255, 255, 0.04) 100%
-    ),
-    radial-gradient(
-      120% 85% at 50% 0%,
-      rgba(110, 160, 255, 0.12),
-      transparent 60%
-    );
-  -webkit-backdrop-filter: blur(18px) saturate(155%);
-  backdrop-filter: blur(18px) saturate(155%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 34px 64px -26px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
-  transition: transform 0.55s var(--ease), opacity 0.55s var(--ease);
-  will-change: transform, opacity;
+  padding: clamp(2rem, 1rem + 3vw, 4rem) clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  animation: pscardFeatureIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.pscard__card.is-active {
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 46px 92px -22px rgba(0, 0, 0, 0.75),
-    inset 0 1px 0 rgba(255, 255, 255, 0.26);
+@keyframes pscardFeatureIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.pscard__avatar {
-  width: clamp(58px, 6vw, 76px);
-  height: clamp(58px, 6vw, 76px);
-  border-radius: 50%;
-  flex: none;
-  display: flex;
+.pscard__feature-mark {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(3rem, 2rem + 2vw, 4rem);
+  line-height: 0.5;
+  color: var(--blue-light);
+  margin-bottom: 0.6rem;
+  user-select: none;
+}
+
+.pscard__feature-quote {
+  margin: 0;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  max-width: 760px;
+}
+
+.pscard__feature-rule {
+  display: block;
+  width: 120px;
+  height: 1px;
+  margin: 1.5rem auto;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.pscard__feature-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  color: #fff;
-  font-weight: 700;
-  font-size: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);
+  margin-bottom: 0.85rem;
+  background: rgba(43, 95, 255, 0.18);
+  border: 1px solid rgba(120, 170, 230, 0.32);
+  color: var(--blue-light);
+  font-weight: 600;
+  font-size: 1.05rem;
   letter-spacing: 0.02em;
-  background: linear-gradient(135deg, #2b5fff, #16215c);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18),
-    0 8px 22px -10px rgba(43, 95, 255, 0.6);
 }
 
-.pscard__card.t-b .pscard__avatar {
-  background: linear-gradient(135deg, #4a78ff, #1c2a6b);
+.pscard__feature-avatar.t-b {
+  background: rgba(192, 132, 252, 0.18);
+  border-color: rgba(192, 132, 252, 0.42);
+  color: #d6b2fc;
 }
 
-.pscard__card.t-c .pscard__avatar {
-  background: linear-gradient(135deg, #1f49d6, #10173a);
+.pscard__feature-avatar.t-c {
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(251, 191, 36, 0.32);
+  color: #fcd34d;
 }
 
-.pscard__avatar img {
+.pscard__feature-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.pscard__quotemark {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 2.2rem;
-  line-height: 0.4;
-  color: rgba(255, 255, 255, 0.28);
-  margin-top: 0.2rem;
-}
-
-.pscard__quote {
-  margin: 0;
-  font-size: clamp(0.86rem, 0.78rem + 0.35vw, 1rem);
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.84);
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.pscard__person {
-  margin-top: auto;
+.pscard__feature-person {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
-}
-
-.pscard__name {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-.pscard__role {
-  font-size: 0.74rem;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.55);
-}
-
-.pscard__nav {
-  position: relative;
-  /* cards transform out of the deck and can overflow downward; lift
-     the nav above them so the buttons always receive clicks */
-  z-index: 30;
-  margin-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
-  display: flex;
+  gap: 0.2rem;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
 }
 
-.pscard__navbtn {
+.pscard__feature-name {
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: #fafafa;
+}
+
+.pscard__feature-role {
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+/* Thumbnail strip — IS the nav. Active tile gets a ringed avatar +
+   brighter name; others sit at 60% opacity. */
+.pscard__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(0.8rem, 0.4rem + 0.6vw, 1.2rem);
+  margin: clamp(1.5rem, 1rem + 1vw, 2.5rem) auto 0;
+  max-width: 1100px;
+  padding-inline: 1rem;
+}
+
+.pscard__thumb {
+  appearance: none;
+  background: transparent;
+  border: none;
+  padding: 0.3rem 0.4rem 0.4rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity 200ms ease;
+  border-radius: 12px;
+}
+
+.pscard__thumb:hover,
+.pscard__thumb:focus-visible {
+  opacity: 0.95;
+  outline: none;
+}
+
+.pscard__thumb.is-active {
+  opacity: 1;
+}
+
+.pscard__thumb-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  height: 40px;
-  padding: 0 0.55rem;
-  min-width: 40px;
   justify-content: center;
-  border-radius: 999px;
-  border: 1px solid var(--line-strong);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text);
-  font: inherit;
-  font-size: var(--step--1);
+  overflow: hidden;
+  background: rgba(43, 95, 255, 0.18);
+  border: 1px solid rgba(120, 170, 230, 0.28);
+  color: var(--blue-light);
   font-weight: 600;
-  cursor: pointer;
-  transition: border-color 0.25s var(--ease), background 0.25s var(--ease),
-    transform 0.25s var(--ease);
+  font-size: 0.78rem;
+  transition: box-shadow 220ms ease, border-color 220ms ease;
 }
 
-.pscard__navbtn--next {
-  padding: 0 1.1rem 0 1.25rem;
-  background: #fff;
-  color: #0a0b10;
-  border-color: #fff;
+.pscard__thumb-avatar.t-b {
+  background: rgba(192, 132, 252, 0.18);
+  border-color: rgba(192, 132, 252, 0.42);
+  color: #d6b2fc;
 }
 
-.pscard__navbtn:hover {
-  transform: translateY(-2px);
+.pscard__thumb-avatar.t-c {
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(251, 191, 36, 0.32);
+  color: #fcd34d;
 }
 
-.pscard__navbtn:not(.pscard__navbtn--next):hover {
-  border-color: var(--text);
-  background: rgba(255, 255, 255, 0.08);
+.pscard__thumb-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.pscard__count {
-  font-size: var(--step--1);
-  font-weight: 600;
-  letter-spacing: 0.1em;
+.pscard__thumb.is-active .pscard__thumb-avatar {
+  box-shadow: 0 0 0 2px var(--blue-light), 0 0 14px rgba(74, 120, 255, 0.45);
+  border-color: transparent;
+}
+
+.pscard__thumb-name {
+  font-size: 0.78rem;
+  line-height: 1.2;
   color: var(--muted);
-  font-variant-numeric: tabular-nums;
+  max-width: 110px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pscard__thumb.is-active .pscard__thumb-name {
+  color: #fafafa;
 }
 
 @media (max-width: 720px) {
-  .pscard__deck {
-    height: clamp(360px, 124vw, 520px);
+  .pscard__thumbs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.4rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
-  .pscard__card {
-    width: min(248px, 66vw);
+  .pscard__thumbs::-webkit-scrollbar {
+    display: none;
+  }
+  .pscard__thumb {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+  }
+  .pscard__thumb-name {
+    max-width: 90px;
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pscard__feature {
+    animation: none;
   }
 }
 

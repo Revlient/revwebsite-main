@@ -1,30 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
 import XeroBackdrop from "./XeroBackdrop";
 import { CTA_HREF } from "../lib/site";
 
-/* Testimonial carousel — same coverflow/globe alignment as before,
-   card content swapped from project thumbnail+URL to a client quote
-   with a CEO avatar. Vanilla JS + plain CSS, no deps.
+/* Magazine pull-quote spread. One featured testimonial fills the
+   section; a thumbnail strip below lets visitors swap which client
+   is featured. Auto-rotates every 8s with hover/visibility/reduced-
+   motion pauses; left/right arrows on a focused thumb move active +
+   focus.
 
-   PROOF RULE: we never invent client quotes or use a fake person's
-   photo. Every entry below is a clearly-marked placeholder. To go
-   live: drop the real headshot in /public/testimonials/<file> and
-   set `img` to that path, and replace quote/name/role with the
-   real, approved testimonial. Until `img` is set it falls back to
-   an initials avatar (no fabricated face). */
+   PROOF RULE: real client identities only when supplied by Revlient.
+   Quote text stays the existing placeholder string until permission-
+   cleared wording lands. No fabricated faces — if `img` is empty the
+   tone-coloured initials circle is the avatar. */
+
 const TONES = ["a", "b", "c"];
 
 const TESTIMONIALS = [
-  // Real client identities supplied by Revlient. QUOTE TEXT is still a
-  // placeholder — replace each with the real, approved wording (and a
-  // headshot in /public/testimonials + `img`) before launch.
-  // The four "Client Name" entries between Aswin and Johnson are
-  // TODO placeholders kept so the coverflow has bent end-cards at
-  // ±2; replace with more real clients once you have them.
-  // Order matters: index 0 is the centred card on load.
   {
     quote:
       "Placeholder testimonial — replace with the real, approved quote before launch.",
@@ -102,10 +96,52 @@ const Arrow = ({ dir = 1 }) => (
 
 export default function ShowcaseCards() {
   const [active, setActive] = useState(0);
-  const go = (step) => setActive((a) => (a + step + N) % N);
+  const [paused, setPaused] = useState(false);
+  const thumbRefs = useRef([]);
+  const reducedRef = useRef(false);
+
+  // detect reduced-motion once on mount
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    reducedRef.current = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+  }, []);
+
+  // auto-rotate every 8s unless paused or reduced-motion
+  useEffect(() => {
+    if (paused || reducedRef.current) return undefined;
+    const id = setInterval(() => {
+      setActive((a) => (a + 1) % N);
+    }, 8000);
+    return () => clearInterval(id);
+  }, [paused]);
+
+  // pause when the tab is hidden
+  useEffect(() => {
+    const onVis = () => setPaused(document.hidden);
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
+
+  const onKey = (e, i) => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      e.preventDefault();
+      const step = e.key === "ArrowRight" ? 1 : -1;
+      const next = (i + step + N) % N;
+      setActive(next);
+      // wait one frame so tabIndex updates land before we move focus
+      requestAnimationFrame(() => thumbRefs.current[next]?.focus());
+    }
+  };
+
+  const t = TESTIMONIALS[active];
 
   return (
-    <section className="section pscard pscard--xero" aria-label="Client testimonials">
+    <section
+      className="section pscard pscard--xero"
+      aria-label="Client testimonials"
+    >
       <XeroBackdrop />
 
       <div className="container">
@@ -126,89 +162,62 @@ export default function ShowcaseCards() {
           </div>
         </Reveal>
 
-        <div className="pscard__stage">
-          <div className="pscard__deck">
-            {TESTIMONIALS.map((c, i) => {
-              // signed wrap distance from the active card (-3..3)
-              let o = (i - active + N) % N;
-              if (o > N / 2) o -= N;
-              const a = Math.abs(o);
-              const visible = a <= 2;
-              return (
-                <div
-                  key={i}
-                  aria-hidden={visible ? undefined : "true"}
-                  className={`pscard__card t-${c.tone} ${
-                    o === 0 ? "is-active" : ""
-                  }`}
-                  style={{
-                    // Same horizontal alignment (114% step, gaps) — only
-                    // a subtle inward "globe" curve: cards turn toward
-                    // centre, recede and lift a touch with distance, so
-                    // the row bows like a slice of a sphere. Ends bend
-                    // further and fade at the edges.
-                    transform: `translate(-50%, -50%) translateX(${
-                      o * 114
-                    }%) translateY(${a * a * 9}px) translateZ(${
-                      a >= 2 ? -170 : -a * 55
-                    }px) rotateY(${
-                      a >= 2 ? (o < 0 ? 46 : -46) : o * -11
-                    }deg) scale(${a >= 2 ? 0.8 : 1 - a * 0.05})`,
-                    opacity: visible
-                      ? a === 0
-                        ? 1
-                        : a === 1
-                        ? 0.95
-                        : 0.3
-                      : 0,
-                    filter: a >= 2 ? "blur(4px)" : "none",
-                    zIndex: 20 - a,
-                    pointerEvents: visible ? "auto" : "none",
-                  }}
-                >
-                  <span className="pscard__avatar">
-                    {c.img ? (
-                      <img src={c.img} alt={c.name} draggable={false} />
-                    ) : (
-                      <span className="pscard__initials">{c.initials}</span>
-                    )}
-                  </span>
-                  <span className="pscard__quotemark" aria-hidden="true">
-                    &#8220;
-                  </span>
-                  <blockquote className="pscard__quote">{c.quote}</blockquote>
-                  <div className="pscard__person">
-                    <span className="pscard__name">{c.name}</span>
-                    <span className="pscard__role">{c.role}</span>
-                  </div>
-                </div>
-              );
-            })}
+        {/* Featured testimonial. key={active} re-mounts on change so
+            the CSS keyframe runs the crossfade automatically. */}
+        <div className="pscard__feature" key={active}>
+          <span className="pscard__feature-mark" aria-hidden="true">
+            &#8220;
+          </span>
+          <blockquote className="pscard__feature-quote">{t.quote}</blockquote>
+          <span className="pscard__feature-rule" aria-hidden="true" />
+          <div className={`pscard__feature-avatar t-${t.tone}`}>
+            {t.img ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={t.img} alt={t.name} draggable={false} />
+            ) : (
+              <span className="pscard__feature-initials">{t.initials}</span>
+            )}
           </div>
+          <div className="pscard__feature-person">
+            <strong className="pscard__feature-name">{t.name}</strong>
+            <span className="pscard__feature-role">{t.role}</span>
+          </div>
+        </div>
 
-          <div className="pscard__nav">
+        {/* Thumbnail strip — IS the navigation; no separate prev/next */}
+        <div
+          className="pscard__thumbs"
+          role="tablist"
+          aria-label="Choose a testimonial"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          {TESTIMONIALS.map((c, i) => (
             <button
+              key={i}
+              ref={(el) => {
+                thumbRefs.current[i] = el;
+              }}
               type="button"
-              className="pscard__navbtn"
-              aria-label="Previous testimonial"
-              onClick={() => go(-1)}
+              role="tab"
+              aria-selected={i === active}
+              aria-label={`Show testimonial from ${c.name}`}
+              tabIndex={i === active ? 0 : -1}
+              className={`pscard__thumb ${i === active ? "is-active" : ""}`}
+              onClick={() => setActive(i)}
+              onKeyDown={(e) => onKey(e, i)}
             >
-              <Arrow dir={-1} />
+              <span className={`pscard__thumb-avatar t-${c.tone}`}>
+                {c.img ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={c.img} alt="" draggable={false} />
+                ) : (
+                  <span>{c.initials}</span>
+                )}
+              </span>
+              <span className="pscard__thumb-name">{c.name}</span>
             </button>
-            <span className="pscard__count">
-              {String(active + 1).padStart(2, "0")} /{" "}
-              {String(N).padStart(2, "0")}
-            </span>
-            <button
-              type="button"
-              className="pscard__navbtn pscard__navbtn--next"
-              aria-label="Next testimonial"
-              onClick={() => go(1)}
-            >
-              Next
-              <Arrow />
-            </button>
-          </div>
+          ))}
         </div>
       </div>
     </section>
