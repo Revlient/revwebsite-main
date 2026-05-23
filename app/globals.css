@@ -7896,7 +7896,11 @@ a.feat-reach__line:hover {
      converges around where the dashboard frame sits */
   object-position: center 45%;
   pointer-events: none;
-  filter: hue-rotate(220deg) saturate(1.4) brightness(1.05);
+  /* hue lands the shaft in the blue → violet → red range:
+     - shadows / cool tones map to deep blue
+     - mids map to violet / magenta
+     - highlights pick up a warm reddish edge */
+  filter: hue-rotate(285deg) saturate(1.6) brightness(1.08);
   mix-blend-mode: screen;
   /* mask: fade in from the top, stay strong through the dashboard
      band, then fade out so the beam never bleeds into the features
