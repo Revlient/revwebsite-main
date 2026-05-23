@@ -15,8 +15,6 @@ import { CTA_HREF } from "../lib/site";
    stated product claim (10× faster operations) rather than a
    fabricated dollar figure. */
 
-const MATCH_VIDEO =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260507_150203_44a5bd32-516a-47ce-a077-8acbf9aa8991.mp4";
 const SPEED_VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260507_154543_d5b83fc1-9cea-44f3-b5e8-8f325935211a.mp4";
 const INTEG_VIDEO =
@@ -224,17 +222,10 @@ export default function ErpFeatures() {
         </header>
 
         <div className="feat-grid">
-          {/* Column 1 — Revlient OS phone-screenshot mockup */}
-          <article className="feat-card feat-card--video feat-card--bg feat-card--phone">
-            <video
-              className="feat-card__video"
-              src={MATCH_VIDEO}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
-            />
+          {/* Column 1 — Revlient OS phone-screenshot mockup. Background
+              is the animated gradient blob pair driven by CSS on
+              .feat-card--phone .feat-card__inner — no looping video. */}
+          <article className="feat-card feat-card--bg feat-card--phone">
             <div className="feat-card__inner">
               <SectionLabel>REVLIENT OS · MOBILE</SectionLabel>
               {/* Faithful inline replica of the actual Revlient OS
