@@ -262,19 +262,51 @@ export default function AppFeatures() {
               </div>
             </article>
 
-            <article className="feat-card feat-card--reach noise-overlay">
-              <a
-                href={CTA_HREF}
-                className="feat-reach__cta liquid-glass"
-                aria-label="Get the Revlient student app"
-              >
-                <ArrowUpRight className="feat-reach__cta-icon" />
-              </a>
+            <article className="feat-card feat-card--reach noise-overlay feat-card--aichat-slot">
               <div className="feat-card__inner">
-                <SectionLabel align="start">GET THE APP</SectionLabel>
-                <div className="feat-reach__lines">
-                  <span className="feat-reach__line">App Store · iOS 15+</span>
-                  <span className="feat-reach__line">Google Play · Android 9+</span>
+                <SectionLabel align="start">AI COUNSELLOR</SectionLabel>
+                <div className="aichat" aria-label="AI Counsellor chat preview">
+                  <header className="aichat__head">
+                    <span className="aichat__avatar" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="9" y="2" width="6" height="3" rx="1" />
+                        <rect x="4" y="6" width="16" height="13" rx="3" />
+                        <circle cx="9" cy="13" r="1.5" fill="#fff" />
+                        <circle cx="15" cy="13" r="1.5" fill="#fff" />
+                      </svg>
+                    </span>
+                    <span className="aichat__title">AI Counsellor</span>
+                    <span className="aichat__close" aria-hidden="true">×</span>
+                  </header>
+                  <div className="aichat__body">
+                    <div className="aichat__msg aichat__msg--user">
+                      <span className="aichat__bubble">Hey</span>
+                      <span className="aichat__userpic" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 4-6 8-6s8 2 8 6" /></svg>
+                      </span>
+                    </div>
+                    <div className="aichat__msg aichat__msg--bot">
+                      <span className="aichat__botpic" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <rect x="9" y="2" width="6" height="3" rx="1" />
+                          <rect x="4" y="6" width="16" height="13" rx="3" />
+                          <circle cx="9" cy="13" r="1.5" fill="#fff" />
+                          <circle cx="15" cy="13" r="1.5" fill="#fff" />
+                        </svg>
+                      </span>
+                      <p className="aichat__bubble">
+                        Hello, welcome to our university admissions
+                        platform. I&apos;m here to help you find your
+                        perfect university match.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="aichat__input">
+                    <span className="aichat__placeholder">Ask something…</span>
+                    <span className="aichat__send" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 21l19-9L3 3v6l13 3-13 3z" /></svg>
+                    </span>
+                  </div>
                 </div>
               </div>
             </article>

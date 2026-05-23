@@ -6043,6 +6043,14 @@ html.js .reveal.is-visible {
   gap: 0.85rem;
 }
 
+.feat-card--aichat-slot {
+  min-height: 360px;
+}
+
+.feat-card--aichat-slot .feat-card__inner {
+  gap: 0.7rem;
+}
+
 .aichat {
   margin-top: 0.2rem;
   border-radius: 16px;
