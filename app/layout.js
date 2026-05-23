@@ -1,5 +1,11 @@
 import "./globals.css";
-import { DM_Sans, Caveat, Instrument_Serif } from "next/font/google";
+import {
+  DM_Sans,
+  Caveat,
+  Instrument_Serif,
+  Cormorant_Garamond,
+  Inter,
+} from "next/font/google";
 import { BRAND } from "./lib/site";
 import MusicToggle from "./components/MusicToggle";
 
@@ -22,6 +28,19 @@ const instrumentSerif = Instrument_Serif({
   weight: ["400"],
   style: ["normal", "italic"],
   variable: "--font-instrument-serif",
+  display: "swap",
+});
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -64,7 +83,10 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${caveat.variable} ${instrumentSerif.variable}`}>
+    <html
+      lang="en"
+      className={`${dmSans.variable} ${caveat.variable} ${instrumentSerif.variable} ${cormorant.variable} ${inter.variable}`}
+    >
       <body>
         {/* Runs before paint: enables scroll-reveal animation only when JS
             is available. Without it the page renders fully visible. */}

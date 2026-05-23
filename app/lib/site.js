@@ -33,7 +33,7 @@ export const CONTACT_EMAIL = "hello@revlient.com"; // TODO: real enquiry inbox
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Work", href: "/work" },
-  { label: "Services", href: "#services" },
+  { label: "Services", href: "/services" },
   { label: "Process", href: "/process" },
   { label: "Studio", href: "/studio" },
   { label: "Blog", href: "/blog" },
