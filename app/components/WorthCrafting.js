@@ -1,6 +1,7 @@
 "use client";
 
 import { CTA_HREF } from "../lib/site";
+import Logo from "./Logo";
 
 /* "Something worth crafting" — full-bleed dark section inspired by
    the Qintara hero, beefed up with loop animations. Layered visual:
@@ -23,25 +24,40 @@ function RoboticHand() {
       aria-hidden="true"
     >
       <defs>
-        <pattern id="worth-dots-bot" width="6" height="6" patternUnits="userSpaceOnUse">
-          <circle cx="3" cy="3" r="1.6" fill="rgba(218, 224, 232, 0.95)" />
+        <pattern id="worth-dots-bot" width="5" height="5" patternUnits="userSpaceOnUse">
+          <circle cx="2.5" cy="2.5" r="1.2" fill="rgba(218, 224, 232, 0.85)" />
         </pattern>
+        <linearGradient id="worth-hand-bot-grad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="rgba(218, 224, 232, 0.55)" />
+          <stop offset="1" stopColor="rgba(218, 224, 232, 1)" />
+        </linearGradient>
+        <mask id="worth-hand-bot-mask">
+          <rect width="100%" height="100%" fill="url(#worth-hand-bot-grad)" />
+        </mask>
       </defs>
-      <path
-        fill="url(#worth-dots-bot)"
-        d="
-          M 0 120 L 0 220 L 40 220 L 40 250 L 90 250
-          L 90 230 L 130 230 L 130 215 L 165 215
-          L 165 200 L 195 200 L 195 185 L 215 185
-          L 215 170 L 235 170 L 235 155 L 260 155
-          L 280 152 L 300 150 L 315 150 L 315 140
-          L 295 140 L 270 138 L 245 138 L 215 138
-          L 195 138 L 195 125 L 175 125 L 175 108
-          L 160 92 L 145 80 L 130 76 L 115 76
-          L 100 80 L 90 90 L 80 90 L 80 110
-          L 65 110 L 65 120 Z
-        "
-      />
+      {/* angular pixel-style hand, refined: forearm + palm + extended
+         index finger, with hinted joint segments */}
+      <g mask="url(#worth-hand-bot-mask)">
+        <path
+          fill="url(#worth-dots-bot)"
+          d="
+            M 0 130 L 0 210 L 35 210 L 35 245 L 85 245
+            L 85 225 L 125 225 L 125 210 L 160 210
+            L 160 195 L 188 195 L 188 180 L 210 180
+            L 210 165 L 232 165 L 232 150 L 258 150
+            L 280 148 L 305 146 L 318 146 L 318 138
+            L 298 138 L 272 136 L 246 136 L 218 136
+            L 200 136 L 200 122 L 178 122 L 178 104
+            L 162 88 L 146 76 L 130 72 L 112 72
+            L 96 76 L 86 88 L 76 88 L 76 108
+            L 60 108 L 60 120 L 30 120 L 30 130 Z
+          "
+        />
+        {/* segmented joint hints — slim darker bands */}
+        <rect x="178" y="98" width="2" height="32" fill="rgba(0,0,0,0.35)" />
+        <rect x="160" y="120" width="2" height="80" fill="rgba(0,0,0,0.3)" />
+        <rect x="125" y="135" width="2" height="80" fill="rgba(0,0,0,0.3)" />
+      </g>
     </svg>
   );
 }
@@ -55,32 +71,45 @@ function HumanHand() {
       aria-hidden="true"
     >
       <defs>
-        <pattern id="worth-dots-human" width="7" height="7" patternUnits="userSpaceOnUse">
-          <circle cx="3.5" cy="3.5" r="1.8" fill="rgba(228, 196, 174, 0.95)" />
+        <pattern id="worth-dots-human" width="6" height="6" patternUnits="userSpaceOnUse">
+          <circle cx="3" cy="3" r="1.5" fill="rgba(228, 196, 174, 0.92)" />
         </pattern>
+        <linearGradient id="worth-hand-human-grad" x1="1" y1="0" x2="0" y2="0">
+          <stop offset="0" stopColor="rgba(228, 196, 174, 0.55)" />
+          <stop offset="1" stopColor="rgba(228, 196, 174, 1)" />
+        </linearGradient>
+        <mask id="worth-hand-human-mask">
+          <rect width="100%" height="100%" fill="url(#worth-hand-human-grad)" />
+        </mask>
       </defs>
-      <path
-        fill="url(#worth-dots-human)"
-        d="
-          M 320 100
-          C 295 95 270 100 250 105
-          C 230 110 215 120 200 130
-          C 190 138 175 145 160 150
-          C 145 155 130 158 115 158
-          C 100 158 88 156 78 152
-          C 65 148 55 142 50 135
-          C 45 128 42 120 42 110
-          L 25 110 L 18 100 L 8 95 L 0 95
-          L 0 115 L 0 165
-          C 5 178 18 188 35 195
-          C 55 205 80 212 110 215
-          C 140 218 170 215 195 208
-          C 225 200 250 188 270 175
-          C 285 165 298 155 308 145
-          C 315 135 320 122 320 110
-          Z
-        "
-      />
+      {/* organic hand pointing left, refined silhouette with knuckle
+         hint along the index finger */}
+      <g mask="url(#worth-hand-human-mask)">
+        <path
+          fill="url(#worth-dots-human)"
+          d="
+            M 320 112
+            C 296 104 268 110 244 118
+            C 220 126 200 138 182 146
+            C 168 152 150 156 132 156
+            C 116 156 102 154 90 150
+            C 78 146 66 140 56 132
+            C 48 126 44 118 44 108
+            L 26 108 L 16 98 L 6 92 L 0 92
+            L 0 116 L 0 168
+            C 6 180 20 190 38 198
+            C 58 208 84 214 116 216
+            C 148 218 178 214 204 206
+            C 230 198 254 186 276 174
+            C 290 164 302 152 312 138
+            C 318 128 320 118 320 112
+            Z
+          "
+        />
+        {/* index-finger knuckle hint */}
+        <ellipse cx="244" cy="124" rx="14" ry="3" fill="rgba(0,0,0,0.3)" />
+        <ellipse cx="200" cy="138" rx="16" ry="3" fill="rgba(0,0,0,0.28)" />
+      </g>
     </svg>
   );
 }
@@ -184,42 +213,25 @@ function Particles() {
   );
 }
 
-function PixelCore() {
+function BrandCore() {
   return (
     <div className="worth__core" aria-hidden="true">
       <span className="worth__halo worth__halo--outer" />
       <span className="worth__halo worth__halo--inner" />
-      <span className="worth__ring" />
-      <svg
-        className="worth__cross"
-        viewBox="0 0 140 140"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <linearGradient id="worth-pixel-a" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#e9d5ff" />
-            <stop offset="0.45" stopColor="#a855f7" />
-            <stop offset="1" stopColor="#5b21b6" />
-          </linearGradient>
-          <linearGradient id="worth-pixel-b" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#c084fc" />
-            <stop offset="1" stopColor="#3730a3" />
-          </linearGradient>
-        </defs>
-        <g transform="translate(70 70) rotate(45)">
-          <rect x="-12" y="-44" width="24" height="88" fill="url(#worth-pixel-a)" />
-          <rect x="-44" y="-12" width="88" height="24" fill="url(#worth-pixel-b)" />
-          {/* chamfer highlights */}
-          <rect x="-9" y="-44" width="18" height="6" fill="#f5e6ff" opacity="0.9" />
-          <rect x="38" y="-9" width="6" height="18" fill="#f5e6ff" opacity="0.9" />
-          <rect x="-9" y="38" width="18" height="6" fill="rgba(255, 255, 255, 0.18)" />
-          <rect x="-44" y="-9" width="6" height="18" fill="rgba(255, 255, 255, 0.18)" />
-        </g>
-      </svg>
-      {/* orbiting accent dots */}
+      <span className="worth__ring worth__ring--outer" />
+      <span className="worth__ring worth__ring--inner" />
+
+      {/* Revlient brand mark replaces the generic pixel cross */}
+      <div className="worth__mark">
+        <Logo className="worth__mark-svg" />
+      </div>
+
+      {/* constellation: three small accent dots orbiting on different
+         periods + a sparkle ring */}
       <span className="worth__orbit worth__orbit--a" />
       <span className="worth__orbit worth__orbit--b" />
       <span className="worth__orbit worth__orbit--c" />
+      <span className="worth__orbit worth__orbit--d" />
     </div>
   );
 }
@@ -252,7 +264,7 @@ export default function WorthCrafting() {
 
         <div className="worth__stage">
           <RoboticHand />
-          <PixelCore />
+          <BrandCore />
           <HumanHand />
           <EnergyBeams />
         </div>
