@@ -22,13 +22,6 @@ const SPEED_VIDEO =
 const INTEG_VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260507_153148_d7a3e1dd-e5d0-4ce6-8306-00d7522ecc44.mp4";
 
-// Each row: [stage, capability, where in product]
-const MATCH_STEPS = [
-  { period: "Step 01", role: "Profile parsed & scored", org: "AI Intake" },
-  { period: "Step 02", role: "Best-fit universities surfaced", org: "Match Engine" },
-  { period: "Step 03", role: "Counsellor reviews & approves", org: "Workspace" },
-];
-
 // Integration tile glyph keys reused with the same ToolIcon set as
 // Features.js — picked to read as ERP-relevant: docs / mail / data /
 // charts etc.
@@ -231,8 +224,8 @@ export default function ErpFeatures() {
         </header>
 
         <div className="feat-grid">
-          {/* Column 1 — AI MATCHING */}
-          <article className="feat-card feat-card--video feat-card--bg">
+          {/* Column 1 — Revlient OS phone-screenshot mockup */}
+          <article className="feat-card feat-card--video feat-card--bg feat-card--phone">
             <video
               className="feat-card__video"
               src={MATCH_VIDEO}
@@ -243,16 +236,165 @@ export default function ErpFeatures() {
               preload="metadata"
             />
             <div className="feat-card__inner">
-              <SectionLabel>AI MATCHING</SectionLabel>
-              <div className="feat-timeline">
-                {MATCH_STEPS.map((row) => (
-                  <div className="feat-timeline__row" key={row.period}>
-                    <span className="feat-timeline__period">{row.period}</span>
-                    <Sparkle className="feat-timeline__sep" />
-                    <span className="feat-timeline__role">{row.role}</span>
-                    <span className="feat-timeline__org">{row.org}</span>
+              <SectionLabel>REVLIENT OS · MOBILE</SectionLabel>
+              {/* Faithful inline replica of the actual Revlient OS
+                  dashboard screenshot (real numbers shared by the
+                  team). To swap to the raw PNG instead, drop the
+                  file at public/work/revlient-os-dashboard.png and
+                  replace this block with <img src=… />. */}
+              <div className="rosphone" aria-label="Revlient OS dashboard">
+                <div className="rosphone__notch" aria-hidden="true" />
+                <div className="rosphone__screen">
+                  <div className="rosphone__statusbar" aria-hidden="true">
+                    <span>11:58</span>
+                    <span className="rosphone__statusbar-right">
+                      <span className="rosphone__signal" />
+                      <span>80%</span>
+                    </span>
                   </div>
-                ))}
+
+                  <header className="rosphone__brandbar">
+                    <span className="rosphone__brand">
+                      <span className="rosphone__brandmark" aria-hidden="true">
+                        <svg viewBox="0 0 96 110" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true">
+                          <path d="M18 30 L46 19 L46 50 L36 56 L18 45 Z" />
+                          <path d="M78 30 L50 19 L50 50 L60 56 L78 45 Z" />
+                          <path d="M18 58 L36 58 L46 64 L46 94 L24 94 L18 80 Z" />
+                          <path d="M78 58 L60 58 L50 64 L50 94 L72 94 L78 80 Z" />
+                        </svg>
+                      </span>
+                      <span>Revlient OS</span>
+                    </span>
+                    <span className="rosphone__theme" aria-hidden="true">☀</span>
+                  </header>
+
+                  <section className="rosphone__greeting">
+                    <h4>Good morning, admin</h4>
+                    <p>Saturday, May 23, 2026 · 11:58 AM · Mission control</p>
+                    <div className="rosphone__searchrow">
+                      <span className="rosphone__search">
+                        <span className="rosphone__searchicon" aria-hidden="true">⌕</span>
+                        <span>Search…</span>
+                        <span className="rosphone__kbd">⌘K</span>
+                      </span>
+                      <span className="rosphone__newlead">+ New lead</span>
+                    </div>
+                  </section>
+
+                  <div className="rosphone__kpis">
+                    <div className="rosphone__kpi">
+                      <span className="rosphone__kpi-label">Revenue this month</span>
+                      <span className="rosphone__kpi-value">₹3.8L</span>
+                      <span className="rosphone__kpi-delta">-64% vs last month</span>
+                      <svg className="rosphone__kpi-chart" viewBox="0 0 120 28" preserveAspectRatio="none">
+                        <polyline
+                          fill="none"
+                          stroke="#3b82f6"
+                          strokeWidth="1.6"
+                          points="2,16 24,12 46,14 68,11 90,13 118,22"
+                        />
+                      </svg>
+                    </div>
+                    <div className="rosphone__kpi">
+                      <span className="rosphone__kpi-label">Active pipeline</span>
+                      <span className="rosphone__kpi-value">₹22.0L</span>
+                      <span className="rosphone__kpi-sub">7 deals</span>
+                      <svg className="rosphone__kpi-chart" viewBox="0 0 120 28" preserveAspectRatio="none">
+                        <polyline
+                          fill="none"
+                          stroke="#a855f7"
+                          strokeWidth="1.6"
+                          points="2,16 26,12 48,13 70,10 92,14 118,22"
+                        />
+                      </svg>
+                    </div>
+                    <div className="rosphone__kpi">
+                      <span className="rosphone__kpi-label">Open quotations</span>
+                      <span className="rosphone__kpi-value">11</span>
+                      <span className="rosphone__kpi-sub">₹28.6L</span>
+                      <svg className="rosphone__kpi-chart" viewBox="0 0 120 28" preserveAspectRatio="none">
+                        <polyline
+                          fill="none"
+                          stroke="#f59e0b"
+                          strokeWidth="1.6"
+                          points="2,22 26,21 50,20 74,19 98,15 118,9"
+                        />
+                      </svg>
+                    </div>
+                    <div className="rosphone__kpi">
+                      <span className="rosphone__kpi-label">Active projects</span>
+                      <span className="rosphone__kpi-value">13</span>
+                      <span className="rosphone__kpi-delta">1 overdue milestone</span>
+                      <svg className="rosphone__kpi-chart" viewBox="0 0 120 28" preserveAspectRatio="none">
+                        <polyline
+                          fill="none"
+                          stroke="#ef4444"
+                          strokeWidth="1.6"
+                          points="2,22 26,19 50,17 74,16 98,15 118,15"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <section className="rosphone__trend">
+                    <header className="rosphone__trend-head">
+                      <div>
+                        <strong>Revenue trend</strong>
+                        <p>Last 6 months · in ₹ lakhs</p>
+                      </div>
+                      <div className="rosphone__trend-value">
+                        <span>₹3.8L</span>
+                        <em>↘ 64%</em>
+                      </div>
+                    </header>
+                    <svg className="rosphone__trend-chart" viewBox="0 0 320 110" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="rostrendfill" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0" stopColor="#3b82f6" stopOpacity="0.45" />
+                          <stop offset="1" stopColor="#3b82f6" stopOpacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <path
+                        d="M10 60 Q60 50 90 55 T170 50 Q220 38 270 38 L310 100 L10 100 Z"
+                        fill="url(#rostrendfill)"
+                      />
+                      <path
+                        d="M10 60 Q60 50 90 55 T170 50 Q220 38 270 38 L310 100"
+                        fill="none"
+                        stroke="#3b82f6"
+                        strokeWidth="2"
+                      />
+                    </svg>
+                    <div className="rosphone__trend-axis" aria-hidden="true">
+                      <span>Dec</span>
+                      <span>Jan</span>
+                      <span>Feb</span>
+                      <span>Mar</span>
+                      <span>Apr</span>
+                      <span>May</span>
+                    </div>
+                  </section>
+
+                  <nav className="rosphone__tabbar" aria-hidden="true">
+                    {[
+                      "Inbox",
+                      "Dashboard",
+                      "Projects",
+                      "Tally",
+                      "More",
+                    ].map((t) => (
+                      <span
+                        key={t}
+                        className={`rosphone__tab ${
+                          t === "Dashboard" ? "is-active" : ""
+                        }`}
+                      >
+                        <span className="rosphone__tab-icon" />
+                        {t}
+                      </span>
+                    ))}
+                  </nav>
+                </div>
               </div>
             </div>
           </article>
