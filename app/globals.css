@@ -4166,10 +4166,72 @@ html.js .reveal.is-visible {
 }
 
 /* Phone-style screenshot card — pushes the actual mockup down to
-   fill the rest of the height under the section label. */
+   fill the rest of the height under the section label, and hosts a
+   pair of slow-drifting gradient blobs behind the device. */
 .feat-card--phone .feat-card__inner {
   align-items: center;
   justify-content: flex-start;
+  position: relative;
+  isolation: isolate;
+}
+
+.feat-card--phone .feat-card__inner::before,
+.feat-card--phone .feat-card__inner::after {
+  content: "";
+  position: absolute;
+  inset: 12% 0 6%;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(72px);
+  pointer-events: none;
+}
+
+.feat-card--phone .feat-card__inner::before {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(74, 120, 255, 0.6),
+    transparent 70%
+  );
+  animation: featPhoneGlowA 14s ease-in-out infinite alternate;
+}
+
+.feat-card--phone .feat-card__inner::after {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(168, 85, 247, 0.5),
+    transparent 70%
+  );
+  animation: featPhoneGlowB 19s ease-in-out infinite alternate;
+}
+
+.feat-card--phone .rosphone {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes featPhoneGlowA {
+  0% {
+    transform: translate(-18%, -10%) scale(0.85);
+  }
+  100% {
+    transform: translate(18%, 10%) scale(1.15);
+  }
+}
+
+@keyframes featPhoneGlowB {
+  0% {
+    transform: translate(18%, 12%) scale(1.1);
+  }
+  100% {
+    transform: translate(-15%, -15%) scale(0.9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feat-card--phone .feat-card__inner::before,
+  .feat-card--phone .feat-card__inner::after {
+    animation: none;
+  }
 }
 
 /* ---- Revlient OS mobile mockup (rosphone) ---- */
