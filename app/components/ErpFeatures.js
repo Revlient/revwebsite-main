@@ -201,12 +201,12 @@ export default function ErpFeatures() {
       <div className="feat-shell">
         <header className="feat-header">
           <div className="feat-header__copy">
-            <h2 className="feat-header__title">Built around how teams really work.</h2>
+            <h2 className="feat-header__title">Built around how an IT studio really runs.</h2>
             <p className="feat-header__sub">
-              AI-integrated features that take the routine work off
-              counsellors&apos; desks and put the strategic work back
-              in front of them — across applications, documents,
-              universities and student communication.
+              AI-integrated features that take routine work off the
+              team&apos;s desk and put strategic work back in front of
+              them — across quotations, invoicing, project tracking,
+              tally and the sales funnel.
             </p>
           </div>
           <a href={CTA_HREF} className="feat-cta liquid-glass">

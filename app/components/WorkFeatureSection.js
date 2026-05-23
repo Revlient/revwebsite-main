@@ -47,12 +47,12 @@ export default function WorkFeatureSection() {
           </span>
         </a>
 
-        <h2 className="wfs__heading">A study-abroad ERP that thinks ahead.</h2>
+        <h2 className="wfs__heading">An IT firm management ERP, end-to-end.</h2>
         <p className="wfs__sub">
-          Counsellor workspaces, application tracking and university
-          matching — built around how study-abroad teams really work,
-          and accelerated by AI features that take routine work off
-          their desk.
+          Projects, clients, quotations, invoicing, timesheets and
+          finance — built around how a working IT studio actually
+          runs, and accelerated by AI features that take the routine
+          work off the team&apos;s desk.
         </p>
 
         <div className="wfs__actions">
@@ -69,7 +69,7 @@ export default function WorkFeatureSection() {
 
       <div className="wfs__showcase-label">
         <span className="wfs__showcase-pulse" />
-        Showcase · Study-abroad ERP · AI-integrated
+        Showcase · IT firm management ERP · AI-integrated
       </div>
 
       {/* stylised app-screen mockup — modelled on Revlient Systems
@@ -94,12 +94,12 @@ export default function WorkFeatureSection() {
               <nav className="wfs__screen-nav">
                 {[
                   { label: "Dashboard", active: true },
-                  { label: "Students" },
-                  { label: "Applications" },
-                  { label: "Universities" },
-                  { label: "Documents" },
-                  { label: "Counsellors" },
-                  { label: "Reports" },
+                  { label: "Projects" },
+                  { label: "Clients" },
+                  { label: "Quotations" },
+                  { label: "Invoices" },
+                  { label: "Tally" },
+                  { label: "Timesheets" },
                   { label: "AI Assistant", ai: true },
                 ].map((item) => (
                   <span
@@ -117,7 +117,7 @@ export default function WorkFeatureSection() {
 
             <main className="wfs__screen-main">
               <header className="wfs__screen-header">
-                <span className="wfs__screen-title">Counsellor Dashboard</span>
+                <span className="wfs__screen-title">Mission control</span>
                 <div className="wfs__screen-toolbar">
                   <button type="button" className="wfs__screen-btn wfs__screen-btn--ghost">
                     Filter
@@ -130,16 +130,16 @@ export default function WorkFeatureSection() {
                     Ask AI
                   </button>
                   <button type="button" className="wfs__screen-btn wfs__screen-btn--primary">
-                    + New application
+                    + New quotation
                   </button>
                 </div>
               </header>
 
               <div className="wfs__screen-kpis">
                 {[
-                  { label: "Active applications", accent: "accent" },
-                  { label: "Students enrolled" },
-                  { label: "Pending documents" },
+                  { label: "Active projects", accent: "accent" },
+                  { label: "Open quotations" },
+                  { label: "Pending invoices" },
                   { label: "AI suggestions ready", accent: "alt" },
                 ].map((k) => (
                   <div
@@ -156,14 +156,14 @@ export default function WorkFeatureSection() {
 
               <div className="wfs__screen-panel">
                 <div className="wfs__screen-panel-head">
-                  <span className="wfs__screen-panel-title">Recent applications</span>
+                  <span className="wfs__screen-panel-title">Recent quotations</span>
                   <span className="wfs__screen-panel-action">View all</span>
                 </div>
                 <ul className="wfs__screen-rows">
-                  {["UK", "Canada", "Australia"].map((country) => (
-                    <li key={country} className="wfs__screen-rowline">
+                  {["Web", "Mobile", "ERP"].map((deal) => (
+                    <li key={deal} className="wfs__screen-rowline">
                       <span className="wfs__screen-rowdot" />
-                      <span className="wfs__screen-rowcountry">{country}</span>
+                      <span className="wfs__screen-rowcountry">{deal}</span>
                       <span className="wfs__screen-rowbar" />
                       <span className="wfs__screen-rowtag">AI</span>
                     </li>
@@ -175,12 +175,38 @@ export default function WorkFeatureSection() {
         </div>
       </div>
 
-      {/* customers row — abstract bars instead of fabricated wordmarks */}
-      <div className="wfs__customers" aria-label="Selected partners">
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-          <span key={i} className={`wfs__customer wfs__customer--${i}`} />
-        ))}
+      {/* features marquee — what the ERP ships with */}
+      <div className="wfs__features" aria-label="ERP features">
+        <span className="wfs__features-eyebrow">What ships with it</span>
+        <div className="wfs__marquee">
+          <div className="wfs__marquee-track">
+            {[
+              ...WFS_FEATURES,
+              ...WFS_FEATURES, // duplicate for seamless scroll
+            ].map((f, i) => (
+              <span key={`${f.label}-${i}`} className="wfs__feature">
+                <span className="wfs__feature-dot" aria-hidden="true" />
+                {f.label}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
+
+const WFS_FEATURES = [
+  { label: "AI-integrated Tally" },
+  { label: "Quote & Invoice generation" },
+  { label: "Lead pipeline & sales funnel" },
+  { label: "Project & milestone tracking" },
+  { label: "Client portal & approvals" },
+  { label: "Document automation" },
+  { label: "Timesheets & resource planning" },
+  { label: "GST & TDS-ready ledgers" },
+  { label: "Vendor & payables" },
+  { label: "Reports & forecasting" },
+  { label: "Role-based access" },
+  { label: "Audit trail" },
+];
