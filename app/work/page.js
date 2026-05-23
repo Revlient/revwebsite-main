@@ -1,4 +1,5 @@
 import WorkHero from "../components/WorkHero";
+import WorkProjects from "../components/WorkProjects";
 import WorkFeatureSection from "../components/WorkFeatureSection";
 import ErpFeatures from "../components/ErpFeatures";
 import AppShowcase from "../components/AppShowcase";
@@ -25,6 +26,7 @@ export default function WorkPage() {
     <>
       <main className="page-work">
         <WorkHero />
+        <WorkProjects />
         <WorkFeatureSection />
         <ErpFeatures />
         <AppShowcase />
