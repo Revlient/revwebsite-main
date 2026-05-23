@@ -4165,22 +4165,40 @@ html.js .reveal.is-visible {
   justify-content: space-between;
 }
 
-/* Phone-style screenshot card — pushes the actual mockup down to
-   fill the rest of the height under the section label, and hosts a
-   pair of slow-drifting gradient blobs behind the device. */
-.feat-card--phone .feat-card__inner {
-  align-items: center;
-  justify-content: flex-start;
+/* Animated gradient blob backdrop — first introduced on the phone
+   card, now shared across every ErpFeatures box for a cohesive look.
+   isolation: isolate + z-index: -1 keeps the blobs strictly behind
+   the card content. Smaller boxes use a lighter opacity so the
+   atmosphere never washes out the data. */
+.feat-card--phone .feat-card__inner,
+.feat-card--voice .feat-card__inner,
+.feat-card--tally .feat-card__inner,
+.feat-card--software .feat-card__inner,
+.feat-card--projects .feat-card__inner {
+  align-items: stretch;
   position: relative;
   isolation: isolate;
 }
 
+.feat-card--phone .feat-card__inner {
+  align-items: center;
+  justify-content: flex-start;
+}
+
 .feat-card--phone .feat-card__inner::before,
-.feat-card--phone .feat-card__inner::after {
+.feat-card--phone .feat-card__inner::after,
+.feat-card--voice .feat-card__inner::before,
+.feat-card--voice .feat-card__inner::after,
+.feat-card--tally .feat-card__inner::before,
+.feat-card--tally .feat-card__inner::after,
+.feat-card--software .feat-card__inner::before,
+.feat-card--software .feat-card__inner::after,
+.feat-card--projects .feat-card__inner::before,
+.feat-card--projects .feat-card__inner::after {
   content: "";
   position: absolute;
-  inset: 12% 0 6%;
-  z-index: 0;
+  inset: 8% 0 4%;
+  z-index: -1;
   border-radius: 50%;
   filter: blur(72px);
   pointer-events: none;
@@ -4203,6 +4221,41 @@ html.js .reveal.is-visible {
   );
   animation: featPhoneGlowB 19s ease-in-out infinite alternate;
 }
+
+/* Smaller cards use the same recipe at ~60% intensity */
+.feat-card--voice .feat-card__inner::before,
+.feat-card--tally .feat-card__inner::before,
+.feat-card--software .feat-card__inner::before,
+.feat-card--projects .feat-card__inner::before {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(74, 120, 255, 0.42),
+    transparent 70%
+  );
+  animation: featPhoneGlowA 14s ease-in-out infinite alternate;
+}
+
+.feat-card--voice .feat-card__inner::after,
+.feat-card--tally .feat-card__inner::after,
+.feat-card--software .feat-card__inner::after,
+.feat-card--projects .feat-card__inner::after {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(168, 85, 247, 0.36),
+    transparent 70%
+  );
+  animation: featPhoneGlowB 19s ease-in-out infinite alternate;
+}
+
+/* Stagger so the four boxes never breathe in unison */
+.feat-card--voice .feat-card__inner::before { animation-delay: -2s; }
+.feat-card--voice .feat-card__inner::after { animation-delay: -5s; }
+.feat-card--tally .feat-card__inner::before { animation-delay: -4s; }
+.feat-card--tally .feat-card__inner::after { animation-delay: -8s; }
+.feat-card--software .feat-card__inner::before { animation-delay: -6s; }
+.feat-card--software .feat-card__inner::after { animation-delay: -11s; }
+.feat-card--projects .feat-card__inner::before { animation-delay: -10s; }
+.feat-card--projects .feat-card__inner::after { animation-delay: -14s; }
 
 .feat-card--phone .rosphone {
   position: relative;
@@ -4229,7 +4282,15 @@ html.js .reveal.is-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .feat-card--phone .feat-card__inner::before,
-  .feat-card--phone .feat-card__inner::after {
+  .feat-card--phone .feat-card__inner::after,
+  .feat-card--voice .feat-card__inner::before,
+  .feat-card--voice .feat-card__inner::after,
+  .feat-card--tally .feat-card__inner::before,
+  .feat-card--tally .feat-card__inner::after,
+  .feat-card--software .feat-card__inner::before,
+  .feat-card--software .feat-card__inner::after,
+  .feat-card--projects .feat-card__inner::before,
+  .feat-card--projects .feat-card__inner::after {
     animation: none;
   }
 }
