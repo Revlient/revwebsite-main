@@ -478,7 +478,7 @@ export default function ErpFeatures() {
                       <svg className="tally__mini-chart" viewBox="0 0 100 28" preserveAspectRatio="none" aria-hidden="true">
                         <polyline
                           fill="none"
-                          stroke="#22c55e"
+                          stroke="#ffffff"
                           strokeWidth="1.6"
                           points="2,22 18,21 34,22 50,21 66,22 82,18 98,5"
                         />

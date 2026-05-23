@@ -4127,16 +4127,16 @@ html.js .reveal.is-visible {
 .feat-card--reach {
   /* Animated multi-stop gradient replaces the old flat slate. The
      background-position drifts on a 22s loop so the card breathes
-     between deep navy and a brand-purple haze; the noise-overlay
+     between pure black and a brand-red haze; the noise-overlay
      adds the same paper texture as before. */
   background: linear-gradient(
     135deg,
-    #18253a 0%,
-    #1f3358 22%,
-    #2a3573 40%,
-    #3d2f6b 60%,
-    #28335a 78%,
-    #18253a 100%
+    #0a0a0c 0%,
+    #1a0707 22%,
+    #2f0a0a 40%,
+    #4a0c0c 60%,
+    #1a0707 78%,
+    #0a0a0c 100%
   );
   background-size: 280% 280%;
   animation: voiceGradient 22s ease-in-out infinite;
@@ -4177,9 +4177,9 @@ html.js .reveal.is-visible {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(74, 120, 255, 0.9) 30%,
-    rgba(168, 85, 247, 0.95) 55%,
-    rgba(74, 120, 255, 0.9) 80%,
+    rgba(255, 255, 255, 0.9) 30%,
+    rgba(239, 68, 68, 0.95) 55%,
+    rgba(255, 255, 255, 0.9) 80%,
     transparent 100%
   );
   background-size: 220% 100%;
@@ -4280,7 +4280,7 @@ html.js .reveal.is-visible {
 .feat-card--phone .feat-card__inner::before {
   background: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(74, 120, 255, 0.6),
+    rgba(239, 68, 68, 0.6),
     transparent 70%
   );
   animation: featPhoneGlowA 14s ease-in-out infinite alternate;
@@ -4289,7 +4289,7 @@ html.js .reveal.is-visible {
 .feat-card--phone .feat-card__inner::after {
   background: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(168, 85, 247, 0.5),
+    rgba(255, 255, 255, 0.22),
     transparent 70%
   );
   animation: featPhoneGlowB 19s ease-in-out infinite alternate;
@@ -4302,7 +4302,7 @@ html.js .reveal.is-visible {
 .feat-card--projects .feat-card__inner::before {
   background: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(74, 120, 255, 0.42),
+    rgba(239, 68, 68, 0.42),
     transparent 70%
   );
   animation: featPhoneGlowA 14s ease-in-out infinite alternate;
@@ -4314,7 +4314,7 @@ html.js .reveal.is-visible {
 .feat-card--projects .feat-card__inner::after {
   background: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(168, 85, 247, 0.36),
+    rgba(255, 255, 255, 0.16),
     transparent 70%
   );
   animation: featPhoneGlowB 19s ease-in-out infinite alternate;
@@ -4402,12 +4402,12 @@ html.js .reveal.is-visible {
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: rgba(59, 130, 246, 0.18);
-  border: 1px solid rgba(59, 130, 246, 0.32);
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.36);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #60a5fa;
+  color: #f87171;
 }
 
 .rfunnel__icon svg {
@@ -4454,7 +4454,7 @@ html.js .reveal.is-visible {
 .rfunnel__viz {
   position: relative;
   width: 100%;
-  background: #3b82f6;
+  background: #ef4444;
   border-radius: 2px;
   display: flex;
   align-items: center;
@@ -4522,8 +4522,8 @@ html.js .reveal.is-visible {
   align-self: flex-start;
   padding: 0.28rem 0.8rem 0.28rem 0.32rem;
   border-radius: 999px;
-  border: 1px solid rgba(74, 120, 255, 0.32);
-  background: linear-gradient(120deg, rgba(74, 120, 255, 0.18), rgba(168, 85, 247, 0.1));
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  background: linear-gradient(120deg, rgba(239, 68, 68, 0.2), rgba(255, 255, 255, 0.05));
   color: rgba(255, 255, 255, 0.88);
   font-size: 11px;
   font-weight: 500;
@@ -4534,7 +4534,7 @@ html.js .reveal.is-visible {
   font-weight: 800;
   padding: 0.1rem 0.5rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #4a78ff, #2b5fff);
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
   color: #fff;
   letter-spacing: -0.02em;
 }
@@ -4592,8 +4592,8 @@ html.js .reveal.is-visible {
 }
 
 .tally__action--primary {
-  background: #3b82f6;
-  color: #0b1320;
+  background: #ef4444;
+  color: #fff;
   border-color: rgba(255, 255, 255, 0.12);
   font-weight: 600;
 }
@@ -4621,7 +4621,7 @@ html.js .reveal.is-visible {
 }
 
 .tally__range-pill.is-active {
-  background: #3b82f6;
+  background: #ef4444;
   color: #fff;
   font-weight: 600;
 }
@@ -4640,8 +4640,8 @@ html.js .reveal.is-visible {
   row-gap: 8px;
   padding: 12px;
   border-radius: 12px;
-  background: linear-gradient(160deg, rgba(34, 197, 94, 0.16), rgba(34, 197, 94, 0.04));
-  border: 1px solid rgba(34, 197, 94, 0.32);
+  background: linear-gradient(160deg, rgba(239, 68, 68, 0.18), rgba(239, 68, 68, 0.04));
+  border: 1px solid rgba(239, 68, 68, 0.36);
 }
 
 .tally__hero-icon {
@@ -4649,13 +4649,13 @@ html.js .reveal.is-visible {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(34, 197, 94, 0.18);
-  border: 1px solid rgba(34, 197, 94, 0.32);
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid rgba(239, 68, 68, 0.4);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
-  color: #4ade80;
+  color: #f87171;
 }
 
 .tally__hero-copy {
@@ -4674,7 +4674,7 @@ html.js .reveal.is-visible {
 .tally__hero-value {
   font-size: 14px;
   font-weight: 700;
-  color: #4ade80;
+  color: #ffffff;
   letter-spacing: -0.01em;
 }
 
@@ -4704,7 +4704,7 @@ html.js .reveal.is-visible {
 }
 
 .tally__stat-value--up {
-  color: #4ade80;
+  color: #ffffff;
 }
 
 .tally__stat-value--down {
@@ -4749,7 +4749,7 @@ html.js .reveal.is-visible {
 }
 
 .tally__mini-delta--up {
-  color: #4ade80;
+  color: #ffffff;
 }
 
 .tally__mini-delta--down {
@@ -4810,8 +4810,8 @@ html.js .reveal.is-visible {
   align-items: center;
   padding: 5px 10px;
   border-radius: 7px;
-  background: #3b82f6;
-  color: #0b1320;
+  background: #ef4444;
+  color: #ffffff;
   font-size: 10px;
   font-weight: 700;
 }
@@ -4920,12 +4920,12 @@ html.js .reveal.is-visible {
 .rprojects__status {
   padding: 3px 9px;
   border-radius: 999px;
-  background: rgba(16, 185, 129, 0.18);
-  color: #34d399;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.02em;
-  border: 1px solid rgba(16, 185, 129, 0.32);
+  border: 1px solid rgba(255, 255, 255, 0.22);
 }
 
 .rprojects__progress {
@@ -4946,7 +4946,7 @@ html.js .reveal.is-visible {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #10b981, #34d399);
+  background: linear-gradient(90deg, #ef4444, #f87171);
 }
 
 .rprojects__progress-value {
@@ -6760,11 +6760,10 @@ a.feat-reach__line:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* sits above the animated grid backdrop; mix-blend keeps the
-     grid pattern visible through the video's lit areas */
-  z-index: 1;
-  opacity: 0.82;
-  mix-blend-mode: luminosity;
+  /* hand-animation video is now the back-most layer so the grid
+     and the corner gradient blobs render over it */
+  z-index: 0;
+  opacity: 0.95;
   pointer-events: none;
 }
 
@@ -6773,7 +6772,10 @@ a.feat-reach__line:hover {
 .igrid {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  /* sits above the video. Inside .igrid the children stack by DOM
+     order — base grid → reveal grid → orange/purple/blue blobs —
+     so the gradient blobs read as the top-most decorative layer. */
+  z-index: 1;
   overflow: hidden;
   pointer-events: none;
   color: rgba(0, 0, 0, 0.55);
@@ -6819,15 +6821,15 @@ a.feat-reach__line:hover {
   top: -20%;
   width: 40%;
   height: 40%;
-  background: rgba(249, 115, 22, 0.4); /* tailwind orange-500/40 */
+  background: rgba(249, 115, 22, 0.55);
 }
 
 .igrid__blob--purple {
   right: 10%;
   top: -10%;
-  width: 20%;
-  height: 20%;
-  background: rgba(168, 85, 247, 0.3);
+  width: 22%;
+  height: 22%;
+  background: rgba(239, 68, 68, 0.45);
   filter: blur(100px);
 }
 
@@ -6836,7 +6838,7 @@ a.feat-reach__line:hover {
   bottom: -20%;
   width: 40%;
   height: 40%;
-  background: rgba(59, 130, 246, 0.4); /* tailwind blue-500/40 */
+  background: rgba(220, 38, 38, 0.55);
 }
 
 .whero__content {
@@ -8085,7 +8087,7 @@ a.feat-reach__line:hover {
   width: 18px;
   height: 18px;
   border-radius: 5px;
-  background: linear-gradient(135deg, #4a78ff, #2b5fff);
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
@@ -8113,19 +8115,19 @@ a.feat-reach__line:hover {
 }
 
 .wfs__screen-navitem.is-active {
-  background: rgba(74, 120, 255, 0.18);
+  background: rgba(239, 68, 68, 0.2);
   color: var(--text);
 }
 
 .wfs__screen-navitem--ai {
   color: var(--text);
-  background: linear-gradient(90deg, rgba(168, 85, 247, 0.18), rgba(74, 120, 255, 0.12));
-  border: 1px solid rgba(168, 85, 247, 0.25);
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.08));
+  border: 1px solid rgba(239, 68, 68, 0.32);
 }
 
 .wfs__screen-navitem--ai .wfs__screen-navdot {
-  background: linear-gradient(135deg, #c084fc, #4a78ff);
-  box-shadow: 0 0 6px rgba(168, 85, 247, 0.6);
+  background: linear-gradient(135deg, #ffffff, #ef4444);
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.7);
   opacity: 1;
 }
 
@@ -8194,28 +8196,28 @@ a.feat-reach__line:hover {
 }
 
 .wfs__screen-btn--primary {
-  background: #2b5fff;
+  background: #ef4444;
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 4px 14px -6px rgba(43, 95, 255, 0.6);
+  box-shadow: 0 4px 14px -6px rgba(239, 68, 68, 0.7);
 }
 
 .wfs__screen-btn--primary:hover {
-  background: #4a78ff;
+  background: #f87171;
 }
 
 .wfs__screen-btn--ai {
-  background: linear-gradient(135deg, #a855f7, #4a78ff);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 4px 14px -6px rgba(168, 85, 247, 0.6);
+  background: linear-gradient(135deg, #ffffff, #ef4444);
+  color: #0a0a0c;
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 14px -6px rgba(239, 68, 68, 0.65);
   display: inline-flex;
   align-items: center;
   gap: 5px;
 }
 
 .wfs__screen-btn--ai:hover {
-  background: linear-gradient(135deg, #c084fc, #6e9bff);
+  background: linear-gradient(135deg, #f5f5f5, #f87171);
 }
 
 .wfs__screen-btn-spark {
@@ -8244,13 +8246,13 @@ a.feat-reach__line:hover {
 }
 
 .wfs__screen-kpi--accent {
-  background: linear-gradient(135deg, rgba(74, 120, 255, 0.22), rgba(43, 95, 255, 0.06));
-  border-color: rgba(74, 120, 255, 0.32);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.26), rgba(185, 28, 28, 0.08));
+  border-color: rgba(239, 68, 68, 0.4);
 }
 
 .wfs__screen-kpi--alt {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.18), rgba(59, 130, 246, 0.05));
-  border-color: rgba(168, 85, 247, 0.25);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .wfs__screen-kpi-label {
@@ -8294,7 +8296,7 @@ a.feat-reach__line:hover {
 
 .wfs__screen-panel-action {
   font-size: 11px;
-  color: var(--blue-light);
+  color: #f87171;
 }
 
 .wfs__screen-rows {
@@ -8318,7 +8320,7 @@ a.feat-reach__line:hover {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(74, 120, 255, 0.7);
+  background: rgba(239, 68, 68, 0.85);
   flex: none;
 }
 
@@ -8352,8 +8354,8 @@ a.feat-reach__line:hover {
   padding: 2px 7px;
   border-radius: 999px;
   color: #ffffff;
-  background: linear-gradient(135deg, #a855f7, #4a78ff);
-  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.35);
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.4);
 }
 
 /* features marquee — scrolling list of what the ERP ships with */
@@ -8431,8 +8433,8 @@ a.feat-reach__line:hover {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4a78ff, #a855f7);
-  box-shadow: 0 0 6px rgba(74, 120, 255, 0.6);
+  background: linear-gradient(135deg, #ffffff, #ef4444);
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.65);
   flex: none;
 }
 
