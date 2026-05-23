@@ -23,6 +23,7 @@ const NAV = [
   { label: "Services", href: "#services", hasDropdown: true },
   { label: "Process", href: "/process" },
   { label: "Studio", href: "/studio", hasDropdown: true },
+  { label: "Blog", href: "/blog" },
 ];
 
 function Sparkles({ className = "" }) {
