@@ -4341,7 +4341,340 @@ a.feat-reach__line:hover {
   background: transparent;
 }
 
-/* ---------- Project showcase (duotone cards + neon) ---------- */
+/* ---------- Xero-style hero card (for /process and friends) ---------- */
+
+.xhero {
+  background: #0a0a0f;
+  padding: 14px;
+  display: flex;
+  justify-content: center;
+  padding-top: 96px; /* clear the global fixed nav */
+}
+
+.xhero__card {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+  background: #0d0b12;
+  padding: 80px 40px 70px;
+  min-height: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  isolation: isolate;
+}
+
+.xhero__arc {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+      circle at 50% -70%,
+      transparent 60%,
+      rgba(176, 48, 136, 0.03) 63%,
+      rgba(176, 48, 136, 0.08) 65%,
+      rgba(176, 48, 136, 0.16) 67%,
+      rgba(176, 48, 136, 0.28) 69%,
+      rgba(176, 48, 136, 0.4) 71%,
+      rgba(176, 48, 136, 0.52) 73%,
+      rgba(176, 48, 136, 0.64) 75%,
+      rgba(176, 48, 136, 0.74) 77%,
+      rgba(176, 48, 136, 0.82) 79%,
+      rgba(210, 70, 175, 0.92) 85%,
+      rgba(240, 110, 210, 0.88) 87%,
+      rgba(255, 205, 250, 0.92) 91%,
+      rgba(255, 240, 255, 0.98) 93%,
+      #ffffff 95%
+    ),
+    radial-gradient(circle at 50% 35%, rgba(120, 40, 180, 0.08) 0%, transparent 50%);
+}
+
+.xhero__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(circle at 50% -70%, transparent 60%, black 78%);
+  mask-image: radial-gradient(circle at 50% -70%, transparent 60%, black 78%);
+}
+
+.xhero__pipeline {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 700px;
+  margin-bottom: 52px;
+  z-index: 1;
+}
+
+@media (max-width: 860px) {
+  .xhero__pipeline {
+    gap: 0;
+    margin-bottom: 40px;
+  }
+}
+
+.xhero__beam {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.xhero__line {
+  width: 160px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.07)
+  );
+}
+
+.xhero__line--right {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0.15)
+  );
+}
+
+@media (max-width: 860px) {
+  .xhero__line {
+    width: 80px;
+  }
+}
+
+.xhero__center-wrap {
+  position: relative;
+  z-index: 3;
+}
+
+.xhero__splash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.4);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 77, 200, 0.6) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes xheroSplash {
+  0% {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 0.8;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0;
+  }
+}
+
+.xhero__splash.is-animating {
+  animation: xheroSplash 0.8s ease-out forwards;
+}
+
+.xhero__center {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #1e1e2c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5),
+    -6px -6px 14px rgba(255, 255, 255, 0.04),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.06),
+    inset 6px 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+.xhero__center svg {
+  width: 28px;
+  height: 28px;
+}
+
+.xhero__node {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #1a1a24;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  color: rgba(255, 255, 255, 0.7);
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4),
+    -4px -4px 10px rgba(255, 255, 255, 0.03),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.05),
+    inset 4px 4px 8px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.xhero__node::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 1px dotted #1a1a24;
+  pointer-events: none;
+}
+
+.xhero__node:hover {
+  transform: translateY(-1px);
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.5),
+    -5px -5px 12px rgba(255, 255, 255, 0.04),
+    inset 1px 1px 1px rgba(255, 255, 255, 0.05),
+    inset 4px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.xhero__node:active {
+  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+    inset 4px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.xhero__node svg {
+  width: 20px;
+  height: 20px;
+}
+
+.xhero__node--right::before,
+.xhero__node--left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.xhero__node--right::before {
+  background: radial-gradient(
+    circle at right,
+    rgba(200, 200, 200, 0.45) 0%,
+    transparent 70%
+  );
+}
+
+.xhero__node--left::before {
+  background: radial-gradient(
+    circle at left,
+    rgba(200, 100, 255, 0.5) 0%,
+    transparent 70%
+  );
+}
+
+.xhero__node.is-active::before {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .xhero__node {
+    width: 38px;
+    height: 38px;
+  }
+  .xhero__center {
+    width: 52px;
+    height: 52px;
+  }
+  .xhero__center svg {
+    width: 22px;
+    height: 22px;
+  }
+  .xhero__card {
+    padding: 60px 20px 60px;
+    min-height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .xhero__card {
+    border-radius: 16px;
+  }
+}
+
+.xhero__content {
+  max-width: 620px;
+  z-index: 1;
+  position: relative;
+}
+
+.xhero__heading {
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #f0f0f5;
+}
+
+.xhero__heading strong {
+  display: block;
+  font-weight: 400;
+  margin-top: 4px;
+  background: linear-gradient(to right, #ffffff, #a98597);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.xhero__sub {
+  margin: 20px auto 36px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.4);
+  max-width: 440px;
+  line-height: 1.6;
+}
+
+.xhero__cta {
+  display: inline-block;
+  padding: 12px 32px;
+  background: #ffffff;
+  color: #0a0a0f;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.xhero__cta:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* /process page — give the page itself the same black surround as
+   the Xero card so the rounded corners read against the page bg */
+.page-process {
+  background: #0a0a0f;
+}
 
 .pscard {
   position: relative;

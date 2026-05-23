@@ -28,10 +28,11 @@ export const PHONE_TEL = "+910000000000"; // TODO: real phone number
 export const PHONE_DISPLAY = "+91 00000 00000"; // TODO: real phone number
 export const CONTACT_EMAIL = "hello@revlient.com"; // TODO: real enquiry inbox
 
-// In-page navigation. Each id matches a <section id="…"> in the homepage.
+// In-page navigation. Each entry either scrolls to a homepage section
+// (id matches a <section id="…">) or routes to a dedicated page.
 export const NAV_LINKS = [
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
+  { label: "Process", href: "/process" },
   { label: "Studio", href: "/studio" },
 ];
