@@ -25,7 +25,7 @@ export default function Nav() {
   return (
     <header className={`nav ${scrolled ? "is-scrolled" : ""}`}>
       <div className="container nav__inner">
-        <a href="#top" className="brand" aria-label={`${BRAND.name} home`}>
+        <a href="/" className="brand" aria-label={`${BRAND.name} home`}>
           <Logo className="brand__mark" />
           <span>{BRAND.name}</span>
         </a>
