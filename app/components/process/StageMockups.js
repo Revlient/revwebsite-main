@@ -74,6 +74,78 @@ function MockDiscovery() {
   );
 }
 
+function MockOnboarding() {
+  // CRM portal: sidebar with menu items, top phase tracker, two
+  // rows hinting at assets + enquiries. Same vocab as the other
+  // stage mockups.
+  return (
+    <Frame>
+      <rect x="14" y="6" width="372" height="98" rx="8" fill={FILL_FAINT} stroke={STROKE_FAINT} strokeWidth="1" />
+      {/* sidebar */}
+      <rect x="14" y="6" width="68" height="98" rx="8" fill="rgba(192, 132, 252, 0.06)" />
+      <line x1="82" y1="6" x2="82" y2="104" stroke={STROKE_FAINT} strokeWidth="0.75" />
+      {/* sidebar items */}
+      <rect x="22" y="20" width="48" height="6" rx="2" fill={ACCENT} opacity="0.85" />
+      <rect x="22" y="34" width="44" height="4" rx="2" fill={STROKE} opacity="0.5" />
+      <rect x="22" y="46" width="40" height="4" rx="2" fill={STROKE} opacity="0.5" />
+      <rect x="22" y="58" width="44" height="4" rx="2" fill={STROKE} opacity="0.5" />
+      <rect x="22" y="70" width="36" height="4" rx="2" fill={STROKE} opacity="0.5" />
+      {/* main: phase tracker */}
+      <text x="94" y="22" fontFamily="ui-monospace, Menlo, monospace" fontSize="8" fill={STROKE_FAINT}>
+        Project phases
+      </text>
+      {/* phase nodes — 5 dots with connector line */}
+      <line x1="100" y1="38" x2="368" y2="38" stroke={STROKE_FAINT} strokeWidth="1" />
+      {[0, 1, 2, 3, 4].map((i) => {
+        const cx = 100 + i * 67;
+        const done = i < 2;
+        const active = i === 2;
+        return (
+          <g key={i}>
+            <circle
+              cx={cx}
+              cy="38"
+              r="4"
+              fill={done || active ? ACCENT : FILL_FAINT}
+              stroke={done || active ? ACCENT : STROKE_FAINT}
+              strokeWidth="1"
+            />
+            {active && (
+              <circle
+                cx={cx}
+                cy="38"
+                r="8"
+                fill="none"
+                stroke={ACCENT}
+                strokeWidth="0.75"
+                opacity="0.55"
+              />
+            )}
+          </g>
+        );
+      })}
+      {/* asset row */}
+      <rect x="94" y="56" width="280" height="16" rx="4" fill={FILL_FAINT} stroke={STROKE_FAINT} strokeWidth="0.75" />
+      <circle cx="104" cy="64" r="3" fill="#22c55e" />
+      <text x="114" y="67" fontFamily="ui-monospace, Menlo, monospace" fontSize="8" fill={STROKE}>
+        Asset uploaded
+      </text>
+      <text x="324" y="67" fontFamily="ui-monospace, Menlo, monospace" fontSize="7" fill={STROKE_FAINT} textAnchor="end">
+        2m ago
+      </text>
+      {/* enquiry row */}
+      <rect x="94" y="78" width="280" height="16" rx="4" fill={FILL_FAINT} stroke={STROKE_FAINT} strokeWidth="0.75" />
+      <circle cx="104" cy="86" r="3" fill={ACCENT} />
+      <text x="114" y="89" fontFamily="ui-monospace, Menlo, monospace" fontSize="8" fill={STROKE}>
+        Enquiry logged
+      </text>
+      <text x="324" y="89" fontFamily="ui-monospace, Menlo, monospace" fontSize="7" fill={STROKE_FAINT} textAnchor="end">
+        14m ago
+      </text>
+    </Frame>
+  );
+}
+
 function MockStrategy() {
   // sitemap: root + 2 children + 1 grandchild
   const box = (x, y, w = 60, h = 22) => (
@@ -343,6 +415,7 @@ function MockLaunch() {
 
 const MOCKUPS = [
   MockDiscovery,
+  MockOnboarding,
   MockStrategy,
   MockDesign,
   MockDevelopment,

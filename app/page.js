@@ -3,6 +3,7 @@ import AiPromptSection from "./components/AiPromptSection";
 import ShowcaseCards from "./components/ShowcaseCards";
 import Features from "./components/Features";
 import ProcessSpine from "./components/ProcessSpine";
+import WorkFeatureSection from "./components/WorkFeatureSection";
 import WhyRevlient from "./components/WhyRevlient";
 import Services from "./components/Services";
 import FinalCTA from "./components/FinalCTA";
@@ -22,6 +23,7 @@ export default function HomePage() {
         <AiPromptSection />
         <Features />
         <ProcessSpine />
+        <WorkFeatureSection />
         <Services />
         <ShowcaseCards />
         <WhyRevlient />

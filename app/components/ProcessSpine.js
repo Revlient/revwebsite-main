@@ -25,38 +25,44 @@ const STAGES = [
   },
   {
     n: "02",
+    title: "Onboarding & Access",
+    body: "Once we're aligned, you get private CRM access — track every phase, transfer assets, raise enquiries, and watch the project pulse in real time.",
+  },
+  {
+    n: "03",
     title: "Strategy",
     body: "Information architecture, content flow, and conversion thinking come before pixels — so the whole build pulls in one direction.",
   },
   {
-    n: "03",
+    n: "04",
     title: "Design",
     body: "Wireframes, a tight design system, and high-fidelity UI you can react to long before code is written.",
   },
   {
-    n: "04",
+    n: "05",
     title: "Development",
     body: "Front end, back end, integrations — built the way they should be, not the fast way. Performance and accessibility from commit one.",
   },
   {
-    n: "05",
+    n: "06",
     title: "Testing",
     body: "QA across browsers, devices, lighthouse and accessibility audits — everything that has to be true before launch day arrives.",
   },
   {
-    n: "06",
+    n: "07",
     title: "Launch & Support",
     body: "Smooth deploy, monitoring on day one, and on-hand for the days, weeks and months after. The relationship doesn't end at go-live.",
   },
 ];
 
-// Shared SVG viewBox. 1200 wide, 6 rows × 380 = 2280 tall. We use
-// preserveAspectRatio="none" and let the SVG stretch to fill the
-// section — rows have equal min-height so node positions still align
-// with card centres regardless of actual pixel size.
+// Shared SVG viewBox. 1200 wide, N rows × 380 = VB_H tall (where N
+// is the number of STAGES). preserveAspectRatio="none" lets the SVG
+// stretch to fill the section — rows have equal min-height so node
+// positions still align with card centres regardless of actual pixel
+// size.
 const VB_W = 1200;
-const VB_H = 2280;
-const ROW_H = VB_H / 6;
+const ROW_H = 380;
+const VB_H = ROW_H * STAGES.length;
 const LEFT_EDGE_X = 540; // inner edge of a left-aligned card
 const RIGHT_EDGE_X = 660; // inner edge of a right-aligned card
 
@@ -94,9 +100,9 @@ const PATH_D_DESKTOP = buildSnakePath(NODES_DESKTOP);
 const PATH_D_MOBILE = `M ${NODES_MOBILE[0].x} ${NODES_MOBILE[0].y} L ${NODES_MOBILE[NODES_MOBILE.length - 1].x} ${NODES_MOBILE[NODES_MOBILE.length - 1].y}`;
 
 // Approximate scroll-progress thresholds at which each node lights up.
-// Values come from the spec; tuned so node 1 lights almost immediately
-// (line has only just started drawing) and node 6 lights near the end.
-const NODE_THRESHOLDS = [0.05, 0.22, 0.38, 0.55, 0.72, 0.88];
+// Distributed roughly evenly across the 0->1 scroll progress of the
+// section; first lights almost immediately, last lights near the end.
+const NODE_THRESHOLDS = [0.04, 0.18, 0.32, 0.46, 0.6, 0.74, 0.88];
 
 // Monoline 24x24 icons stroked in purple, one per stage. Drawn at the
 // origin so the wrapping <g> can place them.
@@ -108,7 +114,16 @@ const NODE_ICONS = [
       <polygon points="16,8 13,13 8,16 11,11" fill="#C084FC" stroke="none" />
     </g>
   ),
-  // 02 sitemap
+  // 02 id-card (client portal / CRM access)
+  (
+    <g key="id-card" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="6" width="18" height="14" rx="2" />
+      <circle cx="9" cy="13" r="2.5" />
+      <line x1="14" y1="11" x2="18" y2="11" />
+      <line x1="14" y1="15" x2="18" y2="15" />
+    </g>
+  ),
+  // 03 sitemap
   (
     <g key="sitemap" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="5" r="2" />
