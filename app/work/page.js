@@ -2,6 +2,7 @@ import WorkHero from "../components/WorkHero";
 import WorkFeatureSection from "../components/WorkFeatureSection";
 import ErpFeatures from "../components/ErpFeatures";
 import AppShowcase from "../components/AppShowcase";
+import AppFeatures from "../components/AppFeatures";
 import FinalCTA from "../components/FinalCTA";
 import Footer from "../components/Footer";
 import StickyCTA from "../components/StickyCTA";
@@ -26,6 +27,7 @@ export default function WorkPage() {
         <WorkFeatureSection />
         <ErpFeatures />
         <AppShowcase />
+        <AppFeatures />
         <FinalCTA />
       </main>
       <Footer />

@@ -5915,6 +5915,19 @@ html.js .reveal.is-visible {
   height: 22px;
 }
 
+/* text-only tile variant — used by the destinations marquee inside
+   AppFeatures so the country names read cleanly on the same liquid
+   glass surface that hosts the ERP tool icons */
+.feat-tile--label {
+  width: auto;
+  min-width: 92px;
+  padding: 0 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
 @media (min-width: 768px) {
   .feat-tile {
     width: 64px;
@@ -7886,8 +7899,8 @@ a.feat-reach__line:hover {
      aligns with the dashboard frame below */
   top: -24rem;
   left: 50%;
-  /* shifted 2cm right of centre (was 5cm right, nudged 3cm left) */
-  transform: translateX(calc(-50% + 2cm));
+  /* shifted 3cm right of centre (2cm + 1cm nudge) */
+  transform: translateX(calc(-50% + 3cm));
   width: min(115%, 100rem);
   height: calc(100% + 24rem);
   z-index: 0;
