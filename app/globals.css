@@ -4203,12 +4203,74 @@ html.js .reveal.is-visible {
 }
 
 .rosphone__screen {
+  position: relative;
   border-radius: 22px;
   background: #050507;
   padding: 14px 12px 8px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Two slow-drifting blurred colour blobs behind the dashboard content
+   — a brand-blue and a purple — animating opposite paths so the
+   screen breathes without ever looping noticeably. Reduced-motion
+   freezes both into a static composition. */
+.rosphone__screen::before,
+.rosphone__screen::after {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(38px);
+  opacity: 0.55;
+}
+
+.rosphone__screen::before {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(74, 120, 255, 0.75),
+    transparent 70%
+  );
+  animation: rosphoneOrbitA 18s ease-in-out infinite alternate;
+}
+
+.rosphone__screen::after {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(168, 85, 247, 0.6),
+    transparent 70%
+  );
+  animation: rosphoneOrbitB 22s ease-in-out infinite alternate;
+}
+
+@keyframes rosphoneOrbitA {
+  0% {
+    transform: translate(-25%, -30%) scale(0.9);
+  }
+  100% {
+    transform: translate(25%, 20%) scale(1.1);
+  }
+}
+
+@keyframes rosphoneOrbitB {
+  0% {
+    transform: translate(25%, 25%) scale(1.05);
+  }
+  100% {
+    transform: translate(-20%, -25%) scale(0.95);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rosphone__screen::before,
+  .rosphone__screen::after {
+    animation: none;
+  }
 }
 
 .rosphone__statusbar {
