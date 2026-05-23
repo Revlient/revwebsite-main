@@ -7873,7 +7873,27 @@ a.feat-reach__line:hover {
   );
 }
 
+/* light-beam backdrop video. Sits inside the dashboard frame, behind
+   the actual mockup, hue-rotated into the brand-blue palette and
+   cropped via object-fit: cover so it always fills the panel
+   regardless of the source's aspect ratio. */
+.wfs__beam {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  border-radius: 22px;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  filter: hue-rotate(220deg) saturate(1.4) brightness(1.05);
+  opacity: 1;
+}
+
 .wfs__screen {
+  position: relative;
+  z-index: 1;
   border-radius: 12px;
   border: 1px solid var(--line);
   background: var(--panel);
