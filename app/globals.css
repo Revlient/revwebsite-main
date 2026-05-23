@@ -4125,8 +4125,81 @@ html.js .reveal.is-visible {
 
 .feat-card--voice,
 .feat-card--reach {
-  background: #324444;
+  /* Animated multi-stop gradient replaces the old flat slate. The
+     background-position drifts on a 22s loop so the card breathes
+     between deep navy and a brand-purple haze; the noise-overlay
+     adds the same paper texture as before. */
+  background: linear-gradient(
+    135deg,
+    #18253a 0%,
+    #1f3358 22%,
+    #2a3573 40%,
+    #3d2f6b 60%,
+    #28335a 78%,
+    #18253a 100%
+  );
+  background-size: 280% 280%;
+  animation: voiceGradient 22s ease-in-out infinite;
   min-height: 220px;
+}
+
+@keyframes voiceGradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feat-card--voice,
+  .feat-card--reach {
+    animation: none;
+    background-position: 50% 50%;
+  }
+}
+
+/* Thin animated gradient accent ribbon at the top edge of the
+   Client Voice card — a quiet brand-pulse the eye picks up. */
+.feat-card--voice {
+  position: relative;
+}
+
+.feat-card--voice > .feat-card__inner > .feat-label::before {
+  content: "";
+  position: absolute;
+  left: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
+  right: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
+  top: 0;
+  height: 1.5px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(74, 120, 255, 0.9) 30%,
+    rgba(168, 85, 247, 0.95) 55%,
+    rgba(74, 120, 255, 0.9) 80%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  animation: voiceRibbon 6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes voiceRibbon {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -120% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feat-card--voice > .feat-card__inner > .feat-label::before {
+    animation: none;
+  }
 }
 
 .feat-card__video {
