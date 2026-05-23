@@ -7881,32 +7881,40 @@ a.feat-reach__line:hover {
    the dashboard. */
 .wfs__beam {
   position: absolute;
-  top: 0;
+  /* pull the beam well above the section so the shaft visually
+     originates from higher up the page and the video's frame area
+     aligns with the dashboard frame below */
+  top: -12rem;
   left: 50%;
   transform: translateX(-50%);
-  width: min(100%, 86rem);
-  height: 100%;
+  width: min(110%, 96rem);
+  height: calc(100% + 12rem);
   z-index: 0;
   object-fit: cover;
-  object-position: center top;
+  /* showing the upper-middle of the source so the bright shaft
+     converges around where the dashboard frame sits */
+  object-position: center 35%;
   pointer-events: none;
   filter: hue-rotate(220deg) saturate(1.4) brightness(1.05);
   mix-blend-mode: screen;
-  /* fade the beam out before the features marquee so the light
-     visually "lands" on the dashboard frame and doesn't bleed past */
+  /* mask: fade in from the top, stay strong through the dashboard
+     band, then fade out so the beam never bleeds into the features
+     marquee row */
   -webkit-mask-image: linear-gradient(
     to bottom,
-    #000 0%,
-    #000 62%,
-    rgba(0, 0, 0, 0.2) 84%,
-    transparent 92%
+    rgba(0, 0, 0, 0.4) 0%,
+    #000 12%,
+    #000 70%,
+    rgba(0, 0, 0, 0.25) 88%,
+    transparent 96%
   );
   mask-image: linear-gradient(
     to bottom,
-    #000 0%,
-    #000 62%,
-    rgba(0, 0, 0, 0.2) 84%,
-    transparent 92%
+    rgba(0, 0, 0, 0.4) 0%,
+    #000 12%,
+    #000 70%,
+    rgba(0, 0, 0, 0.25) 88%,
+    transparent 96%
   );
 }
 
