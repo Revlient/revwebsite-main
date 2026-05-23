@@ -12414,3 +12414,29 @@ a.feat-reach__line:hover {
     animation: none;
   }
 }
+
+/* ---------- Site-wide space-dust particle field ---------- */
+
+/* Fixed overlay above section backgrounds. mix-blend-mode: lighten so
+   particles only ADD light — they pop on dark sections, disappear on
+   the cream Hero (where bg is already brighter than any particle).
+   pointer-events: none keeps every click / hover under it working. */
+.space-dust {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  mix-blend-mode: lighten;
+  /* hide from layout (it's purely decorative) */
+  contain: strict;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .space-dust {
+    /* static frame already drawn; opacity dampened slightly so the
+       still field doesn't read as "broken" */
+    opacity: 0.7;
+  }
+}
