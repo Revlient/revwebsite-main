@@ -7566,7 +7566,113 @@ a.feat-reach__line:hover {
   50% { transform: scale(1.015); }
 }
 
-/* hero explore CTA */
+/* ----- Gooey centerpiece (services hero) ----- */
+.svc-hero--goo {
+  /* let the centerpiece anchor centred while the bottom blocks
+     keep their grid positions */
+  align-items: stretch;
+}
+
+.svc-hero__centerpiece {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -56%);
+  width: min(960px, 92vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  text-align: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.svc-hero__centerpiece > * {
+  pointer-events: auto;
+}
+
+.svc-hero__eyebrow {
+  display: inline-block;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.25rem);
+  color: rgba(214, 178, 252, 0.9);
+  letter-spacing: 0.04em;
+}
+
+.svc-hero__morph {
+  width: 100%;
+  height: clamp(96px, 12vw, 156px);
+}
+
+.svc-hero__lede {
+  margin: 0;
+  max-width: 36rem;
+  color: rgba(232, 220, 252, 0.78);
+  font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.05rem);
+  line-height: 1.55;
+}
+
+/* ----- Gooey morph element (vanilla port) ----- */
+.goo {
+  position: relative;
+}
+
+.goo__filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.goo__stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: url(#gooThreshold);
+}
+
+.goo__text {
+  position: absolute;
+  display: inline-block;
+  user-select: none;
+  text-align: center;
+  color: #ffffff;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(3rem, 2rem + 5vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* freeze in the "fully drawn" state — first text visible, no
+     blur or opacity changes (the JS loop is still running, but
+     these overrides win) */
+  .goo__text {
+    filter: none !important;
+    opacity: 1 !important;
+  }
+  .goo__text:nth-child(2) {
+    display: none;
+  }
+}
+
+/* hero explore CTA — anchored inside the centerpiece column on the
+   gooey variant (no absolute bottom positioning) */
+.svc-hero--goo .svc-hero__cta-wrap {
+  position: static;
+  transform: none;
+  margin-top: 0.4rem;
+}
+
+/* original CTA placement for any non-goo hero variants */
 .svc-hero__cta-wrap {
   position: absolute;
   left: 50%;
