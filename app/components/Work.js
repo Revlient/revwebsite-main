@@ -24,10 +24,10 @@ const CASES = [
       { label: "Qualified enquiries", note: "post-launch lift" },
       { label: "Time to first enquiry", note: "vs. old site" },
     ],
-    // The card carries a live-site preview instead of metric stubs,
-    // and clicking the card opens the deployed site in a new tab.
+    // Renders the live-site preview thumbnail instead of metric stubs.
+    // The external liveUrl is intentionally disconnected — re-add it
+    // here when the study-abroad site is ready to be linked publicly.
     thumb: true,
-    liveUrl: "https://study2india.com", // TODO: confirm real production URL
   },
   {
     slug: "ecommerce-cms",
