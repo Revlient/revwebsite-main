@@ -3555,10 +3555,11 @@ html.js .reveal.is-visible {
   display: flex;
   align-items: center;
   padding-block: clamp(2.5rem, 2rem + 3vw, 4rem);
-  background: var(--bg);
-  /* Pull the chat section up under the hero's bottom edge so the two
-     sections share the same dark surface — kills the visible seam
-     between Hero and AiPromptSection on the homepage. */
+  /* Match the Hero gutter colour at the top edge so the cream of
+     .rhero flows straight into this section with no dark band.
+     The bottom of the section fades to var(--bg) inside the vignette
+     so handoff to the next (dark) section stays clean. */
+  background: #f0f0f0;
   margin-top: -1px;
 }
 
@@ -3613,7 +3614,18 @@ html.js .reveal.is-visible {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: var(--bg);
+  /* Cream at the very top so it meets the Hero gutter on identical
+     colour; falls to var(--bg) by ~22% so the video / vignette and
+     the dark section below all flow naturally. Bridges the cream→
+     dark band regardless of whether the looping video is currently
+     fading in or out. */
+  background: linear-gradient(
+    180deg,
+    #f0f0f0 0%,
+    #f0f0f0 4%,
+    var(--bg) 22%,
+    var(--bg) 100%
+  );
   pointer-events: none;
 }
 
@@ -3646,12 +3658,13 @@ html.js .reveal.is-visible {
   inset: 0;
   pointer-events: none;
   background:
-    /* top + bottom fade into the page bg so the section joins
-       seamlessly to whatever sits above and below */
+    /* Top fades from the Hero's cream gutter (#f0f0f0) so the
+       sections meet on identical colour; bottom fades to var(--bg)
+       so the next dark section below joins cleanly. */
     linear-gradient(
       180deg,
-      var(--bg) 0%,
-      var(--bg) 4%,
+      #f0f0f0 0%,
+      #f0f0f0 4%,
       transparent 18%,
       transparent 78%,
       var(--bg) 100%
