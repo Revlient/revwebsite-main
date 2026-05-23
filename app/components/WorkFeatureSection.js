@@ -18,6 +18,16 @@ import { CTA_HREF } from "../lib/site";
 export default function WorkFeatureSection() {
   return (
     <section className="wfs">
+      <video
+        className="wfs__beam"
+        src="/work/erp-beam.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+      />
       <div className="wfs__ambient" aria-hidden="true">
         <span className="wfs__blob wfs__blob--1" />
         <span className="wfs__blob wfs__blob--2" />
@@ -79,16 +89,6 @@ export default function WorkFeatureSection() {
           for <img src="/work/revlient-os-erp.png" /> once the real
           PNG is committed. */}
       <div className="wfs__screenwrap wfs__screenwrap--full">
-        <video
-          className="wfs__beam"
-          src="/work/erp-beam.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          aria-hidden="true"
-        />
         <span className="wfs__screen-fade" aria-hidden="true" />
         <div className="wfs__screen">
           <div className="wfs__screen-bar">

@@ -7873,22 +7873,41 @@ a.feat-reach__line:hover {
   );
 }
 
-/* light-beam backdrop video. Sits inside the dashboard frame, behind
-   the actual mockup, hue-rotated into the brand-blue palette and
-   cropped via object-fit: cover so it always fills the panel
-   regardless of the source's aspect ratio. */
+/* Light-beam backdrop video. Lives at the top of the .wfs section
+   and falls down onto the dashboard frame below — beam visible
+   over the heading + CTAs, then the opaque dashboard catches the
+   bottom of the beam visually. Hue-rotated 220° into the brand-
+   blue range, cropped center-top so the beam axis lines up with
+   the dashboard. */
 .wfs__beam {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 86rem);
   height: 100%;
   z-index: 0;
-  border-radius: 22px;
   object-fit: cover;
-  object-position: center;
+  object-position: center top;
   pointer-events: none;
   filter: hue-rotate(220deg) saturate(1.4) brightness(1.05);
-  opacity: 1;
+  mix-blend-mode: screen;
+  /* fade the beam out before the features marquee so the light
+     visually "lands" on the dashboard frame and doesn't bleed past */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 62%,
+    rgba(0, 0, 0, 0.2) 84%,
+    transparent 92%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 62%,
+    rgba(0, 0, 0, 0.2) 84%,
+    transparent 92%
+  );
 }
 
 .wfs__screen {
