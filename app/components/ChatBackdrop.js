@@ -7,7 +7,14 @@ import { useEffect, useRef } from "react";
 // no CSS transitions — so each loop ends with a clean 250ms fade
 // out, restarts at currentTime 0, then fades back in over 250ms.
 const VIDEO_SRC =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4";
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260329_050842_be71947f-f16e-4a14-810c-06e83d23ddb5.mp4";
+
+// The 'valley' clip the brand brief asked for is kept around as a
+// commented fallback — the file currently errors with
+// MEDIA_ELEMENT_ERROR: Format error in browsers, so the previous
+// working clip is the live source until the team re-encodes it.
+// const VIDEO_SRC_VALLEY =
+//   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4";
 
 const FADE_MS = 250;
 const FADE_LEAD = 0.55; // seconds before end to start fading out
