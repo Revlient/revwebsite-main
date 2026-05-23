@@ -20,7 +20,7 @@ const VIDEO_SRC =
 const NAV = [
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services", hasDropdown: true },
-  { label: "Process", href: "#process" },
+  { label: "Process", href: "/process" },
   { label: "Studio", href: "/studio", hasDropdown: true },
 ];
 
