@@ -10448,8 +10448,9 @@ a.feat-reach__line:hover {
 
 .work-projects__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.25rem, 0.8rem + 1.4vw, 2.2rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: auto auto auto;
+  gap: clamp(1rem, 0.6rem + 1vw, 1.5rem);
   padding-inline: clamp(1rem, 0.5rem + 2vw, 3rem);
   max-width: 1320px;
   margin-inline: auto;
@@ -10468,6 +10469,9 @@ a.feat-reach__line:hover {
 }
 
 .work-project {
+  /* CSS variable read by every in-card mockup animation. Hover
+     doubles it so every loop speeds up in sync. */
+  --anim-speed: 1;
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -10482,20 +10486,64 @@ a.feat-reach__line:hover {
 }
 
 .work-project:hover {
+  --anim-speed: 2;
   transform: translateY(-4px);
   border-color: rgba(74, 120, 255, 0.35);
   background: rgba(255, 255, 255, 0.035);
   box-shadow: 0 18px 40px -22px rgba(43, 95, 255, 0.55);
 }
 
+/* Bento span overrides */
+.work-project--feature {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.work-project--wide {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  align-items: stretch;
+}
+
+.work-project--wide .work-project__cover {
+  order: 2;
+}
+
+.work-project--wide .work-project__body {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.6rem 1.8rem;
+}
+
+@media (max-width: 960px) {
+  .work-project--feature,
+  .work-project--wide {
+    grid-column: span 1;
+    grid-row: auto;
+    grid-template-columns: 1fr;
+    display: flex;
+  }
+  .work-project--wide .work-project__cover,
+  .work-project--wide .work-project__body {
+    order: initial;
+    padding: 1.4rem 1.4rem 1.6rem;
+  }
+}
+
+/* Cover area now hosts the live SVG mockup instead of an image */
 .work-project__cover {
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  /* Gradient fallback so the card still looks designed if the cover
-     image hasn't loaded yet (or is offline). Each card overrides the
-     gradient via its index-based variant below. */
+  /* Brand-tinted base so the mockup reads against a coloured
+     ground rather than a flat dark plane. Per-card variants below. */
   background: linear-gradient(135deg, #1b2540, #0b1326);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .work-projects__grid > :nth-child(1) .work-project__cover {
@@ -10517,16 +10565,59 @@ a.feat-reach__line:hover {
   background: linear-gradient(135deg, #6a3a4a, #1f0a15);
 }
 
-.work-project__cover img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+.work-project--wide .work-project__cover {
+  aspect-ratio: auto;
+  min-height: 240px;
 }
 
-.work-project:hover .work-project__cover img {
-  transform: scale(1.04);
+.work-project__live {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.wproj-mockup {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+}
+
+.work-project__live-badge {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: #d4ffdc;
+  background: rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(34, 197, 94, 0.42);
+  border-radius: 999px;
+  padding: 0.22rem 0.55rem 0.22rem 0.45rem;
+}
+
+.work-project__live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.85);
+  animation: wproj-live-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes wproj-live-dot {
+  0%, 100% { opacity: 0.5; transform: scale(0.85); }
+  50%      { opacity: 1; transform: scale(1.05); }
 }
 
 .work-project__demo {
@@ -10538,6 +10629,7 @@ a.feat-reach__line:hover {
   text-transform: uppercase;
   color: #fff;
   background: rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
@@ -10565,6 +10657,10 @@ a.feat-reach__line:hover {
   letter-spacing: -0.01em;
   margin: 0;
   line-height: 1.25;
+}
+
+.work-project--feature .work-project__name {
+  font-size: clamp(1.4rem, 1rem + 0.8vw, 1.85rem);
 }
 
 .work-project__arrow {
@@ -10599,6 +10695,171 @@ a.feat-reach__line:hover {
   line-height: 1.55;
   margin: 0;
 }
+
+/* =====  per-mockup animations  =====
+   Every duration uses calc(BASE / var(--anim-speed)) so the parent
+   .work-project:hover (which sets --anim-speed: 2) doubles the
+   speed of every loop in this card. */
+
+/* 1. Aurora — cursor traces a path; Add-to-cart pulses on arrival */
+.wproj-aurora-cursor {
+  offset-path: path("M 60 50 C 140 90, 200 130, 200 218");
+  animation: wproj-aurora-cursor calc(5s / var(--anim-speed)) cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes wproj-aurora-cursor {
+  0%   { offset-distance: 0%;   opacity: 0; }
+  10%  { opacity: 1; }
+  85%  { offset-distance: 100%; opacity: 1; }
+  90%  { offset-distance: 100%; opacity: 0; }
+  100% { offset-distance: 0%;   opacity: 0; }
+}
+
+.wproj-aurora-btn {
+  transform-origin: 200px 219px;
+  animation: wproj-aurora-pulse calc(5s / var(--anim-speed)) ease-out infinite;
+}
+
+@keyframes wproj-aurora-pulse {
+  0%, 80% { transform: scale(1); }
+  86%     { transform: scale(1.08); }
+  92%     { transform: scale(0.98); }
+  100%    { transform: scale(1); }
+}
+
+/* 2. Vertex — middle column top tile slides to Won column */
+.wproj-vertex-mover {
+  animation: wproj-vertex-move calc(4s / var(--anim-speed)) ease-in-out infinite;
+}
+
+@keyframes wproj-vertex-move {
+  0%, 25%   { transform: translateX(0); }
+  60%, 75%  { transform: translateX(128px); }
+  100%      { transform: translateX(0); }
+}
+
+/* 3. Lumen — selection rectangle hops between 3 image squares */
+.wproj-lumen-select {
+  animation: wproj-lumen-select calc(4.5s / var(--anim-speed)) ease-in-out infinite;
+}
+
+@keyframes wproj-lumen-select {
+  0%, 22%   { transform: translateX(0); }
+  33%, 55%  { transform: translateX(122px); }
+  66%, 88%  { transform: translateX(244px); }
+  100%      { transform: translateX(0); }
+}
+
+/* 4. Northwind — three bars breathe with stagger.
+      transform-box: fill-box so transform-origin works on SVG. */
+.wproj-nw-bar {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+.wproj-nw-bar--a {
+  animation: wproj-nw-bar-a calc(3s / var(--anim-speed)) ease-in-out infinite;
+}
+.wproj-nw-bar--b {
+  animation: wproj-nw-bar-b calc(3s / var(--anim-speed)) ease-in-out infinite 0.3s;
+}
+.wproj-nw-bar--c {
+  animation: wproj-nw-bar-c calc(3s / var(--anim-speed)) ease-in-out infinite 0.6s;
+}
+
+@keyframes wproj-nw-bar-a {
+  0%, 100% { transform: scaleY(0.55); }
+  50%      { transform: scaleY(1.1); }
+}
+@keyframes wproj-nw-bar-b {
+  0%, 100% { transform: scaleY(0.85); }
+  50%      { transform: scaleY(1.4); }
+}
+@keyframes wproj-nw-bar-c {
+  0%, 100% { transform: scaleY(0.65); }
+  50%      { transform: scaleY(1); }
+}
+
+/* 5. Folio — green status dot pulses */
+.wproj-folio-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wproj-folio-dot calc(2s / var(--anim-speed)) ease-in-out infinite;
+}
+
+@keyframes wproj-folio-dot {
+  0%, 100% { opacity: 0.5; transform: scale(0.85); }
+  50%      { opacity: 1; transform: scale(1.15); }
+}
+
+/* 6. Mesa — log lines stagger-in then the whole stack fades + loops */
+.wproj-mesa-line {
+  opacity: 0;
+}
+.wproj-mesa-line--1 {
+  animation: wproj-mesa-line-1 calc(8s / var(--anim-speed)) ease-in-out infinite;
+}
+.wproj-mesa-line--2 {
+  animation: wproj-mesa-line-2 calc(8s / var(--anim-speed)) ease-in-out infinite;
+}
+.wproj-mesa-line--3 {
+  animation: wproj-mesa-line-3 calc(8s / var(--anim-speed)) ease-in-out infinite;
+}
+.wproj-mesa-line--4 {
+  animation: wproj-mesa-line-4 calc(8s / var(--anim-speed)) ease-in-out infinite;
+}
+
+@keyframes wproj-mesa-line-1 {
+  0%, 88% { opacity: 1; }
+  6%      { opacity: 0; }
+  12%     { opacity: 1; }
+  95%     { opacity: 0; }
+  100%    { opacity: 0; }
+}
+@keyframes wproj-mesa-line-2 {
+  0%, 24% { opacity: 0; }
+  30%, 88% { opacity: 1; }
+  95%      { opacity: 0; }
+  100%     { opacity: 0; }
+}
+@keyframes wproj-mesa-line-3 {
+  0%, 48% { opacity: 0; }
+  54%, 88% { opacity: 1; }
+  95%      { opacity: 0; }
+  100%     { opacity: 0; }
+}
+@keyframes wproj-mesa-line-4 {
+  0%, 72% { opacity: 0; }
+  78%, 88% { opacity: 1; }
+  95%      { opacity: 0; }
+  100%     { opacity: 0; }
+}
+
+.wproj-mesa-caret {
+  animation: wproj-mesa-caret calc(1.2s / var(--anim-speed)) steps(1) infinite;
+}
+
+@keyframes wproj-mesa-caret {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-project__live-dot,
+  .wproj-aurora-cursor,
+  .wproj-aurora-btn,
+  .wproj-vertex-mover,
+  .wproj-lumen-select,
+  .wproj-nw-bar,
+  .wproj-folio-dot,
+  .wproj-mesa-line,
+  .wproj-mesa-caret {
+    animation: none !important;
+  }
+  .wproj-mesa-line {
+    opacity: 1;
+  }
+}
+
 
 /* ---------- /work feature section (tailark hero-section-1) ---------- */
 

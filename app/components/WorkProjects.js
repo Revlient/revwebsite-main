@@ -1,57 +1,63 @@
 "use client";
 
 import Reveal from "./Reveal";
+import ProjectMockup from "./work/ProjectMockups";
 
-/* /work projects grid. Every card here is a visibly-flagged DEMO
-   placeholder so the layout can be reviewed before real case studies
-   land. Cover images come from picsum (deterministic seed → stable
-   URL), demo links resolve to the RFC-reserved example.com so no live
-   destination is implied. Replace each entry's name / about / cover /
-   url with the real client data before launch — and drop the
-   .work-projects__todo banner + the .work-project__demo pill at the
-   same time. */
+/* /work projects bento. Every card here is a visibly-flagged DEMO
+   placeholder so the layout can be reviewed before real case
+   studies land. Demo links resolve to the RFC-reserved example.com
+   so no live destination is implied. Replace each entry's name /
+   about / mockup / url with the real client data before launch —
+   and drop the .work-projects__todo banner + the .work-project__demo
+   pill at the same time. */
 
 const PROJECTS = [
   {
     name: "Aurora Commerce",
+    kind: "feature",
+    mockup: "aurora",
     about:
       "Headless storefront for a boutique outdoor-gear brand. Next.js front end, Stripe checkout, real-time inventory sync with the warehouse system.",
-    cover: "https://picsum.photos/seed/revlient-aurora/1200/800",
     url: "https://example.com/aurora",
   },
   {
     name: "Vertex CRM",
+    kind: "standard",
+    mockup: "vertex",
     about:
       "Sales-pipeline tool for a regional insurance group. Multi-role access, automated follow-up sequences, and a Slack-style team inbox.",
-    cover: "https://picsum.photos/seed/revlient-vertex/1200/800",
     url: "https://example.com/vertex",
   },
   {
     name: "Lumen Studio",
+    kind: "standard",
+    mockup: "lumen",
     about:
       "Portfolio site for an architecture practice. Image-led editorial layout, custom CMS, hand-tuned typography for long-form project writeups.",
-    cover: "https://picsum.photos/seed/revlient-lumen/1200/800",
     url: "https://example.com/lumen",
   },
   {
     name: "Northwind Ops",
+    kind: "standard",
+    mockup: "northwind",
     about:
       "Internal dashboard for fleet operations. Real-time vehicle tracking, dispatch automation, and a driver mobile app with offline sync.",
-    cover: "https://picsum.photos/seed/revlient-northwind/1200/800",
     url: "https://example.com/northwind",
   },
   {
     name: "Folio Health",
+    kind: "standard",
+    mockup: "folio",
     about:
       "Patient-intake and records app for a small clinic group. Mobile-first design, role-scoped access, and a clean handoff to their billing tool.",
-    cover: "https://picsum.photos/seed/revlient-folio/1200/800",
     url: "https://example.com/folio",
   },
   {
     name: "Mesa Roastery",
+    kind: "wide",
+    mockup: "mesa",
     about:
       "D2C coffee subscription shop. Stripe billing, warehouse-side fulfilment, and a roast-schedule view the team actually opens every morning.",
-    cover: "https://picsum.photos/seed/revlient-mesa/1200/800",
     url: "https://example.com/mesa",
   },
 ];
@@ -101,19 +107,17 @@ export default function WorkProjects() {
               href={p.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="work-project"
+              className={`work-project work-project--${p.kind}`}
               delay={(i % 3) * 80}
             >
               <div className="work-project__cover">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={p.cover}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  width="1200"
-                  height="800"
-                />
+                <div className="work-project__live">
+                  <ProjectMockup kind={p.mockup} />
+                </div>
+                <span className="work-project__live-badge" aria-hidden="true">
+                  <span className="work-project__live-dot" />
+                  Live preview
+                </span>
                 <span className="work-project__demo">Demo</span>
               </div>
               <div className="work-project__body">
