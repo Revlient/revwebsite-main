@@ -7886,8 +7886,8 @@ a.feat-reach__line:hover {
      aligns with the dashboard frame below */
   top: -24rem;
   left: 50%;
-  /* shifted 5cm to the right of centre per request */
-  transform: translateX(calc(-50% + 5cm));
+  /* shifted 2cm right of centre (was 5cm right, nudged 3cm left) */
+  transform: translateX(calc(-50% + 2cm));
   width: min(115%, 100rem);
   height: calc(100% + 24rem);
   z-index: 0;
