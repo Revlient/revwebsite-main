@@ -190,11 +190,11 @@ export default function XeroBackdrop() {
               x2="10%"
               y2="0%"
             >
-              <stop offset="0%" stopColor="#b04090" stopOpacity="0" />
-              <stop offset="20%" stopColor="#b04090" stopOpacity="0.8" />
+              <stop offset="0%" stopColor="#4a78ff" stopOpacity="0" />
+              <stop offset="20%" stopColor="#4a78ff" stopOpacity="0.85" />
               <stop offset="50%" stopColor="#ffffff" stopOpacity="1" />
-              <stop offset="80%" stopColor="#c8a0e0" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#c8a0e0" stopOpacity="0" />
+              <stop offset="80%" stopColor="#c4b5fd" stopOpacity="0.85" />
+              <stop offset="100%" stopColor="#c4b5fd" stopOpacity="0" />
             </linearGradient>
           </defs>
           <path
