@@ -1,6 +1,7 @@
 "use client";
 
 import Logo from "./Logo";
+import InfiniteGrid from "./InfiniteGrid";
 import { CTA_HREF, NAV_LINKS } from "../lib/site";
 
 /* /work page hero — adapted from a React/TS/Tailwind + lucide-react
@@ -16,6 +17,7 @@ const VIDEO_SRC =
 export default function WorkHero() {
   return (
     <section className="whero">
+      <InfiniteGrid />
       <video
         className="whero__video"
         src={VIDEO_SRC}

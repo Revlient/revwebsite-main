@@ -5050,13 +5050,88 @@ a.feat-reach__line:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 0;
+  /* sits above the animated grid backdrop; mix-blend keeps the
+     grid pattern visible through the video's lit areas */
+  z-index: 1;
+  opacity: 0.82;
+  mix-blend-mode: luminosity;
   pointer-events: none;
+}
+
+/* ---------- Infinite animated grid backdrop ---------- */
+
+.igrid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.igrid__layer {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to right, currentColor 1px, transparent 1px),
+    linear-gradient(to bottom, currentColor 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: var(--igx, 0) var(--igy, 0);
+  will-change: background-position;
+}
+
+.igrid__layer--base {
+  opacity: 0.05;
+}
+
+.igrid__layer--reveal {
+  opacity: 0.4;
+  -webkit-mask-image: radial-gradient(
+    300px circle at var(--imx, -10000px) var(--imy, -10000px),
+    black,
+    transparent
+  );
+  mask-image: radial-gradient(
+    300px circle at var(--imx, -10000px) var(--imy, -10000px),
+    black,
+    transparent
+  );
+}
+
+.igrid__blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(120px);
+}
+
+.igrid__blob--orange {
+  right: -20%;
+  top: -20%;
+  width: 40%;
+  height: 40%;
+  background: rgba(249, 115, 22, 0.4); /* tailwind orange-500/40 */
+}
+
+.igrid__blob--purple {
+  right: 10%;
+  top: -10%;
+  width: 20%;
+  height: 20%;
+  background: rgba(168, 85, 247, 0.3);
+  filter: blur(100px);
+}
+
+.igrid__blob--blue {
+  left: -10%;
+  bottom: -20%;
+  width: 40%;
+  height: 40%;
+  background: rgba(59, 130, 246, 0.4); /* tailwind blue-500/40 */
 }
 
 .whero__content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
