@@ -8,7 +8,6 @@ import {
 } from "next/font/google";
 import { BRAND } from "./lib/site";
 import MusicToggle from "./components/MusicToggle";
-import SpaceDust from "./components/effects/SpaceDust";
 
 // DM Sans + Caveat are scoped to the new footer via CSS variables — the
 // rest of the site continues to use the system stack defined in globals.
@@ -96,10 +95,6 @@ export default function RootLayout({ children }) {
             __html: "document.documentElement.classList.add('js')",
           }}
         />
-        {/* Site-wide ambient particle field. Sits behind all content
-            via mix-blend-mode so opaque section backgrounds don't
-            block it. Persists across route transitions. */}
-        <SpaceDust />
         {children}
         {/* Persists across route changes (lives in the root layout). */}
         <MusicToggle />

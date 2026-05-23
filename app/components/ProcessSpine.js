@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import ProcessDust from "./process/ProcessDust";
 
 /* Process spine — a snaking purple connector that zigzags through six
    stages on desktop, drawing as the user scrolls, with a continuous
@@ -203,6 +204,7 @@ export default function ProcessSpine() {
 
   return (
     <section id="process" className="spine" ref={sectionRef}>
+      <ProcessDust />
       <div className="spine__head">
         <span className="spine__eyebrow">A simple step-by-step process</span>
         <h2 className="spine__title">Design without the hassle</h2>

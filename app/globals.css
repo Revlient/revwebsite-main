@@ -2477,6 +2477,16 @@ html.js .reveal.is-visible {
   z-index: 0;
 }
 
+/* tight ambient dust scoped to the section — canvas sits above the
+   purple wash (::before z-index 0) thanks to DOM order, below the
+   head + rows (z-index 1) so cards always read above it */
+.spine__dust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .spine__head {
   position: relative;
   z-index: 1;
@@ -12412,31 +12422,5 @@ a.feat-reach__line:hover {
   }
   .hero__scroll .line {
     animation: none;
-  }
-}
-
-/* ---------- Site-wide space-dust particle field ---------- */
-
-/* Fixed overlay above section backgrounds. mix-blend-mode: lighten so
-   particles only ADD light — they pop on dark sections, disappear on
-   the cream Hero (where bg is already brighter than any particle).
-   pointer-events: none keeps every click / hover under it working. */
-.space-dust {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 50;
-  mix-blend-mode: lighten;
-  /* hide from layout (it's purely decorative) */
-  contain: strict;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .space-dust {
-    /* static frame already drawn; opacity dampened slightly so the
-       still field doesn't read as "broken" */
-    opacity: 0.7;
   }
 }
