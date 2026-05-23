@@ -201,12 +201,13 @@ export default function ErpFeatures() {
       <div className="feat-shell">
         <header className="feat-header">
           <div className="feat-header__copy">
-            <h2 className="feat-header__title">Built around how an IT studio really runs.</h2>
+            <h2 className="feat-header__title">An ERP that bends to your business — not the other way around.</h2>
             <p className="feat-header__sub">
-              AI-integrated features that take routine work off the
-              team&apos;s desk and put strategic work back in front of
-              them — across quotations, invoicing, project tracking,
-              tally and the sales funnel.
+              Forget the legacy CRM template. AI-integrated features
+              that take routine work off the team&apos;s desk and put
+              strategic work back in front of them — across
+              quotations, invoicing, project tracking, tally and the
+              sales funnel, customisable for any business.
             </p>
           </div>
           <a href={CTA_HREF} className="feat-cta liquid-glass">

@@ -47,12 +47,13 @@ export default function WorkFeatureSection() {
           </span>
         </a>
 
-        <h2 className="wfs__heading">An IT firm management ERP, end-to-end.</h2>
+        <h2 className="wfs__heading">A modern ERP, shaped around your business.</h2>
         <p className="wfs__sub">
-          Projects, clients, quotations, invoicing, timesheets and
-          finance — built around how a working IT studio actually
-          runs, and accelerated by AI features that take the routine
-          work off the team&apos;s desk.
+          Not the old CRM playbook. Projects, clients, quotations,
+          invoicing, tally, timesheets and finance — fully
+          customisable to how your team actually works, and
+          accelerated by AI features that take routine work off the
+          desk.
         </p>
 
         <div className="wfs__actions">
@@ -69,7 +70,7 @@ export default function WorkFeatureSection() {
 
       <div className="wfs__showcase-label">
         <span className="wfs__showcase-pulse" />
-        Showcase · IT firm management ERP · AI-integrated
+        Showcase · Customisable ERP · AI-integrated
       </div>
 
       {/* stylised app-screen mockup — modelled on Revlient Systems
