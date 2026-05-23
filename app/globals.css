@@ -1849,6 +1849,68 @@ html.js .reveal.is-visible {
 
 /* ---------- Proof (testimonial) ---------- */
 
+/* Gemini-effect backdrop wrapping the testimonial. The section is tall so
+   the inner sticky layer can scrub through the five strands as the user
+   scrolls. The testimonial card is centred over the sticky SVG. */
+.gemini {
+  position: relative;
+  width: 100%;
+  background: #000;
+  overflow: clip;
+  /* ~2.2 viewports of scroll feeds the path-draw without dominating the
+     page — the original Aceternity demo uses 4vh which is far too much for
+     a marketing site. */
+  min-height: 220vh;
+  isolation: isolate;
+}
+
+.gemini__sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gemini__svg {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  display: block;
+  opacity: 0.95;
+}
+
+.gemini__content {
+  position: relative;
+  z-index: 1;
+  padding: 14vh 0 22vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.gemini__content .proof__quote blockquote {
+  color: #f5f5f5;
+}
+
+.gemini__content .proof__cite strong {
+  color: #fafafa;
+}
+
+@media (max-width: 720px) {
+  .gemini {
+    min-height: 180vh;
+  }
+  .gemini__content {
+    padding: 10vh 0 18vh;
+  }
+}
+
 .proof {
   background: var(--bg);
 }

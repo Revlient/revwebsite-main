@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import GeminiBackdrop from "./GeminiBackdrop";
 
 // TODO: replace with a real, attributed, permission-cleared testimonial.
 // This is placeholder copy — it is visibly flagged below and must not be
@@ -12,7 +13,7 @@ const TESTIMONIAL = {
 
 export default function Proof() {
   return (
-    <section className="section proof">
+    <GeminiBackdrop>
       <div className="container">
         <Reveal>
           <div className="proof__quote">
@@ -31,6 +32,6 @@ export default function Proof() {
           </div>
         </Reveal>
       </div>
-    </section>
+    </GeminiBackdrop>
   );
 }
