@@ -5,16 +5,17 @@ import Reveal from "./Reveal";
 import XeroBackdrop from "./XeroBackdrop";
 import { CTA_HREF } from "../lib/site";
 
-/* Magazine pull-quote spread. One featured testimonial fills the
-   section; a thumbnail strip below lets visitors swap which client
-   is featured. Auto-rotates every 8s with hover/visibility/reduced-
-   motion pauses; left/right arrows on a focused thumb move active +
-   focus.
+/* Marquee mention wall. Featured client quote on the left;
+   three vertical columns of testimonial cards drift at varied
+   speeds + directions on the right. Hover/focus/click any card
+   pauses all three columns and lifts that card into the featured
+   slot. Auto-rotates every 8s when nothing is hovered.
 
    PROOF RULE: real client identities only when supplied by Revlient.
-   Quote text stays the existing placeholder string until permission-
-   cleared wording lands. No fabricated faces — if `img` is empty the
-   tone-coloured initials circle is the avatar. */
+   Quote text + service field stay placeholders (clearly flagged as
+   amber 'TODO: service' chips) until permission-cleared content
+   lands. No fabricated faces — if `img` is empty the tone-coloured
+   initials circle is the avatar. */
 
 const TONES = ["a", "b", "c"];
 
@@ -78,6 +79,7 @@ const TESTIMONIALS = [
   },
 ].map((t, i) => ({
   ...t,
+  idx: i,
   tone: TONES[i % 3],
   initials: t.name
     .split(/\s+/)
@@ -87,6 +89,12 @@ const TESTIMONIALS = [
     .toUpperCase(),
 }));
 const N = TESTIMONIALS.length;
+
+// Distribute round-robin into 3 columns so each column carries a
+// different slice of clients.
+const COLS = [0, 1, 2].map((c) =>
+  TESTIMONIALS.filter((_, i) => i % 3 === c)
+);
 
 const Arrow = ({ dir = 1 }) => (
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
@@ -101,13 +109,82 @@ const Arrow = ({ dir = 1 }) => (
   </svg>
 );
 
+function FeatureBlock({ t }) {
+  return (
+    <div className="pscard__feature">
+      <span className="pscard__feature-mark" aria-hidden="true">
+        &#8220;
+      </span>
+      <blockquote className="pscard__feature-quote">{t.quote}</blockquote>
+      <span className="pscard__feature-rule" aria-hidden="true" />
+      <div className={`pscard__feature-avatar t-${t.tone}`}>
+        {t.img ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={t.img} alt={t.name} draggable={false} />
+        ) : (
+          <span className="pscard__feature-initials">{t.initials}</span>
+        )}
+      </div>
+      <div className="pscard__feature-person">
+        <strong className="pscard__feature-name">{t.name}</strong>
+        <span className="pscard__feature-role">{t.role}</span>
+        {t.service && (
+          <span
+            className={`pscard__service${
+              t.service.startsWith("TODO") ? " pscard__service--todo" : ""
+            }`}
+          >
+            {t.service}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function WallCard({ t, active, onActivate }) {
+  const isActive = t.idx === active;
+  return (
+    <button
+      type="button"
+      data-active={isActive ? "true" : undefined}
+      className="mwall__card"
+      aria-label={`Show testimonial from ${t.name}`}
+      onMouseEnter={() => onActivate(t.idx)}
+      onFocus={() => onActivate(t.idx)}
+      onClick={() => onActivate(t.idx)}
+    >
+      <span className="mwall__card-head">
+        <span className={`mwall__card-avatar t-${t.tone}`}>
+          {t.img ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={t.img} alt="" draggable={false} />
+          ) : (
+            <span>{t.initials}</span>
+          )}
+        </span>
+        <span className="mwall__card-name">{t.name}</span>
+      </span>
+      <blockquote className="mwall__card-quote">{t.quote}</blockquote>
+      <span className="mwall__card-role">{t.role}</span>
+      {t.service && (
+        <span
+          className={`pscard__service pscard__service--sm${
+            t.service.startsWith("TODO") ? " pscard__service--todo" : ""
+          }`}
+        >
+          {t.service}
+        </span>
+      )}
+    </button>
+  );
+}
+
 export default function ShowcaseCards() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const thumbRefs = useRef([]);
   const reducedRef = useRef(false);
 
-  // detect reduced-motion once on mount
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return;
     reducedRef.current = window.matchMedia(
@@ -115,7 +192,7 @@ export default function ShowcaseCards() {
     ).matches;
   }, []);
 
-  // auto-rotate every 8s unless paused or reduced-motion
+  // 8s auto-rotate when nothing is hovered + not reduced-motion
   useEffect(() => {
     if (paused || reducedRef.current) return undefined;
     const id = setInterval(() => {
@@ -124,25 +201,35 @@ export default function ShowcaseCards() {
     return () => clearInterval(id);
   }, [paused]);
 
-  // pause when the tab is hidden
+  // pause when tab is hidden
   useEffect(() => {
     const onVis = () => setPaused(document.hidden);
     document.addEventListener("visibilitychange", onVis);
     return () => document.removeEventListener("visibilitychange", onVis);
   }, []);
 
-  const onKey = (e, i) => {
-    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
-      e.preventDefault();
-      const step = e.key === "ArrowRight" ? 1 : -1;
-      const next = (i + step + N) % N;
-      setActive(next);
-      // wait one frame so tabIndex updates land before we move focus
-      requestAnimationFrame(() => thumbRefs.current[next]?.focus());
-    }
+  const onActivate = (i) => {
+    setActive(i);
+    setPaused(true);
   };
 
   const t = TESTIMONIALS[active];
+  const wallPaused = paused || reducedRef.current;
+
+  const renderCol = (items, colIdx) => (
+    <div key={colIdx} className={`mwall__col mwall__col--${colIdx + 1}`}>
+      <div className="mwall__col-track">
+        {[...items, ...items].map((card, j) => (
+          <WallCard
+            key={`${colIdx}-${j}`}
+            t={card}
+            active={active}
+            onActivate={onActivate}
+          />
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <section
@@ -169,108 +256,39 @@ export default function ShowcaseCards() {
           </div>
         </Reveal>
 
-        {/* Featured testimonial. key={active} re-mounts on change so
-            the CSS keyframe runs the crossfade automatically. */}
-        <div className="pscard__feature" key={active}>
-          <span className="pscard__feature-mark" aria-hidden="true">
-            &#8220;
-          </span>
-          <blockquote className="pscard__feature-quote">{t.quote}</blockquote>
-          <span className="pscard__feature-rule" aria-hidden="true" />
-          <div className={`pscard__feature-avatar t-${t.tone}`}>
-            {t.img ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={t.img} alt={t.name} draggable={false} />
-            ) : (
-              <span className="pscard__feature-initials">{t.initials}</span>
-            )}
+        <div className="pscard__container">
+          {/* key={active} re-mounts the wrap so the existing fade-up
+              keyframe in .pscard__feature runs on every swap */}
+          <div key={active} className="pscard__feature-wrap">
+            <FeatureBlock t={t} />
           </div>
-          <div className="pscard__feature-person">
-            <strong className="pscard__feature-name">{t.name}</strong>
-            <span className="pscard__feature-role">{t.role}</span>
-            {t.service && (
-              <span
-                className={`pscard__service${
-                  t.service.startsWith("TODO") ? " pscard__service--todo" : ""
-                }`}
-              >
-                {t.service}
-              </span>
-            )}
-          </div>
-        </div>
 
-        {/* Thumbnail strip — IS the navigation; no separate prev/next */}
-        <div
-          className={`pscard__thumbs${
-            paused || reducedRef.current ? " is-paused" : ""
-          }`}
-          role="tablist"
-          aria-label="Choose a testimonial"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-        >
-          {TESTIMONIALS.map((c, i) => (
-            <button
-              key={i}
-              ref={(el) => {
-                thumbRefs.current[i] = el;
-              }}
-              type="button"
-              role="tab"
-              aria-selected={i === active}
-              aria-label={`Show testimonial from ${c.name}`}
-              tabIndex={i === active ? 0 : -1}
-              className={`pscard__thumb ${i === active ? "is-active" : ""}`}
-              onClick={() => setActive(i)}
-              onKeyDown={(e) => onKey(e, i)}
-            >
-              <span className="pscard__thumb-media">
-                <span className={`pscard__thumb-avatar t-${c.tone}`}>
-                  {c.img ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={c.img} alt="" draggable={false} />
-                  ) : (
-                    <span>{c.initials}</span>
-                  )}
-                </span>
-                {/* Auto-rotate progress ring — only visible on the
-                    active thumb. key={active} re-mounts on every
-                    change so the CSS keyframe restarts from 0. */}
-                {i === active && !reducedRef.current && (
-                  <svg
-                    key={active}
-                    className="pscard__ring"
-                    viewBox="0 0 44 44"
-                    aria-hidden="true"
-                  >
-                    <circle
-                      className="pscard__ring-arc"
-                      cx="22"
-                      cy="22"
-                      r="21"
-                      fill="none"
-                      stroke="var(--blue-light)"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      pathLength="1"
-                      strokeDasharray="1 1"
-                    />
-                  </svg>
-                )}
-              </span>
-              <span className="pscard__thumb-name">{c.name}</span>
-              {c.service && (
-                <span
-                  className={`pscard__service pscard__service--sm${
-                    c.service.startsWith("TODO") ? " pscard__service--todo" : ""
-                  }`}
-                >
-                  {c.service}
-                </span>
-              )}
-            </button>
-          ))}
+          {/* Desktop: 3 vertical columns scrolling at varied speeds */}
+          <div
+            className={`mwall mwall--desktop${wallPaused ? " is-paused" : ""}`}
+            onMouseLeave={() => setPaused(false)}
+          >
+            {COLS.map((items, idx) => renderCol(items, idx))}
+          </div>
+
+          {/* Mobile: single horizontal row */}
+          <div
+            className={`mwall mwall--mobile${wallPaused ? " is-paused" : ""}`}
+            onMouseLeave={() => setPaused(false)}
+          >
+            <div className="mwall__col">
+              <div className="mwall__col-track">
+                {[...TESTIMONIALS, ...TESTIMONIALS].map((card, j) => (
+                  <WallCard
+                    key={`m-${j}`}
+                    t={card}
+                    active={active}
+                    onActivate={onActivate}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

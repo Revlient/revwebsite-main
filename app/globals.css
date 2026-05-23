@@ -12324,119 +12324,6 @@ a.feat-reach__line:hover {
 
 /* Thumbnail strip — IS the nav. Active tile gets a ringed avatar +
    brighter name; others sit at 60% opacity. */
-.pscard__thumbs {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: center;
-  gap: clamp(0.8rem, 0.4rem + 0.6vw, 1.2rem);
-  margin: clamp(1.5rem, 1rem + 1vw, 2.5rem) auto 0;
-  max-width: 1100px;
-  padding-inline: 1rem;
-}
-
-.pscard__thumb {
-  appearance: none;
-  background: transparent;
-  border: none;
-  padding: 0.3rem 0.4rem 0.4rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-  color: inherit;
-  opacity: 0.6;
-  transition: opacity 200ms ease;
-  border-radius: 12px;
-}
-
-.pscard__thumb:hover,
-.pscard__thumb:focus-visible {
-  opacity: 0.95;
-  outline: none;
-}
-
-.pscard__thumb.is-active {
-  opacity: 1;
-}
-
-.pscard__thumb-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: rgba(43, 95, 255, 0.18);
-  border: 1px solid rgba(120, 170, 230, 0.28);
-  color: var(--blue-light);
-  font-weight: 600;
-  font-size: 0.78rem;
-  transition: box-shadow 220ms ease, border-color 220ms ease;
-}
-
-.pscard__thumb-avatar.t-b {
-  background: rgba(192, 132, 252, 0.18);
-  border-color: rgba(192, 132, 252, 0.42);
-  color: #d6b2fc;
-}
-
-.pscard__thumb-avatar.t-c {
-  background: rgba(251, 191, 36, 0.12);
-  border-color: rgba(251, 191, 36, 0.32);
-  color: #fcd34d;
-}
-
-.pscard__thumb-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.pscard__thumb.is-active .pscard__thumb-avatar {
-  box-shadow: 0 0 0 2px var(--blue-light), 0 0 14px rgba(74, 120, 255, 0.45);
-  border-color: transparent;
-}
-
-.pscard__thumb-name {
-  font-size: 0.78rem;
-  line-height: 1.2;
-  color: var(--muted);
-  max-width: 110px;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.pscard__thumb.is-active .pscard__thumb-name {
-  color: #fafafa;
-}
-
-@media (max-width: 720px) {
-  .pscard__thumbs {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 0.4rem;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .pscard__thumbs::-webkit-scrollbar {
-    display: none;
-  }
-  .pscard__thumb {
-    flex: 0 0 auto;
-    scroll-snap-align: center;
-  }
-  .pscard__thumb-name {
-    max-width: 90px;
-    white-space: normal;
-  }
-}
 
 /* Service chip — shown below role in the featured block AND below
    each thumb name. Purple by default; amber-tinted when the value
@@ -12473,53 +12360,242 @@ a.feat-reach__line:hover {
   color: #d8a23a;
 }
 
-/* Auto-rotate progress ring — wraps the active thumb's avatar.
-   The SVG sits one layer behind the avatar inside .pscard__thumb-
-   media; only the active thumb renders it. */
-.pscard__thumb-media {
+/* ----- Two-column container: featured + marquee wall ----- */
+.pscard__container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr);
+  gap: clamp(1.5rem, 1rem + 2vw, 3rem);
+  align-items: center;
+  max-width: 1180px;
+  margin: clamp(1rem, 0.5rem + 1vw, 2rem) auto 0;
+  padding-inline: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+}
+
+@media (max-width: 880px) {
+  .pscard__container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* key={active} on the wrap re-mounts it so the fade keyframe runs */
+.pscard__feature-wrap {
+  width: 100%;
+}
+
+/* ----- Marquee wall: 3 vertical columns scrolling at varied speeds ----- */
+.mwall {
   position: relative;
+  height: 620px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  /* soft top + bottom fade so cards melt into the section edges */
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 16%,
+    #000 84%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 16%,
+    #000 84%,
+    transparent 100%
+  );
+}
+
+.mwall--mobile { display: none; }
+
+.mwall__col {
+  position: relative;
+  overflow: hidden;
+}
+
+.mwall__col-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  animation: mwallScrollUp 64s linear infinite;
+  will-change: transform;
+}
+
+.mwall__col--1 .mwall__col-track {
+  animation: mwallScrollUp 64s linear infinite;
+}
+.mwall__col--2 .mwall__col-track {
+  animation: mwallScrollDown 48s linear infinite;
+}
+.mwall__col--3 .mwall__col-track {
+  animation: mwallScrollUp 36s linear infinite;
+}
+
+@keyframes mwallScrollUp {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+
+@keyframes mwallScrollDown {
+  from { transform: translateY(-50%); }
+  to   { transform: translateY(0); }
+}
+
+.mwall.is-paused .mwall__col-track {
+  animation-play-state: paused;
+}
+
+/* ----- Card ----- */
+.mwall__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: left;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 1rem;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  transition: transform 220ms ease, border-color 220ms ease,
+    background 220ms ease, box-shadow 220ms ease;
+}
+
+.mwall__card:hover,
+.mwall__card:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(120, 200, 255, 0.45);
+  background: rgba(255, 255, 255, 0.07);
+  outline: none;
+}
+
+.mwall__card[data-active="true"] {
+  border-color: rgba(120, 200, 255, 0.55);
+  background: rgba(120, 200, 255, 0.07);
+  box-shadow: 0 0 0 1px rgba(120, 200, 255, 0.4),
+    0 18px 40px -22px rgba(43, 95, 255, 0.5);
+}
+
+.mwall__card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.mwall__card-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(43, 95, 255, 0.18);
+  border: 1px solid rgba(120, 170, 230, 0.28);
+  color: var(--blue-light);
+  font-weight: 600;
+  font-size: 0.72rem;
 }
 
-.pscard__ring {
-  position: absolute;
-  inset: -2px;
-  width: 44px;
-  height: 44px;
-  pointer-events: none;
-  /* rotate -90deg so the arc starts at 12 o'clock and sweeps
-     clockwise instead of from 3 o'clock */
-  transform: rotate(-90deg);
-  filter: drop-shadow(0 0 6px rgba(74, 120, 255, 0.45));
+.mwall__card-avatar.t-b {
+  background: rgba(192, 132, 252, 0.18);
+  border-color: rgba(192, 132, 252, 0.42);
+  color: #d6b2fc;
 }
 
-.pscard__ring-arc {
-  stroke-dashoffset: 1;
-  animation: pscardRing 8s linear forwards;
+.mwall__card-avatar.t-c {
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(251, 191, 36, 0.32);
+  color: #fcd34d;
 }
 
-@keyframes pscardRing {
-  from { stroke-dashoffset: 1; }
-  to   { stroke-dashoffset: 0; }
+.mwall__card-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* Hover / hidden tab / reduced-motion pause: freeze the arc in
-   place via animation-play-state. The .is-paused class on the
-   thumbs container is toggled by the existing pause handlers. */
-.pscard__thumbs.is-paused .pscard__ring-arc {
-  animation-play-state: paused;
+.mwall__card-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #fafafa;
+  line-height: 1.25;
+}
+
+.mwall__card-quote {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #f5f5f5;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.mwall__card-role {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.3;
+}
+
+/* ----- Mobile: featured stacks above a horizontal marquee row ----- */
+@media (max-width: 880px) {
+  .mwall--desktop { display: none; }
+
+  .mwall--mobile {
+    display: block;
+    height: auto;
+    grid-template-columns: none;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 10%,
+      #000 90%,
+      transparent 100%
+    );
+  }
+
+  .mwall--mobile .mwall__col {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .mwall--mobile .mwall__col-track {
+    flex-direction: row;
+    animation: mwallScrollLeft 50s linear infinite;
+  }
+
+  .mwall--mobile .mwall__card {
+    flex: 0 0 240px;
+  }
+
+  @keyframes mwallScrollLeft {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pscard__feature {
     animation: none;
   }
-  .pscard__ring {
-    display: none;
+  .mwall__col-track {
+    animation: none !important;
   }
 }
+
 
 /* ---------- Studio landing (horizon flythrough) ---------- */
 
