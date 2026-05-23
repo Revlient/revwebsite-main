@@ -13519,3 +13519,316 @@ a.feat-reach__line:hover {
     animation: none !important;
   }
 }
+
+/* ---------- /services video-card hero + marquee (VideoHero.js) ---------- */
+
+.shvh {
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* ----- Hero card ----- */
+.shvh__card {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  height: 600px;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 48px;
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms ease, transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.shvh.is-in .shvh__card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.shvh__video-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  user-select: none;
+}
+
+.shvh__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+  transition: transform 1000ms ease;
+}
+
+/* ----- Text content ----- */
+.shvh__content {
+  position: relative;
+  z-index: 20;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4rem 4rem 0;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms ease 120ms, transform 700ms cubic-bezier(0.22, 1, 0.36, 1) 120ms;
+}
+
+.shvh.is-in .shvh__content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .shvh__content { padding: 3rem 2rem 0; }
+  .shvh__card { height: 540px; border-radius: 32px; }
+}
+
+.shvh__title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2.4rem, 1.4rem + 3vw, 3.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: #0a1b33;
+  margin: 0 0 1.2rem;
+  max-width: 18ch;
+}
+
+.shvh__sub {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: clamp(0.88rem, 0.82rem + 0.15vw, 0.95rem);
+  line-height: 1.55;
+  color: #64748b;
+  margin: 0 0 1.6rem;
+  max-width: 44ch;
+}
+
+.shvh__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #0a152d;
+  color: #ffffff;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 200ms ease, background 200ms ease;
+}
+
+.shvh__cta:hover {
+  transform: scale(1.04);
+  background: #142046;
+}
+
+/* ----- Floating bottom navbar ----- */
+.shvh__navbar {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(14px);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+  padding: 0.4rem;
+  border-radius: 999px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.4);
+  opacity: 0;
+  transition: opacity 600ms ease 360ms, transform 700ms cubic-bezier(0.22, 1, 0.36, 1) 360ms;
+}
+
+.shvh.is-in .shvh__navbar {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.shvh__navbar-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid rgba(241, 245, 249, 1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  color: #0a1b33;
+}
+
+.shvh__navbar-link {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-decoration: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  transition: color 200ms ease, background 200ms ease;
+}
+
+.shvh__navbar-link:hover {
+  color: #0a1b33;
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.shvh__navbar-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #ffffff;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0a1b33;
+  text-decoration: none;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+
+.shvh__navbar-cta:hover {
+  border-color: rgba(203, 213, 225, 1);
+  transform: translateY(-1px);
+}
+
+/* ----- Marquee logo scroller ----- */
+.shvm {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 700ms ease 500ms;
+}
+
+.shvh.is-in .shvm {
+  opacity: 1;
+}
+
+.shvm__track {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  width: max-content;
+  animation: shvm-scroll 36s linear infinite;
+  will-change: transform;
+}
+
+.shvm:hover .shvm__track {
+  animation-play-state: paused;
+}
+
+@keyframes shvm-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ----- Logo card (matches Get-in-touch button styling) ----- */
+.shvm__card {
+  position: relative;
+  height: 96px;
+  width: 160px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: border-color 240ms ease, transform 240ms ease;
+  text-decoration: none;
+}
+
+.shvm__card:hover {
+  border-color: rgba(203, 213, 225, 1);
+}
+
+.shvm__card-grad {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transform: scale(1.5);
+  opacity: 0;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 360ms ease;
+  pointer-events: none;
+}
+
+.shvm__card:hover .shvm__card-grad {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.shvm__card-logo {
+  position: relative;
+  z-index: 1;
+  max-width: 60%;
+  max-height: 44px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: filter 240ms ease;
+}
+
+.shvm__card:hover .shvm__card-logo {
+  filter: brightness(0) invert(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shvh__card,
+  .shvh__content,
+  .shvh__navbar,
+  .shvm {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+  .shvh__card,
+  .shvh__content,
+  .shvm {
+    transform: none !important;
+  }
+  .shvm__track {
+    animation: none !important;
+  }
+}

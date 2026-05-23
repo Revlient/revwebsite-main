@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Reveal from "./Reveal";
-import GooeyText from "./services/GooeyText";
+import VideoHero from "./services/VideoHero";
 import { CTA_HREF, CONTACT_EMAIL } from "../lib/site";
 
 /* Arcane Finance-style /services landing — adapted to vanilla JS +
@@ -292,53 +292,8 @@ export default function ServicesPage() {
         </nav>
       </header>
 
-      {/* HERO — centred gooey-morph composition over the arch backdrop */}
-      <section className="svc-hero svc-hero--goo">
-        <Arch />
-
-        <div className="svc-hero__centerpiece">
-          <Reveal>
-            <span className="svc-hero__eyebrow">
-              <em>We craft</em>
-            </span>
-          </Reveal>
-          <GooeyText
-            texts={["Websites", "Software", "Applications", "Automation"]}
-            morphTime={1.1}
-            cooldownTime={0.7}
-            className="svc-hero__morph"
-          />
-          <Reveal delay={200}>
-            <p className="svc-hero__lede">
-              A small senior studio building 3D-grade websites, custom
-              software and AI-integrated systems — engineered to feel as good
-              as they look.
-            </p>
-          </Reveal>
-          <Reveal delay={350} className="svc-hero__cta-wrap">
-            <a href={CTA_HREF} className="svc-hero__cta">
-              <em>Explore</em>
-            </a>
-          </Reveal>
-        </div>
-
-        <Reveal className="svc-hero__left">
-          <p>
-            <em>Revlient Intercontinental</em>
-            <br />
-            <strong>Digital craft studio</strong>
-            <br />
-            building enduring software.
-          </p>
-        </Reveal>
-
-        <Reveal className="svc-hero__right" delay={200}>
-          <p>
-            One small senior team, end-to-end — from first conversation to the
-            day after launch.
-          </p>
-        </Reveal>
-      </section>
+      {/* HERO — video-card editorial hero with marquee scroller */}
+      <VideoHero />
 
       {/* PHILOSOPHY */}
       <section className="svc-philo">
