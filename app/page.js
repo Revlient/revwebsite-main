@@ -4,7 +4,6 @@ import ShowcaseCards from "./components/ShowcaseCards";
 import Features from "./components/Features";
 import ProcessTimeline from "./components/ProcessTimeline";
 import WhyRevlient from "./components/WhyRevlient";
-import WorthCrafting from "./components/WorthCrafting";
 import Proof from "./components/Proof";
 import Services from "./components/Services";
 import FinalCTA from "./components/FinalCTA";
@@ -26,7 +25,6 @@ export default function HomePage() {
         <ProcessTimeline />
         <Services />
         <ShowcaseCards />
-        <WorthCrafting />
         <WhyRevlient />
         <Proof />
         <FinalCTA />
