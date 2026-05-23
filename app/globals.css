@@ -6102,7 +6102,7 @@ html.js .reveal.is-visible {
   gap: 0;
 }
 
-.aichat {
+.feat-card--aichat-slot .aichat {
   flex: 1;
   border-radius: 22px;
   background: #f5f6f8;
@@ -6113,7 +6113,7 @@ html.js .reveal.is-visible {
   box-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.45);
 }
 
-.aichat__head {
+.feat-card--aichat-slot .aichat__head {
   display: flex;
   align-items: center;
   gap: 0.55rem;
@@ -6122,9 +6122,9 @@ html.js .reveal.is-visible {
   color: #fff;
 }
 
-.aichat__avatar,
-.aichat__botpic,
-.aichat__userpic {
+.feat-card--aichat-slot .aichat__avatar,
+.feat-card--aichat-slot .aichat__botpic,
+.feat-card--aichat-slot .aichat__userpic {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -6134,19 +6134,19 @@ html.js .reveal.is-visible {
   flex: none;
 }
 
-.aichat__avatar {
+.feat-card--aichat-slot .aichat__avatar {
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
 }
 
-.aichat__avatar svg,
-.aichat__botpic svg,
-.aichat__userpic svg {
+.feat-card--aichat-slot .aichat__avatar svg,
+.feat-card--aichat-slot .aichat__botpic svg,
+.feat-card--aichat-slot .aichat__userpic svg {
   width: 16px;
   height: 16px;
 }
 
-.aichat__title {
+.feat-card--aichat-slot .aichat__title {
   flex: 1;
   font-size: 0.95rem;
   font-weight: 700;
@@ -6154,13 +6154,13 @@ html.js .reveal.is-visible {
   color: #fff;
 }
 
-.aichat__close {
+.feat-card--aichat-slot .aichat__close {
   font-size: 18px;
   line-height: 1;
   color: rgba(255, 255, 255, 0.9);
 }
 
-.aichat__body {
+.feat-card--aichat-slot .aichat__body {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -6169,17 +6169,17 @@ html.js .reveal.is-visible {
   overflow: hidden;
 }
 
-.aichat__msg {
+.feat-card--aichat-slot .aichat__msg {
   display: flex;
   align-items: flex-end;
   gap: 0.45rem;
 }
 
-.aichat__msg--user {
+.feat-card--aichat-slot .aichat__msg--user {
   justify-content: flex-end;
 }
 
-.aichat__msg--user .aichat__bubble {
+.feat-card--aichat-slot .aichat__msg--user .aichat__bubble {
   background: #f97316;
   color: #fff;
   border-radius: 14px 14px 4px 14px;
@@ -6190,7 +6190,7 @@ html.js .reveal.is-visible {
   box-shadow: 0 6px 14px -8px rgba(249, 115, 22, 0.6);
 }
 
-.aichat__msg--bot .aichat__bubble {
+.feat-card--aichat-slot .aichat__msg--bot .aichat__bubble {
   background: #fff;
   color: #0a0d1d;
   border-radius: 14px 14px 14px 4px;
@@ -6202,17 +6202,17 @@ html.js .reveal.is-visible {
   box-shadow: 0 6px 14px -10px rgba(10, 13, 29, 0.18);
 }
 
-.aichat__userpic {
+.feat-card--aichat-slot .aichat__userpic {
   background: #fff1e0;
   color: #c2410c;
 }
 
-.aichat__botpic {
+.feat-card--aichat-slot .aichat__botpic {
   background: #e0e8ff;
   color: #4a78ff;
 }
 
-.aichat__input {
+.feat-card--aichat-slot .aichat__input {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -6221,7 +6221,7 @@ html.js .reveal.is-visible {
   background: #fff;
 }
 
-.aichat__placeholder {
+.feat-card--aichat-slot .aichat__placeholder {
   flex: 1;
   padding: 0.55rem 0.95rem;
   border-radius: 999px;
@@ -6231,7 +6231,7 @@ html.js .reveal.is-visible {
   color: rgba(10, 13, 29, 0.4);
 }
 
-.aichat__send {
+.feat-card--aichat-slot .aichat__send {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -6242,7 +6242,7 @@ html.js .reveal.is-visible {
   color: #fff;
 }
 
-.aichat__send svg {
+.feat-card--aichat-slot .aichat__send svg {
   width: 14px;
   height: 14px;
 }
