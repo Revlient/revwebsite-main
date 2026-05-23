@@ -7896,33 +7896,30 @@ a.feat-reach__line:hover {
      converges around where the dashboard frame sits */
   object-position: center 45%;
   pointer-events: none;
-  /* sepia(1) first flattens every original colour into a single
-     warm channel, then saturate(3) + hue-rotate(255deg) rotates
-     that single channel into the blue → violet → red range. This
-     pipeline cannot leave any green pixels behind, because the
-     source spectrum is collapsed before the rotation. */
-  filter: sepia(1) saturate(3) hue-rotate(255deg) brightness(1.05);
+  /* sepia(1) flattens the source to one warm channel, then
+     hue-rotate(240°) lands the colour squarely in the blue-violet
+     range with a touch of magenta in the highlights. Brighter +
+     more saturated than before so the beam reads more strongly. */
+  filter: sepia(1) saturate(2.6) hue-rotate(240deg) brightness(1.22) contrast(1.08);
   mix-blend-mode: screen;
-  /* mask: fade in from the top, stay strong through the dashboard
-     band, then fade out so the beam never bleeds into the features
-     marquee row */
+  /* mask: stronger overall — barely any fade in at the top, solid
+     through the dashboard band, gentle taper before the features
+     marquee */
   -webkit-mask-image: linear-gradient(
     to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.4) 8%,
-    #000 22%,
-    #000 72%,
-    rgba(0, 0, 0, 0.25) 90%,
-    transparent 97%
+    rgba(0, 0, 0, 0.6) 0%,
+    #000 10%,
+    #000 78%,
+    rgba(0, 0, 0, 0.35) 92%,
+    transparent 98%
   );
   mask-image: linear-gradient(
     to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.4) 8%,
-    #000 22%,
-    #000 72%,
-    rgba(0, 0, 0, 0.25) 90%,
-    transparent 97%
+    rgba(0, 0, 0, 0.6) 0%,
+    #000 10%,
+    #000 78%,
+    rgba(0, 0, 0, 0.35) 92%,
+    transparent 98%
   );
 }
 
