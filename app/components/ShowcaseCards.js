@@ -5,19 +5,17 @@ import Reveal from "./Reveal";
 import NebulaBackdrop from "./showcase/NebulaBackdrop";
 import { CTA_HREF } from "../lib/site";
 
-/* Constellation map: seven client "stars" arranged in a 2D shape,
-   connected by a thin silver polyline. Hover/click any star and its
-   testimonial tile slides in beside it. Scroll-driven first draw via
-   an IntersectionObserver that toggles `.is-drawn` on the container.
-   No auto-rotate — the constellation is a chart you read, not a reel
-   you watch.
+/* Library-shelf testimonials. Each client is a vertical book spine
+   on a thin warm plinth; hover/click any spine and it lifts + tilts
+   forward and a cream printed-page panel appears above showing the
+   testimonial.
+
+   The shelf sits inside the existing NebulaBackdrop cosmos. No
+   auto-rotate — the shelf is read at the visitor's pace.
 
    PROOF RULE: real client identities only when supplied by Revlient.
    Quote text + service field stay placeholders (amber 'TODO: service'
-   chips) until permission-cleared content lands. No fabricated faces
-   — empty `img` falls back to tone-coloured initials. */
-
-const TONES = ["a", "b", "c"];
+   chips) until permission-cleared content lands. */
 
 const TESTIMONIALS = [
   {
@@ -26,7 +24,6 @@ const TESTIMONIALS = [
     name: "Anil Chakkrapani",
     role: "Founder, Medcity International Academy",
     service: "TODO: service",
-    img: "",
   },
   {
     quote:
@@ -34,7 +31,6 @@ const TESTIMONIALS = [
     name: "Aswin Pradeep",
     role: "Magnate Study Abroad",
     service: "TODO: service",
-    img: "",
   },
   // TODO(content): real client — replace before launch
   {
@@ -43,7 +39,6 @@ const TESTIMONIALS = [
     name: "Client Name",
     role: "Founder, Company",
     service: "TODO: service",
-    img: "",
   },
   {
     quote:
@@ -51,7 +46,6 @@ const TESTIMONIALS = [
     name: "Client Name",
     role: "Managing Director, Company",
     service: "TODO: service",
-    img: "",
   },
   {
     quote:
@@ -59,7 +53,6 @@ const TESTIMONIALS = [
     name: "Client Name",
     role: "Co-founder, Company",
     service: "TODO: service",
-    img: "",
   },
   {
     quote:
@@ -67,7 +60,6 @@ const TESTIMONIALS = [
     name: "Client Name",
     role: "CEO, Company",
     service: "TODO: service",
-    img: "",
   },
   {
     quote:
@@ -75,40 +67,38 @@ const TESTIMONIALS = [
     name: "Johnson",
     role: "Founder, IBS Consultancy",
     service: "TODO: service",
-    img: "",
   },
-].map((t, i) => ({
-  ...t,
-  idx: i,
-  tone: TONES[i % 3],
-  initials: t.name
-    .split(/\s+/)
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase(),
-}));
+];
 
 const N = TESTIMONIALS.length;
 
-// Hand-tuned star positions in the SVG's viewBox space (percent of
-// 800×460). Arranged to form an asymmetric, flowing shape — not a
-// known constellation, not a literal letter.
-const STAR_POSITIONS = [
-  { x: 11, y: 62 },
-  { x: 23, y: 30 },
-  { x: 38, y: 75 },
-  { x: 50, y: 42 },
-  { x: 64, y: 18 },
-  { x: 78, y: 58 },
-  { x: 90, y: 34 },
+// Per-spine widths / heights / colours. Variation matters — without
+// it the row reads "stacked tile", not "shelf of books".
+const SPINE_WIDTHS = [40, 50, 34, 52, 44, 38, 48]; // px
+const SPINE_HEIGHTS = [220, 236, 208, 240, 222, 214, 232]; // px
+
+// Low-saturation editorial palette. Background = spine cloth colour,
+// band = top head-band accent.
+const SPINE_PALETTE = [
+  { bg: "#3b2f5a", band: "#b8956a", text: "#e9dec9" }, // deep purple / gold
+  { bg: "#5a2a2a", band: "#d4c4a8", text: "#f1e6cf" }, // oxblood / cream
+  { bg: "#1f2e4d", band: "#a8b8d4", text: "#e0e8f4" }, // navy / pale blue
+  { bg: "#2a4a3c", band: "#b8956a", text: "#d8e6dc" }, // forest / gold
+  { bg: "#6e5530", band: "#d4c4a8", text: "#f3eedd" }, // mustard / cream
+  { bg: "#344450", band: "#b8956a", text: "#d8e0e8" }, // slate / gold
+  { bg: "#6b5d4a", band: "#5070a0", text: "#f3ede0" }, // bone / navy
 ];
 
-const VB_W = 800;
-const VB_H = 460;
-// Convert percentage to viewBox units (helpers).
-const vx = (p) => (p * VB_W) / 100;
-const vy = (p) => (p * VB_H) / 100;
+// Precomputed center % of each spine within the row (for page panel
+// alignment). Stable across renders since SPINE_WIDTHS is constant.
+const ROW_GAP = 6;
+const ROW_WIDTH =
+  SPINE_WIDTHS.reduce((a, b) => a + b, 0) + (N - 1) * ROW_GAP;
+const SPINE_CENTERS = SPINE_WIDTHS.map((w, i) => {
+  const prev =
+    SPINE_WIDTHS.slice(0, i).reduce((a, b) => a + b, 0) + i * ROW_GAP;
+  return ((prev + w / 2) / ROW_WIDTH) * 100;
+});
 
 const Arrow = ({ dir = 1 }) => (
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
@@ -123,42 +113,12 @@ const Arrow = ({ dir = 1 }) => (
   </svg>
 );
 
-function TileBody({ t }) {
-  return (
-    <>
-      <div className="constel__tile-head">
-        <span className={`constel__tile-avatar t-${t.tone}`}>
-          {t.img ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={t.img} alt="" draggable={false} />
-          ) : (
-            <span>{t.initials}</span>
-          )}
-        </span>
-        <span className="constel__tile-name">{t.name}</span>
-      </div>
-      <blockquote className="constel__tile-quote">{t.quote}</blockquote>
-      <span className="constel__tile-role">{t.role}</span>
-      {t.service && (
-        <span
-          className={`pscard__service pscard__service--sm${
-            t.service.startsWith("TODO") ? " pscard__service--todo" : ""
-          }`}
-        >
-          {t.service}
-        </span>
-      )}
-    </>
-  );
-}
-
 export default function ShowcaseCards() {
   const [active, setActive] = useState(0);
   const [drawn, setDrawn] = useState(false);
-  const containerRef = useRef(null);
-  const starRefs = useRef([]);
+  const shelfRef = useRef(null);
+  const spineRefs = useRef([]);
 
-  // First-scroll trigger — draws line + fades stars in once.
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
     const reduced =
@@ -168,7 +128,7 @@ export default function ShowcaseCards() {
       setDrawn(true);
       return undefined;
     }
-    const el = containerRef.current;
+    const el = shelfRef.current;
     if (!el) return undefined;
     const io = new IntersectionObserver(
       (entries) => {
@@ -189,7 +149,7 @@ export default function ShowcaseCards() {
       const step = e.key === "ArrowRight" ? 1 : -1;
       const next = (i + step + N) % N;
       setActive(next);
-      requestAnimationFrame(() => starRefs.current[next]?.focus());
+      requestAnimationFrame(() => spineRefs.current[next]?.focus());
     } else if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       setActive(i);
@@ -197,25 +157,17 @@ export default function ShowcaseCards() {
   };
 
   const t = TESTIMONIALS[active];
-  const activeStar = STAR_POSITIONS[active];
-  const side = activeStar.x < 50 ? "right" : "left";
-  // Tile position: anchor to star vertically, offset horizontally.
-  // 4% horizontal gap matches the connector line length.
-  const tileStyle =
+  const side = active <= 3 ? "right" : "left";
+  const pageStyle =
     side === "right"
-      ? { left: `${activeStar.x + 4}%`, top: `${activeStar.y}%` }
-      : { right: `${100 - activeStar.x + 4}%`, top: `${activeStar.y}%` };
-
-  // Connector line endpoints in viewBox units.
-  const cx1 = vx(activeStar.x);
-  const cy1 = vy(activeStar.y);
-  const cx2 = vx(activeStar.x + (side === "right" ? 4 : -4));
-  const cy2 = cy1;
-
-  // Polyline points for the constellation line.
-  const polyPoints = STAR_POSITIONS.map((s) => `${vx(s.x)},${vy(s.y)}`).join(
-    " "
-  );
+      ? {
+          left: `${SPINE_CENTERS[active]}%`,
+          transform: "translate(0, 0)",
+        }
+      : {
+          left: `${SPINE_CENTERS[active]}%`,
+          transform: "translate(-100%, 0)",
+        };
 
   return (
     <section
@@ -243,105 +195,101 @@ export default function ShowcaseCards() {
         </Reveal>
 
         <div
-          ref={containerRef}
-          className={`constel${drawn ? " is-drawn" : ""}`}
+          ref={shelfRef}
+          className={`bshelf${drawn ? " is-drawn" : ""}`}
         >
-          <svg
-            className="constel__svg"
-            viewBox={`0 0 ${VB_W} ${VB_H}`}
-            preserveAspectRatio="xMidYMid meet"
-            aria-hidden="true"
-          >
-            <defs>
-              <radialGradient id="constelHalo">
-                <stop offset="0%" stopColor="rgba(140, 170, 220, 0.7)" />
-                <stop offset="60%" stopColor="rgba(140, 170, 220, 0.18)" />
-                <stop offset="100%" stopColor="rgba(140, 170, 220, 0)" />
-              </radialGradient>
-              <filter id="constelGlow" x="-200%" y="-200%" width="500%" height="500%">
-                <feGaussianBlur stdDeviation="2" result="b" />
-                <feMerge>
-                  <feMergeNode in="b" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
+          <div className="bshelf__row">
+            <div className="bshelf__lights" aria-hidden="true" />
 
-            <polyline
-              className="constel__line"
-              points={polyPoints}
-              pathLength="1"
-            />
-
-            {/* connector from active star to tile edge */}
-            <line
-              className="constel__connector"
-              x1={cx1}
-              y1={cy1}
-              x2={cx2}
-              y2={cy2}
-            />
-
-            {STAR_POSITIONS.map((s, i) => (
-              <g
-                key={i}
-                ref={(el) => {
-                  starRefs.current[i] = el;
-                }}
-                className={`constel__star${i === active ? " is-active" : ""}`}
-                transform={`translate(${vx(s.x)} ${vy(s.y)})`}
-                role="button"
-                tabIndex={0}
-                aria-label={`Show testimonial from ${TESTIMONIALS[i].name}`}
-                onClick={() => setActive(i)}
-                onMouseEnter={() => setActive(i)}
-                onFocus={() => setActive(i)}
-                onKeyDown={(e) => onKey(e, i)}
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                <circle r="18" fill="url(#constelHalo)" className="constel__halo" />
-                <circle r="4" fill="#fff" className="constel__dot" filter="url(#constelGlow)" />
-                <text
-                  className="constel__label"
-                  y="-22"
-                  textAnchor="middle"
-                  fontSize="12"
-                >
-                  Nº{String(i + 1).padStart(2, "0")}
-                </text>
-              </g>
-            ))}
-          </svg>
-
-          {/* desktop tile — key={active} re-mounts on swap so the
-              CSS keyframe runs */}
-          <div key={`d-${active}`} className="constel__tile" style={tileStyle}>
-            <TileBody t={t} />
-          </div>
-
-          {/* mobile fallback — dot row + full-width tile */}
-          <div className="constel__mobile">
-            <div className="constel__dots" role="tablist" aria-label="Choose a testimonial">
-              {TESTIMONIALS.map((c, i) => (
+            {TESTIMONIALS.map((c, i) => {
+              const pal = SPINE_PALETTE[i % SPINE_PALETTE.length];
+              return (
                 <button
                   key={i}
+                  ref={(el) => {
+                    spineRefs.current[i] = el;
+                  }}
                   type="button"
-                  role="tab"
-                  aria-selected={i === active}
-                  aria-label={`Show testimonial from ${c.name}`}
-                  className={`constel__dot-btn${
+                  className={`bshelf__spine${
                     i === active ? " is-active" : ""
                   }`}
+                  aria-label={`Open testimonial from ${c.name}`}
                   onClick={() => setActive(i)}
-                />
-              ))}
+                  onMouseEnter={() => setActive(i)}
+                  onFocus={() => setActive(i)}
+                  onKeyDown={(e) => onKey(e, i)}
+                  style={{
+                    width: `${SPINE_WIDTHS[i]}px`,
+                    height: `${SPINE_HEIGHTS[i]}px`,
+                    background: pal.bg,
+                    color: pal.text,
+                    animationDelay: `${i * 80}ms`,
+                  }}
+                >
+                  <span
+                    className="bshelf__spine-band"
+                    style={{ background: pal.band }}
+                  />
+                  <span className="bshelf__spine-foil" />
+                  <span className="bshelf__spine-text">{c.name}</span>
+                  <span className="bshelf__spine-num">
+                    Nº{String(i + 1).padStart(2, "0")}
+                  </span>
+                </button>
+              );
+            })}
+
+            <div className="bshelf__plinth" aria-hidden="true" />
+
+            {/* Page panel — re-mounted on active change to run the
+                CSS fade-up keyframe afresh. Lives in the same row
+                container so positioning by center % works. */}
+            <div
+              key={`page-d-${active}`}
+              className="bshelf__page bshelf__page--desktop"
+              style={pageStyle}
+              aria-live="polite"
+            >
+              <PageContent t={t} active={active} />
             </div>
-            <div key={`m-${active}`} className="constel__tile-mobile">
-              <TileBody t={t} />
-            </div>
+          </div>
+
+          {/* Mobile page panel — sits below the shelf as a full-width
+              card; positioning above is desktop-only. */}
+          <div
+            key={`page-m-${active}`}
+            className="bshelf__page bshelf__page--mobile"
+            aria-live="polite"
+          >
+            <PageContent t={t} active={active} />
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function PageContent({ t, active }) {
+  return (
+    <>
+      <span className="bshelf__page-num">
+        Nº{String(active + 1).padStart(2, "0")}
+      </span>
+      <blockquote className="bshelf__page-quote">{t.quote}</blockquote>
+      <span className="bshelf__page-rule" aria-hidden="true" />
+      <div className="bshelf__page-cite">
+        <strong>{t.name}</strong>
+        <span>{t.role}</span>
+        {t.service && (
+          <span
+            className={`pscard__service pscard__service--sm${
+              t.service.startsWith("TODO") ? " pscard__service--todo" : ""
+            }`}
+          >
+            {t.service}
+          </span>
+        )}
+      </div>
+    </>
   );
 }

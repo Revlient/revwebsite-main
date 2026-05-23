@@ -12379,273 +12379,346 @@ a.feat-reach__line:hover {
   }
 }
 
-/* ----- Constellation map (testimonial section) -----
-   Seven client "stars" arranged in a 2D shape connected by a thin
-   silver polyline. Hover/click any star → it brightens and its
-   testimonial tile slides in beside it. Scroll-driven first draw
-   via IntersectionObserver toggling .is-drawn on the container. */
+/* ----- Library shelf (testimonial section) -----
+   Vertical book spines on a thin warm plinth, sitting inside the
+   NebulaBackdrop cosmos. Hover/click any spine and it lifts +
+   tilts forward; a cream printed-page panel appears above the
+   shelf showing the testimonial. */
 
-.constel {
+.bshelf {
   position: relative;
-  width: 100%;
-  max-width: 1000px;
   margin: clamp(2rem, 1rem + 2vw, 4rem) auto 0;
-  aspect-ratio: 800 / 460;
-  /* faint nested radial wash so the stars feel like they sit in
-     soft cosmos behind XeroBackdrop, not on a flat plane */
-  background:
-    radial-gradient(58% 78% at 50% 50%, rgba(168, 85, 247, 0.06), transparent 70%),
-    radial-gradient(40% 60% at 30% 30%, rgba(74, 120, 255, 0.05), transparent 70%);
-  border-radius: 18px;
-  isolation: isolate;
+  max-width: 900px;
+  /* perspective so rotateX on the active spine reads as a real
+     forward tilt, not a flat skew */
+  perspective: 900px;
 }
 
-.constel__svg {
+.bshelf__row {
+  position: relative;
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 1rem 0;
+  min-height: 320px;
+}
+
+/* warm directional light cone behind the shelf */
+.bshelf__lights {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-/* polyline connecting all stars — drawn on first IO trigger */
-.constel__line {
-  fill: none;
-  stroke: rgba(140, 170, 220, 0.4);
-  stroke-width: 1;
-  stroke-linecap: round;
-  stroke-dasharray: 1 1;
-  stroke-dashoffset: 1;
-  transition: stroke-dashoffset 1.8s ease-out;
-}
-.constel.is-drawn .constel__line { stroke-dashoffset: 0; }
-
-/* connector from active star to the tile's nearest edge */
-.constel__connector {
-  stroke: rgba(140, 170, 220, 0.55);
-  stroke-width: 1;
-  stroke-linecap: round;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 360px;
+  background: radial-gradient(
+    ellipse 60% 80% at 50% 110%,
+    rgba(255, 220, 180, 0.1) 0%,
+    rgba(255, 220, 180, 0.04) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
   opacity: 0;
-  transition: opacity 350ms ease;
-}
-.constel.is-drawn .constel__connector { opacity: 1; }
-
-/* Star group: halo + core dot + Nº label */
-.constel__star {
-  cursor: pointer;
-  outline: none;
-  opacity: 0;
-  transition: opacity 600ms ease;
-}
-.constel.is-drawn .constel__star { opacity: 1; }
-
-.constel__star:focus-visible .constel__dot {
-  filter: drop-shadow(0 0 8px rgba(120, 200, 255, 0.95));
+  transition: opacity 0.8s ease;
 }
 
-.constel__halo {
-  opacity: 0;
-  transition: opacity 320ms ease;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.constel__star.is-active .constel__halo {
+.bshelf.is-drawn .bshelf__lights {
   opacity: 1;
-  animation: constelPulse 3.6s ease-in-out infinite;
 }
 
-@keyframes constelPulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50%      { opacity: 0.95; transform: scale(1.12); }
+/* thin warm plinth under the books */
+.bshelf__plinth {
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+  width: min(680px, 90%);
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(
+    90deg,
+    rgba(180, 120, 80, 0.35) 0%,
+    rgba(220, 160, 110, 0.55) 50%,
+    rgba(180, 120, 80, 0.35) 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease 0.4s;
 }
 
-.constel__dot {
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: transform 300ms ease;
+.bshelf__plinth::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    rgba(220, 160, 110, 0.32) 0%,
+    transparent 70%
+  );
+  filter: blur(6px);
+  animation: bshelf-plinth-breath 4s ease-in-out infinite;
 }
 
-.constel__star.is-active .constel__dot {
-  transform: scale(1.2);
+.bshelf.is-drawn .bshelf__plinth {
+  opacity: 1;
 }
 
-.constel__label {
+@keyframes bshelf-plinth-breath {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 0.9; }
+}
+
+/* Book spine — a vertical button. */
+.bshelf__spine {
+  position: relative;
+  flex-shrink: 0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  border-radius: 2px;
+  overflow: hidden;
+  opacity: 0;
+  transform-origin: bottom center;
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 320ms ease,
+    opacity 320ms ease;
+  box-shadow:
+    inset -2px 0 6px rgba(0, 0, 0, 0.55),
+    inset 2px 0 4px rgba(255, 255, 255, 0.06),
+    0 4px 8px -2px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.bshelf.is-drawn .bshelf__spine {
+  opacity: 0.85;
+  animation: bshelf-spine-in 500ms ease-out both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes bshelf-spine-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 0.85; transform: translateY(0); }
+}
+
+.bshelf__spine:hover,
+.bshelf__spine:focus-visible {
+  opacity: 1;
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.bshelf__spine.is-active {
+  opacity: 1;
+  transform: translateY(-14px) rotateX(6deg);
+  z-index: 3;
+  box-shadow:
+    inset -2px 0 6px rgba(0, 0, 0, 0.55),
+    inset 2px 0 4px rgba(255, 255, 255, 0.12),
+    inset 0 1px 0 rgba(255, 220, 180, 0.35),
+    0 14px 28px -10px rgba(0, 0, 0, 0.7);
+}
+
+/* top head band (binding accent) */
+.bshelf__spine-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 6px;
+  display: block;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* thin foil line ~20% down */
+.bshelf__spine-foil {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 22%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* vertical client name — reads bottom-to-top */
+.bshelf__spine-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 32%;
+  bottom: 36px;
   font-family: var(--font-cormorant), Georgia, serif;
-  fill: rgba(180, 200, 230, 0.55);
   font-style: italic;
   font-weight: 500;
-  transition: fill 300ms ease;
-  user-select: none;
-  pointer-events: none;
-}
-
-.constel__star.is-active .constel__label {
-  fill: rgba(225, 232, 250, 0.96);
-}
-
-/* Tile — testimonial card anchored beside the active star */
-.constel__tile {
-  position: absolute;
-  width: 280px;
-  max-width: 80%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 18px;
-  padding: 1.2rem;
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
-  backdrop-filter: blur(10px) saturate(140%);
-  box-shadow: 0 20px 50px -28px rgba(0, 0, 0, 0.6);
-  z-index: 2;
-  opacity: 0;
-  animation: constelTileIn 0.35s ease-out 0.3s forwards;
-}
-
-.constel.is-drawn .constel__tile {
-  opacity: 1;
-}
-
-@keyframes constelTileIn {
-  from { opacity: 0; transform: translateY(-50%) translateX(-6px); }
-  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
-}
-
-.constel__tile-head {
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  margin-bottom: 0.65rem;
-}
-
-.constel__tile-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
   justify-content: center;
-  overflow: hidden;
-  flex-shrink: 0;
-  background: rgba(43, 95, 255, 0.18);
-  border: 1px solid rgba(120, 170, 230, 0.32);
-  color: var(--blue-light);
-  font-weight: 600;
-  font-size: 0.72rem;
 }
 
-.constel__tile-avatar.t-b {
-  background: rgba(192, 132, 252, 0.18);
-  border-color: rgba(192, 132, 252, 0.42);
-  color: #d6b2fc;
-}
-
-.constel__tile-avatar.t-c {
-  background: rgba(251, 191, 36, 0.12);
-  border-color: rgba(251, 191, 36, 0.32);
-  color: #fcd34d;
-}
-
-.constel__tile-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.constel__tile-name {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: #fafafa;
-}
-
-.constel__tile-quote {
-  margin: 0 0 0.6rem;
+/* small Nº label at the bottom of each spine */
+.bshelf__spine-num {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
   font-family: var(--font-cormorant), Georgia, serif;
   font-style: italic;
-  font-size: 0.98rem;
-  line-height: 1.45;
-  color: #f5f5f5;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-size: 9px;
+  text-align: center;
+  opacity: 0.7;
 }
 
-.constel__tile-role {
+/* ----- Page panel (cream printed letter) ----- */
+
+.bshelf__page {
+  position: absolute;
+  bottom: calc(100% + 24px);
+  width: 340px;
+  max-width: 90vw;
+  background: rgba(238, 228, 210, 0.96);
+  color: rgba(40, 30, 20, 0.92);
+  border-radius: 4px;
+  padding: 1.4rem 1.4rem 1.2rem;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 14px 30px -16px rgba(0, 0, 0, 0.55);
+  z-index: 4;
+  /* faint paper noise via a subtle gradient layer */
+  background-image:
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.5), transparent 60%),
+    linear-gradient(180deg, rgba(238, 228, 210, 0.98), rgba(228, 216, 196, 0.96));
+  animation: bshelf-page-in 350ms ease-out both;
+}
+
+@keyframes bshelf-page-in {
+  from { opacity: 0; transform: translate(var(--tx, 0), 8px); }
+  to   { opacity: 1; transform: translate(var(--tx, 0), 0); }
+}
+
+/* override the translateX coming from the inline style for the
+   left/right flip animation start */
+.bshelf__page[style*="-100%"] {
+  animation-name: bshelf-page-in-right;
+}
+
+@keyframes bshelf-page-in-right {
+  from { opacity: 0; transform: translate(-100%, 8px); }
+  to   { opacity: 1; transform: translate(-100%, 0); }
+}
+
+.bshelf__page-num {
   display: block;
-  color: var(--muted);
-  font-size: 0.78rem;
-  margin-bottom: 0.5rem;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: rgba(120, 90, 60, 0.85);
+  margin-bottom: 0.6rem;
 }
 
-/* ----- Mobile fallback: dot row + full-width tile ----- */
-.constel__mobile { display: none; }
+.bshelf__page-quote {
+  margin: 0 0 1rem;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: rgba(40, 30, 20, 0.92);
+}
 
+.bshelf__page-rule {
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: rgba(80, 60, 40, 0.32);
+  margin: 0 0 0.9rem auto;
+}
+
+.bshelf__page-cite {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-align: right;
+}
+
+.bshelf__page-cite strong {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.02rem;
+  color: rgba(50, 35, 20, 0.94);
+}
+
+.bshelf__page-cite > span:not(.pscard__service) {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.78rem;
+  color: rgba(80, 60, 40, 0.7);
+}
+
+.bshelf__page-cite .pscard__service {
+  align-self: flex-end;
+  margin-top: 0.5rem;
+}
+
+.bshelf__page--mobile { display: none; }
+
+/* ----- Mobile fallback: horizontal scroll-snap shelf + full-width
+   page below ----- */
 @media (max-width: 880px) {
-  .constel {
-    aspect-ratio: auto;
-    background: none;
-  }
-  .constel__svg,
-  .constel__tile {
-    display: none;
-  }
-  .constel__mobile {
+  .bshelf__page--desktop { display: none; }
+  .bshelf__page--mobile {
     display: block;
-  }
-  .constel__dots {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 14px;
-    padding: 0.5rem 0 1.2rem;
-  }
-  .constel__dot-btn {
-    appearance: none;
-    border: none;
-    background: rgba(255, 255, 255, 0.4);
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    padding: 0;
-    cursor: pointer;
-    transition: background 200ms ease, transform 200ms ease,
-      box-shadow 200ms ease;
-  }
-  .constel__dot-btn.is-active {
-    background: var(--blue-light);
-    transform: scale(1.6);
-    box-shadow: 0 0 12px rgba(74, 120, 255, 0.85);
-  }
-  .constel__tile-mobile {
     position: static;
     width: 100%;
-    max-width: 480px;
-    margin-inline: auto;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 18px;
-    padding: 1.2rem;
-    -webkit-backdrop-filter: blur(10px) saturate(140%);
-    backdrop-filter: blur(10px) saturate(140%);
-    animation: constelTileMobileIn 0.35s ease-out both;
+    margin: 1.5rem auto 0;
+    bottom: auto;
+    transform: none !important;
   }
-  @keyframes constelTileMobileIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
+  .bshelf__row {
+    overflow-x: auto;
+    justify-content: flex-start;
+    scroll-snap-type: x mandatory;
+    padding: 0 1rem 12px;
+    min-height: 280px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .bshelf__row::-webkit-scrollbar { display: none; }
+  .bshelf__spine {
+    scroll-snap-align: center;
+  }
+  .bshelf__plinth {
+    /* shorter plinth that matches the shelf row width */
+    width: 95%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .constel__star,
-  .constel__line,
-  .constel__connector,
-  .constel__halo,
-  .constel__dot,
-  .constel__tile {
-    transition: none !important;
+  .bshelf__spine,
+  .bshelf__plinth::after,
+  .bshelf__page {
     animation: none !important;
-    opacity: 1 !important;
-    stroke-dashoffset: 0 !important;
+  }
+  .bshelf__spine {
+    opacity: 0.85;
+  }
+  .bshelf__spine.is-active {
+    opacity: 1;
+    transform: translateY(-10px);
   }
 }
 
