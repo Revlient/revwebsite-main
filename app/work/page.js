@@ -26,12 +26,12 @@ export default function WorkPage() {
     <>
       <main className="page-work">
         <WorkHero />
-        <WorkProjects />
         <WorkFeatureSection />
         <ErpFeatures />
         <AppShowcase />
         <AppFeatures />
         <WorthCrafting />
+        <WorkProjects />
         <FinalCTA />
       </main>
       <Footer />
