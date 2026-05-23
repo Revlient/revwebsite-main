@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ProcessDust from "./process/ProcessDust";
+import StageMockup from "./process/StageMockups";
 
 /* Process spine — a snaking purple connector that zigzags through six
    stages on desktop, drawing as the user scrolls, with a continuous
@@ -97,19 +98,78 @@ const PATH_D_MOBILE = `M ${NODES_MOBILE[0].x} ${NODES_MOBILE[0].y} L ${NODES_MOB
 // (line has only just started drawing) and node 6 lights near the end.
 const NODE_THRESHOLDS = [0.05, 0.22, 0.38, 0.55, 0.72, 0.88];
 
-function NumberMark({ index }) {
-  // Index label rendered in Cormorant italic next to each node. Uses
-  // the same colour family as the node so it reads as one piece.
+// Monoline 24x24 icons stroked in purple, one per stage. Drawn at the
+// origin so the wrapping <g> can place them.
+const NODE_ICONS = [
+  // 01 compass
+  (
+    <g key="compass" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <polygon points="16,8 13,13 8,16 11,11" fill="#C084FC" stroke="none" />
+    </g>
+  ),
+  // 02 sitemap
+  (
+    <g key="sitemap" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="5" r="2" />
+      <circle cx="6" cy="19" r="2" />
+      <circle cx="18" cy="19" r="2" />
+      <path d="M12 7 L6 17" />
+      <path d="M12 7 L18 17" />
+    </g>
+  ),
+  // 03 wireframe square with corner markers
+  (
+    <g key="wireframe" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 7 L4 4 L7 4" />
+      <path d="M17 4 L20 4 L20 7" />
+      <path d="M20 17 L20 20 L17 20" />
+      <path d="M7 20 L4 20 L4 17" />
+      <rect x="8" y="8" width="8" height="8" rx="1" />
+    </g>
+  ),
+  // 04 code brackets </>
+  (
+    <g key="code" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="8,7 4,12 8,17" />
+      <polyline points="16,7 20,12 16,17" />
+      <line x1="13.5" y1="5.5" x2="10.5" y2="18.5" />
+    </g>
+  ),
+  // 05 shield-check
+  (
+    <g key="shield" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3 L19 6 L19 12 C19 16 16 19 12 21 C8 19 5 16 5 12 L5 6 Z" />
+      <path d="M9 12 L11 14 L15 10" />
+    </g>
+  ),
+  // 06 rocket / arrow-up-and-out
+  (
+    <g key="rocket" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 17 L17 7" />
+      <path d="M9 7 L17 7 L17 15" />
+    </g>
+  ),
+];
+
+function NodeLabel({ index }) {
+  // Number on top (italic Cormorant 10px) + 24x24 monoline icon below,
+  // 4px gap. The whole label sits to the right of the node dot.
   return (
-    <text
-      className="spine__node-num"
-      x="18"
-      y="3"
-      fontStyle="italic"
-      fontSize="22"
-    >
-      {String(index + 1).padStart(2, "0")}
-    </text>
+    <g transform="translate(20 -16)">
+      <text
+        x="12"
+        y="0"
+        textAnchor="middle"
+        dominantBaseline="hanging"
+        className="spine__node-num"
+        fontStyle="italic"
+        fontSize="10"
+      >
+        {String(index + 1).padStart(2, "0")}
+      </text>
+      <g transform="translate(0 14)">{NODE_ICONS[index]}</g>
+    </g>
   );
 }
 
@@ -278,7 +338,7 @@ export default function ProcessSpine() {
               >
                 <circle r="28" fill="url(#spineHaloD)" className="spine__node-halo" />
                 <circle r="6" fill="#C084FC" className="spine__node-dot" />
-                <NumberMark index={i} />
+                <NodeLabel index={i} />
               </g>
             </g>
           ))}
@@ -372,6 +432,7 @@ export default function ProcessSpine() {
             className={`spine__row spine__row--${i % 2 === 0 ? "left" : "right"}`}
           >
             <article className="spine__card">
+              <StageMockup index={i} />
               <div className="spine__num">{s.n}</div>
               <h3 className="spine__cardtitle">{s.title}</h3>
               <p className="spine__cardbody">{s.body}</p>
