@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import WorkCaseHero from "./WorkCaseHero";
 
 /* Case studies tell a short story: problem → what we built → result.
    The homepage carries the summary; deeper immersive storytelling belongs
@@ -23,6 +24,10 @@ const CASES = [
       { label: "Qualified enquiries", note: "post-launch lift" },
       { label: "Time to first enquiry", note: "vs. old site" },
     ],
+    // The card carries a live-site preview instead of metric stubs,
+    // and clicking the card opens the deployed site in a new tab.
+    thumb: true,
+    liveUrl: "https://study2india.com", // TODO: confirm real production URL
   },
   {
     slug: "ecommerce-cms",
@@ -74,44 +79,79 @@ export default function Work() {
         </Reveal>
 
         <div className="work-list">
-          {CASES.map((c) => (
-            <Reveal key={c.slug} className="case">
-              <div className="case__body">
-                <span className="case__tag">{c.tag}</span>
-                {/* TODO: replace placeholder client name once cleared. */}
-                <p className="case__client">Client: {c.client}</p>
-                <h3>{c.title}</h3>
-                <dl className="case__story">
-                  <div>
-                    <dt>Problem</dt>
-                    <dd>{c.problem}</dd>
-                  </div>
-                  <div>
-                    <dt>Built</dt>
-                    <dd>{c.build}</dd>
-                  </div>
-                  <div>
-                    <dt>Result</dt>
-                    <dd>{c.result}</dd>
-                  </div>
-                </dl>
-              </div>
+          {CASES.map((c) => {
+            const inner = (
+              <>
+                <div className="case__body">
+                  <span className="case__tag">{c.tag}</span>
+                  {/* TODO: replace placeholder client name once cleared. */}
+                  <p className="case__client">Client: {c.client}</p>
+                  <h3>{c.title}</h3>
+                  <dl className="case__story">
+                    <div>
+                      <dt>Problem</dt>
+                      <dd>{c.problem}</dd>
+                    </div>
+                    <div>
+                      <dt>Built</dt>
+                      <dd>{c.build}</dd>
+                    </div>
+                    <div>
+                      <dt>Result</dt>
+                      <dd>{c.result}</dd>
+                    </div>
+                  </dl>
+                </div>
 
-              <div className="case__metrics">
-                {c.metrics.map((m) => (
-                  <div className="metric" key={m.label}>
-                    {/* Value intentionally NOT a number — real, verified
-                        figures must be filled in before launch. */}
-                    <div className="metric__value">—</div>
-                    <div className="metric__label">{m.label}</div>
-                    <span className="metric__todo">
-                      TODO: {m.note}
-                    </span>
+                {c.thumb ? (
+                  <div className="case__thumb">
+                    <WorkCaseHero />
+                    {c.liveUrl && (
+                      <span className="case__thumb-launch" aria-hidden="true">
+                        Visit live site →
+                      </span>
+                    )}
                   </div>
-                ))}
-              </div>
-            </Reveal>
-          ))}
+                ) : (
+                  <div className="case__metrics">
+                    {c.metrics.map((m) => (
+                      <div className="metric" key={m.label}>
+                        {/* Value intentionally NOT a number — real, verified
+                            figures must be filled in before launch. */}
+                        <div className="metric__value">—</div>
+                        <div className="metric__label">{m.label}</div>
+                        <span className="metric__todo">
+                          TODO: {m.note}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            );
+
+            // External link wraps the whole card when a live site exists.
+            const card = (
+              <Reveal
+                className={`case ${c.liveUrl ? "case--clickable" : ""}`.trim()}
+              >
+                {inner}
+              </Reveal>
+            );
+            return c.liveUrl ? (
+              <a
+                key={c.slug}
+                href={c.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="case-link"
+              >
+                {card}
+              </a>
+            ) : (
+              <div key={c.slug}>{card}</div>
+            );
+          })}
         </div>
       </div>
     </section>
