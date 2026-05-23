@@ -5940,14 +5940,22 @@ a.feat-reach__line:hover {
   position: relative;
   width: 100%;
   max-width: 280px;
-  aspect-ratio: 9 / 19;
-  padding: 10px;
-  border-radius: 38px;
-  background: linear-gradient(160deg, #2a2a30, #050508 60%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 50px 80px -40px rgba(0, 0, 0, 0.8),
-    0 0 0 1px rgba(255, 255, 255, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  aspect-ratio: 9 / 19.5;
+  padding: 6px;
+  border-radius: 44px;
+  background:
+    linear-gradient(170deg, #18181d 0%, #0a0a0d 28%, #0a0a0d 72%, #040406 100%);
+  box-shadow:
+    /* outer rim highlight */
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    /* top edge light */
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    /* side edge darkening */
+    inset 1px 0 0 rgba(0, 0, 0, 0.55),
+    inset -1px 0 0 rgba(0, 0, 0, 0.55),
+    /* ground shadow */
+    0 50px 60px -25px rgba(0, 0, 0, 0.85),
+    0 22px 40px -18px rgba(0, 0, 0, 0.6);
   transform-style: preserve-3d;
 }
 
@@ -5978,152 +5986,170 @@ a.feat-reach__line:hover {
   }
 }
 
+/* Dynamic-Island-style centred pill notch */
 .appshow__phone-notch {
   position: absolute;
-  top: 18px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
-  width: 90px;
+  width: 84px;
   height: 22px;
-  border-radius: 12px;
-  background: #050507;
+  border-radius: 14px;
+  background: #000;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 1px 2px rgba(0, 0, 0, 0.6);
   z-index: 2;
 }
 
+/* Real iPhones don't show milled-out buttons at this distance — keep
+   the elements in markup for fallback but render them invisibly. */
 .appshow__phone-button {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 2px;
-  pointer-events: none;
-}
-
-.appshow__phone-button--vol-up {
-  top: 90px;
-  left: -2px;
-  width: 4px;
-  height: 28px;
-}
-
-.appshow__phone-button--vol-dn {
-  top: 130px;
-  left: -2px;
-  width: 4px;
-  height: 50px;
-}
-
-.appshow__phone-button--power {
-  top: 110px;
-  right: -2px;
-  width: 4px;
-  height: 60px;
+  display: none;
 }
 
 .appshow__phone-screen {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 28px;
+  border-radius: 38px;
   overflow: hidden;
   background: #08090c;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6);
 }
 
+/* Subtle glassy top-left to bottom-right glare */
 .appshow__phone-reflection {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background: linear-gradient(
-    115deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0) 40%,
-    rgba(255, 255, 255, 0) 60%,
-    rgba(255, 255, 255, 0.04) 100%
+    132deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0) 22%,
+    rgba(255, 255, 255, 0) 78%,
+    rgba(255, 255, 255, 0.03) 100%
   );
+  mix-blend-mode: screen;
 }
 
-/* placeholder screen — slot for the real screenshot */
+/* placeholder screen — refined, restrained UI that reads as real
+   product rather than chunky toy blocks. Swap any block for an
+   <img src="/work/app-*.png" /> when the real screenshot is ready. */
 .appshow__placeholder {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 38px 16px 0;
-  gap: 12px;
+  padding: 42px 14px 0;
+  gap: 10px;
   background:
-    radial-gradient(120% 100% at 50% 0%, rgba(74, 120, 255, 0.12), transparent 60%),
-    linear-gradient(180deg, #0a0b10 0%, #050508 100%);
+    radial-gradient(120% 90% at 50% -10%, rgba(74, 120, 255, 0.08), transparent 60%),
+    linear-gradient(180deg, #0c0d12 0%, #07080b 60%, #050507 100%);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 9px;
 }
 
 .appshow__placeholder-bar {
-  height: 6px;
-  width: 40%;
-  border-radius: 3px;
-  background: rgba(255, 255, 255, 0.18);
+  display: none; /* status row replaced by the notch */
 }
 
 .appshow__placeholder-body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
   overflow: hidden;
 }
 
 .appshow__placeholder-greeting {
-  height: 16px;
-  border-radius: 4px;
-  width: 80%;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.08));
+  height: 11px;
+  border-radius: 3px;
+  width: 60%;
+  background: rgba(255, 255, 255, 0.85);
 }
 
 .appshow__placeholder-greeting--sm {
-  height: 8px;
-  width: 50%;
+  height: 6px;
+  width: 40%;
+  background: rgba(255, 255, 255, 0.32);
 }
 
 .appshow__placeholder-kpis {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 4px;
+  gap: 6px;
+  margin-top: 2px;
 }
 
 .appshow__placeholder-kpi {
-  aspect-ratio: 4 / 3;
-  border-radius: 10px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  aspect-ratio: 5 / 4;
+  border-radius: 8px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.015) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
 }
 
-.appshow__placeholder-kpi--accent {
-  background: linear-gradient(135deg, rgba(74, 120, 255, 0.45), rgba(43, 95, 255, 0.12));
-  border-color: rgba(74, 120, 255, 0.3);
+.appshow__placeholder-kpi::before {
+  content: "";
+  position: absolute;
+  inset: 7px 7px auto 7px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.32);
+  width: 55%;
 }
 
-.appshow__placeholder-kpi--alt {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.35), rgba(59, 130, 246, 0.08));
-  border-color: rgba(168, 85, 247, 0.25);
+.appshow__placeholder-kpi::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  bottom: 7px;
+  height: 18px;
+  width: 60%;
+  border-radius: 3px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04));
+}
+
+.appshow__placeholder-kpi--accent::after {
+  background: linear-gradient(135deg, rgba(74, 120, 255, 0.85), rgba(74, 120, 255, 0.18));
+}
+
+.appshow__placeholder-kpi--alt::after {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.7), rgba(168, 85, 247, 0.14));
 }
 
 .appshow__placeholder-chart {
   margin-top: auto;
-  height: 60px;
-  border-radius: 10px;
-  background: linear-gradient(
-    180deg,
-    rgba(74, 120, 255, 0.25) 0%,
-    rgba(74, 120, 255, 0) 100%
-  );
-  border: 1px solid rgba(74, 120, 255, 0.18);
+  height: 56px;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(74, 120, 255, 0.16) 0%, rgba(74, 120, 255, 0) 80%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.appshow__placeholder-chart::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 28%;
+  height: 1.5px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, rgba(74, 120, 255, 0.9), transparent);
 }
 
 .appshow__placeholder-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: 9px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.012) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .appshow__placeholder-row--block {
@@ -6131,10 +6157,12 @@ a.feat-reach__line:hover {
 }
 
 .appshow__placeholder-row-dot {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4a78ff, #a855f7);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.06));
+  border: 1px solid rgba(255, 255, 255, 0.05);
   flex: none;
 }
 
@@ -6142,47 +6170,48 @@ a.feat-reach__line:hover {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
 
 .appshow__placeholder-row-tag {
-  width: 32px;
-  height: 18px;
-  border-radius: 6px;
-  background: linear-gradient(135deg, rgba(74, 120, 255, 0.45), rgba(43, 95, 255, 0.12));
-  border: 1px solid rgba(74, 120, 255, 0.25);
+  width: 24px;
+  height: 12px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .appshow__placeholder-line {
-  height: 7px;
-  border-radius: 3.5px;
+  height: 6px;
+  border-radius: 3px;
   width: 100%;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .appshow__placeholder-line--sm {
-  width: 50%;
-  height: 5px;
+  width: 45%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .appshow__placeholder-line--md {
-  width: 70%;
+  width: 65%;
 }
 
 .appshow__placeholder-line--lg {
-  width: 90%;
-  height: 10px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.08));
+  width: 85%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.55);
 }
 
 .appshow__placeholder-hero {
-  height: 90px;
-  border-radius: 12px;
+  height: 84px;
+  border-radius: 10px;
   background:
-    radial-gradient(120% 100% at 30% 30%, rgba(168, 85, 247, 0.4), transparent 60%),
-    radial-gradient(120% 100% at 80% 70%, rgba(74, 120, 255, 0.4), transparent 60%),
-    rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+    radial-gradient(110% 100% at 30% 35%, rgba(168, 85, 247, 0.32), transparent 65%),
+    radial-gradient(110% 100% at 75% 70%, rgba(74, 120, 255, 0.32), transparent 65%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .appshow__placeholder-actions {
@@ -6193,30 +6222,32 @@ a.feat-reach__line:hover {
 
 .appshow__placeholder-pill {
   flex: 1;
-  height: 28px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  height: 24px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .appshow__placeholder-pill--primary {
-  background: linear-gradient(135deg, #4a78ff, #2b5fff);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: linear-gradient(140deg, #4a78ff, #2b5fff);
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
 .appshow__placeholder-tabbar {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 4px;
-  padding: 12px 8px 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 10px 14px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
   background: rgba(0, 0, 0, 0.25);
 }
 
 .appshow__placeholder-tabbar span {
-  height: 16px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.12);
+  height: 4px;
+  margin: 6px auto 0;
+  width: 60%;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .appshow__placeholder-tabbar span.is-active {
