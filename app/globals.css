@@ -3716,23 +3716,21 @@ html.js .reveal.is-visible {
 
 /* The prompt box itself (dark panel on the colour field) */
 .aibox {
-  /* Glassmorphism: translucent + blurred so the vortex shows through,
-     kept dark enough that the input text stays legible. */
-  background: rgba(20, 23, 33, 0.22);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
-  backdrop-filter: blur(22px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 26px;
-  padding: 0.6rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  /* Solid dark panel per the new spec (replaces the previous glass).
+     Sits on top of the existing chat-section video — the section
+     keeps its valley backdrop, the box itself is opaque so input
+     stays crisp. */
+  background: #1f2023;
+  border: 1px solid #444444;
+  border-radius: 24px;
+  padding: 0.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.24);
   text-align: left;
-  transition: border-color 0.3s var(--ease),
-    background 0.3s var(--ease);
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
 }
 
 .aibox.is-rec {
-  border-color: rgba(245, 87, 2, 0.7);
+  border-color: rgba(239, 68, 68, 0.7);
 }
 
 .aibox__files {
@@ -3937,7 +3935,7 @@ html.js .reveal.is-visible {
 .aibox__pill.is-on.t {
   color: #8b5cf6;
   border-color: #8b5cf6;
-  background: rgba(251, 113, 133, 0.15);
+  background: rgba(139, 92, 246, 0.15);
 }
 .aibox__pill.is-on.c {
   color: #f97316;
@@ -3945,17 +3943,40 @@ html.js .reveal.is-visible {
   background: rgba(249, 115, 22, 0.15);
 }
 
+.aibox__pill .aibox-pill-icon {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.aibox__pill.is-on .aibox-pill-icon {
+  transform: rotate(360deg) scale(1.12);
+}
+
 .aibox__div {
+  position: relative;
   width: 1.5px;
-  height: 18px;
-  margin: 0 2px;
+  height: 24px;
+  margin: 0 4px;
+}
+
+.aibox__div::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
     to top,
-    transparent,
-    rgba(155, 135, 245, 0.7),
-    transparent
+    transparent 0%,
+    rgba(155, 135, 245, 0.7) 50%,
+    transparent 100%
   );
-  border-radius: 2px;
+  border-radius: 999px;
+  -webkit-clip-path: polygon(
+    0% 0%, 100% 0%, 100% 40%, 140% 50%, 100% 60%,
+    100% 100%, 0% 100%, 0% 60%, -40% 50%, 0% 40%
+  );
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 40%, 140% 50%, 100% 60%,
+    100% 100%, 0% 100%, 0% 60%, -40% 50%, 0% 40%
+  );
 }
 
 .aibox__send {

@@ -155,7 +155,17 @@ export default function AiPromptBox({
   const toggle = (m) => setMode((cur) => (cur === m ? null : m));
 
   return (
-    <div className={`aibox ${recording ? "is-rec" : ""}`}>
+    <div
+      className={`aibox ${recording ? "is-rec" : ""}`}
+      onDragOver={(e) => {
+        e.preventDefault();
+      }}
+      onDrop={(e) => {
+        e.preventDefault();
+        const file = e.dataTransfer?.files?.[0];
+        if (file && file.type.startsWith("image/")) readImage(file);
+      }}
+    >
       {preview && !recording && (
         <div className="aibox__files">
           <button
@@ -252,7 +262,9 @@ export default function AiPromptBox({
               onClick={() => toggle("search")}
               title="Search mode"
             >
-              <Icon.Globe />
+              <span className="aibox-pill-icon">
+                <Icon.Globe />
+              </span>
               {mode === "search" && <span>Search</span>}
             </button>
             <i className="aibox__div" />
@@ -262,7 +274,9 @@ export default function AiPromptBox({
               onClick={() => toggle("think")}
               title="Think mode"
             >
-              <Icon.Brain />
+              <span className="aibox-pill-icon">
+                <Icon.Brain />
+              </span>
               {mode === "think" && <span>Think</span>}
             </button>
             <i className="aibox__div" />
@@ -272,7 +286,9 @@ export default function AiPromptBox({
               onClick={() => toggle("canvas")}
               title="Canvas mode"
             >
-              <Icon.Code />
+              <span className="aibox-pill-icon">
+                <Icon.Code />
+              </span>
               {mode === "canvas" && <span>Canvas</span>}
             </button>
           </div>
