@@ -15,15 +15,6 @@ import { CTA_HREF } from "../lib/site";
    stated product claim (10× faster operations) rather than a
    fabricated dollar figure. */
 
-const INTEG_VIDEO =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260507_153148_d7a3e1dd-e5d0-4ce6-8306-00d7522ecc44.mp4";
-
-// Integration tile glyph keys reused with the same ToolIcon set as
-// Features.js — picked to read as ERP-relevant: docs / mail / data /
-// charts etc.
-const ROW_A = ["type", "layers", "chrome", "aperture", "palette", "pen", "figma", "framer"];
-const ROW_B = ["camera", "brush", "box", "wand", "type", "layers", "figma", "framer"];
-
 function Sparkle({ className = "" }) {
   return (
     <svg
@@ -59,6 +50,10 @@ function ArrowUpRight({ className = "" }) {
   );
 }
 
+// Legacy ToolIcon set kept available for future card variants; not
+// currently referenced after the Integrations marquee was swapped
+// for the Sales Funnel mockup. Safe to delete when no future card
+// needs the tile glyphs.
 function ToolIcon({ kind }) {
   const common = {
     viewBox: "0 0 24 24",
@@ -512,21 +507,73 @@ export default function ErpFeatures() {
 
           {/* Column 3 */}
           <div className="feat-col">
-            <article className="feat-card feat-card--video feat-card--software">
-              <video
-                className="feat-card__video"
-                src={INTEG_VIDEO}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-              />
+            <article className="feat-card feat-card--software">
               <div className="feat-card__inner">
-                <SectionLabel>INTEGRATIONS</SectionLabel>
-                <div className="feat-marquees">
-                  <Marquee keys={ROW_A} direction="left" />
-                  <Marquee keys={ROW_B} direction="right" />
+                <span className="tally-badge">
+                  <strong>20</strong>
+                  <span>Open deals · pipeline live</span>
+                </span>
+
+                {/* Faithful inline replica of the Revlient OS
+                    Sales-funnel screen. Real numbers from the
+                    shared screenshot. Swap for
+                    <img src="/work/revlient-os-funnel.png" /> once
+                    the real PNG is committed. */}
+                <div className="rfunnel" aria-label="Revlient OS — Sales funnel">
+                  <header className="rfunnel__head">
+                    <span className="rfunnel__icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 5 H21 L14 13 V20 L10 18 V13 Z" />
+                      </svg>
+                    </span>
+                    <div className="rfunnel__title">
+                      <h4>Sales funnel</h4>
+                      <p>20 open deals · cumulative count by stage</p>
+                    </div>
+                  </header>
+
+                  <div className="rfunnel__bars">
+                    {[
+                      { label: "New", count: 20, pct: 100 },
+                      { label: "Discovery", count: 19, pct: 95 },
+                      { label: "Quotation", count: 17, pct: 85 },
+                      { label: "Negotiation", count: 14, pct: 70 },
+                      { label: "Won", count: 13, pct: 65 },
+                    ].map((s, i) => (
+                      <div key={s.label} className="rfunnel__bar">
+                        <span className="rfunnel__count">{s.count}</span>
+                        <div
+                          className="rfunnel__viz"
+                          style={{ height: `${110 + (s.pct - 65) * 1.6}px` }}
+                        >
+                          <svg
+                            className="rfunnel__wave rfunnel__wave--top"
+                            viewBox="0 0 100 28"
+                            preserveAspectRatio="none"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M0 0 L100 0 L100 14 Q75 22 50 14 T0 14 Z"
+                              fill="rgba(0,0,0,0.42)"
+                            />
+                          </svg>
+                          <span className="rfunnel__pill">{s.pct}%</span>
+                          <svg
+                            className="rfunnel__wave rfunnel__wave--bot"
+                            viewBox="0 0 100 22"
+                            preserveAspectRatio="none"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M0 22 L100 22 L100 8 Q75 0 50 8 T0 8 Z"
+                              fill="rgba(0,0,0,0.42)"
+                            />
+                          </svg>
+                        </div>
+                        <span className="rfunnel__label">{s.label}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </article>
