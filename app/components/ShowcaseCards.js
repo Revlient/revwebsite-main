@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
-import XeroBackdrop from "./XeroBackdrop";
+import NebulaBackdrop from "./showcase/NebulaBackdrop";
 import { CTA_HREF } from "../lib/site";
 
 /* Constellation map: seven client "stars" arranged in a 2D shape,
@@ -222,7 +222,7 @@ export default function ShowcaseCards() {
       className="section pscard pscard--xero"
       aria-label="Client testimonials"
     >
-      <XeroBackdrop />
+      <NebulaBackdrop />
 
       <div className="container">
         <Reveal>

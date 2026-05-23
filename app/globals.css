@@ -12466,6 +12466,133 @@ a.feat-reach__line:hover {
   color: #d8a23a;
 }
 
+/* ----- Deep-space nebula backdrop (testimonial section) -----
+   Four slow-drifting cloud blobs over a faint coordinate grid +
+   twinkling starfield. All CSS animations, no canvas. Replaces
+   XeroBackdrop on .pscard--xero. */
+
+.nebula {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 55%, #0c0a1a 0%, #050309 75%);
+}
+
+.nebula__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(140, 170, 220, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(140, 170, 220, 0.07) 1px, transparent 1px);
+  background-size: 60px 60px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 80%);
+  mask-image: radial-gradient(ellipse at center, #000 25%, transparent 80%);
+}
+
+.nebula__cloud {
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.42;
+  mix-blend-mode: screen;
+  animation: nebulaDrift 32s ease-in-out infinite;
+  will-change: transform;
+}
+
+.nebula__cloud--a {
+  left: -12%;
+  top: -12%;
+  background: radial-gradient(circle, #6d28d9 0%, transparent 65%);
+  animation-duration: 34s;
+}
+
+.nebula__cloud--b {
+  right: -14%;
+  top: 18%;
+  background: radial-gradient(circle, #3b82f6 0%, transparent 65%);
+  animation-duration: 40s;
+  animation-delay: -10s;
+}
+
+.nebula__cloud--c {
+  left: 32%;
+  bottom: -22%;
+  background: radial-gradient(circle, #db2777 0%, transparent 65%);
+  opacity: 0.28;
+  animation-duration: 46s;
+  animation-delay: -18s;
+}
+
+.nebula__cloud--d {
+  right: 22%;
+  bottom: -8%;
+  background: radial-gradient(circle, #06b6d4 0%, transparent 60%);
+  opacity: 0.32;
+  animation-duration: 38s;
+  animation-delay: -24s;
+}
+
+@keyframes nebulaDrift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(40px, -30px) scale(1.08);
+  }
+  66% {
+    transform: translate(-30px, 50px) scale(0.95);
+  }
+}
+
+.nebula__stars {
+  position: absolute;
+  inset: 0;
+}
+
+.nebula__star {
+  position: absolute;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.55);
+  opacity: 0.4;
+  animation: nebulaTwinkle 4s ease-in-out infinite;
+}
+
+.nebula__star--violet {
+  background: #c084fc;
+  box-shadow: 0 0 8px rgba(192, 132, 252, 0.7);
+}
+
+.nebula__star--blue {
+  background: #93c5fd;
+  box-shadow: 0 0 8px rgba(147, 197, 253, 0.7);
+}
+
+@keyframes nebulaTwinkle {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nebula__cloud,
+  .nebula__star {
+    animation: none !important;
+  }
+  .nebula__cloud {
+    opacity: 0.35;
+  }
+}
+
 /* ----- Constellation map (testimonial section) -----
    Seven client "stars" arranged in a 2D shape connected by a thin
    silver polyline. Hover/click any star → it brightens and its
