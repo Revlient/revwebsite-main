@@ -7884,16 +7884,16 @@ a.feat-reach__line:hover {
   /* pull the beam well above the section so the shaft visually
      originates from higher up the page and the video's frame area
      aligns with the dashboard frame below */
-  top: -12rem;
+  top: -24rem;
   left: 50%;
   transform: translateX(-50%);
-  width: min(110%, 96rem);
-  height: calc(100% + 12rem);
+  width: min(115%, 100rem);
+  height: calc(100% + 24rem);
   z-index: 0;
   object-fit: cover;
   /* showing the upper-middle of the source so the bright shaft
      converges around where the dashboard frame sits */
-  object-position: center 35%;
+  object-position: center 45%;
   pointer-events: none;
   filter: hue-rotate(220deg) saturate(1.4) brightness(1.05);
   mix-blend-mode: screen;
@@ -7902,19 +7902,21 @@ a.feat-reach__line:hover {
      marquee row */
   -webkit-mask-image: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.4) 0%,
-    #000 12%,
-    #000 70%,
-    rgba(0, 0, 0, 0.25) 88%,
-    transparent 96%
+    transparent 0%,
+    rgba(0, 0, 0, 0.4) 8%,
+    #000 22%,
+    #000 72%,
+    rgba(0, 0, 0, 0.25) 90%,
+    transparent 97%
   );
   mask-image: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.4) 0%,
-    #000 12%,
-    #000 70%,
-    rgba(0, 0, 0, 0.25) 88%,
-    transparent 96%
+    transparent 0%,
+    rgba(0, 0, 0, 0.4) 8%,
+    #000 22%,
+    #000 72%,
+    rgba(0, 0, 0, 0.25) 90%,
+    transparent 97%
   );
 }
 
