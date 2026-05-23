@@ -5,17 +5,17 @@ import Reveal from "./Reveal";
 import XeroBackdrop from "./XeroBackdrop";
 import { CTA_HREF } from "../lib/site";
 
-/* Marquee mention wall. Featured client quote on the left;
-   three vertical columns of testimonial cards drift at varied
-   speeds + directions on the right. Hover/focus/click any card
-   pauses all three columns and lifts that card into the featured
-   slot. Auto-rotates every 8s when nothing is hovered.
+/* Constellation map: seven client "stars" arranged in a 2D shape,
+   connected by a thin silver polyline. Hover/click any star and its
+   testimonial tile slides in beside it. Scroll-driven first draw via
+   an IntersectionObserver that toggles `.is-drawn` on the container.
+   No auto-rotate — the constellation is a chart you read, not a reel
+   you watch.
 
    PROOF RULE: real client identities only when supplied by Revlient.
-   Quote text + service field stay placeholders (clearly flagged as
-   amber 'TODO: service' chips) until permission-cleared content
-   lands. No fabricated faces — if `img` is empty the tone-coloured
-   initials circle is the avatar. */
+   Quote text + service field stay placeholders (amber 'TODO: service'
+   chips) until permission-cleared content lands. No fabricated faces
+   — empty `img` falls back to tone-coloured initials. */
 
 const TONES = ["a", "b", "c"];
 
@@ -88,13 +88,27 @@ const TESTIMONIALS = [
     .join("")
     .toUpperCase(),
 }));
+
 const N = TESTIMONIALS.length;
 
-// Distribute round-robin into 3 columns so each column carries a
-// different slice of clients.
-const COLS = [0, 1, 2].map((c) =>
-  TESTIMONIALS.filter((_, i) => i % 3 === c)
-);
+// Hand-tuned star positions in the SVG's viewBox space (percent of
+// 800×460). Arranged to form an asymmetric, flowing shape — not a
+// known constellation, not a literal letter.
+const STAR_POSITIONS = [
+  { x: 11, y: 62 },
+  { x: 23, y: 30 },
+  { x: 38, y: 75 },
+  { x: 50, y: 42 },
+  { x: 64, y: 18 },
+  { x: 78, y: 58 },
+  { x: 90, y: 34 },
+];
+
+const VB_W = 800;
+const VB_H = 460;
+// Convert percentage to viewBox units (helpers).
+const vx = (p) => (p * VB_W) / 100;
+const vy = (p) => (p * VB_H) / 100;
 
 const Arrow = ({ dir = 1 }) => (
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
@@ -109,53 +123,11 @@ const Arrow = ({ dir = 1 }) => (
   </svg>
 );
 
-function FeatureBlock({ t }) {
+function TileBody({ t }) {
   return (
-    <div className="pscard__feature">
-      <span className="pscard__feature-mark" aria-hidden="true">
-        &#8220;
-      </span>
-      <blockquote className="pscard__feature-quote">{t.quote}</blockquote>
-      <span className="pscard__feature-rule" aria-hidden="true" />
-      <div className={`pscard__feature-avatar t-${t.tone}`}>
-        {t.img ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={t.img} alt={t.name} draggable={false} />
-        ) : (
-          <span className="pscard__feature-initials">{t.initials}</span>
-        )}
-      </div>
-      <div className="pscard__feature-person">
-        <strong className="pscard__feature-name">{t.name}</strong>
-        <span className="pscard__feature-role">{t.role}</span>
-        {t.service && (
-          <span
-            className={`pscard__service${
-              t.service.startsWith("TODO") ? " pscard__service--todo" : ""
-            }`}
-          >
-            {t.service}
-          </span>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function WallCard({ t, active, onActivate }) {
-  const isActive = t.idx === active;
-  return (
-    <button
-      type="button"
-      data-active={isActive ? "true" : undefined}
-      className="mwall__card"
-      aria-label={`Show testimonial from ${t.name}`}
-      onMouseEnter={() => onActivate(t.idx)}
-      onFocus={() => onActivate(t.idx)}
-      onClick={() => onActivate(t.idx)}
-    >
-      <span className="mwall__card-head">
-        <span className={`mwall__card-avatar t-${t.tone}`}>
+    <>
+      <div className="constel__tile-head">
+        <span className={`constel__tile-avatar t-${t.tone}`}>
           {t.img ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={t.img} alt="" draggable={false} />
@@ -163,10 +135,10 @@ function WallCard({ t, active, onActivate }) {
             <span>{t.initials}</span>
           )}
         </span>
-        <span className="mwall__card-name">{t.name}</span>
-      </span>
-      <blockquote className="mwall__card-quote">{t.quote}</blockquote>
-      <span className="mwall__card-role">{t.role}</span>
+        <span className="constel__tile-name">{t.name}</span>
+      </div>
+      <blockquote className="constel__tile-quote">{t.quote}</blockquote>
+      <span className="constel__tile-role">{t.role}</span>
       {t.service && (
         <span
           className={`pscard__service pscard__service--sm${
@@ -176,59 +148,73 @@ function WallCard({ t, active, onActivate }) {
           {t.service}
         </span>
       )}
-    </button>
+    </>
   );
 }
 
 export default function ShowcaseCards() {
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const reducedRef = useRef(false);
+  const [drawn, setDrawn] = useState(false);
+  const containerRef = useRef(null);
+  const starRefs = useRef([]);
 
+  // First-scroll trigger — draws line + fades stars in once.
   useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return;
-    reducedRef.current = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    if (typeof window === "undefined") return undefined;
+    const reduced =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      setDrawn(true);
+      return undefined;
+    }
+    const el = containerRef.current;
+    if (!el) return undefined;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setDrawn(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
-  // 8s auto-rotate when nothing is hovered + not reduced-motion
-  useEffect(() => {
-    if (paused || reducedRef.current) return undefined;
-    const id = setInterval(() => {
-      setActive((a) => (a + 1) % N);
-    }, 8000);
-    return () => clearInterval(id);
-  }, [paused]);
-
-  // pause when tab is hidden
-  useEffect(() => {
-    const onVis = () => setPaused(document.hidden);
-    document.addEventListener("visibilitychange", onVis);
-    return () => document.removeEventListener("visibilitychange", onVis);
-  }, []);
-
-  const onActivate = (i) => {
-    setActive(i);
-    setPaused(true);
+  const onKey = (e, i) => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      e.preventDefault();
+      const step = e.key === "ArrowRight" ? 1 : -1;
+      const next = (i + step + N) % N;
+      setActive(next);
+      requestAnimationFrame(() => starRefs.current[next]?.focus());
+    } else if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setActive(i);
+    }
   };
 
   const t = TESTIMONIALS[active];
-  const wallPaused = paused || reducedRef.current;
+  const activeStar = STAR_POSITIONS[active];
+  const side = activeStar.x < 50 ? "right" : "left";
+  // Tile position: anchor to star vertically, offset horizontally.
+  // 4% horizontal gap matches the connector line length.
+  const tileStyle =
+    side === "right"
+      ? { left: `${activeStar.x + 4}%`, top: `${activeStar.y}%` }
+      : { right: `${100 - activeStar.x + 4}%`, top: `${activeStar.y}%` };
 
-  const renderCol = (items, colIdx) => (
-    <div key={colIdx} className={`mwall__col mwall__col--${colIdx + 1}`}>
-      <div className="mwall__col-track">
-        {[...items, ...items].map((card, j) => (
-          <WallCard
-            key={`${colIdx}-${j}`}
-            t={card}
-            active={active}
-            onActivate={onActivate}
-          />
-        ))}
-      </div>
-    </div>
+  // Connector line endpoints in viewBox units.
+  const cx1 = vx(activeStar.x);
+  const cy1 = vy(activeStar.y);
+  const cx2 = vx(activeStar.x + (side === "right" ? 4 : -4));
+  const cy2 = cy1;
+
+  // Polyline points for the constellation line.
+  const polyPoints = STAR_POSITIONS.map((s) => `${vx(s.x)},${vy(s.y)}`).join(
+    " "
   );
 
   return (
@@ -256,37 +242,102 @@ export default function ShowcaseCards() {
           </div>
         </Reveal>
 
-        <div className="pscard__container">
-          {/* key={active} re-mounts the wrap so the existing fade-up
-              keyframe in .pscard__feature runs on every swap */}
-          <div key={active} className="pscard__feature-wrap">
-            <FeatureBlock t={t} />
+        <div
+          ref={containerRef}
+          className={`constel${drawn ? " is-drawn" : ""}`}
+        >
+          <svg
+            className="constel__svg"
+            viewBox={`0 0 ${VB_W} ${VB_H}`}
+            preserveAspectRatio="xMidYMid meet"
+            aria-hidden="true"
+          >
+            <defs>
+              <radialGradient id="constelHalo">
+                <stop offset="0%" stopColor="rgba(140, 170, 220, 0.7)" />
+                <stop offset="60%" stopColor="rgba(140, 170, 220, 0.18)" />
+                <stop offset="100%" stopColor="rgba(140, 170, 220, 0)" />
+              </radialGradient>
+              <filter id="constelGlow" x="-200%" y="-200%" width="500%" height="500%">
+                <feGaussianBlur stdDeviation="2" result="b" />
+                <feMerge>
+                  <feMergeNode in="b" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <polyline
+              className="constel__line"
+              points={polyPoints}
+              pathLength="1"
+            />
+
+            {/* connector from active star to tile edge */}
+            <line
+              className="constel__connector"
+              x1={cx1}
+              y1={cy1}
+              x2={cx2}
+              y2={cy2}
+            />
+
+            {STAR_POSITIONS.map((s, i) => (
+              <g
+                key={i}
+                ref={(el) => {
+                  starRefs.current[i] = el;
+                }}
+                className={`constel__star${i === active ? " is-active" : ""}`}
+                transform={`translate(${vx(s.x)} ${vy(s.y)})`}
+                role="button"
+                tabIndex={0}
+                aria-label={`Show testimonial from ${TESTIMONIALS[i].name}`}
+                onClick={() => setActive(i)}
+                onMouseEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                onKeyDown={(e) => onKey(e, i)}
+                style={{ transitionDelay: `${i * 120}ms` }}
+              >
+                <circle r="18" fill="url(#constelHalo)" className="constel__halo" />
+                <circle r="4" fill="#fff" className="constel__dot" filter="url(#constelGlow)" />
+                <text
+                  className="constel__label"
+                  y="-22"
+                  textAnchor="middle"
+                  fontSize="12"
+                >
+                  Nº{String(i + 1).padStart(2, "0")}
+                </text>
+              </g>
+            ))}
+          </svg>
+
+          {/* desktop tile — key={active} re-mounts on swap so the
+              CSS keyframe runs */}
+          <div key={`d-${active}`} className="constel__tile" style={tileStyle}>
+            <TileBody t={t} />
           </div>
 
-          {/* Desktop: 3 vertical columns scrolling at varied speeds */}
-          <div
-            className={`mwall mwall--desktop${wallPaused ? " is-paused" : ""}`}
-            onMouseLeave={() => setPaused(false)}
-          >
-            {COLS.map((items, idx) => renderCol(items, idx))}
-          </div>
-
-          {/* Mobile: single horizontal row */}
-          <div
-            className={`mwall mwall--mobile${wallPaused ? " is-paused" : ""}`}
-            onMouseLeave={() => setPaused(false)}
-          >
-            <div className="mwall__col">
-              <div className="mwall__col-track">
-                {[...TESTIMONIALS, ...TESTIMONIALS].map((card, j) => (
-                  <WallCard
-                    key={`m-${j}`}
-                    t={card}
-                    active={active}
-                    onActivate={onActivate}
-                  />
-                ))}
-              </div>
+          {/* mobile fallback — dot row + full-width tile */}
+          <div className="constel__mobile">
+            <div className="constel__dots" role="tablist" aria-label="Choose a testimonial">
+              {TESTIMONIALS.map((c, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === active}
+                  aria-label={`Show testimonial from ${c.name}`}
+                  className={`constel__dot-btn${
+                    i === active ? " is-active" : ""
+                  }`}
+                  onClick={() => setActive(i)}
+                />
+              ))}
+            </div>
+            <div key={`m-${active}`} className="constel__tile-mobile">
+              <TileBody t={t} />
             </div>
           </div>
         </div>

@@ -12360,132 +12360,145 @@ a.feat-reach__line:hover {
   color: #d8a23a;
 }
 
-/* ----- Two-column container: featured + marquee wall ----- */
-.pscard__container {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr);
-  gap: clamp(1.5rem, 1rem + 2vw, 3rem);
-  align-items: center;
-  max-width: 1180px;
-  margin: clamp(1rem, 0.5rem + 1vw, 2rem) auto 0;
-  padding-inline: clamp(1rem, 0.5rem + 1.5vw, 2rem);
-}
+/* ----- Constellation map (testimonial section) -----
+   Seven client "stars" arranged in a 2D shape connected by a thin
+   silver polyline. Hover/click any star → it brightens and its
+   testimonial tile slides in beside it. Scroll-driven first draw
+   via IntersectionObserver toggling .is-drawn on the container. */
 
-@media (max-width: 880px) {
-  .pscard__container {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* key={active} on the wrap re-mounts it so the fade keyframe runs */
-.pscard__feature-wrap {
+.constel {
+  position: relative;
   width: 100%;
+  max-width: 1000px;
+  margin: clamp(2rem, 1rem + 2vw, 4rem) auto 0;
+  aspect-ratio: 800 / 460;
+  /* faint nested radial wash so the stars feel like they sit in
+     soft cosmos behind XeroBackdrop, not on a flat plane */
+  background:
+    radial-gradient(58% 78% at 50% 50%, rgba(168, 85, 247, 0.06), transparent 70%),
+    radial-gradient(40% 60% at 30% 30%, rgba(74, 120, 255, 0.05), transparent 70%);
+  border-radius: 18px;
+  isolation: isolate;
 }
 
-/* ----- Marquee wall: 3 vertical columns scrolling at varied speeds ----- */
-.mwall {
-  position: relative;
-  height: 620px;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.8rem;
-  /* soft top + bottom fade so cards melt into the section edges */
-  -webkit-mask-image: linear-gradient(
-    180deg,
-    transparent 0%,
-    #000 16%,
-    #000 84%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    180deg,
-    transparent 0%,
-    #000 16%,
-    #000 84%,
-    transparent 100%
-  );
+.constel__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
-.mwall--mobile { display: none; }
+/* polyline connecting all stars — drawn on first IO trigger */
+.constel__line {
+  fill: none;
+  stroke: rgba(140, 170, 220, 0.4);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.8s ease-out;
+}
+.constel.is-drawn .constel__line { stroke-dashoffset: 0; }
 
-.mwall__col {
-  position: relative;
-  overflow: hidden;
+/* connector from active star to the tile's nearest edge */
+.constel__connector {
+  stroke: rgba(140, 170, 220, 0.55);
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: 0;
+  transition: opacity 350ms ease;
 }
+.constel.is-drawn .constel__connector { opacity: 1; }
 
-.mwall__col-track {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  animation: mwallScrollUp 64s linear infinite;
-  will-change: transform;
-}
-
-.mwall__col--1 .mwall__col-track {
-  animation: mwallScrollUp 64s linear infinite;
-}
-.mwall__col--2 .mwall__col-track {
-  animation: mwallScrollDown 48s linear infinite;
-}
-.mwall__col--3 .mwall__col-track {
-  animation: mwallScrollUp 36s linear infinite;
-}
-
-@keyframes mwallScrollUp {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-50%); }
-}
-
-@keyframes mwallScrollDown {
-  from { transform: translateY(-50%); }
-  to   { transform: translateY(0); }
-}
-
-.mwall.is-paused .mwall__col-track {
-  animation-play-state: paused;
-}
-
-/* ----- Card ----- */
-.mwall__card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  text-align: left;
-  appearance: none;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  padding: 1rem;
-  color: inherit;
+/* Star group: halo + core dot + Nº label */
+.constel__star {
   cursor: pointer;
-  font: inherit;
-  transition: transform 220ms ease, border-color 220ms ease,
-    background 220ms ease, box-shadow 220ms ease;
-}
-
-.mwall__card:hover,
-.mwall__card:focus-visible {
-  transform: translateY(-2px);
-  border-color: rgba(120, 200, 255, 0.45);
-  background: rgba(255, 255, 255, 0.07);
   outline: none;
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+.constel.is-drawn .constel__star { opacity: 1; }
+
+.constel__star:focus-visible .constel__dot {
+  filter: drop-shadow(0 0 8px rgba(120, 200, 255, 0.95));
 }
 
-.mwall__card[data-active="true"] {
-  border-color: rgba(120, 200, 255, 0.55);
-  background: rgba(120, 200, 255, 0.07);
-  box-shadow: 0 0 0 1px rgba(120, 200, 255, 0.4),
-    0 18px 40px -22px rgba(43, 95, 255, 0.5);
+.constel__halo {
+  opacity: 0;
+  transition: opacity 320ms ease;
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
-.mwall__card-head {
+.constel__star.is-active .constel__halo {
+  opacity: 1;
+  animation: constelPulse 3.6s ease-in-out infinite;
+}
+
+@keyframes constelPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%      { opacity: 0.95; transform: scale(1.12); }
+}
+
+.constel__dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 300ms ease;
+}
+
+.constel__star.is-active .constel__dot {
+  transform: scale(1.2);
+}
+
+.constel__label {
+  font-family: var(--font-cormorant), Georgia, serif;
+  fill: rgba(180, 200, 230, 0.55);
+  font-style: italic;
+  font-weight: 500;
+  transition: fill 300ms ease;
+  user-select: none;
+  pointer-events: none;
+}
+
+.constel__star.is-active .constel__label {
+  fill: rgba(225, 232, 250, 0.96);
+}
+
+/* Tile — testimonial card anchored beside the active star */
+.constel__tile {
+  position: absolute;
+  width: 280px;
+  max-width: 80%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  padding: 1.2rem;
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  backdrop-filter: blur(10px) saturate(140%);
+  box-shadow: 0 20px 50px -28px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  opacity: 0;
+  animation: constelTileIn 0.35s ease-out 0.3s forwards;
+}
+
+.constel.is-drawn .constel__tile {
+  opacity: 1;
+}
+
+@keyframes constelTileIn {
+  from { opacity: 0; transform: translateY(-50%) translateX(-6px); }
+  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+.constel__tile-head {
   display: flex;
   align-items: center;
   gap: 0.55rem;
+  margin-bottom: 0.65rem;
 }
 
-.mwall__card-avatar {
+.constel__tile-avatar {
   width: 32px;
   height: 32px;
   border-radius: 999px;
@@ -12495,41 +12508,42 @@ a.feat-reach__line:hover {
   overflow: hidden;
   flex-shrink: 0;
   background: rgba(43, 95, 255, 0.18);
-  border: 1px solid rgba(120, 170, 230, 0.28);
+  border: 1px solid rgba(120, 170, 230, 0.32);
   color: var(--blue-light);
   font-weight: 600;
   font-size: 0.72rem;
 }
 
-.mwall__card-avatar.t-b {
+.constel__tile-avatar.t-b {
   background: rgba(192, 132, 252, 0.18);
   border-color: rgba(192, 132, 252, 0.42);
   color: #d6b2fc;
 }
 
-.mwall__card-avatar.t-c {
+.constel__tile-avatar.t-c {
   background: rgba(251, 191, 36, 0.12);
   border-color: rgba(251, 191, 36, 0.32);
   color: #fcd34d;
 }
 
-.mwall__card-avatar img {
+.constel__tile-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.mwall__card-name {
+.constel__tile-name {
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #fafafa;
-  line-height: 1.25;
 }
 
-.mwall__card-quote {
-  margin: 0;
-  font-size: 0.84rem;
-  line-height: 1.5;
+.constel__tile-quote {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-size: 0.98rem;
+  line-height: 1.45;
   color: #f5f5f5;
   display: -webkit-box;
   -webkit-line-clamp: 4;
@@ -12537,64 +12551,85 @@ a.feat-reach__line:hover {
   overflow: hidden;
 }
 
-.mwall__card-role {
+.constel__tile-role {
+  display: block;
   color: var(--muted);
-  font-size: 0.72rem;
-  line-height: 1.3;
+  font-size: 0.78rem;
+  margin-bottom: 0.5rem;
 }
 
-/* ----- Mobile: featured stacks above a horizontal marquee row ----- */
+/* ----- Mobile fallback: dot row + full-width tile ----- */
+.constel__mobile { display: none; }
+
 @media (max-width: 880px) {
-  .mwall--desktop { display: none; }
-
-  .mwall--mobile {
+  .constel {
+    aspect-ratio: auto;
+    background: none;
+  }
+  .constel__svg,
+  .constel__tile {
+    display: none;
+  }
+  .constel__mobile {
     display: block;
-    height: auto;
-    grid-template-columns: none;
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent 0%,
-      #000 10%,
-      #000 90%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      90deg,
-      transparent 0%,
-      #000 10%,
-      #000 90%,
-      transparent 100%
-    );
   }
-
-  .mwall--mobile .mwall__col {
-    overflow: hidden;
+  .constel__dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    padding: 0.5rem 0 1.2rem;
+  }
+  .constel__dot-btn {
+    appearance: none;
+    border: none;
+    background: rgba(255, 255, 255, 0.4);
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    padding: 0;
+    cursor: pointer;
+    transition: background 200ms ease, transform 200ms ease,
+      box-shadow 200ms ease;
+  }
+  .constel__dot-btn.is-active {
+    background: var(--blue-light);
+    transform: scale(1.6);
+    box-shadow: 0 0 12px rgba(74, 120, 255, 0.85);
+  }
+  .constel__tile-mobile {
+    position: static;
     width: 100%;
+    max-width: 480px;
+    margin-inline: auto;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 18px;
+    padding: 1.2rem;
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    backdrop-filter: blur(10px) saturate(140%);
+    animation: constelTileMobileIn 0.35s ease-out both;
   }
-
-  .mwall--mobile .mwall__col-track {
-    flex-direction: row;
-    animation: mwallScrollLeft 50s linear infinite;
-  }
-
-  .mwall--mobile .mwall__card {
-    flex: 0 0 240px;
-  }
-
-  @keyframes mwallScrollLeft {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
+  @keyframes constelTileMobileIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pscard__feature {
-    animation: none;
-  }
-  .mwall__col-track {
+  .constel__star,
+  .constel__line,
+  .constel__connector,
+  .constel__halo,
+  .constel__dot,
+  .constel__tile {
+    transition: none !important;
     animation: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
   }
 }
+
 
 
 /* ---------- Studio landing (horizon flythrough) ---------- */
