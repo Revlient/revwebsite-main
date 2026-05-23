@@ -7249,6 +7249,424 @@ a.feat-reach__line:hover {
   background: #f0f0ee;
 }
 
+/* ---------- Worth Crafting (Qintara-style hands + central glow) ---------- */
+
+.worth {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #050507;
+  color: #fff;
+  padding: clamp(4rem, 3rem + 4vw, 8rem) clamp(1rem, 0.5rem + 1.5vw, 2.5rem)
+    clamp(4rem, 3rem + 3vw, 6rem);
+}
+
+/* ambient grid behind everything */
+.worth__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(60% 70% at 50% 50%, black, transparent 90%);
+  mask-image: radial-gradient(60% 70% at 50% 50%, black, transparent 90%);
+}
+
+/* drifting purple particles */
+.worth__particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.worth__particle {
+  position: absolute;
+  bottom: -2%;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(168, 85, 247, 0.7);
+  box-shadow: 0 0 6px rgba(168, 85, 247, 0.5);
+  opacity: 0;
+  animation: worthFloat linear infinite;
+  animation-delay: 0s;
+}
+
+@keyframes worthFloat {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.worth__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.worth__head {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.worth__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.32rem 0.85rem 0.32rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(168, 85, 247, 0.32);
+  background: linear-gradient(120deg, rgba(168, 85, 247, 0.18), rgba(74, 120, 255, 0.08));
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.worth__eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a855f7;
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.18);
+  animation: worthPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes worthPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.18); }
+  50% { transform: scale(1.25); box-shadow: 0 0 0 6px rgba(168, 85, 247, 0.32); }
+}
+
+.worth__title {
+  margin: 0;
+  font-size: clamp(1.85rem, 1.3rem + 2.6vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.18;
+  color: #fff;
+  background: linear-gradient(180deg, #ffffff 0%, #d8c7ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.worth__sub {
+  margin: 0;
+  max-width: 38rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.worth__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.25s var(--ease), border-color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+
+.worth__cta:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.32);
+  transform: translateY(-1px);
+}
+
+.worth__cta-arrow {
+  display: inline-block;
+  transition: transform 0.25s var(--ease);
+}
+
+.worth__cta:hover .worth__cta-arrow {
+  transform: translateX(2px);
+}
+
+/* hands + cross stage */
+.worth__stage {
+  position: relative;
+  width: 100%;
+  margin-top: clamp(2rem, 1.4rem + 2vw, 3.5rem);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: clamp(-2rem, -3rem + 1vw, 1rem);
+  min-height: 340px;
+}
+
+.worth__hand {
+  width: clamp(220px, 28vw, 380px);
+  height: auto;
+  display: block;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.18));
+  animation: worthHandPulse 5s ease-in-out infinite;
+}
+
+.worth__hand--left {
+  justify-self: start;
+  margin-left: clamp(-4rem, -3vw, 0rem);
+}
+
+.worth__hand--right {
+  justify-self: end;
+  margin-right: clamp(-4rem, -3vw, 0rem);
+  animation-delay: -2.5s;
+}
+
+@keyframes worthHandPulse {
+  0%, 100% {
+    opacity: 0.95;
+    filter: drop-shadow(0 0 14px rgba(168, 85, 247, 0.16));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 22px rgba(168, 85, 247, 0.32));
+  }
+}
+
+/* energy beams sweep across the whole stage */
+.worth__beams {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.worth__beam {
+  stroke-dashoffset: 0;
+  animation: worthBeamFlow 3.6s linear infinite;
+}
+
+.worth__beam--right {
+  animation-direction: reverse;
+  animation-delay: -1.8s;
+}
+
+@keyframes worthBeamFlow {
+  from { stroke-dashoffset: 374; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* central glowing pixel cross */
+.worth__core {
+  position: relative;
+  width: clamp(160px, 18vw, 240px);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.worth__halo {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.worth__halo--outer {
+  inset: -70%;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(168, 85, 247, 0.42) 0%,
+    rgba(168, 85, 247, 0.08) 45%,
+    transparent 75%
+  );
+  filter: blur(28px);
+  animation: worthHaloOuter 7s ease-in-out infinite alternate;
+}
+
+.worth__halo--inner {
+  inset: -30%;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(232, 211, 255, 0.55) 0%,
+    rgba(168, 85, 247, 0.18) 45%,
+    transparent 75%
+  );
+  filter: blur(14px);
+  animation: worthHaloInner 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes worthHaloOuter {
+  from { transform: scale(0.9); opacity: 0.7; }
+  to { transform: scale(1.12); opacity: 1; }
+}
+
+@keyframes worthHaloInner {
+  from { transform: scale(0.95); opacity: 0.7; }
+  to { transform: scale(1.18); opacity: 1; }
+}
+
+.worth__ring {
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  border: 1px dashed rgba(232, 211, 255, 0.22);
+  animation: worthRingSpin 32s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes worthRingSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.worth__cross {
+  position: relative;
+  z-index: 1;
+  width: 78%;
+  height: 78%;
+  filter: drop-shadow(0 0 32px rgba(168, 85, 247, 0.6));
+  animation: worthCrossSpin 22s linear infinite;
+}
+
+@keyframes worthCrossSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* three orbiting accent dots around the core */
+.worth__orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.worth__orbit::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e9d5ff;
+  box-shadow: 0 0 12px rgba(232, 211, 255, 0.9);
+}
+
+.worth__orbit--a {
+  animation: worthOrbitA 9s linear infinite;
+}
+
+.worth__orbit--a::before {
+  top: -90px;
+  left: -4px;
+}
+
+.worth__orbit--b {
+  animation: worthOrbitB 13s linear infinite;
+}
+
+.worth__orbit--b::before {
+  top: -4px;
+  left: 95px;
+  background: #c4b5fd;
+  width: 6px;
+  height: 6px;
+}
+
+.worth__orbit--c {
+  animation: worthOrbitC 17s linear infinite;
+}
+
+.worth__orbit--c::before {
+  top: 70px;
+  left: -70px;
+  background: #a78bfa;
+  width: 5px;
+  height: 5px;
+}
+
+@keyframes worthOrbitA {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes worthOrbitB {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes worthOrbitC {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 760px) {
+  .worth__stage {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .worth__hand--left,
+  .worth__hand--right {
+    width: 60vw;
+    margin: 0 auto;
+    justify-self: center;
+  }
+  .worth__hand--right {
+    transform: scaleX(-1);
+  }
+  .worth__beams {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .worth__halo,
+  .worth__halo--inner,
+  .worth__halo--outer,
+  .worth__cross,
+  .worth__ring,
+  .worth__beam,
+  .worth__orbit,
+  .worth__hand,
+  .worth__particle,
+  .worth__eyebrow-dot {
+    animation: none;
+  }
+  .worth__particle {
+    opacity: 0.6;
+  }
+}
+
 /* ---------- App showcase (mobile-app reveal under ErpFeatures) ---------- */
 
 .appshow {

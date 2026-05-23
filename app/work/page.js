@@ -3,6 +3,7 @@ import WorkFeatureSection from "../components/WorkFeatureSection";
 import ErpFeatures from "../components/ErpFeatures";
 import AppShowcase from "../components/AppShowcase";
 import AppFeatures from "../components/AppFeatures";
+import WorthCrafting from "../components/WorthCrafting";
 import FinalCTA from "../components/FinalCTA";
 import Footer from "../components/Footer";
 import StickyCTA from "../components/StickyCTA";
@@ -28,6 +29,7 @@ export default function WorkPage() {
         <ErpFeatures />
         <AppShowcase />
         <AppFeatures />
+        <WorthCrafting />
         <FinalCTA />
       </main>
       <Footer />
