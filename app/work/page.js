@@ -1,4 +1,5 @@
 import WorkHero from "../components/WorkHero";
+import WorkFeatureSection from "../components/WorkFeatureSection";
 import Work from "../components/Work";
 import FinalCTA from "../components/FinalCTA";
 import Footer from "../components/Footer";
@@ -21,6 +22,7 @@ export default function WorkPage() {
     <>
       <main className="page-work">
         <WorkHero />
+        <WorkFeatureSection />
         <Work />
         <FinalCTA />
       </main>

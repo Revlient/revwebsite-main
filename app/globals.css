@@ -5297,6 +5297,445 @@ a.feat-reach__line:hover {
   background: #f0f0ee;
 }
 
+/* ---------- /work feature section (tailark hero-section-1) ---------- */
+
+.wfs {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(4rem, 3rem + 4vw, 8rem) clamp(1rem, 0.5rem + 2vw, 3rem)
+    clamp(3rem, 2rem + 3vw, 6rem);
+  background: var(--bg);
+  color: var(--text);
+  isolation: isolate;
+}
+
+/* hidden lg gradient stack from the brief — three rotated radial
+   slivers slipping in from the left edge */
+.wfs__ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .wfs__ambient {
+    display: block;
+  }
+}
+
+.wfs__blob {
+  position: absolute;
+  top: -350px;
+  left: 0;
+  transform: rotate(-45deg);
+  pointer-events: none;
+}
+
+.wfs__blob--1 {
+  width: 35rem;
+  height: 80rem;
+  border-radius: 9999px;
+  background: radial-gradient(
+    68.54% 68.72% at 55.02% 31.46%,
+    hsla(0, 0%, 85%, 0.08) 0,
+    hsla(0, 0%, 55%, 0.02) 50%,
+    hsla(0, 0%, 45%, 0) 80%
+  );
+}
+
+.wfs__blob--2 {
+  width: 14rem;
+  height: 80rem;
+  top: 0;
+  border-radius: 9999px;
+  transform: translate(5%, -50%) rotate(-45deg);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    hsla(0, 0%, 85%, 0.06) 0,
+    hsla(0, 0%, 45%, 0.02) 80%,
+    transparent 100%
+  );
+}
+
+.wfs__blob--3 {
+  width: 14rem;
+  height: 80rem;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    hsla(0, 0%, 85%, 0.04) 0,
+    hsla(0, 0%, 45%, 0.02) 80%,
+    transparent 100%
+  );
+}
+
+.wfs__radial {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    125% 125% at 50% 100%,
+    transparent 0%,
+    var(--bg) 75%
+  );
+}
+
+.wfs__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 80rem;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* enter-keyframe replacement for the brief's blur-up motion */
+@keyframes wfsRise {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.wfs__pill,
+.wfs__heading,
+.wfs__sub,
+.wfs__actions,
+.wfs__screenwrap,
+.wfs__customers {
+  opacity: 0;
+  animation: wfsRise 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.wfs__pill {
+  animation-delay: 0.05s;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.25rem 0.25rem 0.25rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  color: var(--text);
+  font-size: 0.86rem;
+  margin: 0 auto;
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.wfs__pill:hover {
+  background: var(--panel-2);
+  border-color: var(--line-strong);
+}
+
+.wfs__pill-divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.wfs__pill-arrow {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg);
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  transition: background 0.5s var(--ease);
+}
+
+.wfs__pill:hover .wfs__pill-arrow {
+  background: var(--panel-2);
+}
+
+.wfs__pill-arrow-track {
+  display: flex;
+  width: 48px;
+  transform: translateX(-50%);
+  transition: transform 0.5s ease-in-out;
+}
+
+.wfs__pill:hover .wfs__pill-arrow-track {
+  transform: translateX(0);
+}
+
+.wfs__pill-arrow-frame {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+.wfs__pill-arrow-frame svg {
+  width: 12px;
+  height: 12px;
+}
+
+.wfs__heading {
+  animation-delay: 0.1s;
+  margin: 0;
+  max-width: 56rem;
+  font-size: clamp(2.5rem, 1.4rem + 4vw, 5.25rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  text-wrap: balance;
+  color: var(--text);
+}
+
+.wfs__sub {
+  animation-delay: 0.2s;
+  margin: 0;
+  max-width: 38rem;
+  font-size: clamp(1rem, 0.92rem + 0.4vw, 1.125rem);
+  line-height: 1.6;
+  color: var(--muted);
+  text-wrap: balance;
+}
+
+.wfs__actions {
+  animation-delay: 0.4s;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .wfs__actions {
+    flex-direction: row;
+  }
+}
+
+.wfs__cta-wrap {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.wfs__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.65rem 1.25rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+.wfs__cta--primary {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.wfs__cta--primary:hover {
+  background: rgba(245, 245, 247, 0.9);
+  transform: translateY(-1px);
+}
+
+.wfs__cta--ghost {
+  background: transparent;
+  color: var(--text);
+  padding: 0.65rem 1.25rem;
+  border-radius: 12px;
+}
+
+.wfs__cta--ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* stylised app-screen mockup */
+.wfs__screenwrap {
+  animation-delay: 0.55s;
+  position: relative;
+  z-index: 1;
+  max-width: 76rem;
+  margin: clamp(2rem, 1.4rem + 2vw, 4rem) auto 0;
+  padding: 1rem;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  box-shadow: 0 30px 60px -36px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.wfs__screen-fade {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0%, transparent 35%, var(--bg) 100%);
+}
+
+.wfs__screen {
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  overflow: hidden;
+  aspect-ratio: 15 / 8;
+  display: flex;
+  flex-direction: column;
+}
+
+.wfs__screen-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.wfs__screen-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.wfs__screen-url {
+  height: 14px;
+  flex: 1;
+  margin-left: 0.8rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  max-width: 260px;
+}
+
+.wfs__screen-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 0.35fr 1fr;
+  min-height: 0;
+}
+
+.wfs__screen-side {
+  padding: 1rem;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.wfs__screen-pill {
+  height: 14px;
+  border-radius: 7px;
+  background: linear-gradient(90deg, rgba(74, 120, 255, 0.5), rgba(74, 120, 255, 0.12));
+  width: 70%;
+  margin-bottom: 0.4rem;
+}
+
+.wfs__screen-row {
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
+}
+
+.wfs__screen-row--sm {
+  width: 60%;
+}
+
+.wfs__screen-main {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.wfs__screen-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7rem;
+  margin-bottom: 0.4rem;
+}
+
+.wfs__screen-tile {
+  aspect-ratio: 4 / 2.4;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--line);
+}
+
+.wfs__screen-tile--accent {
+  background: linear-gradient(135deg, rgba(74, 120, 255, 0.55), rgba(43, 95, 255, 0.18));
+  border-color: rgba(74, 120, 255, 0.35);
+}
+
+.wfs__screen-tile--alt {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.35), rgba(59, 130, 246, 0.1));
+  border-color: rgba(168, 85, 247, 0.25);
+}
+
+.wfs__screen-rowwide {
+  height: 9px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.05));
+}
+
+.wfs__screen-rowwide--lg {
+  width: 95%;
+  background: linear-gradient(90deg, rgba(74, 120, 255, 0.45), rgba(74, 120, 255, 0.08));
+}
+
+.wfs__screen-rowwide--md {
+  width: 70%;
+}
+
+/* customers row — abstract bars */
+.wfs__customers {
+  animation-delay: 0.8s;
+  position: relative;
+  z-index: 1;
+  max-width: 64rem;
+  margin: clamp(3rem, 2rem + 2vw, 5rem) auto 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.4rem 3.6rem;
+}
+
+@media (min-width: 640px) {
+  .wfs__customers {
+    gap: 3.4rem 4rem;
+  }
+}
+
+.wfs__customer {
+  height: 18px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.05));
+}
+
+.wfs__customer--1 { width: 80%; }
+.wfs__customer--2 { width: 65%; height: 16px; }
+.wfs__customer--3 { width: 70%; height: 16px; }
+.wfs__customer--4 { width: 75%; }
+.wfs__customer--5 { width: 85%; }
+.wfs__customer--6 { width: 60%; height: 16px; }
+.wfs__customer--7 { width: 90%; height: 22px; }
+.wfs__customer--8 { width: 70%; }
+
 .pscard {
   position: relative;
   overflow: hidden;
