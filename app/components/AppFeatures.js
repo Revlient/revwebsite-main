@@ -210,52 +210,54 @@ export default function AppFeatures() {
 
           {/* Column 3 */}
           <div className="feat-col">
-            <article className="feat-card feat-card--software feat-card--aichat">
+            <article className="feat-card feat-card--software feat-card--aimatch">
               <div className="feat-card__inner">
-                <SectionLabel>AI COUNSELLOR</SectionLabel>
-                <div className="aichat" aria-label="AI Counsellor chat preview">
-                  <header className="aichat__head">
-                    <span className="aichat__avatar" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <rect x="9" y="2" width="6" height="3" rx="1" />
-                        <rect x="4" y="6" width="16" height="13" rx="3" />
-                        <circle cx="9" cy="13" r="1.5" fill="#fff" />
-                        <circle cx="15" cy="13" r="1.5" fill="#fff" />
-                      </svg>
-                    </span>
-                    <span className="aichat__title">AI Counsellor</span>
-                    <span className="aichat__close" aria-hidden="true">×</span>
-                  </header>
-                  <div className="aichat__body">
-                    <div className="aichat__msg aichat__msg--user">
-                      <span className="aichat__bubble">Hey</span>
-                      <span className="aichat__userpic" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 4-6 8-6s8 2 8 6" /></svg>
-                      </span>
-                    </div>
-                    <div className="aichat__msg aichat__msg--bot">
-                      <span className="aichat__botpic" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                          <rect x="9" y="2" width="6" height="3" rx="1" />
-                          <rect x="4" y="6" width="16" height="13" rx="3" />
-                          <circle cx="9" cy="13" r="1.5" fill="#fff" />
-                          <circle cx="15" cy="13" r="1.5" fill="#fff" />
+                <SectionLabel>HOW AI MATCHMAKING WORKS</SectionLabel>
+                <div className="aimatch" aria-label="AI matchmaking pipeline">
+                  {[
+                    {
+                      title: "Profile Analysis",
+                      body: "We scan your academic records, scores, and preferences.",
+                      icon: (
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M9 4.5C7.6 4.5 6.5 5.6 6.5 7v9a3 3 0 0 0 5.5 1.7 3 3 0 0 0 5.5-1.7V7c0-1.4-1.1-2.5-2.5-2.5a2.6 2.6 0 0 0-2.5 1.6 2.6 2.6 0 0 0-2.5-1.6Z" />
+                          <path d="M12 6.1V20" />
+                          <path d="M9 9h.01" />
+                          <path d="M15 9h.01" />
                         </svg>
+                      ),
+                    },
+                    {
+                      title: "Global Benchmarking",
+                      body: "Comparison with millions of data points and trends.",
+                      icon: (
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M3 17 L9 11 L13 15 L21 7" />
+                          <path d="M15 7 L21 7 L21 13" />
+                        </svg>
+                      ),
+                    },
+                    {
+                      title: "Smart Filtering",
+                      body: "Final list categorized by admission probability.",
+                      icon: (
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 3L4 6v6c0 5 3.5 8.5 8 9 4.5-.5 8-4 8-9V6l-8-3Z" />
+                          <path d="M9 12l2 2 4-4" />
+                        </svg>
+                      ),
+                    },
+                  ].map((step) => (
+                    <div className="aimatch__step" key={step.title}>
+                      <span className="aimatch__icon" aria-hidden="true">
+                        {step.icon}
                       </span>
-                      <p className="aichat__bubble">
-                        Hello, welcome to our university admissions
-                        platform. I&apos;m here to help you find your
-                        perfect university match. What brings you here
-                        today?
-                      </p>
+                      <div className="aimatch__text">
+                        <h4>{step.title}</h4>
+                        <p>{step.body}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="aichat__input">
-                    <span className="aichat__placeholder">Ask something…</span>
-                    <span className="aichat__send" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 21l19-9L3 3v6l13 3-13 3z" /></svg>
-                    </span>
-                  </div>
+                  ))}
                 </div>
               </div>
             </article>

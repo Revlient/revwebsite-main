@@ -6188,6 +6188,58 @@ html.js .reveal.is-visible {
   height: 14px;
 }
 
+/* ---- AI Matchmaking three-step explanation (AppFeatures col 3 top) ---- */
+.feat-card--aimatch .feat-card__inner {
+  gap: 1rem;
+}
+
+.aimatch {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  flex: 1;
+  padding: 1rem 0.4rem 0.2rem;
+}
+
+.aimatch__step {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+}
+
+.aimatch__icon {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(74, 120, 255, 0.32);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #93c5fd;
+}
+
+.aimatch__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.aimatch__text h4 {
+  margin: 0;
+  font-size: 0.96rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+.aimatch__text p {
+  margin: 3px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+}
+
 @media (min-width: 768px) {
   .feat-tile {
     width: 64px;
@@ -8159,8 +8211,8 @@ a.feat-reach__line:hover {
      aligns with the dashboard frame below */
   top: -24rem;
   left: 50%;
-  /* shifted 3cm right of centre (2cm + 1cm nudge) */
-  transform: translateX(calc(-50% + 3cm));
+  /* shifted 2.5cm right of centre (was 3cm, nudged 0.5cm left) */
+  transform: translateX(calc(-50% + 2.5cm));
   width: min(115%, 100rem);
   height: calc(100% + 24rem);
   z-index: 0;
