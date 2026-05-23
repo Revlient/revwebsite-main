@@ -1014,6 +1014,10 @@ html.js .reveal.is-visible {
   align-items: center;
   padding-top: 68px;
   overflow: hidden;
+  /* Ensure the hero's last pixel is the same dark surface the
+     AiPromptSection starts on, so the two sections read as one
+     uninterrupted dark canvas. */
+  background: var(--bg);
 }
 
 /* ---- Hero backdrop: uploaded image + subtle breath + warm shimmer ---- */
@@ -3490,6 +3494,10 @@ html.js .reveal.is-visible {
   align-items: center;
   padding-block: clamp(2.5rem, 2rem + 3vw, 4rem);
   background: var(--bg);
+  /* Pull the chat section up under the hero's bottom edge so the two
+     sections share the same dark surface — kills the visible seam
+     between Hero and AiPromptSection on the homepage. */
+  margin-top: -1px;
 }
 
 /* chatting mode: section becomes a full-screen chat surface — the
