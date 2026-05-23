@@ -421,11 +421,16 @@ html.js .reveal.is-visible {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  /* Black-from-top → white-from-bottom theme. The image is forced
-     grayscale below, and .herobd__vignette overlays the actual
-     dark→light gradient on top of it. */
+  /* Brand-blue (top) → white (bottom) theme. The image, shimmer and
+     flow lines below are forced grayscale so the colour comes from
+     .herobd__vignette only — the vignette itself stays full-colour. */
   background: #ffffff;
   pointer-events: none;
+}
+
+.herobd__image,
+.herobd__shimmer,
+.herobd__flow {
   filter: grayscale(1) contrast(1.05);
 }
 
@@ -538,15 +543,15 @@ html.js .reveal.is-visible {
 .herobd__vignette {
   position: absolute;
   inset: 0;
-  /* Drives the B/W theme. Top of the ring is bathed in black, the
-     mid-section reveals the underlying grayscale image, then the
-     bottom washes out to pure white. */
+  /* Drives the brand-blue → white theme. Top of the ring is bathed
+     in deep navy, the mid-section reveals the underlying grayscale
+     image, then the bottom washes out to pure white. */
   background: linear-gradient(
     180deg,
-    #000000 0%,
-    rgba(0, 0, 0, 0.88) 14%,
-    rgba(0, 0, 0, 0.35) 36%,
-    rgba(0, 0, 0, 0.08) 50%,
+    #07102e 0%,
+    rgba(13, 26, 64, 0.88) 14%,
+    rgba(22, 33, 92, 0.35) 36%,
+    rgba(74, 120, 255, 0.08) 50%,
     rgba(255, 255, 255, 0.25) 64%,
     rgba(255, 255, 255, 0.85) 86%,
     #ffffff 100%
