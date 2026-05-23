@@ -2245,8 +2245,8 @@ html.js .reveal.is-visible {
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
-  width: min(300px, 100%);
-  padding: 1.2rem 1.3rem 1rem;
+  width: min(340px, 100%);
+  padding: 1rem 1.2rem 1.1rem;
   border-radius: 16px;
   color: inherit;
   background:
@@ -2314,15 +2314,95 @@ html.js .reveal.is-visible {
   line-height: 1.5;
 }
 
-.svc-eco-card__preview {
-  margin-top: 0.2rem;
+.svc-eco-card__mockup-wrap {
+  margin: -0.2rem -0.4rem 0.2rem;
+  border-radius: 12px;
+  background: rgba(168, 85, 247, 0.045);
+  border: 1px solid rgba(168, 85, 247, 0.14);
+  overflow: hidden;
 }
 
-.svc-eco-card__svg {
+.svc-eco-card__mockup {
+  display: block;
   width: 100%;
   height: auto;
-  display: block;
-  color: var(--blue-light);
+}
+
+/* tighter typography after adding the mockup row */
+.svc-eco-card__title {
+  font-size: 1.05rem;
+}
+
+.svc-eco-card__desc {
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+/* capability chips — small monospace pills */
+.svc-eco-card__chips {
+  list-style: none;
+  padding: 0;
+  margin: 0.1rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.svc-eco-card__chip {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1;
+  padding: 0.32rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(168, 85, 247, 0.22);
+  background: rgba(168, 85, 247, 0.05);
+  color: rgba(232, 220, 252, 0.9);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.svc-eco-card__deliv {
+  margin-top: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.svc-eco-card__deliv-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(214, 178, 252, 0.75);
+  font-weight: 600;
+}
+
+.svc-eco-card__deliv-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.svc-eco-card__deliv-list li {
+  position: relative;
+  padding-left: 1rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.svc-eco-card__deliv-list li::before {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(192, 132, 252, 0.85);
+  box-shadow: 0 0 6px rgba(192, 132, 252, 0.5);
 }
 
 .svc-eco-card__more {

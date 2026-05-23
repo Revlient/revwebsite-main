@@ -3,6 +3,12 @@
 // the homepage ecosystem renders them at positions tl/tr/bl/br
 // (top-left / top-right / bottom-left / bottom-right) around the
 // central Intelligence Core.
+//
+// `chips` = technology / capability tags shown in the home card.
+// `deliverables` = "what you get" bullets in the same card. Both are
+// description of what the studio builds — never invented metrics,
+// timelines, or client outcomes. Replace freely; do not add fake
+// proof.
 
 export const SERVICES = [
   {
@@ -18,6 +24,12 @@ export const SERVICES = [
       "3D / WebGL experiences",
       "Performance-first builds",
     ],
+    chips: ["Next.js", "CMS", "Stripe", "Analytics", "CDN"],
+    deliverables: [
+      "Production site",
+      "Editable CMS",
+      "Performance baseline",
+    ],
   },
   {
     slug: "software-development",
@@ -31,6 +43,12 @@ export const SERVICES = [
       "Custom platforms",
       "APIs & integrations",
       "Internal tools",
+    ],
+    chips: ["Django", "Postgres", "API", "Auth", "Webhooks"],
+    deliverables: [
+      "Cloud deploy",
+      "Auth + roles",
+      "API docs + tests",
     ],
   },
   {
@@ -46,6 +64,12 @@ export const SERVICES = [
       "Mobile applications",
       "UX & product design",
     ],
+    chips: ["React Native", "Push", "Offline", "Store"],
+    deliverables: [
+      "iOS + Android build",
+      "In-app analytics",
+      "Crash reporting",
+    ],
   },
   {
     slug: "automation-systems",
@@ -59,6 +83,12 @@ export const SERVICES = [
       "Workflow automation",
       "AI integrations",
       "Process & ops",
+    ],
+    chips: ["Workflows", "Integrations", "Schedulers", "Dashboards"],
+    deliverables: [
+      "Mapped workflows",
+      "Live dashboards",
+      "Alerts",
     ],
   },
 ];
