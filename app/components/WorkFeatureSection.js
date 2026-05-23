@@ -66,37 +66,103 @@ export default function WorkFeatureSection() {
         </div>
       </div>
 
-      {/* stylised app-screen mockup — no external screenshot needed */}
-      <div className="wfs__screenwrap">
+      <div className="wfs__showcase-label">
+        <span className="wfs__showcase-pulse" />
+        Showcase · Revlient Systems ERP
+      </div>
+
+      {/* stylised app-screen mockup — modelled on Revlient Systems
+          ERP UI. Labels are real (Dashboard, Orders, Inventory …);
+          KPI values stay as em-dash placeholders so we don't ship a
+          fabricated $-figure on a thumbnail. */}
+      <div className="wfs__screenwrap wfs__screenwrap--full">
         <span className="wfs__screen-fade" aria-hidden="true" />
         <div className="wfs__screen">
           <div className="wfs__screen-bar">
             <span className="wfs__screen-dot" />
             <span className="wfs__screen-dot" />
             <span className="wfs__screen-dot" />
-            <span className="wfs__screen-url" />
+            <span className="wfs__screen-url">systems.revlient.com</span>
           </div>
           <div className="wfs__screen-body">
             <aside className="wfs__screen-side">
-              <span className="wfs__screen-pill" />
-              <span className="wfs__screen-row" />
-              <span className="wfs__screen-row wfs__screen-row--sm" />
-              <span className="wfs__screen-row" />
-              <span className="wfs__screen-row wfs__screen-row--sm" />
-              <span className="wfs__screen-row" />
-            </aside>
-            <main className="wfs__screen-main">
-              <div className="wfs__screen-grid">
-                <span className="wfs__screen-tile wfs__screen-tile--accent" />
-                <span className="wfs__screen-tile" />
-                <span className="wfs__screen-tile" />
-                <span className="wfs__screen-tile" />
-                <span className="wfs__screen-tile wfs__screen-tile--alt" />
-                <span className="wfs__screen-tile" />
+              <div className="wfs__screen-brand">
+                <span className="wfs__screen-brand-mark" />
+                <span>Revlient Systems</span>
               </div>
-              <span className="wfs__screen-rowwide wfs__screen-rowwide--lg" />
-              <span className="wfs__screen-rowwide" />
-              <span className="wfs__screen-rowwide wfs__screen-rowwide--md" />
+              <nav className="wfs__screen-nav">
+                {[
+                  { label: "Dashboard", active: true },
+                  { label: "Orders" },
+                  { label: "Inventory" },
+                  { label: "Customers" },
+                  { label: "Suppliers" },
+                  { label: "Reports" },
+                  { label: "Settings" },
+                ].map((item) => (
+                  <span
+                    key={item.label}
+                    className={`wfs__screen-navitem ${
+                      item.active ? "is-active" : ""
+                    }`}
+                  >
+                    <span className="wfs__screen-navdot" aria-hidden="true" />
+                    {item.label}
+                  </span>
+                ))}
+              </nav>
+            </aside>
+
+            <main className="wfs__screen-main">
+              <header className="wfs__screen-header">
+                <span className="wfs__screen-title">Dashboard</span>
+                <div className="wfs__screen-toolbar">
+                  <button type="button" className="wfs__screen-btn wfs__screen-btn--ghost">
+                    Filter
+                  </button>
+                  <button type="button" className="wfs__screen-btn wfs__screen-btn--ghost">
+                    Export
+                  </button>
+                  <button type="button" className="wfs__screen-btn wfs__screen-btn--primary">
+                    + New order
+                  </button>
+                </div>
+              </header>
+
+              <div className="wfs__screen-kpis">
+                {[
+                  { label: "Revenue", accent: "accent" },
+                  { label: "Orders today" },
+                  { label: "Stock on hand" },
+                  { label: "Active customers", accent: "alt" },
+                ].map((k) => (
+                  <div
+                    key={k.label}
+                    className={`wfs__screen-kpi ${
+                      k.accent ? `wfs__screen-kpi--${k.accent}` : ""
+                    }`}
+                  >
+                    <span className="wfs__screen-kpi-label">{k.label}</span>
+                    <span className="wfs__screen-kpi-value">—</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="wfs__screen-panel">
+                <div className="wfs__screen-panel-head">
+                  <span className="wfs__screen-panel-title">Recent orders</span>
+                  <span className="wfs__screen-panel-action">View all</span>
+                </div>
+                <ul className="wfs__screen-rows">
+                  {[1, 2, 3].map((i) => (
+                    <li key={i} className="wfs__screen-rowline">
+                      <span className="wfs__screen-rowdot" />
+                      <span className="wfs__screen-rowbar" />
+                      <span className="wfs__screen-rowstatus">—</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </main>
           </div>
         </div>
