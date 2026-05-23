@@ -25,10 +25,13 @@ export default function AiPromptSection() {
               Tell us what you&apos;re building
             </span>
             <h2 className="aiprompt__title">
-              Describe your project, in your own words.
+              Your ideas are <em>beautiful,</em>
+              <br />
+              and <em>wide as this valley.</em>
             </h2>
             <p className="aiprompt__sub">
-              A rough idea is enough — we&apos;ll shape it with you.
+              Describe your ideas — a rough version is enough,
+              we&apos;ll shape the rest with you.
             </p>
           </>
         )}

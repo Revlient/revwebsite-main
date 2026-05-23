@@ -3615,8 +3615,18 @@ html.js .reveal.is-visible {
 
 .aiprompt__title {
   margin-top: 0.9rem;
-  font-size: var(--step-3);
+  font-size: clamp(2.4rem, 1.6rem + 4vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+  font-family: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
   color: var(--text);
+  text-wrap: balance;
+}
+
+.aiprompt__title em {
+  font-style: italic;
+  color: rgba(245, 245, 247, 0.55);
 }
 
 .aiprompt__sub {

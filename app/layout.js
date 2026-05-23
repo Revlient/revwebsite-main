@@ -1,5 +1,5 @@
 import "./globals.css";
-import { DM_Sans, Caveat } from "next/font/google";
+import { DM_Sans, Caveat, Instrument_Serif } from "next/font/google";
 import { BRAND } from "./lib/site";
 import MusicToggle from "./components/MusicToggle";
 
@@ -15,6 +15,13 @@ const caveat = Caveat({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
   variable: "--font-caveat",
+  display: "swap",
+});
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
   display: "swap",
 });
 
@@ -57,7 +64,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${caveat.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${caveat.variable} ${instrumentSerif.variable}`}>
       <body>
         {/* Runs before paint: enables scroll-reveal animation only when JS
             is available. Without it the page renders fully visible. */}
