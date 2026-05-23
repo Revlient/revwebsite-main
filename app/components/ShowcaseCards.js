@@ -24,6 +24,7 @@ const TESTIMONIALS = [
       "Placeholder testimonial — replace with the real, approved quote before launch.",
     name: "Anil Chakkrapani",
     role: "Founder, Medcity International Academy",
+    service: "TODO: service",
     img: "",
   },
   {
@@ -31,6 +32,7 @@ const TESTIMONIALS = [
       "Placeholder testimonial — replace with the real, approved quote before launch.",
     name: "Aswin Pradeep",
     role: "Magnate Study Abroad",
+    service: "TODO: service",
     img: "",
   },
   // TODO(content): real client — replace before launch
@@ -39,6 +41,7 @@ const TESTIMONIALS = [
       "Placeholder testimonial — replace with the real, approved quote before launch.",
     name: "Client Name",
     role: "Founder, Company",
+    service: "TODO: service",
     img: "",
   },
   {
@@ -46,6 +49,7 @@ const TESTIMONIALS = [
       "Placeholder testimonial — replace with the real, approved quote before launch.",
     name: "Client Name",
     role: "Managing Director, Company",
+    service: "TODO: service",
     img: "",
   },
   {
@@ -53,6 +57,7 @@ const TESTIMONIALS = [
       "Placeholder testimonial — replace with the real, approved quote before launch.",
     name: "Client Name",
     role: "Co-founder, Company",
+    service: "TODO: service",
     img: "",
   },
   {
@@ -60,6 +65,7 @@ const TESTIMONIALS = [
       "Placeholder testimonial — replace with the real, approved quote before launch.",
     name: "Client Name",
     role: "CEO, Company",
+    service: "TODO: service",
     img: "",
   },
   {
@@ -67,6 +73,7 @@ const TESTIMONIALS = [
       "Placeholder testimonial — replace with the real, approved quote before launch.",
     name: "Johnson",
     role: "Founder, IBS Consultancy",
+    service: "TODO: service",
     img: "",
   },
 ].map((t, i) => ({
@@ -181,12 +188,23 @@ export default function ShowcaseCards() {
           <div className="pscard__feature-person">
             <strong className="pscard__feature-name">{t.name}</strong>
             <span className="pscard__feature-role">{t.role}</span>
+            {t.service && (
+              <span
+                className={`pscard__service${
+                  t.service.startsWith("TODO") ? " pscard__service--todo" : ""
+                }`}
+              >
+                {t.service}
+              </span>
+            )}
           </div>
         </div>
 
         {/* Thumbnail strip — IS the navigation; no separate prev/next */}
         <div
-          className="pscard__thumbs"
+          className={`pscard__thumbs${
+            paused || reducedRef.current ? " is-paused" : ""
+          }`}
           role="tablist"
           aria-label="Choose a testimonial"
           onMouseEnter={() => setPaused(true)}
@@ -207,15 +225,50 @@ export default function ShowcaseCards() {
               onClick={() => setActive(i)}
               onKeyDown={(e) => onKey(e, i)}
             >
-              <span className={`pscard__thumb-avatar t-${c.tone}`}>
-                {c.img ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={c.img} alt="" draggable={false} />
-                ) : (
-                  <span>{c.initials}</span>
+              <span className="pscard__thumb-media">
+                <span className={`pscard__thumb-avatar t-${c.tone}`}>
+                  {c.img ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={c.img} alt="" draggable={false} />
+                  ) : (
+                    <span>{c.initials}</span>
+                  )}
+                </span>
+                {/* Auto-rotate progress ring — only visible on the
+                    active thumb. key={active} re-mounts on every
+                    change so the CSS keyframe restarts from 0. */}
+                {i === active && !reducedRef.current && (
+                  <svg
+                    key={active}
+                    className="pscard__ring"
+                    viewBox="0 0 44 44"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      className="pscard__ring-arc"
+                      cx="22"
+                      cy="22"
+                      r="21"
+                      fill="none"
+                      stroke="var(--blue-light)"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      pathLength="1"
+                      strokeDasharray="1 1"
+                    />
+                  </svg>
                 )}
               </span>
               <span className="pscard__thumb-name">{c.name}</span>
+              {c.service && (
+                <span
+                  className={`pscard__service pscard__service--sm${
+                    c.service.startsWith("TODO") ? " pscard__service--todo" : ""
+                  }`}
+                >
+                  {c.service}
+                </span>
+              )}
             </button>
           ))}
         </div>
