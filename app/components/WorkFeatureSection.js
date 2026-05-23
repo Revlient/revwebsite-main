@@ -264,8 +264,8 @@ export default function WorkFeatureSection() {
                   <svg className="wfs__screen-trend-chart" viewBox="0 0 400 110" preserveAspectRatio="none" aria-hidden="true">
                     <defs>
                       <linearGradient id="wfsTrendFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0" stopColor="#ef4444" stopOpacity="0.42" />
-                        <stop offset="1" stopColor="#ef4444" stopOpacity="0" />
+                        <stop offset="0" stopColor="#3b82f6" stopOpacity="0.45" />
+                        <stop offset="1" stopColor="#3b82f6" stopOpacity="0" />
                       </linearGradient>
                     </defs>
                     <path
@@ -275,7 +275,7 @@ export default function WorkFeatureSection() {
                     <path
                       d="M10 56 Q 70 48 105 54 T 200 48 Q 260 30 320 30 L 390 96"
                       fill="none"
-                      stroke="#ef4444"
+                      stroke="#3b82f6"
                       strokeWidth="2"
                     />
                   </svg>

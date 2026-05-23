@@ -4188,7 +4188,7 @@ html.js .reveal.is-visible {
 .feat-card--phone .feat-card__inner::before {
   background: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(239, 68, 68, 0.6),
+    rgba(74, 120, 255, 0.6),
     transparent 70%
   );
   animation: featPhoneGlowA 14s ease-in-out infinite alternate;
@@ -4197,7 +4197,7 @@ html.js .reveal.is-visible {
 .feat-card--phone .feat-card__inner::after {
   background: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(255, 255, 255, 0.22),
+    rgba(168, 85, 247, 0.5),
     transparent 70%
   );
   animation: featPhoneGlowB 19s ease-in-out infinite alternate;
@@ -4267,12 +4267,12 @@ html.js .reveal.is-visible {
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: rgba(239, 68, 68, 0.18);
-  border: 1px solid rgba(239, 68, 68, 0.36);
+  background: rgba(59, 130, 246, 0.18);
+  border: 1px solid rgba(59, 130, 246, 0.32);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #f87171;
+  color: #60a5fa;
 }
 
 .rfunnel__icon svg {
@@ -4319,7 +4319,7 @@ html.js .reveal.is-visible {
 .rfunnel__viz {
   position: relative;
   width: 100%;
-  background: #ef4444;
+  background: #3b82f6;
   border-radius: 2px;
   display: flex;
   align-items: center;
@@ -4387,8 +4387,8 @@ html.js .reveal.is-visible {
   align-self: flex-start;
   padding: 0.28rem 0.8rem 0.28rem 0.32rem;
   border-radius: 999px;
-  border: 1px solid rgba(239, 68, 68, 0.4);
-  background: linear-gradient(120deg, rgba(239, 68, 68, 0.2), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(74, 120, 255, 0.32);
+  background: linear-gradient(120deg, rgba(74, 120, 255, 0.18), rgba(168, 85, 247, 0.1));
   color: rgba(255, 255, 255, 0.88);
   font-size: 11px;
   font-weight: 500;
@@ -4399,7 +4399,7 @@ html.js .reveal.is-visible {
   font-weight: 800;
   padding: 0.1rem 0.5rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  background: linear-gradient(135deg, #4a78ff, #2b5fff);
   color: #fff;
   letter-spacing: -0.02em;
 }
@@ -4457,8 +4457,8 @@ html.js .reveal.is-visible {
 }
 
 .tally__action--primary {
-  background: #ef4444;
-  color: #fff;
+  background: #3b82f6;
+  color: #0b1320;
   border-color: rgba(255, 255, 255, 0.12);
   font-weight: 600;
 }
@@ -4486,7 +4486,7 @@ html.js .reveal.is-visible {
 }
 
 .tally__range-pill.is-active {
-  background: #ef4444;
+  background: #3b82f6;
   color: #fff;
   font-weight: 600;
 }
@@ -4505,8 +4505,8 @@ html.js .reveal.is-visible {
   row-gap: 8px;
   padding: 12px;
   border-radius: 12px;
-  background: linear-gradient(160deg, rgba(239, 68, 68, 0.18), rgba(239, 68, 68, 0.04));
-  border: 1px solid rgba(239, 68, 68, 0.36);
+  background: linear-gradient(160deg, rgba(34, 197, 94, 0.16), rgba(34, 197, 94, 0.04));
+  border: 1px solid rgba(34, 197, 94, 0.32);
 }
 
 .tally__hero-icon {
@@ -4514,13 +4514,13 @@ html.js .reveal.is-visible {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(239, 68, 68, 0.18);
-  border: 1px solid rgba(239, 68, 68, 0.4);
+  background: rgba(34, 197, 94, 0.18);
+  border: 1px solid rgba(34, 197, 94, 0.32);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
-  color: #f87171;
+  color: #4ade80;
 }
 
 .tally__hero-copy {
@@ -4539,7 +4539,7 @@ html.js .reveal.is-visible {
 .tally__hero-value {
   font-size: 14px;
   font-weight: 700;
-  color: #ffffff;
+  color: #4ade80;
   letter-spacing: -0.01em;
 }
 
@@ -4569,7 +4569,7 @@ html.js .reveal.is-visible {
 }
 
 .tally__stat-value--up {
-  color: #ffffff;
+  color: #4ade80;
 }
 
 .tally__stat-value--down {
@@ -4614,7 +4614,7 @@ html.js .reveal.is-visible {
 }
 
 .tally__mini-delta--up {
-  color: #ffffff;
+  color: #4ade80;
 }
 
 .tally__mini-delta--down {
@@ -4675,8 +4675,8 @@ html.js .reveal.is-visible {
   align-items: center;
   padding: 5px 10px;
   border-radius: 7px;
-  background: #ef4444;
-  color: #ffffff;
+  background: #3b82f6;
+  color: #0b1320;
   font-size: 10px;
   font-weight: 700;
 }
@@ -4785,12 +4785,12 @@ html.js .reveal.is-visible {
 .rprojects__status {
   padding: 3px 9px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
   font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.02em;
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(16, 185, 129, 0.32);
 }
 
 .rprojects__progress {
@@ -4811,7 +4811,7 @@ html.js .reveal.is-visible {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #ef4444, #f87171);
+  background: linear-gradient(90deg, #10b981, #34d399);
 }
 
 .rprojects__progress-value {
@@ -6686,7 +6686,7 @@ a.feat-reach__line:hover {
   top: -20%;
   width: 40%;
   height: 40%;
-  background: rgba(249, 115, 22, 0.55);
+  background: rgba(249, 115, 22, 0.5);
 }
 
 .igrid__blob--purple {
@@ -6694,7 +6694,7 @@ a.feat-reach__line:hover {
   top: -10%;
   width: 22%;
   height: 22%;
-  background: rgba(239, 68, 68, 0.45);
+  background: rgba(168, 85, 247, 0.4);
   filter: blur(100px);
 }
 
@@ -6703,7 +6703,7 @@ a.feat-reach__line:hover {
   bottom: -20%;
   width: 40%;
   height: 40%;
-  background: rgba(220, 38, 38, 0.55);
+  background: rgba(59, 130, 246, 0.5);
 }
 
 .whero__content {
@@ -7952,7 +7952,7 @@ a.feat-reach__line:hover {
   width: 22px;
   height: 22px;
   border-radius: 6px;
-  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  background: linear-gradient(135deg, #4a78ff, #2b5fff);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
   flex: none;
 }
@@ -8036,19 +8036,19 @@ a.feat-reach__line:hover {
 }
 
 .wfs__screen-navitem.is-active {
-  background: rgba(239, 68, 68, 0.2);
+  background: rgba(74, 120, 255, 0.18);
   color: var(--text);
 }
 
 .wfs__screen-navitem--ai {
   color: var(--text);
-  background: linear-gradient(90deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.08));
-  border: 1px solid rgba(239, 68, 68, 0.32);
+  background: linear-gradient(90deg, rgba(168, 85, 247, 0.18), rgba(74, 120, 255, 0.12));
+  border: 1px solid rgba(168, 85, 247, 0.25);
 }
 
 .wfs__screen-navitem--ai .wfs__screen-navdot {
-  background: linear-gradient(135deg, #ffffff, #ef4444);
-  box-shadow: 0 0 6px rgba(239, 68, 68, 0.7);
+  background: linear-gradient(135deg, #c084fc, #4a78ff);
+  box-shadow: 0 0 6px rgba(168, 85, 247, 0.6);
   opacity: 1;
 }
 
@@ -8138,28 +8138,28 @@ a.feat-reach__line:hover {
 }
 
 .wfs__screen-btn--primary {
-  background: #ef4444;
+  background: #2b5fff;
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 4px 14px -6px rgba(239, 68, 68, 0.7);
+  box-shadow: 0 4px 14px -6px rgba(43, 95, 255, 0.6);
 }
 
 .wfs__screen-btn--primary:hover {
-  background: #f87171;
+  background: #4a78ff;
 }
 
 .wfs__screen-btn--ai {
-  background: linear-gradient(135deg, #ffffff, #ef4444);
-  color: #0a0a0c;
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 14px -6px rgba(239, 68, 68, 0.65);
+  background: linear-gradient(135deg, #a855f7, #4a78ff);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 14px -6px rgba(168, 85, 247, 0.6);
   display: inline-flex;
   align-items: center;
   gap: 5px;
 }
 
 .wfs__screen-btn--ai:hover {
-  background: linear-gradient(135deg, #f5f5f5, #f87171);
+  background: linear-gradient(135deg, #c084fc, #6e9bff);
 }
 
 .wfs__screen-btn-spark {
@@ -8188,13 +8188,13 @@ a.feat-reach__line:hover {
 }
 
 .wfs__screen-kpi--accent {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.26), rgba(185, 28, 28, 0.08));
-  border-color: rgba(239, 68, 68, 0.4);
+  background: linear-gradient(135deg, rgba(74, 120, 255, 0.22), rgba(43, 95, 255, 0.06));
+  border-color: rgba(74, 120, 255, 0.32);
 }
 
 .wfs__screen-kpi--alt {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
-  border-color: rgba(255, 255, 255, 0.18);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.18), rgba(59, 130, 246, 0.05));
+  border-color: rgba(168, 85, 247, 0.25);
 }
 
 .wfs__screen-kpi-label {
@@ -8226,10 +8226,10 @@ a.feat-reach__line:hover {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.wfs__screen-kpi:nth-child(1) { color: #ef4444; }
-.wfs__screen-kpi:nth-child(2) { color: rgba(255, 255, 255, 0.75); }
-.wfs__screen-kpi:nth-child(3) { color: #f87171; }
-.wfs__screen-kpi:nth-child(4) { color: #b91c1c; }
+.wfs__screen-kpi:nth-child(1) { color: #3b82f6; }
+.wfs__screen-kpi:nth-child(2) { color: #a855f7; }
+.wfs__screen-kpi:nth-child(3) { color: #f59e0b; }
+.wfs__screen-kpi:nth-child(4) { color: #ef4444; }
 
 .wfs__screen-kpi-chart {
   margin-top: auto;
@@ -8324,12 +8324,12 @@ a.feat-reach__line:hover {
   width: 22px;
   height: 22px;
   border-radius: 6px;
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.1));
-  border: 1px solid rgba(239, 68, 68, 0.4);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(74, 120, 255, 0.1));
+  border: 1px solid rgba(168, 85, 247, 0.4);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #ef4444;
+  color: #c084fc;
 }
 
 .wfs__screen-ai-icon svg {
@@ -8350,8 +8350,8 @@ a.feat-reach__line:hover {
 .wfs__screen-ai-pill {
   padding: 2px 6px;
   border-radius: 999px;
-  background: rgba(239, 68, 68, 0.18);
-  color: #f87171;
+  background: rgba(74, 120, 255, 0.2);
+  color: #93c5fd;
   font-size: 8.5px;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -8411,7 +8411,7 @@ a.feat-reach__line:hover {
   gap: 4px;
   padding: 5px 10px;
   border-radius: 6px;
-  background: #ef4444;
+  background: #2b5fff;
   border: 1px solid rgba(255, 255, 255, 0.14);
   color: #fff;
   font-size: 10px;
@@ -8451,17 +8451,17 @@ a.feat-reach__line:hover {
 .wfs__screen-livetag {
   padding: 2px 7px;
   border-radius: 999px;
-  background: rgba(239, 68, 68, 0.18);
-  color: #f87171;
+  background: rgba(34, 197, 94, 0.18);
+  color: #4ade80;
   font-size: 8.5px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+  border: 1px solid rgba(34, 197, 94, 0.3);
 }
 
 .wfs__screen-blocklink {
   font-size: 10px;
-  color: #f87171;
+  color: #f97316;
   font-weight: 600;
 }
 
@@ -8488,11 +8488,11 @@ a.feat-reach__line:hover {
   border-radius: 50%;
   margin-top: 4px;
   flex: none;
-  background: #ef4444;
+  background: #3b82f6;
 }
 
 .wfs__screen-feeditem--green .wfs__screen-feeditem-dot {
-  background: #ffffff;
+  background: #4ade80;
 }
 
 .wfs__screen-feeditem-text {
@@ -8573,7 +8573,7 @@ a.feat-reach__line:hover {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #ef4444, #f87171);
+  background: linear-gradient(90deg, #3b82f6, #a855f7);
 }
 
 /* finance health */
@@ -8613,9 +8613,9 @@ a.feat-reach__line:hover {
   font-variant-numeric: tabular-nums;
 }
 
-.wfs__screen-finance-value--ok { color: #ffffff; }
-.wfs__screen-finance-value--warn { color: #ef4444; }
-.wfs__screen-finance-value--bad { color: #b91c1c; }
+.wfs__screen-finance-value--ok { color: #4ade80; }
+.wfs__screen-finance-value--warn { color: #f59e0b; }
+.wfs__screen-finance-value--bad { color: #ef4444; }
 
 .wfs__screen-finance-sub {
   font-size: 9px;
@@ -8662,7 +8662,7 @@ a.feat-reach__line:hover {
 
 .wfs__screen-panel-action {
   font-size: 11px;
-  color: #f87171;
+  color: var(--blue-light);
 }
 
 .wfs__screen-rows {
@@ -8686,7 +8686,7 @@ a.feat-reach__line:hover {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(239, 68, 68, 0.85);
+  background: rgba(74, 120, 255, 0.7);
   flex: none;
 }
 
@@ -8720,8 +8720,8 @@ a.feat-reach__line:hover {
   padding: 2px 7px;
   border-radius: 999px;
   color: #ffffff;
-  background: linear-gradient(135deg, #ef4444, #b91c1c);
-  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.4);
+  background: linear-gradient(135deg, #a855f7, #4a78ff);
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.35);
 }
 
 /* features marquee — scrolling list of what the ERP ships with */
@@ -8799,8 +8799,8 @@ a.feat-reach__line:hover {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ffffff, #ef4444);
-  box-shadow: 0 0 6px rgba(239, 68, 68, 0.65);
+  background: linear-gradient(135deg, #4a78ff, #a855f7);
+  box-shadow: 0 0 6px rgba(74, 120, 255, 0.6);
   flex: none;
 }
 
