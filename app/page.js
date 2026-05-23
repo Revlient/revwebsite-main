@@ -2,7 +2,7 @@ import Hero from "./components/Hero";
 import AiPromptSection from "./components/AiPromptSection";
 import ShowcaseCards from "./components/ShowcaseCards";
 import Features from "./components/Features";
-import ProcessTimeline from "./components/ProcessTimeline";
+import ProcessSpine from "./components/ProcessSpine";
 import WhyRevlient from "./components/WhyRevlient";
 import Proof from "./components/Proof";
 import Services from "./components/Services";
@@ -22,7 +22,7 @@ export default function HomePage() {
         <Hero />
         <AiPromptSection />
         <Features />
-        <ProcessTimeline />
+        <ProcessSpine />
         <Services />
         <ShowcaseCards />
         <WhyRevlient />

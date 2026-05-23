@@ -1,0 +1,382 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+/* Process spine — a snaking purple connector that zigzags through six
+   stages on desktop, drawing as the user scrolls, with a continuous
+   light pulse travelling along the path. On mobile (≤ 768px), the
+   layout collapses to a centred column and the snake becomes a
+   straight vertical spine through the same six nodes.
+
+   No framer-motion in this codebase. The scroll-linked draw is done
+   with native scroll events + stroke-dashoffset on a pathLength="1"
+   path (the same math framer's useScroll → useTransform(pathLength)
+   compiles down to). The traveling pulse is plain SVG
+   <animateMotion>. Reduced-motion settles the line fully drawn and
+   drops the pulse. */
+
+const STAGES = [
+  {
+    n: "01",
+    title: "Discovery",
+    body: "We start by understanding the goals, audience, brand context, and the constraints that will shape every decision afterwards.",
+  },
+  {
+    n: "02",
+    title: "Strategy",
+    body: "Information architecture, content flow, and conversion thinking come before pixels — so the whole build pulls in one direction.",
+  },
+  {
+    n: "03",
+    title: "Design",
+    body: "Wireframes, a tight design system, and high-fidelity UI you can react to long before code is written.",
+  },
+  {
+    n: "04",
+    title: "Development",
+    body: "Front end, back end, integrations — built the way they should be, not the fast way. Performance and accessibility from commit one.",
+  },
+  {
+    n: "05",
+    title: "Testing",
+    body: "QA across browsers, devices, lighthouse and accessibility audits — everything that has to be true before launch day arrives.",
+  },
+  {
+    n: "06",
+    title: "Launch & Support",
+    body: "Smooth deploy, monitoring on day one, and on-hand for the days, weeks and months after. The relationship doesn't end at go-live.",
+  },
+];
+
+// Shared SVG viewBox. 1200 wide, 6 rows × 380 = 2280 tall. We use
+// preserveAspectRatio="none" and let the SVG stretch to fill the
+// section — rows have equal min-height so node positions still align
+// with card centres regardless of actual pixel size.
+const VB_W = 1200;
+const VB_H = 2280;
+const ROW_H = VB_H / 6;
+const LEFT_EDGE_X = 540; // inner edge of a left-aligned card
+const RIGHT_EDGE_X = 660; // inner edge of a right-aligned card
+
+// Desktop nodes: alternating left/right card edges, vertical centre of each row.
+const NODES_DESKTOP = STAGES.map((_, i) => ({
+  x: i % 2 === 0 ? LEFT_EDGE_X : RIGHT_EDGE_X,
+  y: ROW_H * (i + 0.5),
+}));
+
+// Mobile nodes: centred horizontally, sit near the top of each row so
+// the card stacks below.
+const NODES_MOBILE = STAGES.map((_, i) => ({
+  x: VB_W / 2,
+  y: ROW_H * (i + 0.15),
+}));
+
+function buildSnakePath(nodes) {
+  let d = `M ${nodes[0].x} ${nodes[0].y}`;
+  for (let i = 1; i < nodes.length; i++) {
+    const a = nodes[i - 1];
+    const b = nodes[i];
+    const goingRight = b.x > a.x;
+    // Cubic-bezier control points pull the curve through the centre
+    // gutter with breathing room — not a tight U-turn.
+    const cp1x = goingRight ? a.x + 360 : a.x - 360;
+    const cp2x = goingRight ? b.x - 360 : b.x + 360;
+    const cp1y = a.y + 60;
+    const cp2y = b.y - 60;
+    d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${b.x} ${b.y}`;
+  }
+  return d;
+}
+
+const PATH_D_DESKTOP = buildSnakePath(NODES_DESKTOP);
+const PATH_D_MOBILE = `M ${NODES_MOBILE[0].x} ${NODES_MOBILE[0].y} L ${NODES_MOBILE[NODES_MOBILE.length - 1].x} ${NODES_MOBILE[NODES_MOBILE.length - 1].y}`;
+
+// Approximate scroll-progress thresholds at which each node lights up.
+// Values come from the spec; tuned so node 1 lights almost immediately
+// (line has only just started drawing) and node 6 lights near the end.
+const NODE_THRESHOLDS = [0.05, 0.22, 0.38, 0.55, 0.72, 0.88];
+
+function NumberMark({ index }) {
+  // Index label rendered in Cormorant italic next to each node. Uses
+  // the same colour family as the node so it reads as one piece.
+  return (
+    <text
+      className="spine__node-num"
+      x="18"
+      y="3"
+      fontStyle="italic"
+      fontSize="22"
+    >
+      {String(index + 1).padStart(2, "0")}
+    </text>
+  );
+}
+
+export default function ProcessSpine() {
+  const sectionRef = useRef(null);
+  const desktopPathRef = useRef(null);
+  const mobilePathRef = useRef(null);
+  const desktopNodeRefs = useRef([]);
+  const mobileNodeRefs = useRef([]);
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    const mqr =
+      typeof window !== "undefined" && window.matchMedia
+        ? window.matchMedia("(prefers-reduced-motion: reduce)")
+        : null;
+    if (!mqr) return undefined;
+    const apply = () => setReduced(mqr.matches);
+    apply();
+    mqr.addEventListener("change", apply);
+    return () => mqr.removeEventListener("change", apply);
+  }, []);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+
+    const setDrawn = (p) => {
+      const off = String(1 - p);
+      if (desktopPathRef.current)
+        desktopPathRef.current.setAttribute("stroke-dashoffset", off);
+      if (mobilePathRef.current)
+        mobilePathRef.current.setAttribute("stroke-dashoffset", off);
+      const setNodes = (arr) => {
+        for (let i = 0; i < arr.length; i++) {
+          const n = arr[i];
+          if (!n) continue;
+          const active = p >= NODE_THRESHOLDS[i];
+          const cur = n.getAttribute("data-active") === "true";
+          if (active !== cur)
+            n.setAttribute("data-active", active ? "true" : "false");
+        }
+      };
+      setNodes(desktopNodeRefs.current);
+      setNodes(mobileNodeRefs.current);
+    };
+
+    if (reduced) {
+      setDrawn(1);
+      return undefined;
+    }
+
+    let raf = 0;
+    let visible = false;
+
+    const apply = () => {
+      raf = 0;
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight || 800;
+      // useScroll({ offset: ["start end", "end start"] }) semantics:
+      // 0 when the section's top first crosses the viewport bottom,
+      // 1 when the section's bottom crosses the viewport top.
+      const denom = rect.height + vh;
+      const p = Math.max(0, Math.min(1, (vh - rect.top) / denom));
+      setDrawn(p);
+    };
+
+    const onScroll = () => {
+      if (!visible || raf) return;
+      raf = requestAnimationFrame(apply);
+    };
+
+    const io = new IntersectionObserver(
+      ([e]) => {
+        visible = e.isIntersecting;
+        if (visible) apply();
+      },
+      { rootMargin: "200px" }
+    );
+    io.observe(section);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    apply();
+
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [reduced]);
+
+  return (
+    <section id="process" className="spine" ref={sectionRef}>
+      <div className="spine__head">
+        <span className="spine__eyebrow">A simple step-by-step process</span>
+        <h2 className="spine__title">Design without the hassle</h2>
+        <p className="spine__sub">
+          Six deliberate stages — from the first conversation to the day
+          after launch. You always know exactly where the project sits.
+        </p>
+      </div>
+
+      <div className="spine__rows">
+        {/* Desktop snake */}
+        <svg
+          className="spine__svg spine__svg--desktop"
+          viewBox={`0 0 ${VB_W} ${VB_H}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <filter id="spineGlowD" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="4" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <radialGradient id="spineHaloD">
+              <stop offset="0%" stopColor="rgba(192, 132, 252, 0.6)" />
+              <stop offset="60%" stopColor="rgba(192, 132, 252, 0.16)" />
+              <stop offset="100%" stopColor="rgba(192, 132, 252, 0)" />
+            </radialGradient>
+            <filter id="spinePulseD" x="-200%" y="-200%" width="500%" height="500%">
+              <feGaussianBlur stdDeviation="3" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* dim base path so the route is always faintly visible */}
+          <path
+            d={PATH_D_DESKTOP}
+            stroke="rgba(168, 85, 247, 0.18)"
+            strokeWidth="2"
+            fill="none"
+            pathLength="1"
+          />
+          {/* bright scroll-driven overlay */}
+          <path
+            id="spine-path-desktop"
+            ref={desktopPathRef}
+            d={PATH_D_DESKTOP}
+            stroke="#A855F7"
+            strokeWidth="2"
+            fill="none"
+            pathLength="1"
+            strokeDasharray="1 1"
+            strokeDashoffset="1"
+            strokeLinecap="round"
+            filter="url(#spineGlowD)"
+          />
+
+          {NODES_DESKTOP.map((n, i) => (
+            <g key={i} transform={`translate(${n.x} ${n.y})`}>
+              <g
+                ref={(el) => {
+                  desktopNodeRefs.current[i] = el;
+                }}
+                className="spine__node"
+                data-active="false"
+              >
+                <circle r="28" fill="url(#spineHaloD)" className="spine__node-halo" />
+                <circle r="6" fill="#C084FC" className="spine__node-dot" />
+                <NumberMark index={i} />
+              </g>
+            </g>
+          ))}
+
+          {!reduced && (
+            <circle r="4" fill="#fff" filter="url(#spinePulseD)">
+              <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
+                <mpath href="#spine-path-desktop" />
+              </animateMotion>
+            </circle>
+          )}
+        </svg>
+
+        {/* Mobile vertical spine */}
+        <svg
+          className="spine__svg spine__svg--mobile"
+          viewBox={`0 0 ${VB_W} ${VB_H}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <filter id="spineGlowM" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="4" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <radialGradient id="spineHaloM">
+              <stop offset="0%" stopColor="rgba(192, 132, 252, 0.6)" />
+              <stop offset="60%" stopColor="rgba(192, 132, 252, 0.16)" />
+              <stop offset="100%" stopColor="rgba(192, 132, 252, 0)" />
+            </radialGradient>
+            <filter id="spinePulseM" x="-200%" y="-200%" width="500%" height="500%">
+              <feGaussianBlur stdDeviation="3" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <path
+            d={PATH_D_MOBILE}
+            stroke="rgba(168, 85, 247, 0.18)"
+            strokeWidth="2"
+            fill="none"
+            pathLength="1"
+          />
+          <path
+            id="spine-path-mobile"
+            ref={mobilePathRef}
+            d={PATH_D_MOBILE}
+            stroke="#A855F7"
+            strokeWidth="2"
+            fill="none"
+            pathLength="1"
+            strokeDasharray="1 1"
+            strokeDashoffset="1"
+            strokeLinecap="round"
+            filter="url(#spineGlowM)"
+          />
+
+          {NODES_MOBILE.map((n, i) => (
+            <g key={i} transform={`translate(${n.x} ${n.y})`}>
+              <g
+                ref={(el) => {
+                  mobileNodeRefs.current[i] = el;
+                }}
+                className="spine__node"
+                data-active="false"
+              >
+                <circle r="28" fill="url(#spineHaloM)" className="spine__node-halo" />
+                <circle r="6" fill="#C084FC" className="spine__node-dot" />
+              </g>
+            </g>
+          ))}
+
+          {!reduced && (
+            <circle r="4" fill="#fff" filter="url(#spinePulseM)">
+              <animateMotion dur="10s" repeatCount="indefinite">
+                <mpath href="#spine-path-mobile" />
+              </animateMotion>
+            </circle>
+          )}
+        </svg>
+
+        {STAGES.map((s, i) => (
+          <div
+            key={s.n}
+            className={`spine__row spine__row--${i % 2 === 0 ? "left" : "right"}`}
+          >
+            <article className="spine__card">
+              <div className="spine__num">{s.n}</div>
+              <h3 className="spine__cardtitle">{s.title}</h3>
+              <p className="spine__cardbody">{s.body}</p>
+            </article>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
