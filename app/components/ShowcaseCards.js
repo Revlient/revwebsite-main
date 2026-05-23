@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Reveal from "./Reveal";
+import XeroBackdrop from "./XeroBackdrop";
 import { CTA_HREF } from "../lib/site";
 
 /* Testimonial carousel — same coverflow/globe alignment as before,
@@ -104,13 +105,8 @@ export default function ShowcaseCards() {
   const go = (step) => setActive((a) => (a + step + N) % N);
 
   return (
-    <section className="section pscard" aria-label="Client testimonials">
-      <div className="pscard__lights" aria-hidden="true">
-        <span className="pscard__streak s1" />
-        <span className="pscard__streak s2" />
-        <span className="pscard__streak s3" />
-        <span className="pscard__streak s4" />
-      </div>
+    <section className="section pscard pscard--xero" aria-label="Client testimonials">
+      <XeroBackdrop />
 
       <div className="container">
         <Reveal>
