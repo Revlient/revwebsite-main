@@ -27,7 +27,7 @@ export default function WorkFeatureSection() {
 
       <div className="wfs__inner">
         <a href={CTA_HREF} className="wfs__pill">
-          <span>Introducing AI-assisted workflows</span>
+          <span>AI-integrated · 10× faster operations</span>
           <span className="wfs__pill-divider" />
           <span className="wfs__pill-arrow">
             <span className="wfs__pill-arrow-track">
@@ -47,11 +47,12 @@ export default function WorkFeatureSection() {
           </span>
         </a>
 
-        <h2 className="wfs__heading">Modern solutions, end-to-end.</h2>
+        <h2 className="wfs__heading">A study-abroad ERP that thinks ahead.</h2>
         <p className="wfs__sub">
-          Real problems solved by a senior, multidisciplinary team —
-          shipped on a date you can plan around, in a quality bar that
-          holds up under real traffic.
+          Counsellor workspaces, application tracking and university
+          matching — built around how study-abroad teams really work,
+          and accelerated by AI features that take routine work off
+          their desk.
         </p>
 
         <div className="wfs__actions">
@@ -68,7 +69,7 @@ export default function WorkFeatureSection() {
 
       <div className="wfs__showcase-label">
         <span className="wfs__showcase-pulse" />
-        Showcase · Revlient Systems ERP
+        Showcase · Study-abroad ERP · AI-integrated
       </div>
 
       {/* stylised app-screen mockup — modelled on Revlient Systems
@@ -93,18 +94,19 @@ export default function WorkFeatureSection() {
               <nav className="wfs__screen-nav">
                 {[
                   { label: "Dashboard", active: true },
-                  { label: "Orders" },
-                  { label: "Inventory" },
-                  { label: "Customers" },
-                  { label: "Suppliers" },
+                  { label: "Students" },
+                  { label: "Applications" },
+                  { label: "Universities" },
+                  { label: "Documents" },
+                  { label: "Counsellors" },
                   { label: "Reports" },
-                  { label: "Settings" },
+                  { label: "AI Assistant", ai: true },
                 ].map((item) => (
                   <span
                     key={item.label}
                     className={`wfs__screen-navitem ${
                       item.active ? "is-active" : ""
-                    }`}
+                    } ${item.ai ? "wfs__screen-navitem--ai" : ""}`.trim()}
                   >
                     <span className="wfs__screen-navdot" aria-hidden="true" />
                     {item.label}
@@ -115,7 +117,7 @@ export default function WorkFeatureSection() {
 
             <main className="wfs__screen-main">
               <header className="wfs__screen-header">
-                <span className="wfs__screen-title">Dashboard</span>
+                <span className="wfs__screen-title">Counsellor Dashboard</span>
                 <div className="wfs__screen-toolbar">
                   <button type="button" className="wfs__screen-btn wfs__screen-btn--ghost">
                     Filter
@@ -123,18 +125,22 @@ export default function WorkFeatureSection() {
                   <button type="button" className="wfs__screen-btn wfs__screen-btn--ghost">
                     Export
                   </button>
+                  <button type="button" className="wfs__screen-btn wfs__screen-btn--ai">
+                    <span className="wfs__screen-btn-spark" aria-hidden="true" />
+                    Ask AI
+                  </button>
                   <button type="button" className="wfs__screen-btn wfs__screen-btn--primary">
-                    + New order
+                    + New application
                   </button>
                 </div>
               </header>
 
               <div className="wfs__screen-kpis">
                 {[
-                  { label: "Revenue", accent: "accent" },
-                  { label: "Orders today" },
-                  { label: "Stock on hand" },
-                  { label: "Active customers", accent: "alt" },
+                  { label: "Active applications", accent: "accent" },
+                  { label: "Students enrolled" },
+                  { label: "Pending documents" },
+                  { label: "AI suggestions ready", accent: "alt" },
                 ].map((k) => (
                   <div
                     key={k.label}
@@ -150,15 +156,16 @@ export default function WorkFeatureSection() {
 
               <div className="wfs__screen-panel">
                 <div className="wfs__screen-panel-head">
-                  <span className="wfs__screen-panel-title">Recent orders</span>
+                  <span className="wfs__screen-panel-title">Recent applications</span>
                   <span className="wfs__screen-panel-action">View all</span>
                 </div>
                 <ul className="wfs__screen-rows">
-                  {[1, 2, 3].map((i) => (
-                    <li key={i} className="wfs__screen-rowline">
+                  {["UK", "Canada", "Australia"].map((country) => (
+                    <li key={country} className="wfs__screen-rowline">
                       <span className="wfs__screen-rowdot" />
+                      <span className="wfs__screen-rowcountry">{country}</span>
                       <span className="wfs__screen-rowbar" />
-                      <span className="wfs__screen-rowstatus">—</span>
+                      <span className="wfs__screen-rowtag">AI</span>
                     </li>
                   ))}
                 </ul>
