@@ -532,13 +532,6 @@ export default function ErpFeatures() {
             </article>
 
             <article className="feat-card feat-card--projects">
-              <a
-                href={CTA_HREF}
-                className="feat-reach__cta liquid-glass"
-                aria-label="See the counsellor workspace"
-              >
-                <ArrowUpRight className="feat-reach__cta-icon" />
-              </a>
               <div className="feat-card__inner">
                 <span className="tally-badge">
                   <strong>13</strong>
