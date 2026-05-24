@@ -1,74 +1,69 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Reveal from "./Reveal";
 import NebulaBackdrop from "./showcase/NebulaBackdrop";
 import { CTA_HREF } from "../lib/site";
 
-/* Library-shelf testimonials. Each client is a vertical book spine
-   on a thin warm plinth; hover/click any spine and it lifts + tilts
-   forward and a cream printed-page panel appears above showing the
-   testimonial.
+/* Wall of love — two rows of testimonial cards drifting horizontally
+   in opposite directions. Glassmorphic cards on the dark NebulaBackdrop
+   cosmos. Same data the bookshelf used; restyled as avatar + name +
+   @handle on top of the card with the quote body underneath.
 
-   The shelf sits inside the existing NebulaBackdrop cosmos. No
-   auto-rotate — the shelf is read at the visitor's pace.
+   PROOF RULE: real client identities only when supplied. Handles +
+   quote bodies stay placeholder until permission-cleared content
+   lands. No fabricated faces — empty img falls back to tone-coloured
+   initials. */
 
-   PROOF RULE: real client identities only when supplied by Revlient.
-   Quote text + service field stay placeholders (amber 'TODO: service'
-   chips) until permission-cleared content lands. */
+const TONES = ["a", "b", "c"];
 
-// Quote text shared across every entry — it stays the placeholder
-// string until permission-cleared wording lands.
-const DEMO_QUOTE =
-  "Placeholder testimonial — replace with the real, approved quote before launch.";
+// Slight variation in placeholder copy per entry so the wall doesn't
+// read as the same string repeating. Each card includes a "TODO N"
+// counter + an @revlient mention so the highlighted-link styling on
+// @handles in quotes is visible.
+const QUOTE_VARIANTS = [
+  "@revlient delivered — placeholder testimonial TODO 01. Real, approved quote lands here before launch.",
+  "Working with @revlient was — placeholder testimonial TODO 02. Replace with the real, approved quote.",
+  "@revlient shipped the whole thing — placeholder testimonial TODO 03. Real quote pending.",
+  "Talked to @revlient about — placeholder testimonial TODO 04. Approved wording goes here.",
+  "What I noticed about @revlient — placeholder testimonial TODO 05. Real quote before launch.",
+  "@revlient handled the part — placeholder testimonial TODO 06. Replace before launch.",
+  "Honestly, @revlient is — placeholder testimonial TODO 07. Real quote pending approval.",
+  "@revlient picked up — placeholder testimonial TODO 08. Approved copy lands here.",
+  "What surprised me about @revlient — placeholder testimonial TODO 09. Real quote pending.",
+  "@revlient turned the spec into — placeholder testimonial TODO 10. Replace before launch.",
+  "@revlient stayed on it — placeholder testimonial TODO 11. Real, approved quote here.",
+  "@revlient figured out — placeholder testimonial TODO 12. Approved quote lands before launch.",
+];
 
 const TESTIMONIALS = [
-  // Real clients supplied by Revlient interleave with TODO placeholders
-  // so the shelf reads varied without faking attribution.
-  { quote: DEMO_QUOTE, name: "Anil Chakkrapani", role: "Founder, Medcity International Academy", service: "TODO: service" },
-  { quote: DEMO_QUOTE, name: "Client Name", role: "Director, Company", service: "TODO: service" },
-  { quote: DEMO_QUOTE, name: "Aswin Pradeep", role: "Magnate Study Abroad", service: "TODO: service" },
-  { quote: DEMO_QUOTE, name: "Client Name", role: "Head of Product, Company", service: "TODO: service" },
-  { quote: DEMO_QUOTE, name: "Client Name", role: "Founder, Company", service: "TODO: service" },
-  { quote: DEMO_QUOTE, name: "Client Name", role: "Managing Director, Company", service: "TODO: service" },
-  { quote: DEMO_QUOTE, name: "Client Name", role: "COO, Company", service: "TODO: service" },
-  { quote: DEMO_QUOTE, name: "Client Name", role: "Co-founder, Company", service: "TODO: service" },
-  { quote: DEMO_QUOTE, name: "Client Name", role: "CEO, Company", service: "TODO: service" },
-  { quote: DEMO_QUOTE, name: "Client Name", role: "VP Engineering, Company", service: "TODO: service" },
-  { quote: DEMO_QUOTE, name: "Johnson", role: "Founder, IBS Consultancy", service: "TODO: service" },
-  { quote: DEMO_QUOTE, name: "Client Name", role: "Founder, Company", service: "TODO: service" },
-];
+  { name: "Anil Chakkrapani", role: "Founder, Medcity International Academy" },
+  { name: "Client Name", role: "Director, Company" },
+  { name: "Aswin Pradeep", role: "Magnate Study Abroad" },
+  { name: "Client Name", role: "Head of Product, Company" },
+  { name: "Client Name", role: "Founder, Company" },
+  { name: "Client Name", role: "Managing Director, Company" },
+  { name: "Client Name", role: "COO, Company" },
+  { name: "Client Name", role: "Co-founder, Company" },
+  { name: "Client Name", role: "CEO, Company" },
+  { name: "Client Name", role: "VP Engineering, Company" },
+  { name: "Johnson", role: "Founder, IBS Consultancy" },
+  { name: "Client Name", role: "Founder, Company" },
+].map((t, i) => ({
+  ...t,
+  quote: QUOTE_VARIANTS[i % QUOTE_VARIANTS.length],
+  handle: "@todo-handle",
+  tone: TONES[i % 3],
+  initials: t.name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase(),
+}));
 
-const N = TESTIMONIALS.length;
-
-// Per-spine widths / heights / colours. Variation matters — without
-// it the row reads "stacked tile", not "shelf of books". 12 entries
-// matches the TESTIMONIALS array length.
-const SPINE_WIDTHS = [40, 50, 34, 52, 44, 38, 48, 36, 46, 42, 50, 38]; // px
-const SPINE_HEIGHTS = [220, 236, 208, 240, 222, 214, 232, 226, 218, 238, 212, 230]; // px
-
-// Low-saturation editorial palette. Background = spine cloth colour,
-// band = top head-band accent.
-const SPINE_PALETTE = [
-  { bg: "#3b2f5a", band: "#b8956a", text: "#e9dec9" }, // deep purple / gold
-  { bg: "#5a2a2a", band: "#d4c4a8", text: "#f1e6cf" }, // oxblood / cream
-  { bg: "#1f2e4d", band: "#a8b8d4", text: "#e0e8f4" }, // navy / pale blue
-  { bg: "#2a4a3c", band: "#b8956a", text: "#d8e6dc" }, // forest / gold
-  { bg: "#6e5530", band: "#d4c4a8", text: "#f3eedd" }, // mustard / cream
-  { bg: "#344450", band: "#b8956a", text: "#d8e0e8" }, // slate / gold
-  { bg: "#6b5d4a", band: "#5070a0", text: "#f3ede0" }, // bone / navy
-];
-
-// Precomputed center % of each spine within the row (for page panel
-// alignment). Stable across renders since SPINE_WIDTHS is constant.
-const ROW_GAP = 6;
-const ROW_WIDTH =
-  SPINE_WIDTHS.reduce((a, b) => a + b, 0) + (N - 1) * ROW_GAP;
-const SPINE_CENTERS = SPINE_WIDTHS.map((w, i) => {
-  const prev =
-    SPINE_WIDTHS.slice(0, i).reduce((a, b) => a + b, 0) + i * ROW_GAP;
-  return ((prev + w / 2) / ROW_WIDTH) * 100;
-});
+// Cycle 3 width variants so adjacent cards differ — desktop only.
+const WIDTHS = ["min(360px, 90%)", "min(420px, 92%)", "min(480px, 95%)"];
 
 const Arrow = ({ dir = 1 }) => (
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
@@ -83,64 +78,98 @@ const Arrow = ({ dir = 1 }) => (
   </svg>
 );
 
-export default function ShowcaseCards() {
-  const [active, setActive] = useState(0);
-  const [drawn, setDrawn] = useState(false);
-  const shelfRef = useRef(null);
-  const spineRefs = useRef([]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return undefined;
-    const reduced =
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) {
-      setDrawn(true);
-      return undefined;
-    }
-    const el = shelfRef.current;
-    if (!el) return undefined;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setDrawn(true);
-          io.disconnect();
+/* Tokenises a quote string and wraps any @-prefixed token in a
+   styled span so @mentions render as purple links. Splits on
+   whitespace to preserve word boundaries. */
+function QuoteBody({ text }) {
+  const tokens = text.split(/(\s+)/);
+  return (
+    <>
+      {tokens.map((tok, i) => {
+        if (tok.startsWith("@")) {
+          return (
+            <span key={i} className="wol__handle">
+              {tok}
+            </span>
+          );
         }
-      },
-      { threshold: 0.2 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+        return tok;
+      })}
+    </>
+  );
+}
+
+function Card({ t, widthIndex }) {
+  return (
+    <figure
+      className="wol__card"
+      role="figure"
+      style={{ width: WIDTHS[widthIndex % WIDTHS.length] }}
+    >
+      <header className="wol__card-head">
+        <span className={`wol__avatar t-${t.tone}`} aria-hidden="true">
+          <span>{t.initials}</span>
+        </span>
+        <span className="wol__card-id">
+          <span className="wol__card-name">{t.name}</span>
+          <span className="wol__card-handle">{t.handle}</span>
+        </span>
+      </header>
+      <blockquote className="wol__card-quote">
+        <QuoteBody text={t.quote} />
+      </blockquote>
+      <figcaption className="sr-only">
+        {t.name}, {t.role}
+      </figcaption>
+    </figure>
+  );
+}
+
+function SparkleField() {
+  // 18 deterministic-position "+" twinkle marks behind the section
+  // head — same pattern as the showcase hero. SSR-stable via useMemo.
+  const marks = useMemo(() => {
+    const out = [];
+    for (let i = 0; i < 18; i++) {
+      out.push({
+        top: (i * 47 + 9) % 100,
+        left: (i * 73 + 13) % 100,
+        size: 8 + ((i * 0.7) % 6),
+        delay: -((i * 0.91) % 6),
+        dur: 4 + ((i * 1.1) % 4),
+      });
+    }
+    return out;
   }, []);
+  return (
+    <div className="wol__sparks" aria-hidden="true">
+      {marks.map((m, i) => (
+        <span
+          key={i}
+          className="wol__spark"
+          style={{
+            top: `${m.top}%`,
+            left: `${m.left}%`,
+            fontSize: `${m.size}px`,
+            animationDelay: `${m.delay}s`,
+            animationDuration: `${m.dur}s`,
+          }}
+        >
+          +
+        </span>
+      ))}
+    </div>
+  );
+}
 
-  const onKey = (e, i) => {
-    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
-      e.preventDefault();
-      const step = e.key === "ArrowRight" ? 1 : -1;
-      const next = (i + step + N) % N;
-      setActive(next);
-      requestAnimationFrame(() => spineRefs.current[next]?.focus());
-    } else if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      setActive(i);
-    }
-  };
+export default function ShowcaseCards() {
+  // Hover any card → pause both rows. Touch / focus also toggles it.
+  const [paused, setPaused] = useState(false);
 
-  const t = TESTIMONIALS[active];
-  // Auto-flip the page panel so it stays inside the shelf width:
-  // spines in the first half anchor the panel to their right; spines
-  // in the second half anchor it to their left.
-  const side = active < N / 2 ? "right" : "left";
-  const pageStyle =
-    side === "right"
-      ? {
-          left: `${SPINE_CENTERS[active]}%`,
-          transform: "translate(0, 0)",
-        }
-      : {
-          left: `${SPINE_CENTERS[active]}%`,
-          transform: "translate(-100%, 0)",
-        };
+  // Split into two rows. Even indices to row 1, odd to row 2, so each
+  // row stays varied. Each row gets duplicated for the seamless loop.
+  const row1 = TESTIMONIALS.filter((_, i) => i % 2 === 0);
+  const row2 = TESTIMONIALS.filter((_, i) => i % 2 === 1);
 
   return (
     <section
@@ -150,13 +179,17 @@ export default function ShowcaseCards() {
       <NebulaBackdrop />
 
       <div className="container">
+        <SparkleField />
+
         <Reveal>
-          <div className="pscard__head">
-            <h2>What our clients say.</h2>
+          <div className="pscard__head wol__head">
+            <span className="wol__eyebrow">Wall of love</span>
+            <h2>
+              Loved by <em>builders.</em>
+            </h2>
             <p className="pscard__sub">In their words.</p>
             <p className="pscard__desc">
-              We partner closely with founders and teams — and let the
-              relationship, and the work, speak for itself.
+              Here&apos;s what teams are saying about working with us.
             </p>
             <a href={CTA_HREF} className="pscard__cta">
               <span>Start a project</span>
@@ -168,101 +201,32 @@ export default function ShowcaseCards() {
         </Reveal>
 
         <div
-          ref={shelfRef}
-          className={`bshelf${drawn ? " is-drawn" : ""}`}
+          className={`wol${paused ? " is-paused" : ""}`}
+          aria-label="Client testimonials"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={() => setPaused(false)}
         >
-          <div className="bshelf__row">
-            <div className="bshelf__lights" aria-hidden="true" />
-
-            {TESTIMONIALS.map((c, i) => {
-              const pal = SPINE_PALETTE[i % SPINE_PALETTE.length];
-              return (
-                <button
-                  key={i}
-                  ref={(el) => {
-                    spineRefs.current[i] = el;
-                  }}
-                  type="button"
-                  className={`bshelf__spine${
-                    i === active ? " is-active" : ""
-                  }`}
-                  aria-label={`Open testimonial from ${c.name}`}
-                  onClick={() => setActive(i)}
-                  onMouseEnter={() => setActive(i)}
-                  onFocus={() => setActive(i)}
-                  onKeyDown={(e) => onKey(e, i)}
-                  style={{
-                    width: `${SPINE_WIDTHS[i]}px`,
-                    height: `${SPINE_HEIGHTS[i]}px`,
-                    background: pal.bg,
-                    color: pal.text,
-                    animationDelay: `${i * 80}ms`,
-                  }}
-                >
-                  <span
-                    className="bshelf__spine-band"
-                    style={{ background: pal.band }}
-                  />
-                  <span className="bshelf__spine-foil" />
-                  <span className="bshelf__spine-text">{c.name}</span>
-                  <span className="bshelf__spine-num">
-                    Nº{String(i + 1).padStart(2, "0")}
-                  </span>
-                </button>
-              );
-            })}
-
-            <div className="bshelf__plinth" aria-hidden="true" />
-
-            {/* Page panel — re-mounted on active change to run the
-                CSS fade-up keyframe afresh. Lives in the same row
-                container so positioning by center % works. */}
-            <div
-              key={`page-d-${active}`}
-              className="bshelf__page bshelf__page--desktop"
-              style={pageStyle}
-              aria-live="polite"
-            >
-              <PageContent t={t} active={active} />
+          {/* Row 1 — drifts LEFT */}
+          <div className="wol__row wol__row--left">
+            <div className="wol__track">
+              {[...row1, ...row1].map((t, i) => (
+                <Card key={`r1-${i}`} t={t} widthIndex={i} />
+              ))}
             </div>
           </div>
 
-          {/* Mobile page panel — sits below the shelf as a full-width
-              card; positioning above is desktop-only. */}
-          <div
-            key={`page-m-${active}`}
-            className="bshelf__page bshelf__page--mobile"
-            aria-live="polite"
-          >
-            <PageContent t={t} active={active} />
+          {/* Row 2 — drifts RIGHT (desktop only) */}
+          <div className="wol__row wol__row--right wol__row--desktop">
+            <div className="wol__track">
+              {[...row2, ...row2].map((t, i) => (
+                <Card key={`r2-${i}`} t={t} widthIndex={i + 1} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function PageContent({ t, active }) {
-  return (
-    <>
-      <span className="bshelf__page-num">
-        Nº{String(active + 1).padStart(2, "0")}
-      </span>
-      <blockquote className="bshelf__page-quote">{t.quote}</blockquote>
-      <span className="bshelf__page-rule" aria-hidden="true" />
-      <div className="bshelf__page-cite">
-        <strong>{t.name}</strong>
-        <span>{t.role}</span>
-        {t.service && (
-          <span
-            className={`pscard__service pscard__service--sm${
-              t.service.startsWith("TODO") ? " pscard__service--todo" : ""
-            }`}
-          >
-            {t.service}
-          </span>
-        )}
-      </div>
-    </>
   );
 }

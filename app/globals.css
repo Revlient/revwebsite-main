@@ -13068,342 +13068,249 @@ a.feat-reach__line:hover {
    tilts forward; a cream printed-page panel appears above the
    shelf showing the testimonial. */
 
-.bshelf {
+/* ----- Wall of love (testimonial marquee) ----- */
+.wol__head {
   position: relative;
-  margin: clamp(2rem, 1rem + 2vw, 4rem) auto 0;
-  max-width: 900px;
-  /* perspective so rotateX on the active spine reads as a real
-     forward tilt, not a flat skew */
-  perspective: 900px;
+  text-align: center;
+  z-index: 2;
 }
 
-.bshelf__row {
-  position: relative;
-  display: flex;
-  gap: 6px;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 0 1rem 0;
-  min-height: 320px;
+.wol__eyebrow {
+  display: inline-block;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(180, 210, 255, 0.85);
+  padding: 0.32rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(120, 170, 230, 0.32);
+  background: rgba(120, 170, 230, 0.06);
+  margin-bottom: 1.4rem;
 }
 
-/* warm directional light cone behind the shelf */
-.bshelf__lights {
+.wol__head h2 {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: clamp(2.2rem, 1.4rem + 2.8vw, 3.8rem);
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0 0 0.6rem;
+}
+
+.wol__head h2 em {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.08em;
+  background: linear-gradient(135deg, #c084fc 0%, #6f8cff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Sparkle field — small "+" marks twinkling behind the section
+   head. Deterministic positions from JS. */
+.wol__sparks {
   position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 360px;
-  background: radial-gradient(
-    ellipse 60% 80% at 50% 110%,
-    rgba(255, 220, 180, 0.1) 0%,
-    rgba(255, 220, 180, 0.04) 40%,
-    transparent 70%
-  );
+  inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0;
-  transition: opacity 0.8s ease;
 }
 
-.bshelf.is-drawn .bshelf__lights {
-  opacity: 1;
-}
-
-/* thin warm plinth under the books */
-.bshelf__plinth {
+.wol__spark {
   position: absolute;
-  left: 50%;
-  bottom: -8px;
-  transform: translateX(-50%);
-  width: min(680px, 90%);
-  height: 6px;
-  border-radius: 3px;
-  background: linear-gradient(
-    90deg,
-    rgba(180, 120, 80, 0.35) 0%,
-    rgba(220, 160, 110, 0.55) 50%,
-    rgba(180, 120, 80, 0.35) 100%
-  );
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.8s ease 0.4s;
+  color: rgba(255, 255, 255, 0.18);
+  font-family: ui-monospace, Menlo, monospace;
+  user-select: none;
+  animation: wol-twinkle 4s ease-in-out infinite;
 }
 
-.bshelf__plinth::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  transform: translateX(-50%);
-  width: 90%;
-  height: 30px;
-  border-radius: 50%;
-  background: radial-gradient(
-    ellipse,
-    rgba(220, 160, 110, 0.32) 0%,
-    transparent 70%
-  );
-  filter: blur(6px);
-  animation: bshelf-plinth-breath 4s ease-in-out infinite;
+@keyframes wol-twinkle {
+  0%, 100% { opacity: 0.18; transform: scale(0.9); }
+  50%      { opacity: 0.6;  transform: scale(1.1); }
 }
 
-.bshelf.is-drawn .bshelf__plinth {
-  opacity: 1;
-}
-
-@keyframes bshelf-plinth-breath {
-  0%, 100% { opacity: 0.5; }
-  50%      { opacity: 0.9; }
-}
-
-/* Book spine — a vertical button. */
-.bshelf__spine {
+/* ----- Marquee container ----- */
+.wol {
   position: relative;
-  flex-shrink: 0;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  color: inherit;
-  border-radius: 2px;
-  overflow: hidden;
-  opacity: 0;
-  transform-origin: bottom center;
-  transition:
-    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 320ms ease,
-    opacity 320ms ease;
-  box-shadow:
-    inset -2px 0 6px rgba(0, 0, 0, 0.55),
-    inset 2px 0 4px rgba(255, 255, 255, 0.06),
-    0 4px 8px -2px rgba(0, 0, 0, 0.5);
   z-index: 1;
-}
-
-.bshelf.is-drawn .bshelf__spine {
-  opacity: 0.85;
-  animation: bshelf-spine-in 500ms ease-out both;
-  animation-delay: var(--d, 0ms);
-}
-
-@keyframes bshelf-spine-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 0.85; transform: translateY(0); }
-}
-
-.bshelf__spine:hover,
-.bshelf__spine:focus-visible {
-  opacity: 1;
-  transform: translateY(-2px);
-  outline: none;
-}
-
-.bshelf__spine.is-active {
-  opacity: 1;
-  transform: translateY(-14px) rotateX(6deg);
-  z-index: 3;
-  box-shadow:
-    inset -2px 0 6px rgba(0, 0, 0, 0.55),
-    inset 2px 0 4px rgba(255, 255, 255, 0.12),
-    inset 0 1px 0 rgba(255, 220, 180, 0.35),
-    0 14px 28px -10px rgba(0, 0, 0, 0.7);
-}
-
-/* top head band (binding accent) */
-.bshelf__spine-band {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 6px;
-  display: block;
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
-}
-
-/* thin foil line ~20% down */
-.bshelf__spine-foil {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 22%;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.18);
-}
-
-/* vertical client name — reads bottom-to-top */
-.bshelf__spine-text {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 32%;
-  bottom: 36px;
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 0.02em;
-  text-align: center;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* small Nº label at the bottom of each spine */
-.bshelf__spine-num {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 8px;
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-size: 9px;
-  text-align: center;
-  opacity: 0.7;
-}
-
-/* ----- Page panel (cream printed letter) ----- */
-
-.bshelf__page {
-  position: absolute;
-  top: calc(100% + 28px);
-  width: 340px;
-  max-width: 90vw;
-  background: rgba(238, 228, 210, 0.96);
-  color: rgba(40, 30, 20, 0.92);
-  border-radius: 4px;
-  padding: 1.4rem 1.4rem 1.2rem;
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.05),
-    0 14px 30px -16px rgba(0, 0, 0, 0.55);
-  z-index: 4;
-  /* faint paper noise via a subtle gradient layer */
-  background-image:
-    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.5), transparent 60%),
-    linear-gradient(180deg, rgba(238, 228, 210, 0.98), rgba(228, 216, 196, 0.96));
-  animation: bshelf-page-in 350ms ease-out both;
-}
-
-@keyframes bshelf-page-in {
-  from { opacity: 0; transform: translate(var(--tx, 0), -8px); }
-  to   { opacity: 1; transform: translate(var(--tx, 0), 0); }
-}
-
-/* override the translateX coming from the inline style for the
-   left/right flip animation start */
-.bshelf__page[style*="-100%"] {
-  animation-name: bshelf-page-in-right;
-}
-
-@keyframes bshelf-page-in-right {
-  from { opacity: 0; transform: translate(-100%, -8px); }
-  to   { opacity: 1; transform: translate(-100%, 0); }
-}
-
-.bshelf__page-num {
-  display: block;
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-size: 0.85rem;
-  color: rgba(120, 90, 60, 0.85);
-  margin-bottom: 0.6rem;
-}
-
-.bshelf__page-quote {
-  margin: 0 0 1rem;
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-size: 1.02rem;
-  line-height: 1.55;
-  color: rgba(40, 30, 20, 0.92);
-}
-
-.bshelf__page-rule {
-  display: block;
-  width: 60px;
-  height: 1px;
-  background: rgba(80, 60, 40, 0.32);
-  margin: 0 0 0.9rem auto;
-}
-
-.bshelf__page-cite {
+  margin-top: clamp(2rem, 1.5rem + 2vw, 3.5rem);
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  text-align: right;
+  gap: clamp(0.8rem, 0.5rem + 0.8vw, 1.4rem);
 }
 
-.bshelf__page-cite strong {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-weight: 500;
-  font-size: 1.02rem;
-  color: rgba(50, 35, 20, 0.94);
+.wol__row {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
 }
 
-.bshelf__page-cite > span:not(.pscard__service) {
-  font-family: var(--font-inter), system-ui, sans-serif;
+.wol__track {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1rem, 0.6rem + 1vw, 1.4rem);
+  width: max-content;
+  will-change: transform;
+}
+
+.wol__row--left .wol__track {
+  animation: wol-scroll-left 56s linear infinite;
+}
+
+.wol__row--right .wol__track {
+  animation: wol-scroll-right 64s linear infinite;
+}
+
+@keyframes wol-scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes wol-scroll-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.wol.is-paused .wol__track {
+  animation-play-state: paused;
+}
+
+/* ----- Card ----- */
+.wol__card {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 1.2rem 1.4rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  backdrop-filter: blur(10px) saturate(140%);
+  box-shadow:
+    0 12px 30px -16px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.wol__card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.wol__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: rgba(43, 95, 255, 0.18);
+  border: 1px solid rgba(120, 170, 230, 0.32);
+  color: var(--blue-light, #6f8cff);
+}
+
+.wol__avatar.t-b {
+  background: rgba(192, 132, 252, 0.18);
+  border-color: rgba(192, 132, 252, 0.42);
+  color: #d6b2fc;
+}
+
+.wol__avatar.t-c {
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(251, 191, 36, 0.32);
+  color: #fcd34d;
+}
+
+.wol__card-id {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.wol__card-name {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fafafa;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wol__card-handle {
+  font-family: ui-monospace, Menlo, monospace;
   font-size: 0.78rem;
-  color: rgba(80, 60, 40, 0.7);
+  color: rgba(180, 200, 230, 0.55);
 }
 
-.bshelf__page-cite .pscard__service {
-  align-self: flex-end;
-  margin-top: 0.5rem;
+.wol__card-quote {
+  margin: 0;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #f5f5f5;
 }
 
-.bshelf__page--mobile { display: none; }
+.wol__handle {
+  color: #c084fc;
+  font-weight: 500;
+}
 
-/* ----- Mobile fallback: horizontal scroll-snap shelf + full-width
-   page below ----- */
+/* ----- Mobile fallback: single row, wider edge fade ----- */
+.wol__row--desktop { display: block; }
+
 @media (max-width: 880px) {
-  .bshelf__page--desktop { display: none; }
-  .bshelf__page--mobile {
-    display: block;
-    position: static;
-    width: 100%;
-    margin: 1.5rem auto 0;
-    bottom: auto;
-    transform: none !important;
+  .wol__row--desktop { display: none; }
+  .wol__row--left .wol__track {
+    animation-duration: 70s;
   }
-  .bshelf__row {
-    overflow-x: auto;
-    justify-content: flex-start;
-    scroll-snap-type: x mandatory;
-    padding: 0 1rem 12px;
-    min-height: 280px;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .bshelf__row::-webkit-scrollbar { display: none; }
-  .bshelf__spine {
-    scroll-snap-align: center;
-  }
-  .bshelf__plinth {
-    /* shorter plinth that matches the shelf row width */
-    width: 95%;
+  .wol__row {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 14%,
+      #000 86%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      #000 14%,
+      #000 86%,
+      transparent 100%
+    );
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bshelf__spine,
-  .bshelf__plinth::after,
-  .bshelf__page {
+  .wol__track,
+  .wol__spark {
     animation: none !important;
   }
-  .bshelf__spine {
-    opacity: 0.85;
-  }
-  .bshelf__spine.is-active {
-    opacity: 1;
-    transform: translateY(-10px);
-  }
 }
+
 
 
 
