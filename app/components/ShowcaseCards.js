@@ -17,65 +17,35 @@ import { CTA_HREF } from "../lib/site";
    Quote text + service field stay placeholders (amber 'TODO: service'
    chips) until permission-cleared content lands. */
 
+// Quote text shared across every entry — it stays the placeholder
+// string until permission-cleared wording lands.
+const DEMO_QUOTE =
+  "Placeholder testimonial — replace with the real, approved quote before launch.";
+
 const TESTIMONIALS = [
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Anil Chakkrapani",
-    role: "Founder, Medcity International Academy",
-    service: "TODO: service",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Aswin Pradeep",
-    role: "Magnate Study Abroad",
-    service: "TODO: service",
-  },
-  // TODO(content): real client — replace before launch
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Client Name",
-    role: "Founder, Company",
-    service: "TODO: service",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Client Name",
-    role: "Managing Director, Company",
-    service: "TODO: service",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Client Name",
-    role: "Co-founder, Company",
-    service: "TODO: service",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Client Name",
-    role: "CEO, Company",
-    service: "TODO: service",
-  },
-  {
-    quote:
-      "Placeholder testimonial — replace with the real, approved quote before launch.",
-    name: "Johnson",
-    role: "Founder, IBS Consultancy",
-    service: "TODO: service",
-  },
+  // Real clients supplied by Revlient interleave with TODO placeholders
+  // so the shelf reads varied without faking attribution.
+  { quote: DEMO_QUOTE, name: "Anil Chakkrapani", role: "Founder, Medcity International Academy", service: "TODO: service" },
+  { quote: DEMO_QUOTE, name: "Client Name", role: "Director, Company", service: "TODO: service" },
+  { quote: DEMO_QUOTE, name: "Aswin Pradeep", role: "Magnate Study Abroad", service: "TODO: service" },
+  { quote: DEMO_QUOTE, name: "Client Name", role: "Head of Product, Company", service: "TODO: service" },
+  { quote: DEMO_QUOTE, name: "Client Name", role: "Founder, Company", service: "TODO: service" },
+  { quote: DEMO_QUOTE, name: "Client Name", role: "Managing Director, Company", service: "TODO: service" },
+  { quote: DEMO_QUOTE, name: "Client Name", role: "COO, Company", service: "TODO: service" },
+  { quote: DEMO_QUOTE, name: "Client Name", role: "Co-founder, Company", service: "TODO: service" },
+  { quote: DEMO_QUOTE, name: "Client Name", role: "CEO, Company", service: "TODO: service" },
+  { quote: DEMO_QUOTE, name: "Client Name", role: "VP Engineering, Company", service: "TODO: service" },
+  { quote: DEMO_QUOTE, name: "Johnson", role: "Founder, IBS Consultancy", service: "TODO: service" },
+  { quote: DEMO_QUOTE, name: "Client Name", role: "Founder, Company", service: "TODO: service" },
 ];
 
 const N = TESTIMONIALS.length;
 
 // Per-spine widths / heights / colours. Variation matters — without
-// it the row reads "stacked tile", not "shelf of books".
-const SPINE_WIDTHS = [40, 50, 34, 52, 44, 38, 48]; // px
-const SPINE_HEIGHTS = [220, 236, 208, 240, 222, 214, 232]; // px
+// it the row reads "stacked tile", not "shelf of books". 12 entries
+// matches the TESTIMONIALS array length.
+const SPINE_WIDTHS = [40, 50, 34, 52, 44, 38, 48, 36, 46, 42, 50, 38]; // px
+const SPINE_HEIGHTS = [220, 236, 208, 240, 222, 214, 232, 226, 218, 238, 212, 230]; // px
 
 // Low-saturation editorial palette. Background = spine cloth colour,
 // band = top head-band accent.
@@ -157,7 +127,10 @@ export default function ShowcaseCards() {
   };
 
   const t = TESTIMONIALS[active];
-  const side = active <= 3 ? "right" : "left";
+  // Auto-flip the page panel so it stays inside the shelf width:
+  // spines in the first half anchor the panel to their right; spines
+  // in the second half anchor it to their left.
+  const side = active < N / 2 ? "right" : "left";
   const pageStyle =
     side === "right"
       ? {
