@@ -4,15 +4,17 @@ import { useMemo } from "react";
 import Reveal from "./Reveal";
 import { CTA_HREF } from "../lib/site";
 
-/* Why-Revlient hero. A looping blueish black-hole visual fills the
-   left half of the section; a large glassmorphic tile sits over it
-   carrying the heading + three pillars. The right half stays
-   intentionally empty — that's the white-space rule.
+/* Why-Revlient hero. Gargantua-style accretion disk on the left;
+   large glassmorphic tile on top carrying the heading + three
+   pillars; right half stays intentionally empty (white-space rule).
 
-   Black hole is pure CSS: dark void with an inset shadow, a
-   conic-gradient accretion ring rotating slowly, a soft blue halo
-   that pulses, and 12 deterministic-position dust particles
-   spiraling inward. Reduced-motion freezes every loop. */
+   The black-hole composition is inline SVG layered back-to-front:
+   halo wash → light flares → lower arc (behind the void) → black
+   void with inner-rim spark → upper arc (in front of the void).
+   The upper arc occludes the front of the void to fake the
+   gravitational-lensing wrap-over effect. Motion: halo pulse,
+   flare breathing, rim shimmer, dust particles spiraling inward.
+   Reduced-motion freezes every loop. */
 
 const PILLARS = [
   {
@@ -70,23 +72,17 @@ function IconHandshake() {
 }
 
 function BlackHole() {
-  // 12 deterministic-position dust particles spiraling inward. Each
-  // sets CSS variables on its inline style; the keyframe reads them
-  // so paths differ per particle without per-particle keyframes.
+  // 12 deterministic-position dust particles spiraling inward.
+  // Each sets CSS variables on its inline style; the keyframe reads
+  // them so paths differ per particle without per-particle keyframes.
   const dust = useMemo(() => {
     const out = [];
     for (let i = 0; i < 12; i++) {
-      const angle = (i * 137) % 360; // deterministic spread
-      const dist = 38 + ((i * 11) % 24); // start distance from centre %
-      const dur = 8 + ((i * 1.3) % 6); // seconds
-      const delay = -((i * 0.83) % 6);
       out.push({
-        // Start position offset from centre, in %, along a deterministic
-        // ray. We compute final x/y once via CSS calc using these vars.
-        ang: angle,
-        dist,
-        dur,
-        delay,
+        ang: (i * 137) % 360,
+        dist: 38 + ((i * 11) % 24),
+        dur: 8 + ((i * 1.3) % 6),
+        delay: -((i * 0.83) % 6),
         size: 2 + (i % 3) * 0.5,
         tint: i % 5 === 0 ? "bright" : "soft",
       });
@@ -97,8 +93,143 @@ function BlackHole() {
   return (
     <div className="whyrev__hole" aria-hidden="true">
       <span className="whyrev__halo" />
-      <span className="whyrev__ring" />
-      <span className="whyrev__void" />
+
+      <svg
+        className="whyrev__svg"
+        viewBox="0 0 800 800"
+        preserveAspectRatio="xMidYMid meet"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          {/* Gradient running along the accretion arc — soft → bright
+              → soft so the arc reads brightest at the centre. */}
+          <linearGradient id="bh-arc-grad" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stopColor="rgba(192, 132, 252, 0.15)" />
+            <stop offset="50%" stopColor="rgba(214, 178, 252, 0.98)" />
+            <stop offset="100%" stopColor="rgba(192, 132, 252, 0.15)" />
+          </linearGradient>
+
+          {/* Linear gradients for the two equatorial flares — brightest
+              near the void's edge, fading to transparent away from it. */}
+          <linearGradient id="bh-flare-l" x1="0" x2="1" y1="0.5" y2="0.5">
+            <stop offset="0%" stopColor="rgba(192, 132, 252, 0)" />
+            <stop offset="70%" stopColor="rgba(192, 132, 252, 0.55)" />
+            <stop offset="100%" stopColor="rgba(214, 178, 252, 0.85)" />
+          </linearGradient>
+          <linearGradient id="bh-flare-r" x1="0" x2="1" y1="0.5" y2="0.5">
+            <stop offset="0%" stopColor="rgba(214, 178, 252, 0.85)" />
+            <stop offset="30%" stopColor="rgba(192, 132, 252, 0.55)" />
+            <stop offset="100%" stopColor="rgba(192, 132, 252, 0)" />
+          </linearGradient>
+
+          {/* Soft inset depth on the void itself. */}
+          <radialGradient id="bh-void" cx="0.5" cy="0.5" r="0.55">
+            <stop offset="60%" stopColor="#000000" />
+            <stop offset="92%" stopColor="rgba(20, 8, 36, 0.92)" />
+            <stop offset="100%" stopColor="rgba(40, 18, 64, 0.7)" />
+          </radialGradient>
+
+          {/* Heavy glow used by both arcs to bloom the gradient stroke. */}
+          <filter
+            id="bh-glow"
+            x="-50%"
+            y="-50%"
+            width="200%"
+            height="200%"
+          >
+            <feGaussianBlur stdDeviation="10" result="b" />
+            <feMerge>
+              <feMergeNode in="b" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+
+          {/* Sharp small glow for the rim spark only. */}
+          <filter id="bh-rim" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="1.4" />
+          </filter>
+        </defs>
+
+        {/* 3. Equatorial light flares — bleed outward from the void's
+              equator. Behind the upper arc so the front arc occludes
+              them, selling the "light bends behind the disk" feel. */}
+        <ellipse
+          className="whyrev__flare whyrev__flare--left"
+          cx="200"
+          cy="400"
+          rx="260"
+          ry="42"
+          fill="url(#bh-flare-l)"
+        />
+        <ellipse
+          className="whyrev__flare whyrev__flare--right"
+          cx="600"
+          cy="400"
+          rx="260"
+          ry="42"
+          fill="url(#bh-flare-r)"
+        />
+
+        {/* 4. Lower accretion arc — half-ellipse below the void's centre,
+              drawn FIRST so the void renders OVER it. */}
+        <path
+          className="whyrev__arc whyrev__arc--lower"
+          d="M 80 400 A 320 110 0 0 1 720 400"
+          fill="none"
+          stroke="url(#bh-arc-grad)"
+          strokeWidth="6"
+          strokeLinecap="round"
+          filter="url(#bh-glow)"
+        />
+
+        {/* 5. Central void — solid black ellipse with a faint radial
+              gradient on top giving the rim a hint of depth. */}
+        <ellipse
+          className="whyrev__void"
+          cx="400"
+          cy="400"
+          rx="200"
+          ry="80"
+          fill="#000"
+        />
+        <ellipse
+          cx="400"
+          cy="400"
+          rx="200"
+          ry="80"
+          fill="url(#bh-void)"
+        />
+
+        {/* 7. Inner rim spark — bright thin outline of the void implies
+              light bending around the event horizon. */}
+        <ellipse
+          className="whyrev__rim"
+          cx="400"
+          cy="400"
+          rx="200"
+          ry="80"
+          fill="none"
+          stroke="rgba(214, 178, 252, 0.7)"
+          strokeWidth="1.5"
+          filter="url(#bh-rim)"
+        />
+
+        {/* 6. Upper accretion arc — same half-ellipse curving above the
+              void's centre, drawn AFTER the void so it occludes the
+              front of the singularity (the lensing payoff). */}
+        <path
+          className="whyrev__arc whyrev__arc--upper"
+          d="M 80 400 A 320 110 0 0 0 720 400"
+          fill="none"
+          stroke="url(#bh-arc-grad)"
+          strokeWidth="6"
+          strokeLinecap="round"
+          filter="url(#bh-glow)"
+        />
+      </svg>
+
+      {/* 8. Dust spiral — 12 HTML spans, CSS-only animation. Sits
+            above everything for visibility. */}
       <div className="whyrev__dust">
         {dust.map((d, i) => (
           <span
