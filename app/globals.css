@@ -15117,20 +15117,35 @@ a.feat-reach__line:hover {
    Theme is locked from .svc-shell--v2; these are NEW selectors only.
    ==================================================================== */
 
+/* .svc-block is full-width — children render at their own widths so
+   showcase components (WorkFeatureSection, AppShowcase, AppFeatures,
+   WebClientMarquee) get the whole viewport. The block head and the
+   constrained groups (tiles, charts, industry pills) wrap themselves
+   in .svc-block__inner to cap at 1280px. */
 .svc-block {
   position: relative;
-  padding: clamp(4rem, 3rem + 3vw, 7rem) clamp(1rem, 0.5rem + 2vw, 3rem);
-  max-width: 1280px;
-  margin-inline: auto;
+  padding: clamp(4rem, 3rem + 3vw, 7rem) 0;
 }
 
 .svc-block__head {
   text-align: center;
   max-width: 760px;
   margin: 0 auto clamp(2rem, 1.5rem + 1.5vw, 3.2rem);
+  padding-inline: clamp(1rem, 0.5rem + 2vw, 3rem);
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Constrained wrapper for tile rows, chart pairs, industry pills */
+.svc-block__inner {
+  max-width: 1280px;
+  margin: clamp(2rem, 1.5rem + 1vw, 3rem) auto 0;
+  padding-inline: clamp(1rem, 0.5rem + 2vw, 3rem);
+}
+
+.svc-block__inner > * + * {
+  margin-top: clamp(2rem, 1.5rem + 1vw, 3rem);
 }
 
 .svc-block__pill {

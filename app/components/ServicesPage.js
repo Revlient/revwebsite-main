@@ -542,9 +542,13 @@ export default function ServicesPage() {
         }
         sub="Our flagship ERP — tuned for the messy, paper-heavy ground reality of running a study abroad agency."
       >
+        {/* full-bleed ERP showcase */}
         <WorkFeatureSection {...STUDY_ABROAD_PROPS} />
-        <DetailTiles tiles={STUDY_ABROAD_TILES} />
-        <BeforeAfter />
+        {/* constrained tiles + chart */}
+        <div className="svc-block__inner">
+          <DetailTiles tiles={STUDY_ABROAD_TILES} />
+          <BeforeAfter />
+        </div>
       </ServiceBlock>
 
       {/* Service 2 — Websites */}
@@ -558,8 +562,11 @@ export default function ServicesPage() {
         }
         sub="Brand, marketing and product sites built for performance, accessibility, and the long haul."
       >
-        <DetailTiles tiles={WEB_TILES} />
-        <WebProjects />
+        <div className="svc-block__inner">
+          <DetailTiles tiles={WEB_TILES} />
+          <WebProjects />
+        </div>
+        {/* full-bleed marquee */}
         <WebClientMarquee />
       </ServiceBlock>
 
@@ -574,9 +581,13 @@ export default function ServicesPage() {
         }
         sub="Product-grade applications — iOS, Android and web — with the polish stores reward."
       >
+        {/* full-bleed app sections */}
         <AppShowcase />
         <AppFeatures />
-        <DetailTiles tiles={APP_TILES} />
+        {/* constrained chip row */}
+        <div className="svc-block__inner">
+          <DetailTiles tiles={APP_TILES} />
+        </div>
       </ServiceBlock>
 
       {/* Service 4 — ERP + CRM bundle */}
@@ -590,18 +601,21 @@ export default function ServicesPage() {
         }
         sub="One workspace shaped around how your industry actually works. We've shipped it for healthcare, study abroad, consulting, retail — and we'll shape one for yours."
       >
+        {/* full-bleed bundle showcase */}
         <WorkFeatureSection {...BUNDLE_PROPS} />
-        <div className="svc-industries">
-          {INDUSTRIES.map((ind) => (
-            <span
-              key={ind}
-              className={`svc-industries__pill${
-                ind.startsWith("TODO") ? " svc-industries__pill--todo" : ""
-              }`}
-            >
-              {ind}
-            </span>
-          ))}
+        <div className="svc-block__inner">
+          <div className="svc-industries">
+            {INDUSTRIES.map((ind) => (
+              <span
+                key={ind}
+                className={`svc-industries__pill${
+                  ind.startsWith("TODO") ? " svc-industries__pill--todo" : ""
+                }`}
+              >
+                {ind}
+              </span>
+            ))}
+          </div>
         </div>
       </ServiceBlock>
 
