@@ -1343,9 +1343,9 @@ html.js .reveal.is-visible {
 /* ----- Video backdrop ----- */
 .whyrev__bg {
   position: absolute;
-  /* 50% of the video extends ABOVE the section's top edge — only
-     the bottom half is visible inside the section. */
-  top: -50%;
+  /* 50% of the video extends ABOVE the section's top edge, then
+     nudged down 7cm so the bright bloom sits lower in the frame. */
+  top: calc(-50% + 7cm);
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
