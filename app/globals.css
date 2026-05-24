@@ -1344,8 +1344,8 @@ html.js .reveal.is-visible {
 .whyrev__bg {
   position: absolute;
   /* 50% of the video extends ABOVE the section's top edge, then
-     nudged down 6cm so the bright bloom sits lower in the frame. */
-  top: calc(-50% + 6cm);
+     nudged down 6.5cm so the bright bloom sits lower in the frame. */
+  top: calc(-50% + 6.5cm);
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
