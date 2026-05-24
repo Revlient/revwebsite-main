@@ -2,74 +2,39 @@
 
 import { useMemo } from "react";
 import Reveal from "./Reveal";
+import Specimen from "./whyrevlient/Specimens";
 import { CTA_HREF } from "../lib/site";
 
 /* Why-Revlient hero. Gargantua-style accretion disk on the left;
    large glassmorphic tile on top carrying the heading + three
-   pillars; right half stays intentionally empty (white-space rule).
+   "design specimen" rows; right half stays intentionally empty
+   (white-space rule).
 
-   The black-hole composition is inline SVG layered back-to-front:
-   halo wash → light flares → lower arc (behind the void) → black
-   void with inner-rim spark → upper arc (in front of the void).
-   The upper arc occludes the front of the void to fake the
-   gravitational-lensing wrap-over effect. Motion: halo pulse,
-   flare breathing, rim shimmer, dust particles spiraling inward.
-   Reduced-motion freezes every loop. */
+   Each Capability / Reliability / Loyalty pillar shows a small
+   inline-SVG UI specimen (dashboard / deploy panel / chat thread)
+   instead of an icon. Text underneath each specimen becomes a
+   short caption — the specimen does the heavy lifting. */
 
 const PILLARS = [
   {
     key: "capability",
     label: "Capability",
     body:
-      "Senior multidisciplinary team. We design, build, and ship the whole stack — not just one slice.",
-    Icon: IconStack,
+      "Design, engineering, and shipping under one roof — not handed off between vendors.",
   },
   {
     key: "reliability",
     label: "Reliability",
     body:
-      "Plain timelines, real estimates, code that holds up after the demo. We're still on call months after launch.",
-    Icon: IconShield,
+      "Builds that hold up under real load. We're still on call months after launch.",
   },
   {
     key: "loyalty",
     label: "Loyalty",
     body:
-      "We treat every engagement like our own reputation rides on it. Because it does.",
-    Icon: IconHandshake,
+      "We treat every engagement like our reputation rides on it. Because it does.",
   },
 ];
-
-function IconStack() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <polygon points="12 3 21 8 12 13 3 8 12 3" />
-      <polyline points="3 12 12 17 21 12" />
-      <polyline points="3 16 12 21 21 16" />
-    </svg>
-  );
-}
-
-function IconShield() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 3 L20 6 V12 C20 16.5 16.5 19.8 12 21 C7.5 19.8 4 16.5 4 12 V6 Z" />
-      <path d="M9 12 L11 14 L15 10" />
-    </svg>
-  );
-}
-
-function IconHandshake() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M3 12 L7 8 L11 10 L13 8 L17 10 L21 12" />
-      <path d="M7 14 L10 17 L13 15" />
-      <path d="M13 15 L15 17 L18 14" />
-      <path d="M3 12 L3 16" />
-      <path d="M21 12 L21 16" />
-    </svg>
-  );
-}
 
 function BlackHole() {
   // 12 deterministic-position dust particles spiraling inward.
@@ -273,9 +238,9 @@ export default function WhyRevlient() {
         <ul className="whyrev__pillars">
           {PILLARS.map((p, i) => (
             <Reveal as="li" key={p.key} className="whyrev__pillar" delay={i * 120}>
-              <span className="whyrev__pillar-ico">
-                <p.Icon />
-              </span>
+              <div className="whyrev__specimen">
+                <Specimen kind={p.key} />
+              </div>
               <div className="whyrev__pillar-text">
                 <h3 className="whyrev__pillar-label">{p.label}</h3>
                 <p className="whyrev__pillar-body">{p.body}</p>
