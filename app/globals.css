@@ -15545,3 +15545,89 @@ a.feat-reach__line:hover {
     animation: none !important;
   }
 }
+
+/* ----- Service 1 ERP stage: BlueGlobe behind the WorkFeatureSection
+   ~35% peeks above the showcase frame; ~65% sits behind it, visible
+   through the dashboard's glassmorphic surfaces. ----- */
+.svc-erp-stage {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+}
+
+.svc-erp-stage__globe {
+  position: absolute;
+  left: 50%;
+  /* Vertical centre offset upward so 35% of the globe sits above the
+     frame top (and 65% sits behind it). The Reveal wrapper around
+     WorkFeatureSection has its own header pill + heading before the
+     dashboard frame starts, so anchoring the globe a little above
+     centre puts more of it behind the dashboard itself. */
+  top: 38%;
+  transform: translate(-50%, -50%);
+  width: min(1100px, 90vw);
+  aspect-ratio: 1 / 1;
+  z-index: 0;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(circle, #000 55%, transparent 100%);
+  mask-image: radial-gradient(circle, #000 55%, transparent 100%);
+}
+
+/* Faint magenta wash overlay so the BlueGlobe's blue dots read
+   warmer in this dark-magenta context (the home Services 'core'
+   keeps its native blue — that stage isn't re-styled). */
+.svc-erp-stage__globe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle,
+    rgba(192, 132, 252, 0.32) 0%,
+    rgba(168, 85, 247, 0.16) 45%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.svc-erp-stage__frame {
+  position: relative;
+  z-index: 1;
+}
+
+/* WorkFeatureSection's outer bg + radial-fade-to-bg layer are both
+   opaque var(--bg). Override them to transparent ONLY within the
+   ERP stage so the BlueGlobe behind it can show through. Lock
+   honoured — no edits to the component itself, only scoped global
+   overrides. */
+.svc-erp-stage__frame .wfs {
+  background: transparent;
+}
+.svc-erp-stage__frame .wfs__radial {
+  background: radial-gradient(
+    125% 125% at 50% 100%,
+    transparent 0%,
+    rgba(8, 6, 14, 0.4) 75%,
+    rgba(8, 6, 14, 0.6) 100%
+  );
+}
+
+/* Make the dashboard surface itself glassmorphic in this stage so
+   the globe behind it is visible through the screen panel. The
+   /work + /home renders of the same component keep their solid
+   panel — only the /services ERP stage gets the glass treatment. */
+.svc-erp-stage__frame .wfs__screen {
+  background: rgba(15, 19, 29, 0.42);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  border-color: rgba(192, 132, 252, 0.28);
+}
+
+/* Add a thin text-shadow on the heading/sub so they stay readable
+   against the bright parts of the globe (which moves as it rotates)
+   without needing a fully opaque backdrop. */
+.svc-erp-stage__frame .wfs__heading,
+.svc-erp-stage__frame .wfs__sub,
+.svc-erp-stage__frame .wfs__pill {
+  text-shadow: 0 2px 14px rgba(8, 6, 14, 0.85);
+}

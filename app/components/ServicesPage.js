@@ -5,6 +5,7 @@ import Reveal from "./Reveal";
 import WorkFeatureSection from "./WorkFeatureSection";
 import AppShowcase from "./AppShowcase";
 import AppFeatures from "./AppFeatures";
+import BlueGlobe from "./BlueGlobe";
 import ProjectMockup from "./work/ProjectMockups";
 import { CTA_HREF, CONTACT_EMAIL } from "../lib/site";
 
@@ -542,8 +543,17 @@ export default function ServicesPage() {
         }
         sub="Our flagship ERP — tuned for the messy, paper-heavy ground reality of running a study abroad agency."
       >
-        {/* full-bleed ERP showcase */}
-        <WorkFeatureSection {...STUDY_ABROAD_PROPS} />
+        {/* full-bleed ERP showcase with BlueGlobe behind — ~35% peeks
+            above the frame, ~65% sits behind the glassmorphic
+            dashboard. */}
+        <div className="svc-erp-stage">
+          <div className="svc-erp-stage__globe" aria-hidden="true">
+            <BlueGlobe />
+          </div>
+          <div className="svc-erp-stage__frame">
+            <WorkFeatureSection {...STUDY_ABROAD_PROPS} />
+          </div>
+        </div>
         {/* constrained tiles + chart */}
         <div className="svc-block__inner">
           <DetailTiles tiles={STUDY_ABROAD_TILES} />
