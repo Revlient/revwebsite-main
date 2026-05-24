@@ -1340,137 +1340,72 @@ html.js .reveal.is-visible {
   overflow: hidden;
 }
 
-/* ----- Black hole visual ----- */
-.whyrev__hole {
+/* ----- Video backdrop ----- */
+.whyrev__bg {
   position: absolute;
-  /* anchor near the left edge so the void sits visibly over the
-     left half of the section instead of bleeding off-canvas */
-  left: clamp(-40px, -1vw, 40px);
-  top: 50%;
-  transform: translateY(-50%);
-  width: clamp(460px, 52vw, 780px);
-  aspect-ratio: 1 / 1;
+  /* 50% of the video extends ABOVE the section's top edge — only
+     the bottom half is visible inside the section. */
+  top: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1600px;
+  aspect-ratio: 16 / 9;
   pointer-events: none;
   z-index: 0;
-  /* soft mask so the hole fades into the section */
-  -webkit-mask-image: radial-gradient(circle, #000 60%, transparent 100%);
-  mask-image: radial-gradient(circle, #000 60%, transparent 100%);
-}
-
-.whyrev__halo {
-  position: absolute;
-  inset: -12%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(168, 85, 247, 0.35) 0%,
-    rgba(192, 132, 252, 0.12) 35%,
-    rgba(26, 10, 46, 0.08) 65%,
-    transparent 80%
+  overflow: hidden;
+  -webkit-mask-image: radial-gradient(
+    ellipse 60% 60% at 50% 65%,
+    #000 50%,
+    transparent 100%
   );
-  filter: blur(80px);
-  animation: whyrev-halo 6s ease-in-out infinite;
-  z-index: 0;
+  mask-image: radial-gradient(
+    ellipse 60% 60% at 50% 65%,
+    #000 50%,
+    transparent 100%
+  );
 }
 
-@keyframes whyrev-halo {
-  0%, 100% { opacity: 0.7; transform: scale(1); }
-  50%      { opacity: 1;   transform: scale(1.05); }
-}
-
-/* SVG canvas hosting the accretion disk + flares + void + rim */
-.whyrev__svg {
-  position: absolute;
-  inset: 0;
+.whyrev__bg-video {
   width: 100%;
   height: 100%;
-  z-index: 1;
+  object-fit: cover;
+  display: block;
+  user-select: none;
 }
 
-/* Light flares — bleeding outward from the equator. Two ellipses,
-   left and right, animated on staggered breathing pulses so the
-   equator never feels symmetric. */
-.whyrev__flare {
-  transform-box: fill-box;
-  transform-origin: center;
-  opacity: 0.85;
-  animation: whyrev-flare 5s ease-in-out infinite;
-}
-
-.whyrev__flare--left  { animation-delay: 0s; }
-.whyrev__flare--right { animation-delay: -2.5s; }
-
-@keyframes whyrev-flare {
-  0%, 100% { opacity: 0.65; transform: scaleX(0.96); }
-  50%      { opacity: 1;    transform: scaleX(1.04); }
-}
-
-/* Accretion arc — gradient stroke + heavy glow filter. Static
-   geometry; the gradient bake-in does the heavy lifting. */
-.whyrev__arc {
-  /* nothing dynamic — the gradient stroke + filter glow are the
-     visual; keeping it static so the upper-front / lower-behind
-     layering stays correct frame to frame. */
-}
-
-/* Rim spark — gentle shimmer in place so the edge of the void
-   never reads totally flat. */
-.whyrev__rim {
-  animation: whyrev-rim 4.5s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-@keyframes whyrev-rim {
-  0%, 100% { opacity: 0.55; }
-  50%      { opacity: 0.95; }
-}
-
-/* ----- Dust particles spiraling inward ----- */
-.whyrev__dust {
+/* soft vignette so the visible bottom half blends into the section
+   background rather than ending on a hard edge */
+.whyrev__bg-vignette {
   position: absolute;
   inset: 0;
+  background:
+    radial-gradient(
+      ellipse 60% 60% at 50% 65%,
+      transparent 50%,
+      rgba(5, 5, 12, 0.5) 80%,
+      rgba(5, 5, 12, 0.95) 100%
+    );
+  pointer-events: none;
 }
 
-.whyrev__dot {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: var(--size, 2px);
-  height: var(--size, 2px);
-  border-radius: 999px;
-  background: rgba(192, 132, 252, 0.7);
-  z-index: 2;
-  /* start: pushed outward along --ang for --dist% of the radius;
-     end: rotated 360deg and pulled to the centre. */
-  transform: translate(-50%, -50%) rotate(var(--ang)) translateX(var(--dist)) rotate(calc(var(--ang) * -1));
-  animation-name: whyrev-spiral;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in;
-  opacity: 0;
+@media (max-width: 880px) {
+  .whyrev__bg {
+    /* a bit less extreme on mobile so more of the bloom stays visible */
+    top: -35%;
+    aspect-ratio: 4 / 3;
+  }
 }
 
-.whyrev__dot--bright {
-  background: rgba(214, 178, 252, 0.95);
-  box-shadow: 0 0 8px rgba(192, 132, 252, 0.85);
-}
-
-@keyframes whyrev-spiral {
-  0%   { opacity: 0; transform: translate(-50%, -50%) rotate(var(--ang)) translateX(var(--dist)) rotate(calc(var(--ang) * -1)) scale(1); }
-  18%  { opacity: 1; }
-  85%  { opacity: 1; }
-  100% { opacity: 0; transform: translate(-50%, -50%) rotate(calc(var(--ang) + 360deg)) translateX(0%) rotate(calc((var(--ang) + 360deg) * -1)) scale(0.3); }
-}
-
-/* ----- Glassmorphic tile ----- */
 .whyrev__tile {
   position: relative;
   z-index: 2;
-  width: min(820px, 78%);
-  /* anchor the tile to the centre-right, leaving the left third
-     for the black hole to read full-size and giving the right edge
-     intentional white-space */
-  margin-left: clamp(18rem, 28vw, 36rem);
+  /* tile now stretches full section width — the video bg sits
+     behind it so the upper half of the video peeks above the tile's
+     top edge */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   background: rgba(20, 30, 60, 0.45);
   -webkit-backdrop-filter: blur(28px) saturate(160%);
   backdrop-filter: blur(28px) saturate(160%);
@@ -1480,6 +1415,8 @@ html.js .reveal.is-visible {
   box-shadow:
     0 30px 80px -20px rgba(0, 0, 0, 0.6),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  /* push tile down a touch so the video bloom shows above its top */
+  margin-top: clamp(4rem, 6vw, 10rem);
 }
 
 .whyrev__eyebrow {
@@ -1661,36 +1598,21 @@ html.js .reveal.is-visible {
   transform: translateX(3px);
 }
 
-/* ----- Mobile fallback: hole shrinks + centres, tile stacks below ----- */
-@media (max-width: 1023px) {
+/* ----- Mobile fallback: keep the video bloom but shrink tile margin ----- */
+@media (max-width: 880px) {
   .whyrev {
-    flex-direction: column;
-    gap: clamp(2rem, 1.5rem + 2vw, 3rem);
-    padding-top: clamp(3rem, 2rem + 3vw, 5rem);
-  }
-  .whyrev__hole {
-    position: relative;
-    left: auto;
-    top: auto;
-    transform: none;
-    width: clamp(280px, 80vw, 420px);
-    margin: 0 auto;
+    padding-top: clamp(2.5rem, 2rem + 2vw, 4rem);
   }
   .whyrev__tile {
-    margin: 0 auto;
-    width: 100%;
+    margin-top: clamp(2.5rem, 4vw, 5rem);
+    padding: 1.4rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .whyrev__halo,
-  .whyrev__flare,
-  .whyrev__rim,
-  .whyrev__dot {
-    animation: none !important;
-  }
-  .whyrev__dot {
-    opacity: 0.6;
+  .whyrev__bg-video {
+    /* freeze the looping video on its first frame */
+    animation-play-state: paused;
   }
 }
 
