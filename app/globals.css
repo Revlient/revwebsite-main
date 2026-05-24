@@ -15111,3 +15111,422 @@ a.feat-reach__line:hover {
     opacity: 0.15;
   }
 }
+
+/* ====================================================================
+   /services — Service blocks (4 service sections content)
+   Theme is locked from .svc-shell--v2; these are NEW selectors only.
+   ==================================================================== */
+
+.svc-block {
+  position: relative;
+  padding: clamp(4rem, 3rem + 3vw, 7rem) clamp(1rem, 0.5rem + 2vw, 3rem);
+  max-width: 1280px;
+  margin-inline: auto;
+}
+
+.svc-block__head {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto clamp(2rem, 1.5rem + 1.5vw, 3.2rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.svc-block__pill {
+  display: inline-block;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(214, 200, 245, 0.85);
+  padding: 0.32rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(192, 132, 252, 0.32);
+  background: rgba(192, 132, 252, 0.06);
+  margin-bottom: 1.2rem;
+}
+
+.svc-block__title {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: clamp(2rem, 1.4rem + 2.2vw, 3.4rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 0.9rem;
+  color: #fafafa;
+}
+
+.svc-block__title em {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.08em;
+  background: linear-gradient(135deg, #f0d3ff 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.svc-block__sub {
+  color: rgba(214, 200, 245, 0.72);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  margin: 0 auto;
+  max-width: 60ch;
+}
+
+.svc-block__rule {
+  display: block;
+  width: clamp(60px, 12vw, 120px);
+  height: 1px;
+  margin: clamp(2rem, 1.5rem + 2vw, 3.5rem) auto 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(192, 132, 252, 0.4),
+    transparent
+  );
+}
+
+/* ----- Detail tiles row (used by every service block) ----- */
+.svc-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.8rem, 0.6rem + 0.6vw, 1.2rem);
+  margin-top: clamp(2rem, 1.5rem + 1vw, 3rem);
+}
+
+.svc-tile {
+  background: rgba(192, 132, 252, 0.04);
+  border: 1px solid rgba(192, 132, 252, 0.18);
+  border-radius: 18px;
+  padding: 1.2rem 1.3rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.svc-tile__ico {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(192, 132, 252, 0.1);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  color: rgba(214, 200, 245, 0.95);
+  margin-bottom: 0.2rem;
+}
+
+.svc-tile__ico svg {
+  width: 20px;
+  height: 20px;
+}
+
+.svc-tile__label {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: #fafafa;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.svc-tile__body {
+  color: rgba(214, 200, 245, 0.7);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+@media (max-width: 880px) {
+  .svc-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .svc-tiles { grid-template-columns: 1fr; }
+}
+
+/* ----- Before / After bar chart pair ----- */
+.svc-ba {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 0.8rem + 0.6vw, 1.5rem);
+  margin-top: clamp(2rem, 1.5rem + 1vw, 3rem);
+}
+
+@media (max-width: 880px) {
+  .svc-ba { grid-template-columns: 1fr; }
+}
+
+.svc-ba__card {
+  background: rgba(192, 132, 252, 0.03);
+  border: 1px solid rgba(192, 132, 252, 0.16);
+  border-radius: 18px;
+  padding: 1.4rem 1.6rem 1.6rem;
+}
+
+.svc-ba__card--after {
+  background: rgba(192, 132, 252, 0.06);
+  border-color: rgba(192, 132, 252, 0.32);
+  box-shadow: 0 18px 50px -28px rgba(168, 85, 247, 0.4);
+}
+
+.svc-ba__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(192, 132, 252, 0.12);
+}
+
+.svc-ba__tag {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(214, 200, 245, 0.6);
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(214, 200, 245, 0.22);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.svc-ba__tag--after {
+  color: #f0d3ff;
+  border-color: rgba(192, 132, 252, 0.5);
+  background: rgba(192, 132, 252, 0.12);
+}
+
+.svc-ba__label {
+  color: rgba(214, 200, 245, 0.65);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 0.82rem;
+}
+
+.svc-ba__kpi {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.92rem;
+  background: linear-gradient(135deg, #f0d3ff 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.svc-ba__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.svc-ba__row {
+  display: grid;
+  grid-template-columns: 120px 1fr 80px;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 480px) {
+  .svc-ba__row {
+    grid-template-columns: 90px 1fr 70px;
+    font-size: 0.74rem;
+  }
+}
+
+.svc-ba__row-label {
+  color: rgba(214, 200, 245, 0.85);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+}
+
+.svc-ba__bar {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.svc-ba__bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.svc-ba__bar--before > span {
+  background: linear-gradient(90deg, rgba(214, 200, 245, 0.55), rgba(214, 200, 245, 0.25));
+}
+
+.svc-ba__bar--after > span {
+  background: linear-gradient(90deg, #f0d3ff, #a855f7);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.55);
+}
+
+.svc-ba__row-val {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 0.72rem;
+  color: rgba(214, 200, 245, 0.55);
+  text-align: right;
+}
+
+.svc-ba__row-val--after { color: #f0d3ff; }
+
+/* ----- Website projects bento (reuses .work-project base styles) ----- */
+.svc-webproj {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 0.8rem + 0.6vw, 1.4rem);
+  margin-top: clamp(2rem, 1.5rem + 1vw, 3rem);
+}
+
+@media (max-width: 960px) {
+  .svc-webproj { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 540px) {
+  .svc-webproj { grid-template-columns: 1fr; }
+}
+
+/* Override .work-project body text colour for the dark-magenta theme */
+.svc-shell--v2 .work-project {
+  background: rgba(192, 132, 252, 0.04);
+  border-color: rgba(192, 132, 252, 0.18);
+}
+.svc-shell--v2 .work-project:hover {
+  border-color: rgba(192, 132, 252, 0.45);
+  background: rgba(192, 132, 252, 0.07);
+}
+.svc-shell--v2 .work-project__name { color: #fafafa; }
+.svc-shell--v2 .work-project__about { color: rgba(214, 200, 245, 0.7); }
+.svc-shell--v2 .work-project__arrow {
+  color: #f0d3ff;
+  border-color: rgba(192, 132, 252, 0.32);
+}
+
+/* ----- Website-client marquee (sub-label variant) ----- */
+.svc-webclients {
+  margin-top: clamp(2rem, 1.5rem + 1vw, 3rem);
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+
+.svc-webclients__track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: svc-webclients-scroll 60s linear infinite;
+  will-change: transform;
+}
+
+.svc-webclients:hover .svc-webclients__track {
+  animation-play-state: paused;
+}
+
+@keyframes svc-webclients-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.svc-webclients__card {
+  position: relative;
+  flex-shrink: 0;
+  width: 200px;
+  height: 110px;
+  border-radius: 16px;
+  background: rgba(192, 132, 252, 0.04);
+  border: 1px solid rgba(192, 132, 252, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+}
+
+.svc-webclients__grad {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transform: scale(1.4);
+  transition: opacity 360ms ease, transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.svc-webclients__card:hover .svc-webclients__grad {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.svc-webclients__logo {
+  position: relative;
+  z-index: 1;
+  max-width: 50%;
+  max-height: 36px;
+  filter: brightness(0.95) invert(0.9);
+  transition: filter 240ms ease;
+}
+
+.svc-webclients__card:hover .svc-webclients__logo {
+  filter: brightness(0) invert(1);
+}
+
+.svc-webclients__sub {
+  position: relative;
+  z-index: 1;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: rgba(214, 200, 245, 0.55);
+}
+
+/* ----- Industry tag pills (Service 4) ----- */
+.svc-industries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: clamp(2rem, 1.5rem + 1vw, 3rem);
+}
+
+.svc-industries__pill {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.86rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(192, 132, 252, 0.32);
+  background: rgba(192, 132, 252, 0.08);
+  color: #fafafa;
+}
+
+.svc-industries__pill--todo {
+  border-color: rgba(216, 162, 58, 0.55);
+  background: rgba(216, 162, 58, 0.08);
+  color: #d8a23a;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+/* Make AppShowcase / AppFeatures sit naturally in the dark magenta
+   context — they already render dark, just normalise spacing. */
+.svc-shell--v2 .appshow,
+.svc-shell--v2 .feat {
+  background: transparent !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-webclients__track {
+    animation: none !important;
+  }
+}

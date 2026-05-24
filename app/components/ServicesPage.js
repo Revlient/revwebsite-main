@@ -1,29 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Reveal from "./Reveal";
 import WorkFeatureSection from "./WorkFeatureSection";
+import AppShowcase from "./AppShowcase";
+import AppFeatures from "./AppFeatures";
+import ProjectMockup from "./work/ProjectMockups";
 import { CTA_HREF, CONTACT_EMAIL } from "../lib/site";
 
-/* /services — Proxima-style dark-magenta landing.
-   - Hero: pill + huge sans heading + gradient CTA + glowing dashboard
-     preview, with the black-hole video bleeding behind it (screen blend).
-   - Logo marquee strip.
-   - "Faster. Smarter." 3+2 feature-tile grid with glowing icons.
-   - WorkFeatureSection (locked) reused with CRM-for-clients props as
-     the centerpiece for the major service.
-   - Compact "other pillars" strip for Web / Software / App / Automation.
-   - Closing CTA with a second black-hole video bleed at low opacity. */
+/* /services — Proxima-style dark + magenta landing.
+   Four service sections (Study abroad ERP / Websites / Apps /
+   ERP+CRM bundle) below the hero + logo marquee, then the closing
+   CTA. Theme + styles locked from the previous v2 pass. */
 
 const VIDEO_SRC = "/whyrev/blackhole.mp4";
-
-const CRM_PROPS = {
-  pill: "Included with every active project",
-  heading: "CRM access for clients.",
-  sub: "Every active engagement comes with a private CRM workspace — track project phases live, transfer assets, raise enquiries, and watch the build pulse in real time.",
-  greeting: "Good afternoon, Kevin",
-  showcaseLabel: "Client portal · Project phases · Asset transfer · Enquiries",
-};
 
 const LOGOS = [
   { name: "Procure", src: "https://svgl.app/library/procure.svg", grad: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)" },
@@ -36,135 +26,374 @@ const LOGOS = [
   { name: "Bing", src: "https://svgl.app/library/bing.svg", grad: "linear-gradient(135deg, #67e8f9 0%, #0891b2 100%)" },
 ];
 
-const OTHER_SERVICES = [
-  { slug: "web-development", title: "Web Development", body: "Brand & marketing sites, 3D / WebGL, performance-first builds." },
-  { slug: "software-development", title: "Software Development", body: "Custom platforms, APIs & integrations, internal tools." },
-  { slug: "application-development", title: "Application Development", body: "Web + mobile products, UX research, product design." },
-  { slug: "automation-systems", title: "Automation Systems", body: "Workflow automation, AI integrations, process & ops." },
+/* ----- Service 1 props (study abroad ERP) ----- */
+const STUDY_ABROAD_PROPS = {
+  pill: "AI-integrated · 10× faster operations",
+  heading: "Built for study abroad agencies.",
+  sub: "Quotations, students, agents, applications, invoicing, visa tracking, finance — all on one system tuned for the ground reality of the industry.",
+  greeting: "Good afternoon, Aswin",
+  showcaseLabel: "Study abroad ERP · Live module",
+};
+
+/* ----- Service 4 props (industry-neutral bundle) ----- */
+const BUNDLE_PROPS = {
+  pill: "Customisable per industry",
+  heading: "Shaped around your industry.",
+  sub: "Projects, clients, quotations, invoicing, tally, timesheets, finance — every module customised, AI-accelerated, and yours to evolve.",
+  greeting: "Good afternoon, Operations",
+  showcaseLabel: "ERP + CRM bundle · Customisable · AI-integrated",
+};
+
+/* ----- Detail tile data ----- */
+const STUDY_ABROAD_TILES = [
+  { icon: "quote", label: "Quotations", body: "Send branded quotes in seconds with auto-updated tuition + currency." },
+  { icon: "applications", label: "Applications", body: "Every student application tracked from enquiry to enrollment." },
+  { icon: "visa", label: "Visa tracking", body: "Live status board with deadlines, document checklist, and reminders." },
+  { icon: "finance", label: "Finance", body: "Invoicing, agent commissions and tally — all on one ledger." },
 ];
 
-const FEATURES = [
+const WEB_TILES = [
+  { icon: "delivery", label: "Fast delivery", body: "From kickoff to launch in weeks, not quarters." },
+  { icon: "perf", label: "Performance-first", body: "Lighthouse 95+ baseline. Real users, real devices." },
+  { icon: "cms", label: "Editable CMS", body: "Your team owns the content. No tickets for typo fixes." },
+  { icon: "analytics", label: "Analytics from day 1", body: "Events wired, dashboards live, decisions data-led." },
+];
+
+const APP_TILES = [
+  { icon: "platforms", label: "iOS + Android build", body: "One codebase, native-grade polish on both stores." },
+  { icon: "push", label: "Push notifications", body: "Targeted, scheduled, segmented — never spammy." },
+  { icon: "offline", label: "Offline-first", body: "Designs that respect tunnels, lifts and bad signal." },
+  { icon: "crash", label: "Crash reporting", body: "Sentry-wired from commit one. We see issues before users do." },
+];
+
+const INDUSTRIES = ["Healthcare", "Study Abroad", "Consulting", "Retail", "TODO industry"];
+
+/* ----- Website project mockups ----- */
+const WEB_PROJECTS = [
   {
-    span: "sm",
-    label: "Real-time CRM updates",
-    body: "Every project phase, asset and enquiry shows up the moment it changes — no refresh, no chasing.",
-    icon: "ring",
+    name: "Aurora Commerce",
+    mockup: "aurora",
+    about: "Headless storefront for a boutique outdoor-gear brand. Next.js + Stripe + warehouse sync.",
+    url: "https://example.com/aurora",
   },
   {
-    span: "sm",
-    label: "Instant insights",
-    body: "Dashboards your team will actually open. Metrics they can act on, not screenshots from a deck.",
-    icon: "chart",
+    name: "Lumen Studio",
+    mockup: "lumen",
+    about: "Portfolio for an architecture practice. Editorial layout, custom CMS.",
+    url: "https://example.com/lumen",
   },
   {
-    span: "sm",
-    label: "Effortless reporting",
-    body: "Reports that compose themselves from the live data. Send them, embed them, schedule them — no design pass needed.",
-    icon: "doc",
+    name: "Mesa Roastery",
+    mockup: "mesa",
+    about: "D2C coffee subscription. Stripe billing + warehouse fulfilment.",
+    url: "https://example.com/mesa",
   },
   {
-    span: "lg",
-    label: "Lightning fast onboarding",
-    body: "From handshake to active workspace in days, not quarters. Your team's first login feels considered, not generic.",
-    icon: "bolt",
-  },
-  {
-    span: "lg",
-    label: "Intelligent targeting",
-    body: "AI-assisted segmentation, scoring and routing — built around your funnel, not on top of a generic SaaS schema.",
-    icon: "grid",
+    name: "Client Project",
+    mockup: "vertex",
+    about: "TODO — placeholder project. Replace with real case study before launch.",
+    url: "https://example.com/todo",
   },
 ];
 
-/* ----- Small icon set ----- */
-function IconRing() {
+/* ----- Inline icon set for detail tiles ----- */
+function Icon({ name }) {
+  const common = {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.5,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": "true",
+  };
+  switch (name) {
+    case "quote":
+      return (
+        <svg {...common}>
+          <rect x="4" y="6" width="16" height="14" rx="2" />
+          <line x1="8" y1="11" x2="16" y2="11" />
+          <line x1="8" y1="15" x2="13" y2="15" />
+        </svg>
+      );
+    case "applications":
+      return (
+        <svg {...common}>
+          <polyline points="9 11 12 14 22 4" />
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+        </svg>
+      );
+    case "visa":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18" />
+          <path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
+        </svg>
+      );
+    case "finance":
+      return (
+        <svg {...common}>
+          <rect x="2" y="6" width="20" height="13" rx="2" />
+          <circle cx="12" cy="12.5" r="2.5" />
+          <line x1="6" y1="9.5" x2="6.5" y2="9.5" />
+          <line x1="17.5" y1="9.5" x2="18" y2="9.5" />
+        </svg>
+      );
+    case "delivery":
+      return (
+        <svg {...common}>
+          <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" fill="currentColor" stroke="none" opacity="0.6" />
+          <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />
+        </svg>
+      );
+    case "perf":
+      return (
+        <svg {...common}>
+          <path d="M3 12a9 9 0 0 1 18 0" />
+          <line x1="12" y1="12" x2="16" y2="8" />
+          <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    case "cms":
+      return (
+        <svg {...common}>
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <line x1="3" y1="10" x2="21" y2="10" />
+          <line x1="7" y1="14" x2="12" y2="14" />
+        </svg>
+      );
+    case "analytics":
+      return (
+        <svg {...common}>
+          <polyline points="3 18 9 12 13 16 21 6" />
+          <polyline points="15 6 21 6 21 12" />
+        </svg>
+      );
+    case "platforms":
+      return (
+        <svg {...common}>
+          <rect x="6" y="2" width="12" height="20" rx="3" />
+          <line x1="11" y1="18" x2="13" y2="18" />
+        </svg>
+      );
+    case "push":
+      return (
+        <svg {...common}>
+          <path d="M6 10a6 6 0 0 1 12 0v4l2 3H4l2-3z" />
+          <path d="M10 19a2 2 0 0 0 4 0" />
+        </svg>
+      );
+    case "offline":
+      return (
+        <svg {...common}>
+          <path d="M5 12a7 7 0 0 1 12-5" />
+          <path d="M19 12a7 7 0 0 1-12 5" />
+          <line x1="3" y1="3" x2="21" y2="21" />
+        </svg>
+      );
+    case "crash":
+      return (
+        <svg {...common}>
+          <path d="M12 3l2 6h6l-5 4 2 7-5-4-5 4 2-7-5-4h6z" />
+          <circle cx="12" cy="14" r="1.5" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
+
+/* ----- Reusable Service block wrapper ----- */
+function ServiceBlock({ pill, headingNode, sub, children, id }) {
   return (
-    <svg viewBox="0 0 80 80" aria-hidden="true">
-      <defs>
-        <radialGradient id="ring-glow" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="#f0d3ff" />
-          <stop offset="55%" stopColor="#c084fc" />
-          <stop offset="100%" stopColor="rgba(192,132,252,0)" />
-        </radialGradient>
-      </defs>
-      <circle cx="40" cy="40" r="36" fill="none" stroke="rgba(192,132,252,0.4)" strokeWidth="1.5" />
-      <circle cx="40" cy="40" r="28" fill="none" stroke="rgba(192,132,252,0.7)" strokeWidth="1.5" />
-      <circle cx="40" cy="40" r="14" fill="url(#ring-glow)" />
-    </svg>
+    <section className="svc-block" id={id}>
+      <Reveal className="svc-block__head">
+        <span className="svc-block__pill">{pill}</span>
+        <h2 className="svc-block__title">{headingNode}</h2>
+        {sub && <p className="svc-block__sub">{sub}</p>}
+      </Reveal>
+      {children}
+      <span className="svc-block__rule" aria-hidden="true" />
+    </section>
   );
 }
 
-function IconChart() {
+function DetailTiles({ tiles }) {
   return (
-    <svg viewBox="0 0 80 80" aria-hidden="true">
-      <rect x="14" y="44" width="10" height="22" rx="2" fill="#c084fc" opacity="0.85" />
-      <rect x="30" y="32" width="10" height="34" rx="2" fill="#c084fc" opacity="0.95" />
-      <rect x="46" y="22" width="10" height="44" rx="2" fill="#a855f7" />
-      <circle cx="58" cy="20" r="8" fill="rgba(192,132,252,0.25)" stroke="rgba(192,132,252,0.7)" strokeWidth="1" />
-    </svg>
+    <div className="svc-tiles">
+      {tiles.map((t, i) => (
+        <Reveal key={t.label} className="svc-tile" delay={i * 60}>
+          <span className="svc-tile__ico">
+            <Icon name={t.icon} />
+          </span>
+          <h3 className="svc-tile__label">{t.label}</h3>
+          <p className="svc-tile__body">{t.body}</p>
+        </Reveal>
+      ))}
+    </div>
   );
 }
 
-function IconDoc() {
+/* ----- Before/After bar chart for Service 1 ----- */
+function BeforeAfter() {
+  const TASKS = ["Quotations", "Application tracking", "Invoicing", "Reporting", "Follow-ups"];
+  const beforeBars = [88, 72, 80, 64, 76]; // visual lengths (%) for "long" bars
+  const afterBars = [22, 18, 26, 16, 20]; // short bars
   return (
-    <svg viewBox="0 0 80 80" aria-hidden="true">
-      <rect x="20" y="14" width="40" height="52" rx="4" fill="none" stroke="rgba(192,132,252,0.7)" strokeWidth="1.5" />
-      <line x1="28" y1="28" x2="52" y2="28" stroke="rgba(192,132,252,0.7)" strokeWidth="2" />
-      <line x1="28" y1="38" x2="46" y2="38" stroke="rgba(192,132,252,0.5)" strokeWidth="2" />
-      <line x1="28" y1="48" x2="50" y2="48" stroke="rgba(192,132,252,0.5)" strokeWidth="2" />
-      <line x1="28" y1="58" x2="40" y2="58" stroke="rgba(192,132,252,0.5)" strokeWidth="2" />
-    </svg>
+    <div className="svc-ba">
+      <Reveal className="svc-ba__card svc-ba__card--before">
+        <header className="svc-ba__head">
+          <span className="svc-ba__tag">Before</span>
+          <span className="svc-ba__label">Manual workflows</span>
+        </header>
+        <ul className="svc-ba__list">
+          {TASKS.map((task, i) => (
+            <li key={task} className="svc-ba__row">
+              <span className="svc-ba__row-label">{task}</span>
+              <span className="svc-ba__bar svc-ba__bar--before">
+                <span style={{ width: `${beforeBars[i]}%` }} />
+              </span>
+              <span className="svc-ba__row-val">TODO hrs/wk</span>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
+
+      <Reveal className="svc-ba__card svc-ba__card--after" delay={140}>
+        <header className="svc-ba__head svc-ba__head--after">
+          <span className="svc-ba__tag svc-ba__tag--after">After Revlient</span>
+          <span className="svc-ba__kpi">~TODO% time saved</span>
+        </header>
+        <ul className="svc-ba__list">
+          {TASKS.map((task, i) => (
+            <li key={task} className="svc-ba__row">
+              <span className="svc-ba__row-label">{task}</span>
+              <span className="svc-ba__bar svc-ba__bar--after">
+                <span style={{ width: `${afterBars[i]}%` }} />
+              </span>
+              <span className="svc-ba__row-val svc-ba__row-val--after">TODO hrs/wk</span>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
+    </div>
   );
 }
 
-function IconBolt() {
+/* ----- Website projects bento (4 cards) ----- */
+function WebProjects() {
   return (
-    <svg viewBox="0 0 120 120" aria-hidden="true">
-      <defs>
-        <radialGradient id="bolt-glow" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="rgba(192,132,252,0.85)" />
-          <stop offset="100%" stopColor="rgba(192,132,252,0)" />
-        </radialGradient>
-        <linearGradient id="bolt-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#f0d3ff" />
-          <stop offset="100%" stopColor="#a855f7" />
-        </linearGradient>
-      </defs>
-      <circle cx="60" cy="60" r="56" fill="url(#bolt-glow)" />
-      <polygon
-        points="58 18, 38 64, 56 64, 52 102, 80 50, 60 50, 64 18"
-        fill="url(#bolt-fill)"
+    <div className="svc-webproj">
+      {WEB_PROJECTS.map((p, i) => (
+        <Reveal
+          as="a"
+          key={p.name}
+          href={p.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="svc-webproj__card work-project work-project--standard"
+          delay={i * 70}
+        >
+          <div className="work-project__cover">
+            <div className="work-project__live">
+              <ProjectMockup kind={p.mockup} />
+            </div>
+            <span className="work-project__live-badge" aria-hidden="true">
+              <span className="work-project__live-dot" />
+              Live preview
+            </span>
+            <span className="work-project__demo">Demo</span>
+          </div>
+          <div className="work-project__body">
+            <div className="work-project__row">
+              <h3 className="work-project__name">{p.name}</h3>
+              <span className="work-project__arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M7 17 L17 7" />
+                  <path d="M8 7 L17 7 L17 16" />
+                </svg>
+              </span>
+            </div>
+            <p className="work-project__about">{p.about}</p>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
+/* ----- Web-client marquee (placeholder client wordmarks) ----- */
+function WebClientMarquee() {
+  return (
+    <div className="svc-webclients">
+      <div className="svc-webclients__track">
+        {[...LOGOS, ...LOGOS].map((l, i) => (
+          <div key={i} className="svc-webclients__card">
+            <span className="svc-webclients__grad" style={{ background: l.grad }} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="svc-webclients__logo" src={l.src} alt={l.name} loading="lazy" />
+            <span className="svc-webclients__sub">CLIENT NAME · WEBSITE</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ----- Hero ----- */
+function HeroV2() {
+  return (
+    <section className="svc-hero-v2">
+      <video
+        className="svc-hero-v2__video"
+        src={VIDEO_SRC}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden="true"
       />
-    </svg>
+      <span className="svc-hero-v2__halo" aria-hidden="true" />
+      <span className="svc-hero-v2__grid" aria-hidden="true" />
+
+      <div className="svc-hero-v2__inner">
+        <Reveal>
+          <span className="svc-hero-v2__pill">
+            <span className="svc-hero-v2__pill-dot">Services</span>
+            Our services — what we build, end-to-end
+          </span>
+        </Reveal>
+        <Reveal delay={120}>
+          <h1 className="svc-hero-v2__title">
+            What we build,<br />
+            end-to-end.
+          </h1>
+        </Reveal>
+        <Reveal delay={200}>
+          <p className="svc-hero-v2__sub">
+            ERP, websites, apps and automation — designed and shipped by one
+            studio. No handoffs, no agency stitching.
+          </p>
+        </Reveal>
+        <Reveal delay={280}>
+          <a href={CTA_HREF} className="svc-hero-v2__cta">
+            Talk to the studio
+          </a>
+        </Reveal>
+
+        <Reveal delay={400}>
+          <HeroDashboard />
+        </Reveal>
+      </div>
+    </section>
   );
 }
 
-function IconGrid() {
-  return (
-    <svg viewBox="0 0 120 120" aria-hidden="true">
-      <defs>
-        <radialGradient id="grid-glow" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="rgba(240, 211, 255, 0.95)" />
-          <stop offset="60%" stopColor="rgba(192,132,252,0.35)" />
-          <stop offset="100%" stopColor="rgba(192,132,252,0)" />
-        </radialGradient>
-      </defs>
-      <circle cx="60" cy="60" r="50" fill="url(#grid-glow)" />
-      <rect x="38" y="38" width="44" height="44" rx="10" fill="rgba(255,255,255,0.92)" />
-      <g fill="#c084fc">
-        <rect x="48" y="48" width="10" height="10" rx="2" />
-        <rect x="62" y="48" width="10" height="10" rx="2" />
-        <rect x="48" y="62" width="10" height="10" rx="2" />
-        <rect x="62" y="62" width="10" height="10" rx="2" />
-      </g>
-    </svg>
-  );
-}
-
-const ICONS = { ring: IconRing, chart: IconChart, doc: IconDoc, bolt: IconBolt, grid: IconGrid };
-
-/* ----- Hero dashboard preview (a smaller in-card mockup that mirrors
-   WorkFeatureSection's visual without duplicating the full section) ----- */
+/* Hero dashboard preview (smaller browser-frame mockup that echoes
+   the WorkFeatureSection visual without rendering the whole locked
+   component twice on the page). */
 function HeroDashboard() {
   return (
     <div className="svc-hero-v2__dashboard" aria-hidden="true">
@@ -222,66 +451,6 @@ function HeroDashboard() {
   );
 }
 
-function ArrowUpRight() {
-  return (
-    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M7 17 L17 7" />
-      <path d="M8 7 L17 7 L17 16" />
-    </svg>
-  );
-}
-
-/* ----- Hero ----- */
-function HeroV2() {
-  return (
-    <section className="svc-hero-v2">
-      <video
-        className="svc-hero-v2__video"
-        src={VIDEO_SRC}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-      />
-      <span className="svc-hero-v2__halo" aria-hidden="true" />
-      <span className="svc-hero-v2__grid" aria-hidden="true" />
-
-      <div className="svc-hero-v2__inner">
-        <Reveal>
-          <span className="svc-hero-v2__pill">
-            <span className="svc-hero-v2__pill-dot">New</span>
-            TODO CRM release line · book a demo
-          </span>
-        </Reveal>
-        <Reveal delay={120}>
-          <h1 className="svc-hero-v2__title">
-            Revolutionising the way<br />
-            studios ship CRM systems.
-          </h1>
-        </Reveal>
-        <Reveal delay={200}>
-          <p className="svc-hero-v2__sub">
-            One workspace for projects, assets and clients — built for the
-            studios that build everything else.
-          </p>
-        </Reveal>
-        <Reveal delay={280}>
-          <a href={CTA_HREF} className="svc-hero-v2__cta">
-            Book a demo
-          </a>
-        </Reveal>
-
-        <Reveal delay={400}>
-          <HeroDashboard />
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ----- Logo marquee (reused logic from VideoHero) ----- */
 function LogoMarquee() {
   return (
     <section className="svc-marquee-v2">
@@ -304,72 +473,6 @@ function LogoMarquee() {
   );
 }
 
-/* ----- Feature tiles (3 + 2) ----- */
-function Features() {
-  return (
-    <section className="svc-feat">
-      <Reveal className="svc-feat__head">
-        <span className="svc-feat__pill">Why teams choose us</span>
-        <h2 className="svc-feat__title">
-          Faster. <em>Smarter.</em>
-          <br />
-          Built for studio teams.
-        </h2>
-        <p className="svc-feat__sub">
-          Every tile here is a design decision we've already made for you.
-        </p>
-      </Reveal>
-
-      <div className="svc-feat__grid">
-        {FEATURES.map((f, i) => {
-          const Icon = ICONS[f.icon];
-          return (
-            <Reveal
-              key={f.label}
-              className={`svc-feat__tile svc-feat__tile--${f.span}`}
-              delay={i * 80}
-            >
-              <span className="svc-feat__icon">
-                <Icon />
-              </span>
-              <h3 className="svc-feat__tile-label">{f.label}</h3>
-              <p className="svc-feat__tile-body">{f.body}</p>
-            </Reveal>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
-/* ----- Other pillars strip ----- */
-function OtherPillars() {
-  return (
-    <section className="svc-others">
-      <Reveal className="svc-others__head">
-        <span className="svc-feat__pill">More we ship</span>
-        <h2 className="svc-feat__title">
-          The other <em>pillars.</em>
-        </h2>
-      </Reveal>
-      <div className="svc-others__strip">
-        {OTHER_SERVICES.map((s, i) => (
-          <Reveal as="a" key={s.slug} href={`/services/${s.slug}`} className="svc-others__card" delay={i * 60}>
-            <div className="svc-others__card-row">
-              <h3 className="svc-others__card-title">{s.title}</h3>
-              <span className="svc-others__card-arrow" aria-hidden="true">
-                <ArrowUpRight />
-              </span>
-            </div>
-            <p className="svc-others__card-body">{s.body}</p>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ----- Closing CTA section with second video bleed ----- */
 function ClosingCTA() {
   return (
     <section className="svc-cta-v2">
@@ -385,16 +488,14 @@ function ClosingCTA() {
       />
       <Reveal className="svc-cta-v2__inner">
         <h2 className="svc-cta-v2__title">
-          Let's build something <em>lasting.</em>
+          Let&apos;s build something <em>lasting.</em>
         </h2>
         <p className="svc-cta-v2__sub">
-          Tell us what you&apos;re building. The first conversation is always
-          free.
+          Tell us what you&apos;re building. The first conversation is always free.
         </p>
         <a href={CTA_HREF} className="svc-cta-v2__btn">
           Start a project
         </a>
-
         <div className="svc-cta-v2__meta">
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
           <span>·</span>
@@ -429,9 +530,81 @@ export default function ServicesPage() {
 
       <HeroV2 />
       <LogoMarquee />
-      <Features />
-      <WorkFeatureSection {...CRM_PROPS} />
-      <OtherPillars />
+
+      {/* Service 1 — Study abroad ERP (major) */}
+      <ServiceBlock
+        id="study-abroad-erp"
+        pill="Nº 01 · Major product"
+        headingNode={
+          <>
+            Automation for study abroad <em>agencies.</em>
+          </>
+        }
+        sub="Our flagship ERP — tuned for the messy, paper-heavy ground reality of running a study abroad agency."
+      >
+        <WorkFeatureSection {...STUDY_ABROAD_PROPS} />
+        <DetailTiles tiles={STUDY_ABROAD_TILES} />
+        <BeforeAfter />
+      </ServiceBlock>
+
+      {/* Service 2 — Websites */}
+      <ServiceBlock
+        id="websites"
+        pill="Nº 02 · Web"
+        headingNode={
+          <>
+            Websites that <em>convert,</em> and last.
+          </>
+        }
+        sub="Brand, marketing and product sites built for performance, accessibility, and the long haul."
+      >
+        <DetailTiles tiles={WEB_TILES} />
+        <WebProjects />
+        <WebClientMarquee />
+      </ServiceBlock>
+
+      {/* Service 3 — Apps */}
+      <ServiceBlock
+        id="apps"
+        pill="Nº 03 · Mobile / Web apps"
+        headingNode={
+          <>
+            Apps that feel <em>native,</em> on every screen.
+          </>
+        }
+        sub="Product-grade applications — iOS, Android and web — with the polish stores reward."
+      >
+        <AppShowcase />
+        <AppFeatures />
+        <DetailTiles tiles={APP_TILES} />
+      </ServiceBlock>
+
+      {/* Service 4 — ERP + CRM bundle */}
+      <ServiceBlock
+        id="bundle"
+        pill="Nº 04 · Bundle"
+        headingNode={
+          <>
+            The ERP + CRM <em>bundle,</em> for any industry.
+          </>
+        }
+        sub="One workspace shaped around how your industry actually works. We've shipped it for healthcare, study abroad, consulting, retail — and we'll shape one for yours."
+      >
+        <WorkFeatureSection {...BUNDLE_PROPS} />
+        <div className="svc-industries">
+          {INDUSTRIES.map((ind) => (
+            <span
+              key={ind}
+              className={`svc-industries__pill${
+                ind.startsWith("TODO") ? " svc-industries__pill--todo" : ""
+              }`}
+            >
+              {ind}
+            </span>
+          ))}
+        </div>
+      </ServiceBlock>
+
       <ClosingCTA />
     </div>
   );
