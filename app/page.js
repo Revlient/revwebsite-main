@@ -2,7 +2,7 @@ import Nav from "./components/Nav";
 import AiPromptSection from "./components/AiPromptSection";
 import ShowcaseCards from "./components/ShowcaseCards";
 import Faq from "./components/Faq";
-import Features from "./components/Features";
+import AmbientDashboard from "./components/AmbientDashboard";
 import ProcessSpine from "./components/ProcessSpine";
 import WorkFeatureSection from "./components/WorkFeatureSection";
 import WhyRevlient from "./components/WhyRevlient";
@@ -34,7 +34,7 @@ export default function HomePage() {
         <div className="h-chat-light">
           <AiPromptSection />
         </div>
-        <Features />
+        <AmbientDashboard />
         <ProcessSpine />
         <Services />
         <Faq />
