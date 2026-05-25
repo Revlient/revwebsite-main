@@ -14,15 +14,19 @@ import { useEffect, useRef, useState } from "react";
 
 const VIDEO_SRC = "/work/saas-demo.mp4";
 
+/* Each service paired with a glass chess piece that pops in
+   alongside the title. Symbols chosen to read against the
+   service: governance, versatility, fortress, agility, range,
+   strategy, foundation, defence. */
 const SERVICES = [
-  { name: "Enterprise Management Solution",   tags: ["ERP", "Operations", "Automation"] },
-  { name: "Website & CMS Solutions",          tags: ["Web", "CMS", "Performance"] },
-  { name: "Enterprise Ecommerce Platform",    tags: ["Commerce", "Catalog", "Checkout"] },
-  { name: "Custom Application Development",   tags: ["Web app", "Mobile", "Internal tools"] },
-  { name: "SaaS Solutions",                   tags: ["Multi-tenant", "Subscriptions", "Cloud"] },
-  { name: "Advanced Technology Solutions",    tags: ["AI", "Automation", "Integrations"] },
-  { name: "Design & Experience",              tags: ["UI", "Motion", "Brand"] },
-  { name: "Cybersecurity Solutions",          tags: ["Audit", "Hardening", "Compliance"] },
+  { name: "Enterprise Management Solution", piece: "♔", tags: ["ERP", "Operations", "Automation"] },
+  { name: "Website & CMS Solutions",        piece: "♕", tags: ["Web", "CMS", "Performance"] },
+  { name: "Enterprise Ecommerce Platform",  piece: "♖", tags: ["Commerce", "Catalog", "Checkout"] },
+  { name: "Custom Application Development", piece: "♘", tags: ["Web app", "Mobile", "Internal tools"] },
+  { name: "SaaS Solutions",                 piece: "♗", tags: ["Multi-tenant", "Subscriptions", "Cloud"] },
+  { name: "Advanced Technology Solutions",  piece: "♚", tags: ["AI", "Automation", "Integrations"] },
+  { name: "Design & Experience",            piece: "♙", tags: ["UI", "Motion", "Brand"] },
+  { name: "Cybersecurity Solutions",        piece: "♜", tags: ["Audit", "Hardening", "Compliance"] },
 ];
 
 /* Synthesized node-tick (Web Audio API) — no asset needed. */
@@ -286,6 +290,9 @@ export default function ServicePinScroll() {
                 >
                   <span className="svcpin__row-index">
                     {String(i + 1).padStart(2, "0")}.
+                  </span>
+                  <span className="svcpin__row-piece" aria-hidden="true">
+                    {svc.piece}
                   </span>
                   <span className="svcpin__row-name">{svc.name}</span>
                   <span className="svcpin__row-tags">

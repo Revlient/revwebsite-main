@@ -20924,7 +20924,10 @@ a.feat2-reach__line:hover {
   position: relative;
   background: #04050A;
   color: #ffffff;
-  min-height: 320vh;
+  /* tall enough that pin holds through all 10 slots
+     (empty buffer + 8 services + CTA) with comfortable
+     dwell time per service. */
+  min-height: 460vh;
   overflow: visible;
   isolation: isolate;
 }
@@ -21054,9 +21057,9 @@ a.feat2-reach__line:hover {
   top: 50%;
   left: 0;
   right: 0;
-  transform: translateY(-50%) translateY(40px) scale(0.92);
+  transform: translateY(-50%) translateY(48px) scale(0.9);
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto auto 1fr auto;
   align-items: center;
   gap: clamp(0.8rem, 0.5rem + 1vw, 2rem);
   padding: 0 clamp(0.5rem, 0.5rem + 0.5vw, 1.2rem);
@@ -21066,10 +21069,10 @@ a.feat2-reach__line:hover {
   opacity: 0;
   pointer-events: none;
   transition:
-    opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 1.6s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  filter: blur(10px);
+    opacity 2s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 2.2s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: blur(14px);
   will-change: opacity, transform, filter;
 }
 
@@ -21079,6 +21082,33 @@ a.feat2-reach__line:hover {
   letter-spacing: 0.06em;
   color: rgba(255, 255, 255, 0.5);
   transition: color 0.4s ease;
+}
+/* Glass chess piece — frosted tile holding a Unicode chess glyph.
+   The tile is glassmorphic; the glyph itself is luminous white. */
+.svcpin__row-piece {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(64px, 5vw + 32px, 110px);
+  height: clamp(64px, 5vw + 32px, 110px);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 18px 44px -16px rgba(0, 0, 0, 0.55),
+    0 0 44px -8px rgba(255, 255, 255, 0.2);
+  font-family: var(--font-body);
+  font-size: clamp(36px, 3.4vw + 18px, 64px);
+  line-height: 1;
+  color: #ffffff;
+  text-shadow:
+    0 0 22px rgba(255, 255, 255, 0.55),
+    0 0 44px rgba(255, 255, 255, 0.25);
 }
 .svcpin__row-name {
   font-family: var(--font-body);
