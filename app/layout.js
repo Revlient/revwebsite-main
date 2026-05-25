@@ -8,6 +8,7 @@ import {
 } from "next/font/google";
 import { BRAND } from "./lib/site";
 import MusicToggle from "./components/MusicToggle";
+import GlobalOptimizer from "./components/GlobalOptimizer";
 
 // DM Sans + Caveat are scoped to the new footer via CSS variables — the
 // rest of the site continues to use the system stack defined in globals.
@@ -98,6 +99,7 @@ export default function RootLayout({ children }) {
         {children}
         {/* Persists across route changes (lives in the root layout). */}
         <MusicToggle />
+        <GlobalOptimizer />
       </body>
     </html>
   );

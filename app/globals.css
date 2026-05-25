@@ -17914,4 +17914,80 @@ a.feat-reach__line:hover {
   box-shadow: 0 0 6px #c084fc;
 }
 
+/* ============================================================
+   RESPONSIVE LAYOUT & OPTIMIZATION OVERRIDES
+   ============================================================ */
+
+/* Homepage and Workpage global nav scroll transition */
+.page-home-nav {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.page-home-nav.is-scrolled {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Re-skin the global nav component to match the dark magenta services theme */
+.svc-shell--v2 .nav {
+  background: transparent;
+  border-bottom: 1px solid transparent;
+}
+.svc-shell--v2 .nav.is-scrolled {
+  background: rgba(12, 8, 22, 0.78);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid rgba(192, 132, 252, 0.12);
+}
+.svc-shell--v2 .nav a.brand {
+  color: #fafafa;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.svc-shell--v2 .nav__links a {
+  color: rgba(220, 200, 245, 0.7);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.svc-shell--v2 .nav__links a:hover {
+  color: #c084fc;
+}
+
+/* Mobile & tablet navigation overrides */
+@media (max-width: 860px) {
+  /* Hide custom absolute headers inside Hero and WorkHero */
+  .rhero-nav,
+  .whero-nav {
+    display: none !important;
+  }
+  
+  /* Ensure the global nav is always visible on mobile */
+  .page-home-nav {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Simulated ERP mockups mobile responsiveness */
+@media (max-width: 900px) {
+  .wfs__screenwrap {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .wfs__screen {
+    min-width: 840px !important;
+    aspect-ratio: auto !important;
+    height: auto !important;
+  }
+}
+
 

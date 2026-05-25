@@ -4,6 +4,7 @@ import BundleShowcaseServices from "../../components/services/BundleShowcaseServ
 import WorkFeatureSection from "../../components/WorkFeatureSection";
 import BlueGlobe from "../../components/BlueGlobe";
 import Reveal from "../../components/Reveal";
+import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
 import StickyCTA from "../../components/StickyCTA";
 import ContactWidget from "../../components/ContactWidget";
@@ -93,16 +94,7 @@ export default async function ServicePage({ params }) {
   return (
     <div className="svc-shell svc-shell--v2 svcpage-shell">
       {/* Shared Nav Header */}
-      <header className="svc-nav is-scrolled">
-        <a href="/" className="svc-nav__brand">Revlient</a>
-        <nav className="svc-nav__links" aria-label="Primary">
-          <a href="/">Home</a>
-          <a href="/services">Services</a>
-          <a href="/process">Process</a>
-          <a href="/work">Work</a>
-          <a href={CTA_HREF}>Contact</a>
-        </nav>
-      </header>
+      <Nav />
 
       <main className="svcpage-main">
         {/* Immersive Hero Section */}
@@ -112,20 +104,27 @@ export default async function ServicePage({ params }) {
           <div className="svc-hero-v2__glow svc-hero-v2__glow--center" aria-hidden="true" />
           
           <div className="svc-hero-v2__particles" aria-hidden="true">
-            {Array.from({ length: 18 }).map((_, i) => (
-              <span
-                key={i}
-                className="svc-hero-v2__particle"
-                style={{
-                  left: `${10 + Math.random() * 80}%`,
-                  top: `${15 + Math.random() * 70}%`,
-                  animationDelay: `${Math.random() * 6}s`,
-                  animationDuration: `${5 + Math.random() * 5}s`,
-                  width: `${1.5 + Math.random() * 2}px`,
-                  height: `${1.5 + Math.random() * 2}px`,
-                }}
-              />
-            ))}
+            {Array.from({ length: 18 }).map((_, i) => {
+              const left = (i * 17) % 81 + 10;
+              const top = (i * 23 + 11) % 66 + 15;
+              const delay = ((i * 0.7) % 6).toFixed(1);
+              const duration = (5 + (i * 1.3) % 5).toFixed(1);
+              const size = (1.5 + (i * 0.3) % 2).toFixed(1);
+              return (
+                <span
+                  key={i}
+                  className="svc-hero-v2__particle"
+                  style={{
+                    left: `${left}%`,
+                    top: `${top}%`,
+                    animationDelay: `${delay}s`,
+                    animationDuration: `${duration}s`,
+                    width: `${size}px`,
+                    height: `${size}px`,
+                  }}
+                />
+              );
+            })}
           </div>
 
           <div className="svcpage-hero__inner">

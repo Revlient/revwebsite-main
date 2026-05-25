@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Reveal from "./Reveal";
+import Nav from "./Nav";
 import WorkFeatureSection from "./WorkFeatureSection";
 import AppShowcaseServices from "./services/AppShowcaseServices";
 import BundleShowcaseServices from "./services/BundleShowcaseServices";
@@ -365,20 +366,27 @@ function HeroV2() {
 
       {/* Floating particles */}
       <div className="svc-hero-v2__particles" aria-hidden="true">
-        {Array.from({ length: 24 }).map((_, i) => (
-          <span
-            key={i}
-            className="svc-hero-v2__particle"
-            style={{
-              left: `${5 + Math.random() * 90}%`,
-              top: `${5 + Math.random() * 90}%`,
-              animationDelay: `${Math.random() * 8}s`,
-              animationDuration: `${4 + Math.random() * 6}s`,
-              width: `${1.5 + Math.random() * 2}px`,
-              height: `${1.5 + Math.random() * 2}px`,
-            }}
-          />
-        ))}
+        {Array.from({ length: 24 }).map((_, i) => {
+          const left = (i * 17) % 91 + 5;
+          const top = (i * 23 + 11) % 86 + 5;
+          const delay = ((i * 0.7) % 8).toFixed(1);
+          const duration = (4 + (i * 1.3) % 6).toFixed(1);
+          const size = (1.5 + (i * 0.3) % 2).toFixed(1);
+          return (
+            <span
+              key={i}
+              className="svc-hero-v2__particle"
+              style={{
+                left: `${left}%`,
+                top: `${top}%`,
+                animationDelay: `${delay}s`,
+                animationDuration: `${duration}s`,
+                width: `${size}px`,
+                height: `${size}px`,
+              }}
+            />
+          );
+        })}
       </div>
 
       {/* Scan line */}
@@ -627,26 +635,9 @@ function ClosingCTA() {
 }
 
 export default function ServicesPage() {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <div className="svc-shell svc-shell--v2">
-      <header className={`svc-nav ${scrolled ? "is-scrolled" : ""}`}>
-        <a href="/" className="svc-nav__brand">Revlient</a>
-        <nav className="svc-nav__links" aria-label="Primary">
-          <a href="/">Home</a>
-          <a href="/services">Services</a>
-          <a href="/process">Process</a>
-          <a href="/work">Work</a>
-          <a href={CTA_HREF}>Contact</a>
-        </nav>
-      </header>
+      <Nav />
 
       <HeroV2 />
       <LogoMarquee />

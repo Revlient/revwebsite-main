@@ -1,4 +1,5 @@
 import Hero from "./components/Hero";
+import Nav from "./components/Nav";
 import AiPromptSection from "./components/AiPromptSection";
 import ShowcaseCards from "./components/ShowcaseCards";
 import Features from "./components/Features";
@@ -18,6 +19,7 @@ import ContactWidget from "./components/ContactWidget";
 export default function HomePage() {
   return (
     <>
+      <Nav className="page-home-nav" />
       <main>
         <Hero />
         <AiPromptSection />

@@ -1,4 +1,5 @@
 import WorkHero from "../components/WorkHero";
+import Nav from "../components/Nav";
 import WorkProjects from "../components/WorkProjects";
 import WorkFeatureSection from "../components/WorkFeatureSection";
 import ErpFeatures from "../components/ErpFeatures";
@@ -24,6 +25,7 @@ export const metadata = {
 export default function WorkPage() {
   return (
     <>
+      <Nav className="page-home-nav" />
       <main className="page-work">
         <WorkHero />
         <WorkFeatureSection />

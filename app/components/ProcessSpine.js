@@ -239,16 +239,22 @@ export default function ProcessSpine() {
 
     let raf = 0;
     let visible = false;
+    let sectionTop = 0;
+    let sectionHeight = 0;
+
+    const updateDimensions = () => {
+      const rect = section.getBoundingClientRect();
+      sectionTop = rect.top + window.scrollY;
+      sectionHeight = rect.height;
+    };
 
     const apply = () => {
       raf = 0;
-      const rect = section.getBoundingClientRect();
+      const scrollTop = window.scrollY;
       const vh = window.innerHeight || 800;
-      // useScroll({ offset: ["start end", "end start"] }) semantics:
-      // 0 when the section's top first crosses the viewport bottom,
-      // 1 when the section's bottom crosses the viewport top.
-      const denom = rect.height + vh;
-      const p = Math.max(0, Math.min(1, (vh - rect.top) / denom));
+      const sTopRelative = sectionTop - scrollTop;
+      const denom = sectionHeight + vh;
+      const p = Math.max(0, Math.min(1, (vh - sTopRelative) / denom));
       setDrawn(p);
     };
 
@@ -257,22 +263,33 @@ export default function ProcessSpine() {
       raf = requestAnimationFrame(apply);
     };
 
+    const onResize = () => {
+      updateDimensions();
+      apply();
+    };
+
     const io = new IntersectionObserver(
       ([e]) => {
         visible = e.isIntersecting;
-        if (visible) apply();
+        if (visible) {
+          updateDimensions();
+          apply();
+        }
       },
       { rootMargin: "200px" }
     );
     io.observe(section);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+
+    updateDimensions();
     apply();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
 
     return () => {
       io.disconnect();
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
       if (raf) cancelAnimationFrame(raf);
     };
   }, [reduced]);

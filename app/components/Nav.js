@@ -11,7 +11,7 @@ import {
 
 // Persistent top nav. The "Start a project" CTA is always visible here —
 // one of the four required persistent CTA placements.
-export default function Nav() {
+export default function Nav({ className = "" }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -23,7 +23,7 @@ export default function Nav() {
   }, []);
 
   return (
-    <header className={`nav ${scrolled ? "is-scrolled" : ""}`}>
+    <header className={`nav ${scrolled ? "is-scrolled" : ""} ${className}`.trim()}>
       <div className="container nav__inner">
         <a href="/" className="brand" aria-label={`${BRAND.name} home`}>
           <Logo className="brand__mark" />
