@@ -7,7 +7,6 @@ import CapabilityGrid from "./components/CapabilityGrid";
 import ProcessSpine from "./components/ProcessSpine";
 import ServicePinScroll from "./components/ServicePinScroll";
 import WhyRevlient from "./components/WhyRevlient";
-import Services from "./components/Services";
 import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
@@ -29,7 +28,6 @@ export default function HomePage() {
         <CapabilityGrid />
         <ProcessSpine />
         <ServicePinScroll />
-        <Services />
         <Faq />
         <ShowcaseCards />
         <WhyRevlient />
