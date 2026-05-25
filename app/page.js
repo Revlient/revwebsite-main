@@ -3,7 +3,7 @@ import CinematicHero from "./components/CinematicHero";
 import AiPromptSection from "./components/AiPromptSection";
 import ShowcaseCards from "./components/ShowcaseCards";
 import Faq from "./components/Faq";
-import AmbientDashboard from "./components/AmbientDashboard";
+import CapabilityGrid from "./components/CapabilityGrid";
 import ProcessSpine from "./components/ProcessSpine";
 import WorkFeatureSection from "./components/WorkFeatureSection";
 import WhyRevlient from "./components/WhyRevlient";
@@ -26,7 +26,7 @@ export default function HomePage() {
         <div className="h-chat-light">
           <AiPromptSection />
         </div>
-        <AmbientDashboard />
+        <CapabilityGrid />
         <WorkFeatureSection
           pill="Included with every active project"
           heading="CRM access for clients."
