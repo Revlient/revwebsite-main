@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from "react";
    PROOF RULE: studio capability framing only — no client names,
    metrics, fabricated proof. */
 
-const VIDEO_SRC = "/work/erp-beam.mp4";
+const VIDEO_SRC = "/work/saas-demo.mp4";
 
 const SERVICES = [
   { name: "Enterprise Management Solution",   tags: ["ERP", "Operations", "Automation"] },
