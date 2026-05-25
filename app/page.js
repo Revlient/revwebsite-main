@@ -31,7 +31,9 @@ export default function HomePage() {
           />
         </div>
 
-        <AiPromptSection />
+        <div className="h-chat-light">
+          <AiPromptSection />
+        </div>
         <Features />
         <ProcessSpine />
         <Services />

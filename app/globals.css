@@ -20059,3 +20059,104 @@ a.feat2-reach__line:hover {
   }
 }
 
+
+
+/* ====================================================================
+   H-CHAT-LIGHT — Apple-clean white background + grained glass chatbox
+   Scoped wrapper around <AiPromptSection /> on the home page only.
+   ==================================================================== */
+.h-chat-light .aiprompt {
+  background: #fbfbfd;
+  color: #1d1d1f;
+}
+
+/* kill the dark video + vignette gradient stack */
+.h-chat-light .aiprompt__bg { display: none; }
+.h-chat-light .chatbd__video { display: none; }
+.h-chat-light .chatbd__vignette { display: none; }
+
+/* ---- Light text colours ---- */
+.h-chat-light .aiprompt__eyebrow {
+  color: rgba(29, 29, 31, 0.55);
+  font-weight: 600;
+}
+.h-chat-light .aiprompt__title {
+  color: #1d1d1f;
+}
+.h-chat-light .aiprompt__title em {
+  color: rgba(29, 29, 31, 0.45);
+}
+.h-chat-light .aiprompt__sub {
+  color: rgba(29, 29, 31, 0.62);
+}
+
+/* ---- Grained glass chatbox ---- */
+.h-chat-light .aibox {
+  position: relative;
+  background: rgba(255, 255, 255, 0.62);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(29, 29, 31, 0.08);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 24px 60px -28px rgba(29, 29, 31, 0.18),
+    0 2px 6px rgba(29, 29, 31, 0.04);
+  color: #1d1d1f;
+  overflow: hidden;
+}
+
+/* film grain overlay on the chatbox */
+.h-chat-light .aibox::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+}
+.h-chat-light .aibox.is-rec {
+  border-color: rgba(239, 68, 68, 0.6);
+}
+
+/* ---- Bot bubbles → light glass on white ---- */
+.h-chat-light .aichat__msg.is-bot p {
+  background: rgba(255, 255, 255, 0.78);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(29, 29, 31, 0.08);
+  color: #1d1d1f;
+  box-shadow: 0 1px 2px rgba(29, 29, 31, 0.04);
+}
+
+/* user bubble keeps the brand blue but slightly softer on white */
+.h-chat-light .aichat__msg.is-user p {
+  background: linear-gradient(135deg, #2b5fff, #4a78ff);
+  color: #fff;
+  box-shadow: 0 6px 16px -6px rgba(43, 95, 255, 0.4);
+}
+
+/* ---- Quick-reply chips → light ---- */
+.h-chat-light .aichat__chip {
+  background: rgba(29, 29, 31, 0.04);
+  border-color: rgba(29, 29, 31, 0.1);
+  color: #1d1d1f;
+}
+.h-chat-light .aichat__chip:hover {
+  background: rgba(43, 95, 255, 0.08);
+  border-color: rgba(43, 95, 255, 0.45);
+  color: #2b5fff;
+}
+
+/* ---- Input field inside the chatbox (catch-all for the inner textarea/input) ---- */
+.h-chat-light .aibox input,
+.h-chat-light .aibox textarea,
+.h-chat-light .aibox [contenteditable="true"] {
+  color: #1d1d1f;
+  caret-color: #2b5fff;
+}
+.h-chat-light .aibox input::placeholder,
+.h-chat-light .aibox textarea::placeholder {
+  color: rgba(29, 29, 31, 0.42);
+}
