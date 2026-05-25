@@ -2,6 +2,7 @@ import Hero from "./components/Hero";
 import Nav from "./components/Nav";
 import AiPromptSection from "./components/AiPromptSection";
 import ShowcaseCards from "./components/ShowcaseCards";
+import Faq from "./components/Faq";
 import Features from "./components/Features";
 import ProcessSpine from "./components/ProcessSpine";
 import WorkFeatureSection from "./components/WorkFeatureSection";
@@ -33,6 +34,7 @@ export default function HomePage() {
           showcaseLabel="Client portal · Project phases · Asset transfer · Enquiries"
         />
         <Services />
+        <Faq />
         <ShowcaseCards />
         <WhyRevlient />
         <FinalCTA />
