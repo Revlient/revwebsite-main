@@ -23,15 +23,15 @@ export default function CinematicHero() {
         aria-hidden="true"
       />
 
-      {/* Staggered headline words */}
-      <h1 className="cinhero__w cinhero__w--1">we craft</h1>
-      <h1 className="cinhero__w cinhero__w--2">digital</h1>
-      <h1 className="cinhero__w cinhero__w--3">legacy.</h1>
-
-      <p className="cinhero__desc">
-        we partner with serious businesses to design, engineer and
-        ship the digital systems that move them forward.
-      </p>
+      <div className="cinhero__hd">
+        <h1 className="cinhero__title">
+          we craft<br />digital<br />legacy.
+        </h1>
+        <p className="cinhero__desc">
+          we partner with serious businesses to design, engineer
+          and ship the digital systems that move them forward.
+        </p>
+      </div>
 
       {/* Top-right stat */}
       <div className="cinhero__stat cinhero__stat--tr">

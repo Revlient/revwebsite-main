@@ -20226,11 +20226,11 @@ a.feat2-reach__line:hover {
 .h-chat-light .aibox {
   position: relative;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.82));
-  -webkit-backdrop-filter: blur(36px) saturate(200%);
-  backdrop-filter: blur(36px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  color: #1d1d1f;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.28));
+  -webkit-backdrop-filter: blur(42px) saturate(190%);
+  backdrop-filter: blur(42px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: #ffffff;
   isolation: isolate;
   transform: translateZ(0);
   box-shadow:
@@ -20317,26 +20317,26 @@ a.feat2-reach__line:hover {
 
 /* ---- Quick-reply chips → light ---- */
 .h-chat-light .aichat__chip {
-  background: rgba(29, 29, 31, 0.04);
-  border-color: rgba(29, 29, 31, 0.1);
-  color: #1d1d1f;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.92);
 }
 .h-chat-light .aichat__chip:hover {
-  background: rgba(43, 95, 255, 0.08);
-  border-color: rgba(43, 95, 255, 0.45);
-  color: #2b5fff;
+  background: rgba(96, 165, 250, 0.16);
+  border-color: rgba(96, 165, 250, 0.5);
+  color: #ffffff;
 }
 
 /* ---- Input field inside the chatbox (catch-all for the inner textarea/input) ---- */
 .h-chat-light .aibox input,
 .h-chat-light .aibox textarea,
 .h-chat-light .aibox [contenteditable="true"] {
-  color: #1d1d1f;
-  caret-color: #2b5fff;
+  color: #ffffff;
+  caret-color: #6EC1FF;
 }
 .h-chat-light .aibox input::placeholder,
 .h-chat-light .aibox textarea::placeholder {
-  color: rgba(29, 29, 31, 0.42);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 
@@ -20748,46 +20748,41 @@ a.feat2-reach__line:hover {
   pointer-events: none;
 }
 
-/* ---- Giant staggered headline words ---- */
-.cinhero__w {
+/* ---- Centered headline block ---- */
+.cinhero__hd {
   position: absolute;
+  inset: 0;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 1.5rem;
+  pointer-events: none;
+}
+.cinhero__title {
   margin: 0;
   font-family: var(--font-clash);
   font-weight: 500;
   color: #fff;
-  font-size: 14vw;
-  line-height: 0.95;
+  font-size: clamp(3rem, 1.8rem + 7vw, 9.5rem);
+  line-height: 0.92;
   letter-spacing: -0.04em;
   text-transform: lowercase;
-  pointer-events: none;
-  white-space: nowrap;
-}
-@media (min-width: 768px) {
-  .cinhero__w { font-size: 13vw; }
-}
-.cinhero__w--1 { left: clamp(1rem, 1rem + 1vw, 2.5rem); top: 16%; }
-.cinhero__w--2 { right: clamp(1rem, 1rem + 1vw, 2.5rem); top: 36%; }
-.cinhero__w--3 {
-  left: 18%;
-  top: 56%;
-}
-@media (min-width: 768px) {
-  .cinhero__w--3 { left: 28%; }
+  text-wrap: balance;
 }
 
-/* ---- Description ---- */
+/* ---- Description (under the headline) ---- */
 .cinhero__desc {
-  position: absolute;
-  z-index: 11;
-  left: clamp(1.5rem, 1rem + 1vw, 2.5rem);
-  top: 44%;
-  max-width: 240px;
-  margin: 0;
+  margin: clamp(1.4rem, 1rem + 1vw, 2.2rem) auto 0;
+  max-width: 36rem;
   font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.35;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.9rem, 0.86rem + 0.2vw, 1rem);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.78);
+  text-align: center;
+  pointer-events: auto;
 }
 
 /* ---- Stat blocks ---- */
