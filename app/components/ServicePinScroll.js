@@ -71,7 +71,7 @@ export default function ServicePinScroll() {
   const inViewRef = useRef(false);
   const tickRef = useRef(null);
   const lastIdxRef = useRef(-1);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const [hoverIndex, setHoverIndex] = useState(-1);
 
   useEffect(() => {
@@ -134,24 +134,36 @@ export default function ServicePinScroll() {
 
     const update = () => {
       const rect = section.getBoundingClientRect();
-      const total = section.offsetHeight - window.innerHeight;
-      const progress = Math.max(0, Math.min(1, -rect.top / Math.max(1, total)));
-      if (progress === lastProgress) return;
-      lastProgress = progress;
+      const total = Math.max(1, section.offsetHeight - window.innerHeight);
+      const rawProgress = Math.max(0, Math.min(1, -rect.top / total));
+      if (rawProgress === lastProgress) return;
+      lastProgress = rawProgress;
 
       const listH = list.scrollHeight;
       const viewportH = list.parentElement.clientHeight;
       const maxY = Math.max(0, listH - viewportH);
-      const y = progress * maxY;
+      const y = rawProgress * maxY;
       list.style.transform = `translate3d(0, ${-y}px, 0)`;
 
-      // 8 services + 1 final "View More" slot
-      const slots = SERVICES.length + 1;
-      const idx = Math.min(slots - 1, Math.floor(progress * slots));
+      // Shift slot mapping so nothing appears until the stage has
+      // actually pinned. The user sees the video fully scroll out
+      // and the section "stop", then the first service fades in.
+      const playerH = playerRef.current ? playerRef.current.offsetHeight : 0;
+      const pinStartProgress = (playerH + 24) / total;
+      const afterPin = Math.max(
+        0,
+        (rawProgress - pinStartProgress) / Math.max(0.001, 1 - pinStartProgress)
+      );
+
+      // Slots: [empty buffer, ...8 services, view-more CTA] = 10
+      const slots = SERVICES.length + 2;
+      const slot = Math.min(slots - 1, Math.floor(afterPin * slots));
+      // slot 0 = nothing, slot 1..8 = service slot-1, slot 9 = CTA
+      const idx = slot - 1;
       if (idx !== lastIdxRef.current) {
         lastIdxRef.current = idx;
         setActiveIndex(idx);
-        if (tickRef.current && !reduced) tickRef.current.play();
+        if (tickRef.current && !reduced && idx >= 0) tickRef.current.play();
       }
     };
 
@@ -220,9 +232,12 @@ export default function ServicePinScroll() {
   }, []);
 
   const isCtaSlot = activeIndex >= SERVICES.length;
-  const active = isCtaSlot
-    ? { name: "View All Services", tags: [] }
-    : SERVICES[activeIndex];
+  const isEmptySlot = activeIndex < 0;
+  const active = isEmptySlot
+    ? null
+    : isCtaSlot
+      ? { name: "View All Services", tags: [] }
+      : SERVICES[activeIndex];
 
   return (
     <section ref={sectionRef} className="svcpin" aria-label="Studio services">
@@ -248,7 +263,7 @@ export default function ServicePinScroll() {
             <span className="svcpin__player-dot" />
             <span className="svcpin__player-eyebrow">Now showing</span>
             <span className="svcpin__player-name" aria-live="polite">
-              {active.name}
+              {active ? active.name : "Scroll to explore"}
             </span>
           </div>
         </div>
