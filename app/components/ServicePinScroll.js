@@ -270,6 +270,28 @@ export default function ServicePinScroll() {
         </div>
 
         <div className="svcpin__list-viewport">
+          {/* Intro heading — visible during the empty leading slot,
+              fades out the moment the first service activates. */}
+          <div
+            className={`svcpin__intro${isEmptySlot ? " is-active" : ""}`}
+            aria-hidden={!isEmptySlot}
+          >
+            <span className="svcpin__intro-eyebrow">
+              <span className="svcpin__intro-dot" />
+              Capabilities · 01 / {String(SERVICES.length).padStart(2, "0")}
+            </span>
+            <h2 className="svcpin__intro-title">
+              <span className="svcpin__intro-word">Our</span>
+              <span className="svcpin__intro-word">Major</span>
+              <span className="svcpin__intro-word svcpin__intro-word--accent">
+                Services.
+              </span>
+            </h2>
+            <span className="svcpin__intro-hint">
+              <span className="svcpin__intro-hint-line" />
+              Keep scrolling
+            </span>
+          </div>
           <ul ref={listRef} className="svcpin__list">
             {SERVICES.map((svc, i) => {
               const isActive = i === activeIndex;

@@ -21037,6 +21037,151 @@ a.feat2-reach__line:hover {
   margin: 0 auto;
 }
 
+/* ---- Intro heading — slot 0 ("Our Major Services") ---- */
+.svcpin__intro {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%) translateY(48px) scale(0.94);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.4rem;
+  padding: 0 clamp(1rem, 0.8rem + 1vw, 2rem);
+  pointer-events: none;
+  opacity: 0;
+  filter: blur(12px);
+  transition:
+    opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+.svcpin__intro.is-active {
+  opacity: 1;
+  transform: translateY(-50%) translateY(0) scale(1);
+  filter: blur(0);
+  pointer-events: auto;
+}
+.svcpin__intro-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+.svcpin__intro-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.75);
+  animation: svcpin-intro-pulse 2.2s ease-in-out infinite;
+}
+@keyframes svcpin-intro-pulse {
+  0%, 100% { box-shadow: 0 0 6px rgba(255, 255, 255, 0.45); transform: scale(1); }
+  50%      { box-shadow: 0 0 14px rgba(255, 255, 255, 0.95); transform: scale(1.18); }
+}
+
+/* Title — words wrapped individually so they stagger in on activation */
+.svcpin__intro-title {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem clamp(0.8rem, 0.5rem + 1vw, 1.6rem);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 1.5rem + 4.4vw, 6.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+.svcpin__intro-word {
+  display: inline-block;
+  color: transparent;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0.22) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.28);
+  filter:
+    drop-shadow(0 0 24px rgba(255, 255, 255, 0.15))
+    drop-shadow(0 0 56px rgba(96, 165, 250, 0.16));
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.svcpin__intro.is-active .svcpin__intro-word { opacity: 1; transform: translateY(0); }
+.svcpin__intro.is-active .svcpin__intro-word:nth-child(1) { transition-delay: 0.05s; }
+.svcpin__intro.is-active .svcpin__intro-word:nth-child(2) { transition-delay: 0.22s; }
+.svcpin__intro.is-active .svcpin__intro-word:nth-child(3) { transition-delay: 0.42s; }
+.svcpin__intro-word--accent {
+  /* the third word — slightly brighter + faint blue rim */
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter:
+    drop-shadow(0 0 32px rgba(255, 255, 255, 0.28))
+    drop-shadow(0 0 80px rgba(96, 165, 250, 0.3));
+}
+
+.svcpin__intro-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+.svcpin__intro-hint-line {
+  width: 32px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+.svcpin__intro-hint-line::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, #fff 50%, transparent 100%);
+  animation: svcpin-intro-line 2.8s linear infinite;
+}
+@keyframes svcpin-intro-line {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svcpin__intro,
+  .svcpin__intro-word,
+  .svcpin__intro-dot,
+  .svcpin__intro-hint-line::before { animation: none; transition: none; }
+}
+
 .svcpin__list {
   list-style: none;
   margin: 0;
