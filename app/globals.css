@@ -21331,3 +21331,246 @@ a.feat2-reach__line:hover {
   .svcpin__viewmore-arrow { transition: none; }
   .svcpin__viewmore::before { animation: none; }
 }
+
+/* ====================================================================
+   CSSCROLL — Industries case studies (horizontal pinned scroll)
+   Section is tall (the scroll track); inside, the stage pins to
+   the viewport and the .csscroll__track translates X based on
+   scroll progress. Once track is fully scrolled, page resumes.
+   ==================================================================== */
+.csscroll {
+  position: relative;
+  background: #04050A;
+  color: #ffffff;
+  min-height: 360vh;
+  overflow: visible;
+  isolation: isolate;
+}
+.csscroll::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(50% 35% at 20% 20%, rgba(96, 165, 250, 0.14), transparent 70%),
+    radial-gradient(45% 35% at 85% 70%, rgba(255, 255, 255, 0.06), transparent 70%);
+  filter: blur(80px);
+}
+
+.csscroll__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding-top: clamp(4rem, 3rem + 3vw, 7rem);
+  padding-bottom: clamp(2rem, 1.5rem + 2vw, 4rem);
+  z-index: 1;
+}
+
+.csscroll__head {
+  width: min(1640px, 96%);
+  margin: 0 auto clamp(2rem, 1.4rem + 2vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  position: relative;
+}
+.csscroll__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.55);
+}
+.csscroll__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(2rem, 1.4rem + 3vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  text-transform: uppercase;
+  max-width: 22ch;
+}
+.csscroll__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+.csscroll__counter { color: #ffffff; font-weight: 600; }
+.csscroll__counter-slash { color: rgba(255, 255, 255, 0.25); margin: 0 0.25rem; }
+.csscroll__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ---- Track viewport + horizontal track ---- */
+.csscroll__track-viewport {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  width: 100%;
+}
+.csscroll__track {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1rem, 0.6rem + 1vw, 1.8rem);
+  height: 100%;
+  padding: 0 clamp(1rem, 0.6rem + 1vw, 2rem);
+  will-change: transform;
+}
+
+/* ---- Card ---- */
+.csscroll__card {
+  position: relative;
+  flex: none;
+  width: 85vw;
+  max-width: 1480px;
+  height: 100%;
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(20, 22, 38, 0.78), rgba(8, 10, 22, 0.85));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.8rem, 1.2rem + 1.6vw, 3rem);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 40px 100px -28px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+.csscroll__card.is-active {
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
+    0 40px 100px -24px rgba(0, 0, 0, 0.55),
+    0 0 80px -10px rgba(96, 165, 250, 0.25);
+}
+.csscroll__card::after {
+  content: "";
+  position: absolute;
+  inset: -30% -30% auto -30%;
+  height: 80%;
+  background: radial-gradient(40% 50% at 50% 0%, rgba(96, 165, 250, 0.16), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+/* head */
+.csscroll__card-head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: clamp(1.5rem, 1rem + 1.6vw, 3rem);
+}
+.csscroll__card-num {
+  font-family: var(--font-mono);
+  font-size: clamp(14px, 12px + 0.4vw, 18px);
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.4);
+}
+.csscroll__card-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* body */
+.csscroll__card-body {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1.2rem;
+}
+.csscroll__card-name {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 1.4rem + 4.4vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  color: transparent;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.55) 38%,
+    rgba(255, 255, 255, 0.32) 70%,
+    rgba(255, 255, 255, 0.18) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
+  filter:
+    drop-shadow(0 0 24px rgba(255, 255, 255, 0.15))
+    drop-shadow(0 0 60px rgba(96, 165, 250, 0.14));
+  max-width: 22ch;
+}
+.csscroll__card-p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 0.92rem + 0.25vw, 1.12rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 60ch;
+}
+
+/* foot — service chips */
+.csscroll__card-foot {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(1.4rem, 1rem + 1.4vw, 2.4rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.csscroll__card-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  padding: 0.5rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+@media (max-width: 720px) {
+  .csscroll__card { width: 92vw; }
+  .csscroll__hint { display: none; }
+}
