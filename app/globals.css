@@ -20771,15 +20771,16 @@ a.feat2-reach__line:hover {
   text-transform: uppercase;
   white-space: nowrap;
 }
-/* Two rows with a stairstep cascade — WE and DIGITAL on row 1
-   (left then mid), CRAFT and LEGACIES. on row 2 indented one
-   notch right each:
-       WE                    DIGITAL
-                 CRAFT                       LEGACIES. */
-.cinhero__w--1 { top: 24%; left: 5%; }
-.cinhero__w--2 { top: 50%; left: 22%; }
-.cinhero__w--3 { top: 24%; left: 48%; }
-.cinhero__w--4 { top: 50%; right: 5%; }
+/* Single column stack — four words, four lines, all anchored to
+   the same left edge:
+       WE
+       CRAFT
+       DIGITAL
+       LEGACIES. */
+.cinhero__w--1 { top: 14%; left: 5%; }
+.cinhero__w--2 { top: 30%; left: 5%; }
+.cinhero__w--3 { top: 46%; left: 5%; }
+.cinhero__w--4 { top: 62%; left: 5%; }
 
 /* ---- Description ---- */
 .cinhero__desc {
