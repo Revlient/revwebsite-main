@@ -4,10 +4,10 @@ import Reveal from "./Reveal";
 import WorkFeatureSection from "./WorkFeatureSection";
 import { CTA_HREF } from "../lib/site";
 
-/* New home hero. Wraps the locked WorkFeatureSection in a light
-   premium shell with a hero-scale Cormorant headline above the
-   CRM dashboard mockup. WFS itself is untouched — we feed it new
-   props and provide the surrounding curved frame via CSS. */
+/* New home hero. Dark surface, huge bold sans-serif headline,
+   then the locked WorkFeatureSection dashboard dominating the
+   lower half inside a glass frame. WFS itself is untouched —
+   props + scoped CSS overrides only. */
 
 const WFS_PROPS = {
   pill: "Included with every active project",
@@ -25,7 +25,7 @@ export default function HeroCrmHero() {
 
       <div className="container h2-hero__inner">
         <Reveal>
-          <span className="h2-eyebrow">
+          <span className="h2-eyebrow h2-eyebrow--dark">
             <span className="h2-eyebrow__dot" />
             Revlient — Creative Studio
           </span>
@@ -34,7 +34,7 @@ export default function HeroCrmHero() {
           <h1 className="h2-hero__title">
             A studio that ships.
             <br />
-            <em>And a CRM that stays.</em>
+            <span className="h2-hero__accent">And a CRM that stays.</span>
           </h1>
         </Reveal>
         <Reveal delay={160}>
@@ -50,7 +50,7 @@ export default function HeroCrmHero() {
               Start a project
               <span className="h2-btn__arrow" aria-hidden="true">→</span>
             </a>
-            <a href="/work" className="h2-btn h2-btn--ghost">
+            <a href="/work" className="h2-btn h2-btn--ghost h2-btn--ghost-dark">
               See the work
             </a>
           </div>
@@ -58,6 +58,7 @@ export default function HeroCrmHero() {
       </div>
 
       <Reveal className="h2-hero__frame" delay={320}>
+        <div className="h2-hero__frame-glow" aria-hidden="true" />
         <div className="h2-hero__frame-inner">
           <WorkFeatureSection {...WFS_PROPS} />
         </div>
