@@ -11856,54 +11856,55 @@ a.feat-reach__line:hover {
   );
 }
 
-/* Light-beam backdrop video. Flows UPWARD onto the dashboard frame —
-   the beam visually rises from below, its bright shaft ascending and
-   landing on the mockup. Hue-rotated 240° into the brand-violet
-   range, rotated 180° so the source's natural downward flow is
-   inverted into an upward cascade. */
+/* Light-beam backdrop video. Lives at the top of the .wfs section
+   and falls down onto the dashboard frame below — beam visible
+   over the heading + CTAs, then the opaque dashboard catches the
+   bottom of the beam visually. Hue-rotated 240° into the brand-
+   violet range, cropped center-top so the beam axis lines up with
+   the dashboard. */
 .wfs__beam {
   position: absolute;
-  /* pull the beam below the section bottom so the shaft originates
-     from further down the page and the bright area converges on
-     the dashboard frame */
-  bottom: calc(-20rem - 1cm);
+  /* pull the beam well above the section so the shaft visually
+     originates from higher up the page and the video's frame area
+     aligns with the dashboard frame below (brought up 1cm) */
+  top: calc(-24rem - 1cm);
   left: 50%;
-  /* shifted 2.5cm right of centre */
-  transform: translateX(calc(-50% + 2.5cm)) rotate(180deg);
+  /* shifted 2.5cm right of centre (was 3cm, nudged 0.5cm left) */
+  transform: translateX(calc(-50% + 2.5cm));
   width: min(115%, 100rem);
-  height: calc(100% + 20rem + 1cm);
+  height: calc(100% + 24rem + 1cm);
   z-index: 0;
   object-fit: cover;
-  /* showing the upper-middle of the (now flipped) source so the
-     bright shaft converges around where the dashboard frame sits */
+  /* showing the upper-middle of the source so the bright shaft
+     converges around where the dashboard frame sits */
   object-position: center 45%;
   pointer-events: none;
   /* sepia(1) flattens the source to one warm channel, then
      hue-rotate(240°) lands the colour squarely in the blue-violet
-     range with a touch of magenta in the highlights. */
+     range with a touch of magenta in the highlights. Brighter +
+     more saturated than before so the beam reads more strongly. */
   filter: sepia(1) saturate(2.6) hue-rotate(240deg) brightness(1.22) contrast(1.08);
   mix-blend-mode: screen;
-  /* mask: strong through the dashboard band (which is now at the
-     top of the element after the 180° flip), gentle taper toward
-     the bottom origin */
+  /* mask: stronger overall — barely any fade in at the top, solid
+     through the dashboard band, gentle taper before the features
+     marquee */
   -webkit-mask-image: linear-gradient(
     to bottom,
-    transparent 2%,
-    rgba(0, 0, 0, 0.35) 8%,
-    #000 22%,
-    #000 90%,
-    rgba(0, 0, 0, 0.6) 100%
+    rgba(0, 0, 0, 0.6) 0%,
+    #000 10%,
+    #000 78%,
+    rgba(0, 0, 0, 0.35) 92%,
+    transparent 98%
   );
   mask-image: linear-gradient(
     to bottom,
-    transparent 2%,
-    rgba(0, 0, 0, 0.35) 8%,
-    #000 22%,
-    #000 90%,
-    rgba(0, 0, 0, 0.6) 100%
+    rgba(0, 0, 0, 0.6) 0%,
+    #000 10%,
+    #000 78%,
+    rgba(0, 0, 0, 0.35) 92%,
+    transparent 98%
   );
 }
-
 
 .wfs__screen {
   position: relative;
