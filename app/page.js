@@ -3,7 +3,7 @@ import HeroCrmHero from "./components/HeroCrmHero";
 import ShipTrio from "./components/ShipTrio";
 import AiPromptSection from "./components/AiPromptSection";
 import WaterBlobBackdrop from "./components/WaterBlobBackdrop";
-import StudioCraftGrid from "./components/StudioCraftGrid";
+import StudioVelocity from "./components/StudioVelocity";
 import ProcessSpine from "./components/ProcessSpine";
 import Services from "./components/Services";
 import ShowcaseCards from "./components/ShowcaseCards";
@@ -27,7 +27,7 @@ export default function HomePage() {
           <WaterBlobBackdrop />
           <AiPromptSection />
         </div>
-        <StudioCraftGrid />
+        <StudioVelocity />
         <ProcessSpine />
         <Services />
         <ShowcaseCards />
