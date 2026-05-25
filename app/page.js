@@ -1,47 +1,43 @@
-import Hero from "./components/Hero";
 import Nav from "./components/Nav";
+import HeroCrmHero from "./components/HeroCrmHero";
+import ShipTrio from "./components/ShipTrio";
 import AiPromptSection from "./components/AiPromptSection";
+import WaterBlobBackdrop from "./components/WaterBlobBackdrop";
+import StudioCraftGrid from "./components/StudioCraftGrid";
+import ProcessSpine from "./components/ProcessSpine";
+import Services from "./components/Services";
 import ShowcaseCards from "./components/ShowcaseCards";
 import Faq from "./components/Faq";
-import Features from "./components/Features";
-import ProcessSpine from "./components/ProcessSpine";
-import WorkFeatureSection from "./components/WorkFeatureSection";
 import WhyRevlient from "./components/WhyRevlient";
-import Services from "./components/Services";
 import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
 import ContactWidget from "./components/ContactWidget";
 
-// Homepage. Server-rendered and statically prerendered.
-// Section order mirrors the buyer's questions: WHO/WHAT (Hero),
-// WHY (WhyRevlient), IS-THIS-REAL (Work + Proof), then
-// offer/process/team and the close.
+// Homepage v2. Light premium Huly-inspired surface. All overrides
+// for shared components live under `.home-v2` in globals.css.
 export default function HomePage() {
   return (
-    <>
+    <div className="home-v2">
       <Nav className="page-home-nav" />
       <main>
-        <Hero />
-        <AiPromptSection />
-        <Features />
+        <HeroCrmHero />
+        <ShipTrio />
+        <div className="h2-aiprompt-wrap">
+          <WaterBlobBackdrop />
+          <AiPromptSection />
+        </div>
+        <StudioCraftGrid />
         <ProcessSpine />
-        <WorkFeatureSection
-          pill="Included with every active project"
-          heading="CRM access for clients."
-          sub="Every active engagement comes with a private CRM workspace — track project phases live, transfer assets, raise enquiries, and watch the build pulse in real time."
-          greeting="Good afternoon, Kevin"
-          showcaseLabel="Client portal · Project phases · Asset transfer · Enquiries"
-        />
         <Services />
-        <Faq />
         <ShowcaseCards />
+        <Faq />
         <WhyRevlient />
         <FinalCTA />
       </main>
       <Footer />
       <StickyCTA />
       <ContactWidget />
-    </>
+    </div>
   );
 }
