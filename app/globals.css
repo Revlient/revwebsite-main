@@ -20771,15 +20771,15 @@ a.feat2-reach__line:hover {
   text-transform: uppercase;
   white-space: nowrap;
 }
-/* Two columns, alternating:
-   .--1 WE        → left col, row 1
-   .--2 CRAFT     → right col, row 2
-   .--3 DIGITAL   → left col,  row 3  (aligns under WE)
-   .--4 LEGACIES. → right col, row 4  (aligns under CRAFT) */
-.cinhero__w--1 { top: 16%; left:  clamp(1rem, 1rem + 2vw, 4rem); }
-.cinhero__w--2 { top: 32%; right: clamp(1rem, 1rem + 2vw, 4rem); }
-.cinhero__w--3 { top: 48%; left:  clamp(1rem, 1rem + 2vw, 4rem); }
-.cinhero__w--4 { top: 64%; right: clamp(1rem, 1rem + 2vw, 4rem); }
+/* Two rows with a stairstep cascade — WE and DIGITAL on row 1
+   (left then mid), CRAFT and LEGACIES. on row 2 indented one
+   notch right each:
+       WE                    DIGITAL
+                 CRAFT                       LEGACIES. */
+.cinhero__w--1 { top: 24%; left: 5%; }
+.cinhero__w--2 { top: 50%; left: 22%; }
+.cinhero__w--3 { top: 24%; left: 48%; }
+.cinhero__w--4 { top: 50%; right: 5%; }
 
 /* ---- Description ---- */
 .cinhero__desc {
