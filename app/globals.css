@@ -20219,30 +20219,33 @@ a.feat2-reach__line:hover {
 }
 .h-chat-light .aiprompt__box { margin-left: auto; margin-right: auto; }
 
-/* ---- Grained glass chatbox: popped + light-spread frame ---- */
+/* ---- Clear-white glassmorphic chatbox ----
+   Higher white opacity for a clean, milky surface; heavier blur +
+   saturation so the dark atmosphere bleeds through subtly without
+   reading grimy. Outer blue bloom + soft breathing kept. */
 .h-chat-light .aibox {
   position: relative;
-  background: rgba(255, 255, 255, 0.55);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  backdrop-filter: blur(28px) saturate(190%);
-  /* The visible "hair" frame */
-  border: 1px solid rgba(29, 29, 31, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.82));
+  -webkit-backdrop-filter: blur(36px) saturate(200%);
+  backdrop-filter: blur(36px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   color: #1d1d1f;
   isolation: isolate;
   transform: translateZ(0);
-  /* layered light-spread radiating OUTWARD from the frame */
   box-shadow:
     /* inner highlight */
     0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    /* "popped" lift */
-    0 30px 70px -22px rgba(29, 29, 31, 0.22),
-    0 4px 10px rgba(29, 29, 31, 0.06),
-    /* OUTWARD blue bloom — close → far */
-    0 0 0 1px rgba(96, 165, 250, 0.18),
-    0 0 24px rgba(96, 165, 250, 0.32),
-    0 0 60px rgba(96, 165, 250, 0.22),
-    0 0 120px rgba(96, 165, 250, 0.16),
-    0 0 200px rgba(96, 165, 250, 0.1);
+    0 0 0 1px rgba(255, 255, 255, 0.35) inset,
+    /* lift */
+    0 32px 80px -20px rgba(0, 0, 0, 0.45),
+    0 6px 18px rgba(0, 0, 0, 0.18),
+    /* OUTWARD blue bloom */
+    0 0 0 1px rgba(96, 165, 250, 0.22),
+    0 0 28px rgba(96, 165, 250, 0.38),
+    0 0 70px rgba(96, 165, 250, 0.28),
+    0 0 140px rgba(96, 165, 250, 0.2),
+    0 0 220px rgba(96, 165, 250, 0.12);
   animation: aibox-breathe 5.5s ease-in-out infinite;
 }
 
@@ -20250,34 +20253,37 @@ a.feat2-reach__line:hover {
   0%, 100% {
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.95) inset,
-      0 30px 70px -22px rgba(29, 29, 31, 0.22),
-      0 4px 10px rgba(29, 29, 31, 0.06),
-      0 0 0 1px rgba(96, 165, 250, 0.18),
-      0 0 24px rgba(96, 165, 250, 0.32),
-      0 0 60px rgba(96, 165, 250, 0.22),
-      0 0 120px rgba(96, 165, 250, 0.16),
-      0 0 200px rgba(96, 165, 250, 0.1);
+      0 0 0 1px rgba(255, 255, 255, 0.35) inset,
+      0 32px 80px -20px rgba(0, 0, 0, 0.45),
+      0 6px 18px rgba(0, 0, 0, 0.18),
+      0 0 0 1px rgba(96, 165, 250, 0.22),
+      0 0 28px rgba(96, 165, 250, 0.38),
+      0 0 70px rgba(96, 165, 250, 0.28),
+      0 0 140px rgba(96, 165, 250, 0.2),
+      0 0 220px rgba(96, 165, 250, 0.12);
   }
   50% {
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.95) inset,
-      0 30px 70px -22px rgba(29, 29, 31, 0.22),
-      0 4px 10px rgba(29, 29, 31, 0.06),
-      0 0 0 1px rgba(96, 165, 250, 0.28),
-      0 0 36px rgba(96, 165, 250, 0.45),
-      0 0 80px rgba(96, 165, 250, 0.3),
-      0 0 160px rgba(96, 165, 250, 0.22),
-      0 0 240px rgba(96, 165, 250, 0.14);
+      0 0 0 1px rgba(255, 255, 255, 0.35) inset,
+      0 32px 80px -20px rgba(0, 0, 0, 0.45),
+      0 6px 18px rgba(0, 0, 0, 0.18),
+      0 0 0 1px rgba(96, 165, 250, 0.32),
+      0 0 42px rgba(96, 165, 250, 0.5),
+      0 0 90px rgba(96, 165, 250, 0.36),
+      0 0 180px rgba(96, 165, 250, 0.26),
+      0 0 260px rgba(96, 165, 250, 0.16);
   }
 }
 
-/* film grain overlay — stronger than before so it actually reads */
+/* very faint frosted-glass speckle — keeps the surface from looking
+   flat without compromising the clear-white read. */
 .h-chat-light .aibox::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.16;
+  opacity: 0.05;
   z-index: 1;
   border-radius: inherit;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
