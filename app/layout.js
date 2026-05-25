@@ -5,6 +5,7 @@ import {
   Instrument_Serif,
   Cormorant_Garamond,
   Inter,
+  Barlow,
 } from "next/font/google";
 import { BRAND } from "./lib/site";
 import MusicToggle from "./components/MusicToggle";
@@ -42,6 +43,12 @@ const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-inter",
+  display: "swap",
+});
+const barlow = Barlow({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-barlow",
   display: "swap",
 });
 
@@ -86,7 +93,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${caveat.variable} ${instrumentSerif.variable} ${cormorant.variable} ${inter.variable}`}
+      className={`${dmSans.variable} ${caveat.variable} ${instrumentSerif.variable} ${cormorant.variable} ${inter.variable} ${barlow.variable}`}
     >
       <body>
         {/* Runs before paint: enables scroll-reveal animation only when JS
