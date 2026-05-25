@@ -20144,26 +20144,32 @@ a.feat2-reach__line:hover {
 }
 
 /* Chat section: starts on the same #04050A the hero fades into,
-   transitions through a soft ambient zone, then settles on the
-   apple-white surface where the content actually sits. The
-   chatbox is bottom-centred via existing layout so the warm white
-   zone sits right under it. */
+   transitions through one long interpolation into the apple-white
+   surface. Fewer color stops = no visible banding. A faint film
+   grain on top breaks up any residual 8-bit quantization. */
 .h-chat-light .aiprompt {
+  position: relative;
   background:
-    radial-gradient(60% 50% at 50% 12%, rgba(96, 165, 250, 0.18), transparent 65%),
-    radial-gradient(40% 35% at 22% 8%, rgba(192, 132, 252, 0.16), transparent 70%),
+    radial-gradient(70% 45% at 50% 6%, rgba(96, 165, 250, 0.22), transparent 75%),
+    radial-gradient(45% 32% at 22% 4%, rgba(192, 132, 252, 0.18), transparent 80%),
     linear-gradient(
       180deg,
       #04050A 0%,
-      #0A0C18 6%,
-      #1A1D2E 14%,
-      #5B5F75 24%,
-      #C7C9D4 32%,
-      #fbfbfd 42%,
+      #fbfbfd 48%,
       #fbfbfd 100%
     );
   color: #1d1d1f;
   padding-top: clamp(14rem, 10rem + 12vw, 22rem);
+}
+.h-chat-light .aiprompt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
 }
 
 /* kill the dark video + vignette gradient stack */
@@ -20822,16 +20828,17 @@ a.feat2-reach__line:hover {
 }
 .cinhero__stat-lbl--right { text-align: right; }
 
-/* ---- Bottom-edge fade — kept soft so the bridge blooms below can
-   bleed up into the hero without a hard cut. ---- */
+/* ---- Bottom-edge fade — smooth single-stop interpolation, no
+   intermediate colour bands. Blooms layered on top in screen blend
+   so the bridge below can bleed up into the hero without a seam. ---- */
 .cinhero__fade {
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  height: 20rem;
+  height: 26rem;
   pointer-events: none;
   z-index: 5;
   background:
-    radial-gradient(60% 80% at 50% 100%, rgba(96, 165, 250, 0.16), transparent 70%),
-    radial-gradient(40% 60% at 30% 100%, rgba(192, 132, 252, 0.14), transparent 75%),
-    linear-gradient(to bottom, transparent 0%, rgba(4, 5, 10, 0.55) 60%, #04050A 100%);
+    radial-gradient(60% 80% at 50% 100%, rgba(96, 165, 250, 0.16), transparent 75%),
+    radial-gradient(40% 60% at 30% 100%, rgba(192, 132, 252, 0.14), transparent 80%),
+    linear-gradient(to bottom, transparent 0%, #04050A 100%);
 }
