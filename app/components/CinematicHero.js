@@ -29,13 +29,14 @@ export default function CinematicHero() {
             <svg
               key={line}
               className="cinhero__title-line"
-              viewBox="0 0 100 13"
+              viewBox="0 0 100 14"
               preserveAspectRatio="xMidYMid meet"
               aria-hidden="true"
             >
               <text
                 x="0"
                 y="11"
+                fontSize="12"
                 textLength="100"
                 lengthAdjust="spacingAndGlyphs"
                 fill="#ffffff"

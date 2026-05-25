@@ -20779,11 +20779,14 @@ a.feat2-reach__line:hover {
   display: block;
   width: 100%;
   height: auto;
+  overflow: visible;
+  margin-block: -0.4em;
 }
 .cinhero__title-line text {
   font-family: var(--font-clash);
   font-weight: 700;
   letter-spacing: -0.02em;
+  dominant-baseline: alphabetic;
 }
 
 /* ---- Description (under the headline) ---- */
