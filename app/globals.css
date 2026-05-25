@@ -5,6 +5,29 @@
    Blue is an accent, never a flood.
    ============================================================ */
 
+/* Clash Display via Fontshare (Inter + IBM Plex Mono come through
+   next/font/google). No npm dep; a single CSS @import. */
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap");
+
+:root {
+  /* New premium type system */
+  --font-clash: "Clash Display", var(--font-dm-sans), system-ui, sans-serif;
+  --font-body: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: var(--font-ibm-mono), "SF Mono", Menlo, monospace;
+}
+
+/* Baseline */
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-clash);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
 :root {
   /* Backgrounds & panels */
   --bg: #08090c;
@@ -1477,7 +1500,7 @@ html.js .reveal.is-visible {
 }
 
 .whyrev__eyebrow em {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   color: rgba(192, 220, 255, 0.95);
@@ -1503,7 +1526,7 @@ html.js .reveal.is-visible {
 }
 
 .whyrev__title em {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   font-size: 1.04em;
@@ -2181,7 +2204,7 @@ html.js .reveal.is-visible {
 }
 
 .svc-section__head h2 em {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -2915,7 +2938,7 @@ html.js .reveal.is-visible {
 }
 
 .spine__node-num {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   fill: rgba(214, 178, 252, 0.85);
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -2972,7 +2995,7 @@ html.js .reveal.is-visible {
 }
 
 .spine__num {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-size: 1.05rem;
   color: rgba(214, 178, 252, 0.9);
@@ -3159,7 +3182,7 @@ html.js .reveal.is-visible {
 }
 
 .finale__heading em {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   background: linear-gradient(135deg, #c084fc 0%, #4a78ff 100%);
@@ -4196,7 +4219,7 @@ html.js .reveal.is-visible {
   line-height: 0.98;
   letter-spacing: -0.025em;
   font-weight: 400;
-  font-family: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
+  font-family: var(--font-clash), Georgia, "Times New Roman", serif;
   color: var(--text);
   text-wrap: balance;
 }
@@ -7727,7 +7750,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-nav__brand {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: 1.35rem;
   font-style: italic;
   font-weight: 500;
@@ -7769,7 +7792,7 @@ a.feat-reach__line:hover {
 
 /* editorial heading mix */
 .svc-edit {
-  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  font-family: var(--font-clash), Georgia, "Times New Roman", serif;
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.05;
@@ -7945,7 +7968,7 @@ a.feat-reach__line:hover {
 
 .svc-hero__eyebrow {
   display: inline-block;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-size: clamp(1rem, 0.9rem + 0.4vw, 1.25rem);
   color: rgba(214, 178, 252, 0.9);
@@ -7993,7 +8016,7 @@ a.feat-reach__line:hover {
   user-select: none;
   text-align: center;
   color: #ffffff;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   font-size: clamp(3rem, 2rem + 5vw, 6rem);
@@ -8042,7 +8065,7 @@ a.feat-reach__line:hover {
   background: #08050d;
   border: 1px solid rgba(168, 85, 247, 0.4);
   color: #ffffff;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: 1.15rem;
   font-style: italic;
   box-shadow: 0 0 40px rgba(168, 85, 247, 0.45),
@@ -8065,7 +8088,7 @@ a.feat-reach__line:hover {
 
 .svc-hero__left p {
   margin: 0;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: clamp(1.1rem, 0.9rem + 0.7vw, 1.5rem);
   line-height: 1.35;
   font-style: italic;
@@ -8223,7 +8246,7 @@ a.feat-reach__line:hover {
 
 .svc-philo__col h4 {
   margin: 0;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: 1.4rem;
   font-style: italic;
   font-weight: 500;
@@ -8247,7 +8270,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-grid-section__head {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: clamp(2.4rem, 1.7rem + 3vw, 4.5rem);
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -8372,7 +8395,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-card__name {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: clamp(1.65rem, 1.3rem + 0.9vw, 2.15rem);
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -8450,7 +8473,7 @@ a.feat-reach__line:hover {
   background: #10071a;
   border: 1px solid rgba(168, 85, 247, 0.4);
   color: #ffffff;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: 1.05rem;
   font-style: italic;
   box-shadow: 0 0 30px rgba(168, 85, 247, 0.32),
@@ -10187,7 +10210,7 @@ a.feat-reach__line:hover {
 }
 
 .worth__title em {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   font-size: 1.06em;
@@ -10224,7 +10247,7 @@ a.feat-reach__line:hover {
 }
 
 .worth-note__num {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   font-size: clamp(2.4rem, 1.6rem + 2.2vw, 3.6rem);
@@ -11288,7 +11311,7 @@ a.feat-reach__line:hover {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.06em;
   color: #d4ffdc;
@@ -13088,7 +13111,7 @@ a.feat-reach__line:hover {
 }
 
 .pscard__feature-mark {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: clamp(3rem, 2rem + 2vw, 4rem);
   line-height: 0.5;
   color: var(--blue-light);
@@ -13098,7 +13121,7 @@ a.feat-reach__line:hover {
 
 .pscard__feature-quote {
   margin: 0;
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.6rem);
   font-weight: 400;
@@ -13349,7 +13372,7 @@ a.feat-reach__line:hover {
 
 .wol__eyebrow {
   display: inline-block;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -13371,7 +13394,7 @@ a.feat-reach__line:hover {
 }
 
 .wol__head h2 em {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   font-size: 1.08em;
@@ -13915,7 +13938,7 @@ a.feat-reach__line:hover {
 .shero__pills--right { justify-content: flex-end; }
 
 .shero__pill {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.03em;
   padding: 0.3rem 0.7rem;
@@ -13950,7 +13973,7 @@ a.feat-reach__line:hover {
 }
 
 .shero__author-name {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: 0.82rem;
   color: #fafafa;
 }
@@ -13992,7 +14015,7 @@ a.feat-reach__line:hover {
 }
 
 .shero__headline-italic {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   font-size: clamp(4rem, 2rem + 6vw, 9rem);
@@ -14461,7 +14484,7 @@ a.feat-reach__line:hover {
 }
 
 .shvh__title {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   font-size: clamp(2.4rem, 1.4rem + 3vw, 3.5rem);
@@ -14952,7 +14975,7 @@ a.feat-reach__line:hover {
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   margin-bottom: 1.8rem;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 10.5px;
   letter-spacing: 0.04em;
   color: rgba(220, 200, 245, 0.8);
@@ -14994,7 +15017,7 @@ a.feat-reach__line:hover {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.06em;
   color: rgba(220, 200, 245, 0.85);
@@ -15165,7 +15188,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-hero-v2__metric-label {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.08em;
   color: rgba(220, 200, 245, 0.5);
@@ -15611,7 +15634,7 @@ a.feat-reach__line:hover {
 
 .svc-feat__pill {
   display: inline-block;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -15634,7 +15657,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-feat__title em {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   font-size: 1.08em;
@@ -15872,7 +15895,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-cta-v2__title em {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   font-size: 1.08em;
@@ -15985,7 +16008,7 @@ a.feat-reach__line:hover {
 
 .svc-block__pill {
   display: inline-block;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -16008,7 +16031,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-block__title em {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 500;
   font-size: 1.08em;
@@ -16521,7 +16544,7 @@ a.feat-reach__line:hover {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2.5rem;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -16578,7 +16601,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-music-showcase__title-italic {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-weight: 400;
   background: linear-gradient(135deg, #f0d3ff 0%, #c084fc 50%, #a855f7 100%);
@@ -16598,7 +16621,7 @@ a.feat-reach__line:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   color: rgba(214, 200, 245, 0.5);
   margin-bottom: 4rem;
@@ -17751,7 +17774,7 @@ a.feat-reach__line:hover {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 10.5px;
   color: rgba(220, 200, 245, 0.7);
   text-transform: uppercase;
@@ -17939,7 +17962,7 @@ a.feat-reach__line:hover {
   background: rgba(192, 132, 252, 0.04);
   border: 1px solid rgba(192, 132, 252, 0.14);
   color: rgba(220, 200, 245, 0.8);
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.02em;
   transition: all 0.3s ease;
@@ -18885,7 +18908,7 @@ a.feat2-reach__line:hover {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -18905,7 +18928,7 @@ a.feat2-reach__line:hover {
 }
 
 .faq__title {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3.6rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -18939,7 +18962,7 @@ a.feat2-reach__line:hover {
   border-radius: 999px;
   border: 1px solid rgba(192, 132, 252, 0.22);
   background: rgba(192, 132, 252, 0.06);
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.06em;
 }
@@ -19065,13 +19088,13 @@ a.feat2-reach__line:hover {
   min-width: 64px;
 }
 .faq__q-index {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   color: rgba(192, 132, 252, 0.85);
   letter-spacing: 0.1em;
 }
 .faq__q-cat {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -19091,7 +19114,7 @@ a.feat2-reach__line:hover {
 }
 
 .faq__q-text {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: clamp(1.2rem, 1.05rem + 0.55vw, 1.6rem);
   font-weight: 500;
   line-height: 1.3;
@@ -19287,7 +19310,7 @@ a.feat2-reach__line:hover {
   border-radius: 999px;
   border: 1px solid var(--stp-line);
   background: linear-gradient(180deg, rgba(46, 123, 255, 0.08), rgba(46, 123, 255, 0.02));
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -19301,7 +19324,7 @@ a.feat2-reach__line:hover {
 }
 
 .stp-h2 {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: clamp(2rem, 1.4rem + 2.4vw, 3.4rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -19406,7 +19429,7 @@ a.feat2-reach__line:hover {
 }
 .stp-card:hover .stp-card__glow { opacity: 1; }
 .stp-card__title {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.55rem);
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -19548,7 +19571,7 @@ a.feat2-reach__line:hover {
   max-width: 880px;
 }
 .stp-hero__title {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: clamp(2.6rem, 1.8rem + 4.4vw, 5rem);
   line-height: 1.02;
   letter-spacing: -0.025em;
@@ -19611,7 +19634,7 @@ a.feat2-reach__line:hover {
 }
 .stp-proc__card { padding-top: clamp(1.3rem, 1rem + 1vw, 1.9rem); }
 .stp-proc__n {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.14em;
   color: var(--stp-blue-light);
@@ -19649,7 +19672,7 @@ a.feat2-reach__line:hover {
 }
 .stp-phil__statement { padding: clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem); }
 .stp-phil__h {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: clamp(1.8rem, 1.4rem + 1.8vw, 2.8rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -19700,7 +19723,7 @@ a.feat2-reach__line:hover {
   bottom: 1rem;
   left: 0; right: 0;
   text-align: center;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -19747,7 +19770,7 @@ a.feat2-reach__line:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 600;
   color: #fff;
@@ -19760,7 +19783,7 @@ a.feat2-reach__line:hover {
 .stp-voices__quote {
   margin: 0;
   color: var(--stp-text);
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-style: italic;
   font-size: 1.04rem;
   line-height: 1.55;
@@ -19822,7 +19845,7 @@ a.feat2-reach__line:hover {
 }
 .stp-tier__head { position: relative; z-index: 1; }
 .stp-tier__name {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: clamp(1.6rem, 1.4rem + 0.6vw, 2rem);
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -19835,7 +19858,7 @@ a.feat2-reach__line:hover {
   margin: 0.2rem 0 0.8rem;
 }
 .stp-tier__price {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 1rem;
   color: var(--stp-blue-light);
   margin: 0;
@@ -19985,7 +20008,7 @@ a.feat2-reach__line:hover {
 }
 .stp-cta__inner { position: relative; z-index: 1; }
 .stp-cta__h {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: var(--font-clash), Georgia, serif;
   font-size: clamp(2.2rem, 1.6rem + 3vw, 4rem);
   line-height: 1.08;
   letter-spacing: -0.02em;
@@ -20054,7 +20077,7 @@ a.feat2-reach__line:hover {
 .stp-foot__cols a:hover { color: var(--stp-blue-light); }
 .stp-foot__h {
   color: var(--stp-text);
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -20413,7 +20436,7 @@ a.feat2-reach__line:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-instrument-serif), serif;
+  font-family: var(--font-clash), serif;
   font-style: italic;
   font-size: 1.4rem;
   color: #fff;
@@ -20480,7 +20503,7 @@ a.feat2-reach__line:hover {
 }
 .cinhero-badge__txt { padding-right: 0.75rem; }
 .cinhero__title {
-  font-family: var(--font-instrument-serif), serif;
+  font-family: var(--font-clash), serif;
   font-style: italic;
   font-weight: 400;
   font-size: clamp(2.6rem, 1.8rem + 5vw, 5.5rem);
@@ -20546,7 +20569,7 @@ a.feat2-reach__line:hover {
   text-align: left;
 }
 .cinhero-stat__num {
-  font-family: var(--font-instrument-serif), serif;
+  font-family: var(--font-clash), serif;
   font-style: italic;
   font-size: 2.25rem;
   letter-spacing: -1px;
@@ -20587,7 +20610,7 @@ a.feat2-reach__line:hover {
 }
 @media (min-width: 768px) { .cinhero-partners__row { gap: 4rem; } }
 .cinhero-partners__name {
-  font-family: var(--font-instrument-serif), serif;
+  font-family: var(--font-clash), serif;
   font-style: italic;
   font-size: 1.5rem;
   letter-spacing: -0.5px;
@@ -20635,7 +20658,7 @@ a.feat2-reach__line:hover {
   margin: 0 0 1.5rem;
 }
 .cincap__h {
-  font-family: var(--font-instrument-serif), serif;
+  font-family: var(--font-clash), serif;
   font-style: italic;
   font-size: clamp(3rem, 2rem + 5vw, 6rem);
   line-height: 0.9;
@@ -20692,7 +20715,7 @@ a.feat2-reach__line:hover {
 .cincap-card__spacer { flex: 1; }
 .cincap-card__bottom { margin-top: 1.5rem; }
 .cincap-card__title {
-  font-family: var(--font-instrument-serif), serif;
+  font-family: var(--font-clash), serif;
   font-style: italic;
   font-size: clamp(1.75rem, 1.4rem + 1vw, 2.25rem);
   line-height: 1;
@@ -20767,14 +20790,14 @@ a.feat2-reach__line:hover {
 .cap__head { max-width: 800px; margin-bottom: clamp(2.4rem, 1.6rem + 2.4vw, 4rem); }
 .cap__eyebrow {
   display: inline-block;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.06em;
   color: rgba(192,132,252,0.85);
   margin-bottom: 1rem;
 }
 .cap__title {
-  font-family: var(--font-instrument-serif), serif;
+  font-family: var(--font-clash), serif;
   font-style: italic;
   font-size: clamp(2.4rem, 1.6rem + 4vw, 5rem);
   line-height: 0.95;
@@ -20875,7 +20898,7 @@ a.feat2-reach__line:hover {
 .cap__card-body { position: relative; z-index: 1; }
 .cap__card-eyebrow {
   display: inline-block;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -20883,7 +20906,7 @@ a.feat2-reach__line:hover {
   margin-bottom: 0.45rem;
 }
 .cap__card-h {
-  font-family: var(--font-instrument-serif), serif;
+  font-family: var(--font-clash), serif;
   font-style: italic;
   font-weight: 400;
   font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem);
@@ -20907,7 +20930,7 @@ a.feat2-reach__line:hover {
   border-radius: 9999px;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.08);
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   color: rgba(220,220,235,0.7);
   white-space: nowrap;
@@ -20959,7 +20982,7 @@ a.feat2-reach__line:hover {
   border-radius: 9999px;
   background: rgba(192,132,252,0.08);
   border: 1px solid rgba(192,132,252,0.25);
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   color: rgba(220,200,245,0.85);
 }
@@ -21039,7 +21062,7 @@ a.feat2-reach__line:hover {
 /* Brand: type specimen + swatches */
 .cap-v--brand { flex-direction: column; gap: 1rem; padding: 1.2rem; }
 .cap-v__type {
-  font-family: var(--font-instrument-serif), serif;
+  font-family: var(--font-clash), serif;
   font-style: italic;
   font-size: 4.5rem;
   font-weight: 400;

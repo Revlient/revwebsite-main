@@ -6,6 +6,7 @@ import {
   Cormorant_Garamond,
   Inter,
   Barlow,
+  IBM_Plex_Mono,
 } from "next/font/google";
 import { BRAND } from "./lib/site";
 import MusicToggle from "./components/MusicToggle";
@@ -51,6 +52,12 @@ const barlow = Barlow({
   variable: "--font-barlow",
   display: "swap",
 });
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-ibm-mono",
+  display: "swap",
+});
 
 // FOLLOW-ON TASK (SEO pass): per-page metadata, real OG image, favicon,
 // sitemap.xml, robots.txt. This is a sound baseline only.
@@ -93,7 +100,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${caveat.variable} ${instrumentSerif.variable} ${cormorant.variable} ${inter.variable} ${barlow.variable}`}
+      className={`${dmSans.variable} ${caveat.variable} ${instrumentSerif.variable} ${cormorant.variable} ${inter.variable} ${barlow.variable} ${ibmPlexMono.variable}`}
     >
       <body>
         {/* Runs before paint: enables scroll-reveal animation only when JS
