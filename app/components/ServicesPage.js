@@ -558,7 +558,7 @@ function HeroDashboard() {
                   </linearGradient>
                   <linearGradient id="line-grad-purple" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="0%" stopColor="#ffffff" />
-                    <stop offset="50%" stopColor="#a855f7" />
+                    <stop offset="50%" stopColor="#ffffff" />
                     <stop offset="100%" stopColor="#f0d3ff" />
                   </linearGradient>
                 </defs>

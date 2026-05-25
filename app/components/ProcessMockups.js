@@ -243,8 +243,8 @@ export function DeploymentMockup() {
       <svg className="proc-deploy__chart" viewBox="0 0 320 80" preserveAspectRatio="none" aria-hidden="true">
         <defs>
           <linearGradient id="proc-deploy-fill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#a855f7" stopOpacity="0.35" />
-            <stop offset="1" stopColor="#a855f7" stopOpacity="0" />
+            <stop offset="0" stopColor="#ffffff" stopOpacity="0.35" />
+            <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path

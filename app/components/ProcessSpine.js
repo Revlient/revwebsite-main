@@ -339,7 +339,7 @@ export default function ProcessSpine() {
           {/* dim base path so the route is always faintly visible */}
           <path
             d={PATH_D_DESKTOP}
-            stroke="rgba(168, 85, 247, 0.18)"
+            stroke="rgba(255, 255, 255, 0.18)"
             strokeWidth="2"
             fill="none"
             pathLength="1"
@@ -349,7 +349,7 @@ export default function ProcessSpine() {
             id="spine-path-desktop"
             ref={desktopPathRef}
             d={PATH_D_DESKTOP}
-            stroke="#A855F7"
+            stroke="#ffffff"
             strokeWidth="2"
             fill="none"
             pathLength="1"
@@ -415,7 +415,7 @@ export default function ProcessSpine() {
 
           <path
             d={PATH_D_MOBILE}
-            stroke="rgba(168, 85, 247, 0.18)"
+            stroke="rgba(255, 255, 255, 0.18)"
             strokeWidth="2"
             fill="none"
             pathLength="1"
@@ -424,7 +424,7 @@ export default function ProcessSpine() {
             id="spine-path-mobile"
             ref={mobilePathRef}
             d={PATH_D_MOBILE}
-            stroke="#A855F7"
+            stroke="#ffffff"
             strokeWidth="2"
             fill="none"
             pathLength="1"

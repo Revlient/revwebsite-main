@@ -105,9 +105,9 @@ function PostCover({ hue, featured }) {
     "linear-gradient(135deg, #2b5fff 0%, #1c2a6b 100%)",
     "linear-gradient(135deg, #4a78ff 0%, #3730a3 100%)",
     "linear-gradient(135deg, #7c3aed 0%, #1e1b4b 100%)",
-    "linear-gradient(135deg, #2b5fff 0%, #a855f7 100%)",
+    "linear-gradient(135deg, #2b5fff 0%, #ffffff 100%)",
     "linear-gradient(135deg, #1e3a5f 0%, #2b5fff 100%)",
-    "linear-gradient(135deg, #a855f7 0%, #4a78ff 100%)",
+    "linear-gradient(135deg, #ffffff 0%, #4a78ff 100%)",
   ];
   return (
     <div
