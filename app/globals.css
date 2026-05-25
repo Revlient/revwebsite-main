@@ -20082,42 +20082,110 @@ a.feat2-reach__line:hover {
 }
 .h-chat-light .aiprompt__title {
   color: #1d1d1f;
+  /* Override the Instrument Serif default — switch to a standard
+     system sans-serif for the apple-clean feel. */
+  font-family: var(--font), -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "Segoe UI", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.028em;
 }
 .h-chat-light .aiprompt__title em {
   color: rgba(29, 29, 31, 0.45);
+  font-style: normal;
+  font-weight: 500;
 }
 .h-chat-light .aiprompt__sub {
   color: rgba(29, 29, 31, 0.62);
 }
 
-/* ---- Grained glass chatbox ---- */
+/* ---- Grained glass chatbox: popped + light-spread frame ---- */
 .h-chat-light .aibox {
   position: relative;
-  background: rgba(255, 255, 255, 0.62);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(29, 29, 31, 0.08);
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  backdrop-filter: blur(28px) saturate(190%);
+  /* The visible "hair" frame */
+  border: 1px solid rgba(29, 29, 31, 0.1);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    0 24px 60px -28px rgba(29, 29, 31, 0.18),
-    0 2px 6px rgba(29, 29, 31, 0.04);
+    /* inner highlight */
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    /* "popped" lift */
+    0 30px 70px -22px rgba(29, 29, 31, 0.22),
+    0 12px 28px -18px rgba(43, 95, 255, 0.18),
+    0 4px 10px rgba(29, 29, 31, 0.06);
   color: #1d1d1f;
   overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
 }
 
-/* film grain overlay on the chatbox */
+/* film grain overlay — stronger than before so it actually reads */
 .h-chat-light .aibox::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.08;
+  opacity: 0.16;
+  z-index: 1;
   border-radius: inherit;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   mix-blend-mode: multiply;
 }
+
+/* Light-spread animation around the frame — a rotating conic
+   gradient masked to only show on the 1.5px outer edge. */
+.h-chat-light .aibox::before {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  border-radius: calc(24px + 1.5px);
+  padding: 1.5px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(43, 95, 255, 0.0) 30deg,
+    rgba(110, 193, 255, 0.85) 60deg,
+    rgba(43, 95, 255, 0.9) 90deg,
+    rgba(255, 255, 255, 1) 110deg,
+    rgba(110, 193, 255, 0.6) 140deg,
+    transparent 180deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000, #000) content-box,
+    linear-gradient(#000, #000);
+  mask:
+    linear-gradient(#000, #000) content-box,
+    linear-gradient(#000, #000);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: 2;
+  pointer-events: none;
+  animation: aibox-sweep 5.5s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(43, 95, 255, 0.35));
+}
+@keyframes aibox-sweep {
+  to { transform: rotate(360deg); }
+}
+
 .h-chat-light .aibox.is-rec {
   border-color: rgba(239, 68, 68, 0.6);
+}
+.h-chat-light .aibox.is-rec::before {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(239, 68, 68, 0.9) 90deg,
+    rgba(255, 255, 255, 1) 120deg,
+    rgba(239, 68, 68, 0.7) 150deg,
+    transparent 220deg,
+    transparent 360deg
+  );
+  filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.4));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .h-chat-light .aibox::before { animation: none; }
 }
 
 /* ---- Bot bubbles → light glass on white ---- */
