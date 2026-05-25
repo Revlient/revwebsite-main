@@ -20391,7 +20391,15 @@ a.feat2-reach__line:hover {
   mix-blend-mode: overlay;
 }
 
-.cap__inner { position: relative; z-index: 2; }
+/* Override the global container cap so the cap section can run
+   nearly full-bleed instead of being constrained to 1180px. */
+.cap__inner {
+  position: relative;
+  z-index: 2;
+  max-width: min(1640px, 96%);
+  width: 96%;
+  padding-inline: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+}
 
 /* Section head */
 .cap__head { max-width: 800px; margin-bottom: clamp(2.4rem, 1.6rem + 2.4vw, 4rem); }
@@ -20449,15 +20457,15 @@ a.feat2-reach__line:hover {
 /* Card */
 .cap__card {
   position: relative;
-  padding: clamp(1.4rem, 1rem + 1vw, 2rem);
-  border-radius: 22px;
+  padding: clamp(1.8rem, 1.2rem + 1.4vw, 3rem);
+  border-radius: 26px;
   background: linear-gradient(180deg, rgba(20, 18, 38, 0.7), rgba(8, 6, 18, 0.85));
   border: 1px solid rgba(255,255,255,0.07);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
   backdrop-filter: blur(20px) saturate(160%);
   overflow: hidden;
   isolation: isolate;
-  min-height: 360px;
+  min-height: clamp(420px, 36vh + 80px, 580px);
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -20493,8 +20501,8 @@ a.feat2-reach__line:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 140px;
-  border-radius: 14px;
+  min-height: clamp(180px, 22vh, 280px);
+  border-radius: 18px;
   background:
     radial-gradient(60% 80% at 50% 60%, rgba(96,165,250,0.12), transparent 70%),
     rgba(255,255,255,0.015);
