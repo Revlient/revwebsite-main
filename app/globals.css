@@ -20150,16 +20150,16 @@ a.feat2-reach__line:hover {
 .h-chat-light .aiprompt {
   position: relative;
   background:
-    radial-gradient(70% 45% at 50% 6%, rgba(96, 165, 250, 0.22), transparent 75%),
-    radial-gradient(45% 32% at 22% 4%, rgba(192, 132, 252, 0.18), transparent 80%),
+    radial-gradient(70% 35% at 50% 4%, rgba(96, 165, 250, 0.22), transparent 75%),
+    radial-gradient(45% 25% at 22% 3%, rgba(192, 132, 252, 0.18), transparent 80%),
     linear-gradient(
       180deg,
       #04050A 0%,
-      #fbfbfd 48%,
+      #fbfbfd 26%,
       #fbfbfd 100%
     );
   color: #1d1d1f;
-  padding-top: clamp(14rem, 10rem + 12vw, 22rem);
+  padding-top: clamp(8rem, 6rem + 6vw, 12rem);
 }
 .h-chat-light .aiprompt::after {
   content: "";
@@ -20182,6 +20182,10 @@ a.feat2-reach__line:hover {
   color: rgba(29, 29, 31, 0.55);
   font-weight: 600;
 }
+.h-chat-light .aiprompt__inner {
+  text-align: center;
+  align-items: center;
+}
 .h-chat-light .aiprompt__title {
   color: #1d1d1f;
   /* Override the Instrument Serif default — switch to a standard
@@ -20190,6 +20194,20 @@ a.feat2-reach__line:hover {
     "Segoe UI", system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: -0.028em;
+  text-align: center;
+  text-wrap: balance;
+  max-width: 18ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+.h-chat-light .aiprompt__sub {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.h-chat-light .aiprompt__box {
+  margin-left: auto;
+  margin-right: auto;
 }
 .h-chat-light .aiprompt__title em {
   color: rgba(29, 29, 31, 0.45);
