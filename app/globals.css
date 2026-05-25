@@ -20771,7 +20771,7 @@ a.feat2-reach__line:hover {
   flex-direction: column;
   gap: 0;
   font-family: var(--font-body);
-  font-weight: 900;
+  font-weight: 700;
   color: #ffffff;
   text-transform: uppercase;
 }
@@ -20784,7 +20784,7 @@ a.feat2-reach__line:hover {
 }
 .cinhero__title-line text {
   font-family: var(--font-body);
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -0.04em;
   dominant-baseline: alphabetic;
 }
