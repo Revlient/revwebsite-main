@@ -21234,6 +21234,59 @@ a.feat2-reach__line:hover {
 /* ---- Final slot: immersive "View More" CTA ---- */
 .svcpin__row--cta { cursor: default; }
 .svcpin__row--cta.is-active { pointer-events: auto; }
+
+/* Curved (perspective-tilted) animated chess board behind the
+   View More button. Pure black & white squares, very low
+   opacity, soft radial mask so it fades at the edges. */
+.svcpin__chessboard {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(640px, 110vw, 1600px);
+  height: clamp(420px, 70vh, 900px);
+  transform:
+    translate(-50%, -50%)
+    perspective(900px)
+    rotateX(58deg);
+  transform-origin: center bottom;
+  background-color: #000;
+  background-image:
+    conic-gradient(
+      from 0deg,
+      #000 0% 25%,
+      #ffffff 25% 50%,
+      #000 50% 75%,
+      #ffffff 75% 100%
+    );
+  background-size: 90px 90px;
+  background-repeat: repeat;
+  -webkit-mask-image: radial-gradient(
+    ellipse 55% 55% at 50% 50%,
+    #000 0%,
+    rgba(0, 0, 0, 0.6) 35%,
+    transparent 78%
+  );
+  mask-image: radial-gradient(
+    ellipse 55% 55% at 50% 50%,
+    #000 0%,
+    rgba(0, 0, 0, 0.6) 35%,
+    transparent 78%
+  );
+  opacity: 0;
+  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: svcpin-chess-pan 26s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.svcpin__row--cta.is-active .svcpin__chessboard { opacity: 0.16; }
+@keyframes svcpin-chess-pan {
+  to { background-position: 180px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .svcpin__chessboard { animation: none; transition: none; }
+}
+/* Ensure the button sits above the board */
+.svcpin__viewmore { z-index: 1; }
 .svcpin__viewmore {
   position: relative;
   grid-column: 1 / -1;

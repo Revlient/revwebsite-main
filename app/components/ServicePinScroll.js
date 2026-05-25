@@ -308,6 +308,7 @@ export default function ServicePinScroll() {
               className={`svcpin__row svcpin__row--cta${isCtaSlot ? " is-active" : ""}`}
               aria-current={isCtaSlot ? "true" : undefined}
             >
+              <span className="svcpin__chessboard" aria-hidden="true" />
               <a href="/services" className="svcpin__viewmore">
                 <span className="svcpin__viewmore-eyebrow">All services</span>
                 <span className="svcpin__viewmore-label">View More</span>
