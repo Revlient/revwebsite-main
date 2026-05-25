@@ -24,9 +24,10 @@ export default function CinematicHero() {
       />
 
       <h1 className="cinhero__title" aria-label="we craft digital legacies">
-        <span className="cinhero__w cinhero__w--1">WE CRAFT</span>
-        <span className="cinhero__w cinhero__w--2">DIGITAL</span>
-        <span className="cinhero__w cinhero__w--3">LEGACIES.</span>
+        <span className="cinhero__w cinhero__w--1">WE</span>
+        <span className="cinhero__w cinhero__w--2">CRAFT</span>
+        <span className="cinhero__w cinhero__w--3">DIGITAL</span>
+        <span className="cinhero__w cinhero__w--4">LEGACIES.</span>
       </h1>
       <p className="cinhero__desc">
         we partner with serious businesses to design, engineer
