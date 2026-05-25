@@ -20147,19 +20147,23 @@ a.feat2-reach__line:hover {
    transitions through one long interpolation into the apple-white
    surface. Fewer color stops = no visible banding. A faint film
    grain on top breaks up any residual 8-bit quantization. */
+/* One continuous cinematic environment with the hero. No white
+   transition — section stays dark, lit by a central bloom so the
+   chatbox sits in a glow rather than on a panel. */
 .h-chat-light .aiprompt {
   position: relative;
   background:
-    radial-gradient(70% 35% at 50% 4%, rgba(96, 165, 250, 0.22), transparent 75%),
-    radial-gradient(45% 25% at 22% 3%, rgba(192, 132, 252, 0.18), transparent 80%),
-    linear-gradient(
-      180deg,
-      #04050A 0%,
-      #fbfbfd 26%,
-      #fbfbfd 100%
-    );
-  color: #1d1d1f;
-  padding-top: clamp(8rem, 6rem + 6vw, 12rem);
+    /* central illuminated zone (where the chatbox sits) */
+    radial-gradient(58% 42% at 50% 56%, rgba(96, 165, 250, 0.32), transparent 70%),
+    radial-gradient(40% 30% at 26% 38%, rgba(192, 132, 252, 0.24), transparent 75%),
+    radial-gradient(36% 28% at 74% 62%, rgba(110, 193, 255, 0.2), transparent 75%),
+    /* darker outer atmosphere — matches hero base */
+    radial-gradient(85% 75% at 50% 50%, #0A0D1A 0%, #04050A 85%);
+  color: #ffffff;
+  padding-top: clamp(4rem, 3rem + 2vw, 6rem);
+  padding-bottom: clamp(4rem, 3rem + 2vw, 6rem);
+  justify-content: center;
+  min-height: 100vh;
 }
 .h-chat-light .aiprompt::after {
   content: "";
@@ -20177,46 +20181,43 @@ a.feat2-reach__line:hover {
 .h-chat-light .chatbd__video { display: none; }
 .h-chat-light .chatbd__vignette { display: none; }
 
-/* ---- Light text colours ---- */
-.h-chat-light .aiprompt__eyebrow {
-  color: rgba(29, 29, 31, 0.55);
-  font-weight: 600;
-}
+/* ---- Light-on-dark text — the chatbox section is now a
+   continuation of the cinematic hero environment ---- */
 .h-chat-light .aiprompt__inner {
   text-align: center;
   align-items: center;
+  justify-content: center;
+}
+.h-chat-light .aiprompt__eyebrow {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
 }
 .h-chat-light .aiprompt__title {
-  color: #1d1d1f;
-  /* Override the Instrument Serif default — switch to a standard
-     system sans-serif for the apple-clean feel. */
-  font-family: var(--font), -apple-system, BlinkMacSystemFont, "SF Pro Display",
-    "Segoe UI", system-ui, sans-serif;
-  font-weight: 700;
+  color: #ffffff;
+  font-family: var(--font-clash), var(--font), system-ui, sans-serif;
+  font-weight: 600;
   letter-spacing: -0.028em;
   text-align: center;
   text-wrap: balance;
-  max-width: 18ch;
-  margin-left: auto;
-  margin-right: auto;
-}
-.h-chat-light .aiprompt__sub {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-.h-chat-light .aiprompt__box {
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 20ch;
+  margin: 0.4rem auto 0.6rem;
+  /* smaller than the global heading default — chatbox is the focal point */
+  font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.8rem);
+  line-height: 1.05;
 }
 .h-chat-light .aiprompt__title em {
-  color: rgba(29, 29, 31, 0.45);
+  color: rgba(255, 255, 255, 0.5);
   font-style: normal;
   font-weight: 500;
 }
 .h-chat-light .aiprompt__sub {
-  color: rgba(29, 29, 31, 0.62);
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(0.92rem, 0.88rem + 0.2vw, 1.04rem);
 }
+.h-chat-light .aiprompt__box { margin-left: auto; margin-right: auto; }
 
 /* ---- Grained glass chatbox: popped + light-spread frame ---- */
 .h-chat-light .aibox {
