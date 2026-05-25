@@ -308,8 +308,11 @@ html.js .reveal.is-visible {
   border-bottom-color: var(--line);
 }
 
-.nav.is-hidden {
+.nav.is-hidden,
+.page-home-nav.is-scrolled.is-hidden {
   transform: translateY(-105%);
+  opacity: 0;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
