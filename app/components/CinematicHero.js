@@ -27,7 +27,32 @@ export default function CinematicHero() {
         <span className="cinhero__w cinhero__w--1">WE</span>
         <span className="cinhero__w cinhero__w--2">CRAFT</span>
         <span className="cinhero__w cinhero__w--3">DIGITAL</span>
-        <span className="cinhero__w cinhero__w--4">LEGACIES.</span>
+        <span className="cinhero__w cinhero__w--4">
+          <svg
+            className="cinhero__legacies-svg"
+            viewBox="0 0 720 140"
+            preserveAspectRatio="xMidYMid meet"
+            aria-hidden="true"
+          >
+            <text
+              x="50%"
+              y="106"
+              textAnchor="middle"
+              className="cinhero__legacies-base"
+            >
+              LEGACIES.
+            </text>
+            <text
+              x="50%"
+              y="106"
+              textAnchor="middle"
+              className="cinhero__legacies-glow"
+            >
+              LEGACIES.
+            </text>
+          </svg>
+          <span className="sr-only">LEGACIES.</span>
+        </span>
       </h1>
       <p className="cinhero__desc">
         we partner with serious businesses to design, engineer
