@@ -294,8 +294,11 @@ html.js .reveal.is-visible {
   inset: 0 0 auto 0;
   z-index: 100;
   transition: background 0.4s var(--ease), border-color 0.4s var(--ease),
-    backdrop-filter 0.4s var(--ease);
+    backdrop-filter 0.4s var(--ease),
+    transform 0.35s var(--ease);
   border-bottom: 1px solid transparent;
+  transform: translateY(0);
+  will-change: transform;
 }
 
 .nav.is-scrolled {
@@ -303,6 +306,15 @@ html.js .reveal.is-visible {
   backdrop-filter: saturate(180%) blur(18px);
   -webkit-backdrop-filter: saturate(180%) blur(18px);
   border-bottom-color: var(--line);
+}
+
+.nav.is-hidden {
+  transform: translateY(-105%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav { transition: background 0.2s var(--ease); }
+  .nav.is-hidden { transform: none; }
 }
 
 .nav__inner {

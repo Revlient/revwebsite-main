@@ -13,17 +13,49 @@ import {
 // one of the four required persistent CTA placements.
 export default function Nav({ className = "" }) {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    const update = () => {
+      const y = window.scrollY;
+      setScrolled(y > 12);
+      // Hide once we're past the nav itself and the user is moving DOWN.
+      // Reveal on any upward scroll, or when near the top.
+      const delta = y - lastY;
+      if (y < 80) {
+        setHidden(false);
+      } else if (delta > 4) {
+        setHidden(true);
+      } else if (delta < -4) {
+        setHidden(false);
+      }
+      lastY = y;
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Mobile menu open should force the nav visible.
+  const isHidden = hidden && !open;
+
   return (
-    <header className={`nav ${scrolled ? "is-scrolled" : ""} ${className}`.trim()}>
+    <header
+      className={`nav ${scrolled ? "is-scrolled" : ""} ${isHidden ? "is-hidden" : ""} ${className}`.trim()}
+    >
       <div className="container nav__inner">
         <a href="/" className="brand" aria-label={`${BRAND.name} home`}>
           <Logo className="brand__mark" />
