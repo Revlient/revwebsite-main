@@ -24,8 +24,8 @@ export default function CinematicHero() {
       />
 
       <div className="cinhero__hd">
-        <h1 className="cinhero__title" aria-label="we craft digital legacy">
-          {["WE CRAFT", "DIGITAL", "LEGACY."].map((line) => (
+        <h1 className="cinhero__title" aria-label="we craft digital legacies">
+          {["WE CRAFT", "DIGITAL", "LEGACIES."].map((line) => (
             <svg
               key={line}
               className="cinhero__title-line"
