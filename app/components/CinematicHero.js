@@ -51,15 +51,6 @@ export default function CinematicHero() {
         <p className="cinhero__stat-lbl">businesses partnered</p>
       </div>
 
-      {/* Bottom-left stat */}
-      <div className="cinhero__stat cinhero__stat--bl">
-        <div className="cinhero__stat-row">
-          <span className="cinhero__stat-n">TODO</span>
-          <span className="cinhero__stat-div cinhero__stat-div--neg" aria-hidden="true" />
-        </div>
-        <p className="cinhero__stat-lbl">surfaces shipped</p>
-      </div>
-
       {/* Bottom-right stat */}
       <div className="cinhero__stat cinhero__stat--br">
         <div className="cinhero__stat-row">
