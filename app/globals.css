@@ -20963,19 +20963,19 @@ a.feat2-reach__line:hover {
   z-index: 1;
 }
 
-/* ---- Player ---- */
+/* ---- Player (compact strip on top so the list dominates) ---- */
 .svcpin__player {
   position: relative;
   width: 100%;
   max-width: min(1640px, 96%);
   margin: 0 auto;
-  height: clamp(420px, 60vh, 720px);
-  border-radius: 28px;
+  height: clamp(140px, 18vh, 220px);
+  border-radius: 22px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.05) inset,
-    0 36px 80px -28px rgba(0, 0, 0, 0.6),
+    0 24px 60px -22px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(96, 165, 250, 0.06) inset;
   flex: none;
 }
@@ -21063,7 +21063,7 @@ a.feat2-reach__line:hover {
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: clamp(0.8rem, 0.5rem + 1vw, 2rem);
-  height: clamp(96px, 12vh, 140px);
+  height: clamp(110px, 14vh, 160px);
   padding: 0 clamp(0.5rem, 0.5rem + 0.5vw, 1.2rem);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.55);
