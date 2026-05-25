@@ -19219,17 +19219,17 @@ a.feat2-reach__line:hover {
    ==================================================================== */
 
 .studiopage {
-  --stp-bg: #070B14;
-  --stp-bg-2: #0E1525;
-  --stp-bg-3: #121C30;
-  --stp-line: #1A2540;
-  --stp-line-strong: #243358;
-  --stp-text: #EAF2FF;
-  --stp-muted: #8A9AB5;
-  --stp-muted-2: #5E6E8A;
+  --stp-bg: #000000;
+  --stp-bg-2: #060606;
+  --stp-bg-3: #0c0c0c;
+  --stp-line: rgba(255, 255, 255, 0.08);
+  --stp-line-strong: rgba(255, 255, 255, 0.16);
+  --stp-text: #ffffff;
+  --stp-muted: rgba(255, 255, 255, 0.62);
+  --stp-muted-2: rgba(255, 255, 255, 0.4);
   --stp-blue: #2E7BFF;
   --stp-blue-light: #6EC1FF;
-  --stp-cyan: #00D4FF;
+  --stp-cyan: #6EC1FF;
   --stp-glow: rgba(46, 123, 255, 0.45);
   --stp-glow-soft: rgba(110, 193, 255, 0.22);
   --stp-ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -19268,7 +19268,7 @@ a.feat2-reach__line:hover {
 .stp-eyebrow__dot {
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--stp-cyan);
-  box-shadow: 0 0 10px var(--stp-cyan), 0 0 18px rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 10px var(--stp-cyan), 0 0 18px rgba(110, 193, 255, 0.5);
 }
 
 .stp-h2 {
@@ -19329,7 +19329,7 @@ a.feat2-reach__line:hover {
   box-shadow:
     0 0 0 1px rgba(110, 193, 255, 0.32) inset,
     0 16px 40px -8px rgba(46, 123, 255, 0.8),
-    0 0 40px 0 rgba(0, 212, 255, 0.55);
+    0 0 40px 0 rgba(110, 193, 255, 0.55);
 }
 .stp-btn--ghost {
   background: rgba(255, 255, 255, 0.02);
@@ -19351,7 +19351,7 @@ a.feat2-reach__line:hover {
   border-radius: 18px;
   border: 1px solid var(--stp-line);
   background:
-    linear-gradient(180deg, rgba(20, 30, 55, 0.55), rgba(10, 16, 30, 0.45));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   backdrop-filter: blur(14px) saturate(140%);
   overflow: hidden;
@@ -19416,7 +19416,7 @@ a.feat2-reach__line:hover {
   gap: 1rem;
   padding: 0.5rem 0.7rem 0.5rem 1rem;
   border-radius: 999px;
-  background: rgba(14, 21, 37, 0.55);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--stp-line);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
@@ -19482,7 +19482,7 @@ a.feat2-reach__line:hover {
   padding-block: clamp(6rem, 4rem + 8vw, 10rem) clamp(5rem, 3.5rem + 6vw, 8rem);
   overflow: hidden;
   background:
-    linear-gradient(180deg, var(--stp-bg) 0%, #050810 100%);
+    linear-gradient(180deg, var(--stp-bg) 0%, #000000 100%);
 }
 .stp-hero__grid {
   position: absolute;
@@ -19506,7 +19506,7 @@ a.feat2-reach__line:hover {
   height: 70vh;
   left: -15%;
   bottom: -45vh;
-  background: radial-gradient(closest-side, rgba(46, 123, 255, 0.55), rgba(0, 212, 255, 0.18) 50%, transparent 75%);
+  background: radial-gradient(closest-side, rgba(46, 123, 255, 0.55), rgba(110, 193, 255, 0.18) 50%, transparent 75%);
 }
 .stp-hero__glow--left {
   width: 36rem; height: 36rem;
@@ -19664,7 +19664,7 @@ a.feat2-reach__line:hover {
 .stp-phil__node--8 { animation-delay: -3.1s; }
 @keyframes stp-pulse {
   0%, 100% { opacity: 0.7; }
-  50%      { opacity: 1; filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.6)); }
+  50%      { opacity: 1; filter: drop-shadow(0 0 6px rgba(110, 193, 255, 0.6)); }
 }
 .stp-phil__caption {
   position: absolute;
@@ -19699,11 +19699,11 @@ a.feat2-reach__line:hover {
 }
 .stp-voices__card { transition: transform 0.4s var(--stp-ease), border-color 0.4s var(--stp-ease), box-shadow 0.4s var(--stp-ease); }
 .stp-voices__card.is-active {
-  border-color: rgba(0, 212, 255, 0.55);
+  border-color: rgba(110, 193, 255, 0.55);
   box-shadow:
-    0 0 0 1px rgba(0, 212, 255, 0.25) inset,
+    0 0 0 1px rgba(110, 193, 255, 0.25) inset,
     0 18px 50px -16px rgba(46, 123, 255, 0.6),
-    0 0 60px 0 rgba(0, 212, 255, 0.35);
+    0 0 60px 0 rgba(110, 193, 255, 0.35);
   transform: translateY(-3px);
 }
 .stp-voices__head {
@@ -19759,7 +19759,7 @@ a.feat2-reach__line:hover {
 .stp-tier__hex {
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='32' viewBox='0 0 28 32'><path d='M14 0 L28 8 L28 24 L14 32 L0 24 L0 8 Z' fill='none' stroke='%231A2540' stroke-width='1'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='32' viewBox='0 0 28 32'><path d='M14 0 L28 8 L28 24 L14 32 L0 24 L0 8 Z' fill='none' stroke='%23ffffff20' stroke-width='1'/></svg>");
   background-size: 56px 64px;
   opacity: 0.35;
   mask-image: radial-gradient(80% 60% at 50% 40%, #000, transparent 80%);
@@ -19768,11 +19768,11 @@ a.feat2-reach__line:hover {
 }
 .stp-tier--featured {
   border-color: rgba(110, 193, 255, 0.45);
-  background: linear-gradient(180deg, rgba(46, 123, 255, 0.18) 0%, rgba(14, 21, 37, 0.6) 100%);
+  background: linear-gradient(180deg, rgba(46, 123, 255, 0.18) 0%, rgba(0, 0, 0, 0.4) 100%);
   box-shadow:
     0 0 0 1px rgba(110, 193, 255, 0.25) inset,
     0 24px 60px -18px rgba(46, 123, 255, 0.6),
-    0 0 60px 0 rgba(0, 212, 255, 0.25);
+    0 0 60px 0 rgba(110, 193, 255, 0.25);
   transform: translateY(-6px);
 }
 .stp-tier--featured:hover { transform: translateY(-10px); }
@@ -19788,7 +19788,7 @@ a.feat2-reach__line:hover {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  box-shadow: 0 0 14px rgba(0, 212, 255, 0.6);
+  box-shadow: 0 0 14px rgba(110, 193, 255, 0.6);
   z-index: 2;
 }
 .stp-tier__head { position: relative; z-index: 1; }
@@ -19842,7 +19842,7 @@ a.feat2-reach__line:hover {
   width: 18px; height: 18px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: rgba(0, 212, 255, 0.15);
+  background: rgba(110, 193, 255, 0.15);
   color: var(--stp-cyan);
   font-size: 11px;
   font-weight: 700;
@@ -19870,17 +19870,17 @@ a.feat2-reach__line:hover {
 .stp-faq__row {
   border-radius: 14px;
   border: 1px solid var(--stp-line);
-  background: rgba(14, 21, 37, 0.55);
+  background: rgba(255, 255, 255, 0.03);
   overflow: hidden;
   transition: border-color 0.3s var(--stp-ease), box-shadow 0.3s var(--stp-ease), background 0.3s var(--stp-ease);
 }
 .stp-faq__row.is-open {
   border-color: rgba(110, 193, 255, 0.5);
-  background: linear-gradient(180deg, rgba(46, 123, 255, 0.12), rgba(14, 21, 37, 0.55));
+  background: linear-gradient(180deg, rgba(46, 123, 255, 0.14), rgba(255, 255, 255, 0.03));
   box-shadow:
     0 0 0 1px rgba(110, 193, 255, 0.2) inset,
     0 18px 40px -18px rgba(46, 123, 255, 0.55),
-    0 0 30px 0 rgba(0, 212, 255, 0.18);
+    0 0 30px 0 rgba(110, 193, 255, 0.18);
 }
 .stp-faq__q {
   width: 100%;
@@ -19949,7 +19949,7 @@ a.feat2-reach__line:hover {
   width: 60rem; height: 60rem;
   left: 50%; top: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgba(0, 212, 255, 0.28), rgba(46, 123, 255, 0.12) 40%, transparent 70%);
+  background: radial-gradient(closest-side, rgba(110, 193, 255, 0.28), rgba(46, 123, 255, 0.12) 40%, transparent 70%);
   filter: blur(40px);
   pointer-events: none;
   z-index: 0;
@@ -19985,7 +19985,7 @@ a.feat2-reach__line:hover {
  * Footer
  * =================================================================== */
 .stp-foot {
-  background: #050810;
+  background: #000000;
   border-top: 1px solid var(--stp-line);
   padding-block: clamp(2.5rem, 2rem + 2vw, 4rem);
   color: var(--stp-muted);

@@ -115,9 +115,9 @@ function IsoCapabilities() {
       {/* base plate */}
       <polygon points="40,12 68,28 40,44 12,28" fill="url(#iso-cap)" opacity="0.7" />
       <polygon points="68,28 68,52 40,68 40,44" fill="#2E7BFF" opacity="0.45" />
-      <polygon points="12,28 12,52 40,68 40,44" fill="#1A2540" opacity="0.85" />
+      <polygon points="12,28 12,52 40,68 40,44" fill="rgba(255,255,255,0.08)" opacity="0.85" />
       {/* top stacked tile */}
-      <polygon points="40,2 60,14 40,26 20,14" fill="#00D4FF" opacity="0.7" />
+      <polygon points="40,2 60,14 40,26 20,14" fill="#6EC1FF" opacity="0.7" />
       <circle cx="40" cy="14" r="2.5" fill="#fff" />
     </svg>
   );
@@ -136,8 +136,8 @@ function IsoCraft() {
       <polygon points="40,8 40,72" stroke="#2E7BFF" strokeOpacity="0.5" strokeWidth="0.8" />
       <polygon points="10,24 70,56" stroke="#2E7BFF" strokeOpacity="0.4" strokeWidth="0.8" />
       <polygon points="70,24 10,56" stroke="#2E7BFF" strokeOpacity="0.4" strokeWidth="0.8" />
-      <circle cx="40" cy="40" r="6" fill="#00D4FF" opacity="0.9" />
-      <circle cx="40" cy="40" r="11" fill="none" stroke="#00D4FF" strokeOpacity="0.4" strokeWidth="0.8" />
+      <circle cx="40" cy="40" r="6" fill="#6EC1FF" opacity="0.9" />
+      <circle cx="40" cy="40" r="11" fill="none" stroke="#6EC1FF" strokeOpacity="0.4" strokeWidth="0.8" />
     </svg>
   );
 }
@@ -146,7 +146,7 @@ function IsoSpeed() {
     <svg viewBox="0 0 80 80" className="stp-iso" aria-hidden="true">
       <defs>
         <linearGradient id="iso-speed" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0" stopColor="#00D4FF" />
+          <stop offset="0" stopColor="#6EC1FF" />
           <stop offset="1" stopColor="#2E7BFF" />
         </linearGradient>
       </defs>
@@ -168,9 +168,9 @@ function IsoRoi() {
       <rect x="12" y="46" width="12" height="22" rx="2" fill="url(#iso-roi)" opacity="0.55" />
       <rect x="30" y="34" width="12" height="34" rx="2" fill="url(#iso-roi)" opacity="0.75" />
       <rect x="48" y="20" width="12" height="48" rx="2" fill="url(#iso-roi)" />
-      <polyline points="18,42 36,30 54,16 66,10" fill="none" stroke="#00D4FF" strokeWidth="1.6" strokeLinecap="round" />
-      <circle cx="66" cy="10" r="3" fill="#00D4FF" />
-      <circle cx="66" cy="10" r="6" fill="none" stroke="#00D4FF" strokeOpacity="0.4" strokeWidth="1" />
+      <polyline points="18,42 36,30 54,16 66,10" fill="none" stroke="#6EC1FF" strokeWidth="1.6" strokeLinecap="round" />
+      <circle cx="66" cy="10" r="3" fill="#6EC1FF" />
+      <circle cx="66" cy="10" r="6" fill="none" stroke="#6EC1FF" strokeOpacity="0.4" strokeWidth="1" />
     </svg>
   );
 }
@@ -248,16 +248,16 @@ function ProcDiscover() {
     <svg viewBox="0 0 120 80" className="stp-proc__art" aria-hidden="true">
       <defs>
         <radialGradient id="proc-disc" cx="50%" cy="50%" r="50%">
-          <stop offset="0" stopColor="#00D4FF" stopOpacity="0.6" />
-          <stop offset="1" stopColor="#00D4FF" stopOpacity="0" />
+          <stop offset="0" stopColor="#6EC1FF" stopOpacity="0.6" />
+          <stop offset="1" stopColor="#6EC1FF" stopOpacity="0" />
         </radialGradient>
       </defs>
       <circle cx="60" cy="40" r="32" fill="url(#proc-disc)" />
       <circle cx="60" cy="40" r="22" fill="none" stroke="#6EC1FF" strokeOpacity="0.55" strokeWidth="1" />
       <circle cx="60" cy="40" r="14" fill="none" stroke="#6EC1FF" strokeOpacity="0.45" strokeWidth="1" />
       <circle cx="60" cy="40" r="6" fill="#6EC1FF" />
-      <line x1="60" y1="40" x2="92" y2="20" stroke="#00D4FF" strokeWidth="1.4" strokeLinecap="round" />
-      <circle cx="92" cy="20" r="3" fill="#00D4FF" />
+      <line x1="60" y1="40" x2="92" y2="20" stroke="#6EC1FF" strokeWidth="1.4" strokeLinecap="round" />
+      <circle cx="92" cy="20" r="3" fill="#6EC1FF" />
     </svg>
   );
 }
@@ -267,14 +267,14 @@ function ProcDesign() {
       <defs>
         <linearGradient id="proc-des" x1="0" x2="1">
           <stop offset="0" stopColor="#2E7BFF" />
-          <stop offset="1" stopColor="#00D4FF" />
+          <stop offset="1" stopColor="#6EC1FF" />
         </linearGradient>
       </defs>
       <rect x="22" y="14" width="76" height="52" rx="6" fill="none" stroke="url(#proc-des)" strokeWidth="1.2" />
       <rect x="30" y="22" width="28" height="6" rx="3" fill="#6EC1FF" opacity="0.85" />
       <rect x="30" y="34" width="60" height="3" rx="1.5" fill="#2E7BFF" opacity="0.6" />
       <rect x="30" y="42" width="44" height="3" rx="1.5" fill="#2E7BFF" opacity="0.45" />
-      <rect x="30" y="50" width="20" height="10" rx="2" fill="#00D4FF" opacity="0.9" />
+      <rect x="30" y="50" width="20" height="10" rx="2" fill="#6EC1FF" opacity="0.9" />
       <rect x="56" y="50" width="20" height="10" rx="2" fill="none" stroke="#6EC1FF" strokeWidth="1" opacity="0.7" />
     </svg>
   );
@@ -289,11 +289,11 @@ function ProcDeliver() {
         </linearGradient>
       </defs>
       <path d="M 18 60 L 50 60 L 70 30 L 102 30" fill="none" stroke="url(#proc-del)" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M 92 22 L 102 30 L 92 38" fill="none" stroke="#00D4FF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M 92 22 L 102 30 L 92 38" fill="none" stroke="#6EC1FF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
       <circle cx="18" cy="60" r="4" fill="#2E7BFF" />
       <circle cx="50" cy="60" r="4" fill="#6EC1FF" />
-      <circle cx="70" cy="30" r="4" fill="#00D4FF" />
-      <circle cx="102" cy="30" r="6" fill="none" stroke="#00D4FF" strokeOpacity="0.5" strokeWidth="1" />
+      <circle cx="70" cy="30" r="4" fill="#6EC1FF" />
+      <circle cx="102" cy="30" r="6" fill="none" stroke="#6EC1FF" strokeOpacity="0.5" strokeWidth="1" />
     </svg>
   );
 }
@@ -384,8 +384,8 @@ function NodeConstellation() {
     <svg viewBox="0 0 100 100" className="stp-phil__art" aria-hidden="true">
       <defs>
         <radialGradient id="stp-node-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0" stopColor="#00D4FF" stopOpacity="0.6" />
-          <stop offset="1" stopColor="#00D4FF" stopOpacity="0" />
+          <stop offset="0" stopColor="#6EC1FF" stopOpacity="0.6" />
+          <stop offset="1" stopColor="#6EC1FF" stopOpacity="0" />
         </radialGradient>
       </defs>
       <circle cx="50" cy="46" r="40" fill="url(#stp-node-glow)" opacity="0.6" />
@@ -403,7 +403,7 @@ function NodeConstellation() {
       ))}
       {nodes.map((n, i) => (
         <g key={i} className={`stp-phil__node stp-phil__node--${n.k}`}>
-          <circle cx={n.x} cy={n.y} r={n.r + 4} fill="#00D4FF" opacity="0.18" />
+          <circle cx={n.x} cy={n.y} r={n.r + 4} fill="#6EC1FF" opacity="0.18" />
           <circle cx={n.x} cy={n.y} r={n.r} fill="#6EC1FF" />
           <circle cx={n.x} cy={n.y} r={n.r * 0.45} fill="#fff" opacity="0.9" />
         </g>
