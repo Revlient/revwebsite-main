@@ -20748,56 +20748,54 @@ a.feat2-reach__line:hover {
   pointer-events: none;
 }
 
-/* ---- Centered headline block ---- */
-.cinhero__hd {
+/* ---- Zig-zag headline ----
+   Three uppercase bold lines scattered left / right / left so the
+   composition reads as a zig-zag down the hero. Each line is an
+   absolutely-positioned <span> inside the .cinhero__title h1. */
+.cinhero__title {
   position: absolute;
   inset: 0;
+  margin: 0;
   z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 1.5rem;
   pointer-events: none;
 }
-/* Heavy uppercase title — each line is its own SVG that stretches
-   to fill the same container width via lengthAdjust, so left + right
-   edges of every line align. */
-.cinhero__title {
+.cinhero__w {
+  position: absolute;
   margin: 0;
-  width: min(820px, 78%);
-  display: flex;
-  flex-direction: column;
-  gap: 0;
   font-family: var(--font-body);
   font-weight: 700;
   color: #ffffff;
-  text-transform: uppercase;
-}
-.cinhero__title-line {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  margin-block: -0.18em;
-}
-.cinhero__title-line text {
-  font-family: var(--font-body);
-  font-weight: 700;
+  font-size: clamp(3rem, 1.6rem + 7vw, 8.6rem);
+  line-height: 0.95;
   letter-spacing: -0.04em;
-  dominant-baseline: alphabetic;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.cinhero__w--1 {
+  top: 20%;
+  left: clamp(1rem, 1rem + 2vw, 4rem);
+}
+.cinhero__w--2 {
+  top: 40%;
+  right: clamp(1rem, 1rem + 2vw, 4rem);
+}
+.cinhero__w--3 {
+  top: 60%;
+  left: clamp(2rem, 2rem + 4vw, 9rem);
 }
 
-/* ---- Description (under the headline) ---- */
+/* ---- Description ---- */
 .cinhero__desc {
-  margin: clamp(1.4rem, 1rem + 1vw, 2.2rem) auto 0;
-  max-width: 36rem;
+  position: absolute;
+  z-index: 11;
+  top: 78%;
+  left: clamp(1rem, 1rem + 2vw, 4rem);
+  max-width: 22rem;
+  margin: 0;
   font-family: var(--font-body);
-  font-size: clamp(0.9rem, 0.86rem + 0.2vw, 1rem);
+  font-size: 15px;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.78);
-  text-align: center;
   pointer-events: auto;
 }
 
