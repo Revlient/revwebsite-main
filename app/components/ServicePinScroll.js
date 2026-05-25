@@ -159,12 +159,11 @@ export default function ServicePinScroll() {
         (rawProgress - pinStartProgress) / Math.max(0.001, 1 - pinStartProgress)
       );
 
-      // Slots: [empty buffer, ...8 services] = 9
-      // The View More CTA fades in alongside the LAST service
-      // (idx = SERVICES.length - 1) — no separate slot for it.
-      const slots = SERVICES.length + 1;
+      // Slots: [empty, ...8 services, outro panel] = 10.
+      // After service 8 fades out, slot 9 = outro panel rises.
+      const slots = SERVICES.length + 2;
       const slot = Math.min(slots - 1, Math.floor(afterPin * slots));
-      // slot 0 = nothing, slot 1..8 = service slot-1
+      // slot 0 = empty, slot 1..8 = service slot-1, slot 9 = outro
       const idx = slot - 1;
       if (idx !== lastIdxRef.current) {
         lastIdxRef.current = idx;
@@ -238,8 +237,8 @@ export default function ServicePinScroll() {
   }, []);
 
   const isEmptySlot = activeIndex < 0;
-  const isLastService = activeIndex === SERVICES.length - 1;
-  const active = isEmptySlot ? null : SERVICES[activeIndex];
+  const isOutroSlot = activeIndex >= SERVICES.length;
+  const active = isEmptySlot || isOutroSlot ? null : SERVICES[activeIndex];
 
   return (
     <section ref={sectionRef} className="svcpin" aria-label="Studio services">
@@ -302,22 +301,48 @@ export default function ServicePinScroll() {
               );
             })}
           </ul>
+        </div>
 
-          {/* View More — fades in alongside the final service */}
-          <div
-            className={`svcpin__final${isLastService ? " is-active" : ""}`}
-            aria-hidden={!isLastService}
-          >
-            <a href="/services" className="svcpin__viewmore" tabIndex={isLastService ? 0 : -1}>
-              <span className="svcpin__viewmore-eyebrow">All services</span>
-              <span className="svcpin__viewmore-label">View More</span>
-              <span className="svcpin__viewmore-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        {/* Outro panel — rises from below after the 8th service
+            fades out. Oversized glass card that bleeds off-screen
+            top + right. Contains View More + Start a Project. */}
+        <div
+          className={`svcpin__outro${isOutroSlot ? " is-active" : ""}`}
+          aria-hidden={!isOutroSlot}
+        >
+          <div className="svcpin__outro-content">
+            <span className="svcpin__outro-eyebrow">Ready to start?</span>
+            <h3 className="svcpin__outro-title">
+              Let&apos;s build<br />your system.
+            </h3>
+            <p className="svcpin__outro-p">
+              Browse the full service catalogue or skip straight to
+              a kickoff call.
+            </p>
+            <div className="svcpin__outro-actions">
+              <a
+                href="/services"
+                className="svcpin__outro-btn svcpin__outro-btn--primary"
+                tabIndex={isOutroSlot ? 0 : -1}
+              >
+                <span>View More Services</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M5 12h14" />
                   <path d="M13 6l6 6-6 6" />
                 </svg>
-              </span>
-            </a>
+              </a>
+              <a
+                href="#start"
+                className="svcpin__outro-btn svcpin__outro-btn--ghost"
+                tabIndex={isOutroSlot ? 0 : -1}
+              >
+                <span>Start a project</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
