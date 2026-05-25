@@ -20922,8 +20922,8 @@ a.feat2-reach__line:hover {
   position: relative;
   background: #04050A;
   color: #ffffff;
-  min-height: 260vh;
-  overflow: hidden;
+  min-height: 200vh;
+  overflow: visible;
   isolation: isolate;
 }
 
@@ -20950,32 +20950,33 @@ a.feat2-reach__line:hover {
   background: radial-gradient(closest-side, rgba(192, 132, 252, 0.28), transparent 70%);
 }
 
-/* ---- Sticky stage ---- */
+/* ---- Stage — pinning kicks in once 40% of the 16:9 player has
+   scrolled out of the viewport. JS sets --svcpin-stick to that
+   negative pixel value on mount + on resize. ---- */
 .svcpin__stage {
   position: sticky;
-  top: 64px;
-  height: calc(100vh - 64px);
+  top: var(--svcpin-stick, -28vh);
   display: flex;
   flex-direction: column;
-  gap: clamp(1rem, 0.7rem + 0.8vw, 1.6rem);
-  padding: clamp(1rem, 0.7rem + 0.8vw, 1.8rem)
+  gap: clamp(1rem, 0.7rem + 0.8vw, 1.8rem);
+  padding: clamp(0.8rem, 0.6rem + 0.6vw, 1.4rem)
            clamp(1rem, 0.6rem + 1vw, 2rem);
   z-index: 1;
 }
 
-/* ---- Player (compact strip on top so the list dominates) ---- */
+/* ---- 16:9 player ---- */
 .svcpin__player {
   position: relative;
   width: 100%;
   max-width: min(1640px, 96%);
   margin: 0 auto;
-  height: clamp(140px, 18vh, 220px);
-  border-radius: 22px;
+  aspect-ratio: 16 / 9;
+  border-radius: 24px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.05) inset,
-    0 24px 60px -22px rgba(0, 0, 0, 0.55),
+    0 36px 80px -28px rgba(0, 0, 0, 0.6),
     0 0 0 1px rgba(96, 165, 250, 0.06) inset;
   flex: none;
 }
@@ -21024,8 +21025,7 @@ a.feat2-reach__line:hover {
 /* ---- List viewport (overflow hidden; the inner list translates) ---- */
 .svcpin__list-viewport {
   position: relative;
-  flex: 1;
-  min-height: 0;
+  height: clamp(280px, 40vh, 480px);
   overflow: hidden;
   width: 100%;
   max-width: min(1640px, 96%);

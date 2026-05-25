@@ -2,66 +2,124 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/* Pinned service showcase. A looping video locks to the viewport
-   while the service list below it translates upward in lockstep
-   with scroll progress. Once the list is out, normal scroll
-   resumes into the next section.
+/* Pinned service showcase, two-screen flow:
+   1. Section starts. User sees the 16:9 video at the top of section.
+   2. As they scroll, video moves up naturally.
+   3. When 40% of the video has scrolled out, the stage pins
+      (position: sticky with a negative top equal to 40% of player
+      height) and further scroll translates the service list upward.
+   4. Each new active row plays a synthesized "node" tick.
    PROOF RULE: studio capability framing only — no client names,
-   no metrics, no fabricated proof. */
+   metrics, fabricated proof. */
 
 const VIDEO_SRC = "/work/erp-beam.mp4";
 
 const SERVICES = [
-  {
-    name: "Enterprise Management Solution",
-    tags: ["ERP", "Operations", "Automation"],
-  },
-  {
-    name: "Website & CMS Solutions",
-    tags: ["Web", "CMS", "Performance"],
-  },
-  {
-    name: "Enterprise Ecommerce Platform",
-    tags: ["Commerce", "Catalog", "Checkout"],
-  },
-  {
-    name: "Custom Application Development",
-    tags: ["Web app", "Mobile", "Internal tools"],
-  },
-  {
-    name: "SaaS Solutions",
-    tags: ["Multi-tenant", "Subscriptions", "Cloud"],
-  },
-  {
-    name: "Advanced Technology Solutions",
-    tags: ["AI", "Automation", "Integrations"],
-  },
-  {
-    name: "Design & Experience",
-    tags: ["UI", "Motion", "Brand"],
-  },
-  {
-    name: "Cybersecurity Solutions",
-    tags: ["Audit", "Hardening", "Compliance"],
-  },
+  { name: "Enterprise Management Solution",   tags: ["ERP", "Operations", "Automation"] },
+  { name: "Website & CMS Solutions",          tags: ["Web", "CMS", "Performance"] },
+  { name: "Enterprise Ecommerce Platform",    tags: ["Commerce", "Catalog", "Checkout"] },
+  { name: "Custom Application Development",   tags: ["Web app", "Mobile", "Internal tools"] },
+  { name: "SaaS Solutions",                   tags: ["Multi-tenant", "Subscriptions", "Cloud"] },
+  { name: "Advanced Technology Solutions",    tags: ["AI", "Automation", "Integrations"] },
+  { name: "Design & Experience",              tags: ["UI", "Motion", "Brand"] },
+  { name: "Cybersecurity Solutions",          tags: ["Audit", "Hardening", "Compliance"] },
 ];
+
+/* Synthesized node-tick (Web Audio API) — no asset needed. */
+function makeTick() {
+  let ctx = null;
+  let unlocked = false;
+
+  const unlock = () => {
+    if (ctx) return;
+    try {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      unlocked = true;
+    } catch (_) {
+      ctx = null;
+    }
+  };
+
+  const play = () => {
+    if (!unlocked || !ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(880, now);
+      osc.frequency.exponentialRampToValueAtTime(440, now + 0.08);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.06, now + 0.005);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.13);
+    } catch (_) {}
+  };
+
+  return { unlock, play };
+}
 
 export default function ServicePinScroll() {
   const sectionRef = useRef(null);
-  const listRef = useRef(null);
   const stageRef = useRef(null);
+  const listRef = useRef(null);
+  const playerRef = useRef(null);
   const videoRef = useRef(null);
   const rafRef = useRef(0);
   const inViewRef = useRef(false);
+  const tickRef = useRef(null);
+  const lastIdxRef = useRef(-1);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoverIndex, setHoverIndex] = useState(-1);
 
-  // rAF-throttled scroll handler — only runs while in view (IntersectionObserver gates it).
+  useEffect(() => {
+    tickRef.current = makeTick();
+
+    const onFirstInteract = () => {
+      tickRef.current.unlock();
+      window.removeEventListener("pointerdown", onFirstInteract);
+      window.removeEventListener("keydown", onFirstInteract);
+      window.removeEventListener("wheel", onFirstInteract);
+      window.removeEventListener("touchstart", onFirstInteract);
+    };
+    window.addEventListener("pointerdown", onFirstInteract, { once: true });
+    window.addEventListener("keydown", onFirstInteract, { once: true });
+    window.addEventListener("wheel", onFirstInteract, { once: true, passive: true });
+    window.addEventListener("touchstart", onFirstInteract, { once: true, passive: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", onFirstInteract);
+      window.removeEventListener("keydown", onFirstInteract);
+      window.removeEventListener("wheel", onFirstInteract);
+      window.removeEventListener("touchstart", onFirstInteract);
+    };
+  }, []);
+
+  // Sync stage sticky top to -40% of the player height (16:9 → height changes with width).
+  useEffect(() => {
+    const stage = stageRef.current;
+    const player = playerRef.current;
+    if (!stage || !player) return;
+    const syncPinTop = () => {
+      const h = player.offsetHeight;
+      stage.style.setProperty("--svcpin-stick", `${-Math.round(h * 0.4)}px`);
+    };
+    syncPinTop();
+    const ro = new ResizeObserver(syncPinTop);
+    ro.observe(player);
+    window.addEventListener("resize", syncPinTop);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", syncPinTop);
+    };
+  }, []);
+
   useEffect(() => {
     const section = sectionRef.current;
     const list = listRef.current;
-    const stage = stageRef.current;
-    if (!section || !list || !stage) return;
+    if (!section || !list) return;
 
     const reduced =
       typeof window !== "undefined" &&
@@ -73,13 +131,10 @@ export default function ServicePinScroll() {
     const update = () => {
       const rect = section.getBoundingClientRect();
       const total = section.offsetHeight - window.innerHeight;
-      // 0 → 1 as the section moves through the viewport.
       const progress = Math.max(0, Math.min(1, -rect.top / Math.max(1, total)));
-
       if (progress === lastProgress) return;
       lastProgress = progress;
 
-      // Distance the list can travel: list height minus viewport area for it.
       const listH = list.scrollHeight;
       const viewportH = list.parentElement.clientHeight;
       const maxY = Math.max(0, listH - viewportH);
@@ -90,7 +145,11 @@ export default function ServicePinScroll() {
         SERVICES.length - 1,
         Math.floor(progress * SERVICES.length)
       );
-      setActiveIndex((prev) => (prev === idx ? prev : idx));
+      if (idx !== lastIdxRef.current) {
+        lastIdxRef.current = idx;
+        setActiveIndex(idx);
+        if (tickRef.current && !reduced) tickRef.current.play();
+      }
     };
 
     const onScroll = () => {
@@ -105,7 +164,6 @@ export default function ServicePinScroll() {
         inViewRef.current = e.isIntersecting;
         if (e.isIntersecting) {
           window.addEventListener("scroll", onScroll, { passive: true });
-          // Run once on enter so initial state is correct.
           update();
         } else {
           window.removeEventListener("scroll", onScroll);
@@ -115,10 +173,7 @@ export default function ServicePinScroll() {
     );
     io.observe(section);
 
-    // Reduced-motion: render statically without pinning effect.
-    if (reduced && videoRef.current) {
-      videoRef.current.pause();
-    }
+    if (reduced && videoRef.current) videoRef.current.pause();
 
     return () => {
       io.disconnect();
@@ -137,8 +192,7 @@ export default function ServicePinScroll() {
       </div>
 
       <div ref={stageRef} className="svcpin__stage">
-        {/* Pinned player */}
-        <div className="svcpin__player" aria-hidden="true">
+        <div ref={playerRef} className="svcpin__player" aria-hidden="true">
           <video
             ref={videoRef}
             className="svcpin__video"
@@ -159,7 +213,6 @@ export default function ServicePinScroll() {
           </div>
         </div>
 
-        {/* Scrollable list (translated by JS) */}
         <div className="svcpin__list-viewport">
           <ul ref={listRef} className="svcpin__list">
             {SERVICES.map((svc, i) => {
