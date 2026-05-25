@@ -38,7 +38,7 @@ export default function CinematicHero() {
                 y="11"
                 fontSize="12"
                 textLength="100"
-                lengthAdjust="spacingAndGlyphs"
+                lengthAdjust="spacing"
                 fill="#ffffff"
               >
                 {line}
