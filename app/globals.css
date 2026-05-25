@@ -17990,4 +17990,69 @@ a.feat-reach__line:hover {
   }
 }
 
+/* Service Detail Pages — Detailed SEO Deep Dive */
+.svcpage-seo {
+  padding-block: clamp(4rem, 3rem + 4vw, 7rem);
+  position: relative;
+}
+
+.svcpage-seo__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: clamp(1rem, 0.5rem + 2vw, 3rem);
+}
+
+.svcpage-seo__title {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  color: #fafafa;
+}
+
+.svcpage-seo__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 0.8rem + 0.8vw, 1.8rem);
+}
+
+.svcpage-seo-card {
+  background: rgba(192, 132, 252, 0.03);
+  border: 1px solid rgba(192, 132, 252, 0.14);
+  border-radius: 18px;
+  padding: clamp(1.5rem, 1.2rem + 1vw, 2.2rem);
+  transition: all 0.4s var(--ease);
+  box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.35);
+}
+
+.svcpage-seo-card:hover {
+  background: rgba(192, 132, 252, 0.06);
+  border-color: rgba(192, 132, 252, 0.38);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -12px rgba(168, 85, 247, 0.25);
+}
+
+.svcpage-seo-card__title {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: #fafafa;
+  margin-bottom: 0.8rem;
+  line-height: 1.35;
+}
+
+.svcpage-seo-card__text {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(220, 200, 245, 0.76);
+}
+
+@media (max-width: 900px) {
+  .svcpage-seo__grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
 

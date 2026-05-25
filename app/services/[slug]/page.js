@@ -217,6 +217,25 @@ export default async function ServicePage({ params }) {
             </Reveal>
           </div>
         </section>
+
+        {/* Technical Deep Dive (SEO detailed copy) */}
+        {service.detailedSections && (
+          <section className="svcpage-seo">
+            <div className="svcpage-seo__inner">
+              <Reveal>
+                <h2 className="svcpage-seo__title">Engineering Excellence · Deep Dive</h2>
+              </Reveal>
+              <div className="svcpage-seo__grid">
+                {service.detailedSections.map((section, idx) => (
+                  <Reveal key={section.title} className="svcpage-seo-card" delay={idx * 80}>
+                    <h3 className="svcpage-seo-card__title">{section.title}</h3>
+                    <p className="svcpage-seo-card__text">{section.body}</p>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </main>
 
       <Footer />
