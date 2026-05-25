@@ -5,6 +5,7 @@ import ShowcaseCards from "./components/ShowcaseCards";
 import Faq from "./components/Faq";
 import CapabilityGrid from "./components/CapabilityGrid";
 import ProcessSpine from "./components/ProcessSpine";
+import ServicePinScroll from "./components/ServicePinScroll";
 import WhyRevlient from "./components/WhyRevlient";
 import Services from "./components/Services";
 import FinalCTA from "./components/FinalCTA";
@@ -27,6 +28,7 @@ export default function HomePage() {
         </div>
         <CapabilityGrid />
         <ProcessSpine />
+        <ServicePinScroll />
         <Services />
         <Faq />
         <ShowcaseCards />

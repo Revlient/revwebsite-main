@@ -20910,3 +20910,223 @@ a.feat2-reach__line:hover {
   z-index: 5;
   background: linear-gradient(to bottom, transparent 0%, #04050A 70%, #04050A 100%);
 }
+
+/* ====================================================================
+   SVCPIN — Pinned service showcase
+   Section is 200vh tall. Inside, .svcpin__stage is position: sticky
+   so the player + list freeze in the viewport while the page scrolls
+   through the 100vh of extra track. JS translates the list upward in
+   proportion to scroll progress.
+   ==================================================================== */
+.svcpin {
+  position: relative;
+  background: #04050A;
+  color: #ffffff;
+  min-height: 200vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.svcpin__atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.svcpin__bloom {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.35;
+}
+.svcpin__bloom--blue {
+  width: 44rem; height: 44rem;
+  top: -8rem; left: -10rem;
+  background: radial-gradient(closest-side, rgba(96, 165, 250, 0.38), transparent 70%);
+}
+.svcpin__bloom--violet {
+  width: 38rem; height: 38rem;
+  bottom: -8rem; right: -10rem;
+  background: radial-gradient(closest-side, rgba(192, 132, 252, 0.28), transparent 70%);
+}
+
+/* ---- Sticky stage ---- */
+.svcpin__stage {
+  position: sticky;
+  top: 64px;
+  height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 0.7rem + 0.8vw, 1.6rem);
+  padding: clamp(1rem, 0.7rem + 0.8vw, 1.8rem)
+           clamp(1rem, 0.6rem + 1vw, 2rem);
+  z-index: 1;
+}
+
+/* ---- Player ---- */
+.svcpin__player {
+  position: relative;
+  width: 100%;
+  max-width: min(1640px, 96%);
+  margin: 0 auto;
+  height: clamp(420px, 60vh, 720px);
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 36px 80px -28px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(96, 165, 250, 0.06) inset;
+  flex: none;
+}
+.svcpin__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.svcpin__player-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 50% 50%, transparent 0%, rgba(4, 5, 10, 0.45) 80%),
+    linear-gradient(180deg, rgba(4, 5, 10, 0.4) 0%, transparent 30%, transparent 70%, rgba(4, 5, 10, 0.5) 100%);
+}
+.svcpin__player-caption {
+  position: absolute;
+  top: clamp(0.8rem, 0.6rem + 0.4vw, 1.4rem);
+  left: clamp(0.8rem, 0.6rem + 0.4vw, 1.4rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.svcpin__player-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #60A5FA;
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.8);
+}
+.svcpin__player-eyebrow { color: rgba(255, 255, 255, 0.55); }
+.svcpin__player-name { color: #ffffff; font-weight: 600; }
+
+/* ---- List viewport (overflow hidden; the inner list translates) ---- */
+.svcpin__list-viewport {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  width: 100%;
+  max-width: min(1640px, 96%);
+  margin: 0 auto;
+}
+.svcpin__list-viewport::before,
+.svcpin__list-viewport::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 2.5rem;
+  pointer-events: none;
+  z-index: 2;
+}
+.svcpin__list-viewport::before {
+  top: 0;
+  background: linear-gradient(180deg, #04050A 0%, transparent 100%);
+}
+.svcpin__list-viewport::after {
+  bottom: 0;
+  background: linear-gradient(0deg, #04050A 0%, transparent 100%);
+}
+
+.svcpin__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ---- Rows ---- */
+.svcpin__row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(0.8rem, 0.5rem + 1vw, 2rem);
+  height: clamp(96px, 12vh, 140px);
+  padding: 0 clamp(0.5rem, 0.5rem + 0.5vw, 1.2rem);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  outline: none;
+  transition: color 0.3s ease;
+}
+.svcpin__row:last-child { border-bottom: 0; }
+
+.svcpin__row-index {
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 11px + 0.2vw, 14px);
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.3s ease;
+}
+.svcpin__row-name {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 1rem + 1.8vw, 2.8rem);
+  letter-spacing: -0.02em;
+  transition: font-weight 0.25s ease;
+  text-transform: uppercase;
+}
+.svcpin__row-tags {
+  display: inline-flex;
+  gap: 0.45rem;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+.svcpin__row-tag {
+  padding: 0.3rem 0.7rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+}
+
+/* active = driven by scroll */
+.svcpin__row.is-active {
+  color: #ffffff;
+}
+.svcpin__row.is-active .svcpin__row-index { color: #60A5FA; }
+.svcpin__row.is-active .svcpin__row-tags { opacity: 1; }
+
+/* hover layers on top of active without replacing it */
+.svcpin__row.is-hover { color: #ffffff; }
+.svcpin__row.is-hover .svcpin__row-index { color: #C084FC; }
+.svcpin__row.is-hover .svcpin__row-name { font-weight: 700; }
+.svcpin__row.is-hover .svcpin__row-tags { opacity: 1; }
+.svcpin__row:focus-visible { outline: 1px dashed rgba(96, 165, 250, 0.5); outline-offset: 4px; border-radius: 6px; }
+
+@media (max-width: 720px) {
+  .svcpin__row { grid-template-columns: auto 1fr; }
+  .svcpin__row-tags { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svcpin__row-name { transition: none; }
+  .svcpin__row.is-hover .svcpin__row-name { font-weight: 400; }
+}
