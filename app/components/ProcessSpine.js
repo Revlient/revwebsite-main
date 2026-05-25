@@ -109,14 +109,14 @@ const NODE_THRESHOLDS = [0.04, 0.18, 0.32, 0.46, 0.6, 0.74, 0.88];
 const NODE_ICONS = [
   // 01 compass
   (
-    <g key="compass" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <g key="compass" stroke="#ffffff" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="9" />
-      <polygon points="16,8 13,13 8,16 11,11" fill="#C084FC" stroke="none" />
+      <polygon points="16,8 13,13 8,16 11,11" fill="#ffffff" stroke="none" />
     </g>
   ),
   // 02 id-card (client portal / CRM access)
   (
-    <g key="id-card" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <g key="id-card" stroke="#ffffff" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="6" width="18" height="14" rx="2" />
       <circle cx="9" cy="13" r="2.5" />
       <line x1="14" y1="11" x2="18" y2="11" />
@@ -125,7 +125,7 @@ const NODE_ICONS = [
   ),
   // 03 sitemap
   (
-    <g key="sitemap" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <g key="sitemap" stroke="#ffffff" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="5" r="2" />
       <circle cx="6" cy="19" r="2" />
       <circle cx="18" cy="19" r="2" />
@@ -135,7 +135,7 @@ const NODE_ICONS = [
   ),
   // 03 wireframe square with corner markers
   (
-    <g key="wireframe" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <g key="wireframe" stroke="#ffffff" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
       <path d="M4 7 L4 4 L7 4" />
       <path d="M17 4 L20 4 L20 7" />
       <path d="M20 17 L20 20 L17 20" />
@@ -145,7 +145,7 @@ const NODE_ICONS = [
   ),
   // 04 code brackets </>
   (
-    <g key="code" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <g key="code" stroke="#ffffff" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="8,7 4,12 8,17" />
       <polyline points="16,7 20,12 16,17" />
       <line x1="13.5" y1="5.5" x2="10.5" y2="18.5" />
@@ -153,14 +153,14 @@ const NODE_ICONS = [
   ),
   // 05 shield-check
   (
-    <g key="shield" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <g key="shield" stroke="#ffffff" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 3 L19 6 L19 12 C19 16 16 19 12 21 C8 19 5 16 5 12 L5 6 Z" />
       <path d="M9 12 L11 14 L15 10" />
     </g>
   ),
   // 06 rocket / arrow-up-and-out
   (
-    <g key="rocket" stroke="#C084FC" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <g key="rocket" stroke="#ffffff" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
       <path d="M7 17 L17 7" />
       <path d="M9 7 L17 7 L17 15" />
     </g>
@@ -323,9 +323,9 @@ export default function ProcessSpine() {
               </feMerge>
             </filter>
             <radialGradient id="spineHaloD">
-              <stop offset="0%" stopColor="rgba(192, 132, 252, 0.6)" />
-              <stop offset="60%" stopColor="rgba(192, 132, 252, 0.16)" />
-              <stop offset="100%" stopColor="rgba(192, 132, 252, 0)" />
+              <stop offset="0%" stopColor="rgba(255, 255, 255, 0.6)" />
+              <stop offset="60%" stopColor="rgba(255, 255, 255, 0.16)" />
+              <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
             </radialGradient>
             <filter id="spinePulseD" x="-200%" y="-200%" width="500%" height="500%">
               <feGaussianBlur stdDeviation="3" result="b" />
@@ -369,7 +369,7 @@ export default function ProcessSpine() {
                 data-active="false"
               >
                 <circle r="28" fill="url(#spineHaloD)" className="spine__node-halo" />
-                <circle r="6" fill="#C084FC" className="spine__node-dot" />
+                <circle r="6" fill="#ffffff" className="spine__node-dot" />
                 <NodeLabel index={i} />
               </g>
             </g>
@@ -400,9 +400,9 @@ export default function ProcessSpine() {
               </feMerge>
             </filter>
             <radialGradient id="spineHaloM">
-              <stop offset="0%" stopColor="rgba(192, 132, 252, 0.6)" />
-              <stop offset="60%" stopColor="rgba(192, 132, 252, 0.16)" />
-              <stop offset="100%" stopColor="rgba(192, 132, 252, 0)" />
+              <stop offset="0%" stopColor="rgba(255, 255, 255, 0.6)" />
+              <stop offset="60%" stopColor="rgba(255, 255, 255, 0.16)" />
+              <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
             </radialGradient>
             <filter id="spinePulseM" x="-200%" y="-200%" width="500%" height="500%">
               <feGaussianBlur stdDeviation="3" result="b" />
@@ -444,7 +444,7 @@ export default function ProcessSpine() {
                 data-active="false"
               >
                 <circle r="28" fill="url(#spineHaloM)" className="spine__node-halo" />
-                <circle r="6" fill="#C084FC" className="spine__node-dot" />
+                <circle r="6" fill="#ffffff" className="spine__node-dot" />
               </g>
             </g>
           ))}

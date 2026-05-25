@@ -71,7 +71,7 @@ function VisualBrand() {
       <div className="cap-v__type">Aa</div>
       <div className="cap-v__swatches">
         <span style={{ background: "#0F1423" }} />
-        <span style={{ background: "#C084FC" }} />
+        <span style={{ background: "#ffffff" }} />
         <span style={{ background: "#60A5FA" }} />
         <span style={{ background: "#F2EFEA" }} />
       </div>

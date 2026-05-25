@@ -37,7 +37,7 @@ const LOGOS = [
   {
     name: "Figma",
     src: "https://svgl.app/library/figma.svg",
-    grad: "linear-gradient(135deg, #c084fc 0%, #7c3aed 100%)",
+    grad: "linear-gradient(135deg, #ffffff 0%, #7c3aed 100%)",
   },
   {
     name: "Spotify",

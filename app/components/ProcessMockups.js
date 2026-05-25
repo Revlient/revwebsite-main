@@ -254,7 +254,7 @@ export function DeploymentMockup() {
         <path
           d="M0 56 L40 50 L80 54 L120 38 L160 44 L200 32 L240 36 L280 24 L320 28"
           fill="none"
-          stroke="#c084fc"
+          stroke="#ffffff"
           strokeWidth="1.6"
         />
       </svg>

@@ -21,7 +21,7 @@ const LOGOS = [
   { name: "Procure", src: "https://svgl.app/library/procure.svg", grad: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)" },
   { name: "Shopify", src: "https://svgl.app/library/shopify.svg", grad: "linear-gradient(135deg, #fde047 0%, #ca8a04 100%)" },
   { name: "Blender", src: "https://svgl.app/library/blender.svg", grad: "linear-gradient(135deg, #60a5fa 0%, #1e40af 100%)" },
-  { name: "Figma", src: "https://svgl.app/library/figma.svg", grad: "linear-gradient(135deg, #c084fc 0%, #7c3aed 100%)" },
+  { name: "Figma", src: "https://svgl.app/library/figma.svg", grad: "linear-gradient(135deg, #ffffff 0%, #7c3aed 100%)" },
   { name: "Spotify", src: "https://svgl.app/library/spotify.svg", grad: "linear-gradient(135deg, #fb7185 0%, #be123c 100%)" },
   { name: "Lottielab", src: "https://svgl.app/library/lottielab.svg", grad: "linear-gradient(135deg, #facc15 0%, #65a30d 100%)" },
   { name: "Google Cloud", src: "https://svgl.app/library/google-cloud.svg", grad: "linear-gradient(135deg, #93c5fd 0%, #3b82f6 100%)" },
@@ -553,11 +553,11 @@ function HeroDashboard() {
               <svg viewBox="0 0 400 100" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="dash-grad-purple" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="rgba(192, 132, 252, 0.45)" />
-                    <stop offset="100%" stopColor="rgba(192, 132, 252, 0)" />
+                    <stop offset="0%" stopColor="rgba(255, 255, 255, 0.45)" />
+                    <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
                   </linearGradient>
                   <linearGradient id="line-grad-purple" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#c084fc" />
+                    <stop offset="0%" stopColor="#ffffff" />
                     <stop offset="50%" stopColor="#a855f7" />
                     <stop offset="100%" stopColor="#f0d3ff" />
                   </linearGradient>
@@ -565,8 +565,8 @@ function HeroDashboard() {
                 <polygon points="0,85 30,78 70,80 110,68 150,60 190,52 230,44 270,38 310,42 350,30 390,26 400,24 400,100 0,100" fill="url(#dash-grad-purple)" />
                 <polyline points="0,85 30,78 70,80 110,68 150,60 190,52 230,44 270,38 310,42 350,30 390,26 400,24" fill="none" stroke="url(#line-grad-purple)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 {/* Glow dot on latest point */}
-                <circle cx="400" cy="24" r="4" fill="#c084fc" opacity="0.8" />
-                <circle cx="400" cy="24" r="8" fill="#c084fc" opacity="0.2" />
+                <circle cx="400" cy="24" r="4" fill="#ffffff" opacity="0.8" />
+                <circle cx="400" cy="24" r="8" fill="#ffffff" opacity="0.2" />
               </svg>
             </div>
           </div>

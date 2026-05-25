@@ -238,7 +238,7 @@ function FloatingCards() {
             cy="28"
             r="24"
             fill="none"
-            stroke="#c084fc"
+            stroke="#ffffff"
             strokeWidth="2"
             strokeLinecap="round"
             strokeDasharray="118"

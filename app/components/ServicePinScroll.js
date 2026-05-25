@@ -97,14 +97,18 @@ export default function ServicePinScroll() {
     };
   }, []);
 
-  // Sync stage sticky top to -40% of the player height (16:9 → height changes with width).
+  // Sync stage sticky top so pin engages AFTER the video has fully
+  // scrolled off-screen. JS reads player.offsetHeight and writes
+  // -playerHeight (plus stage's top padding) to --svcpin-stick.
   useEffect(() => {
     const stage = stageRef.current;
     const player = playerRef.current;
     if (!stage || !player) return;
     const syncPinTop = () => {
       const h = player.offsetHeight;
-      stage.style.setProperty("--svcpin-stick", `${-Math.round(h * 0.4)}px`);
+      // pull stage up by full player height so video is fully out
+      // before pin engages
+      stage.style.setProperty("--svcpin-stick", `${-Math.round(h + 24)}px`);
     };
     syncPinTop();
     const ro = new ResizeObserver(syncPinTop);
@@ -141,10 +145,9 @@ export default function ServicePinScroll() {
       const y = progress * maxY;
       list.style.transform = `translate3d(0, ${-y}px, 0)`;
 
-      const idx = Math.min(
-        SERVICES.length - 1,
-        Math.floor(progress * SERVICES.length)
-      );
+      // 8 services + 1 final "View More" slot
+      const slots = SERVICES.length + 1;
+      const idx = Math.min(slots - 1, Math.floor(progress * slots));
       if (idx !== lastIdxRef.current) {
         lastIdxRef.current = idx;
         setActiveIndex(idx);
@@ -216,7 +219,10 @@ export default function ServicePinScroll() {
     };
   }, []);
 
-  const active = SERVICES[activeIndex];
+  const isCtaSlot = activeIndex >= SERVICES.length;
+  const active = isCtaSlot
+    ? { name: "View All Services", tags: [] }
+    : SERVICES[activeIndex];
 
   return (
     <section ref={sectionRef} className="svcpin" aria-label="Studio services">
@@ -275,6 +281,22 @@ export default function ServicePinScroll() {
                 </li>
               );
             })}
+            {/* Final slot: immersive "View More" CTA */}
+            <li
+              className={`svcpin__row svcpin__row--cta${isCtaSlot ? " is-active" : ""}`}
+              aria-current={isCtaSlot ? "true" : undefined}
+            >
+              <a href="/services" className="svcpin__viewmore">
+                <span className="svcpin__viewmore-eyebrow">All services</span>
+                <span className="svcpin__viewmore-label">View More</span>
+                <span className="svcpin__viewmore-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>

@@ -10,7 +10,7 @@
 const STROKE = "rgba(255, 255, 255, 0.5)";
 const STROKE_FAINT = "rgba(255, 255, 255, 0.28)";
 const FILL_FAINT = "rgba(255, 255, 255, 0.05)";
-const ACCENT = "#C084FC";
+const ACCENT = "#ffffff";
 const GREEN = "#22c55e";
 
 function Frame({ children, vb = "0 0 400 140" }) {
@@ -44,7 +44,7 @@ function SpecCapability() {
         TODO L
       </text>
       {/* delta pill */}
-      <rect x="120" y="44" width="58" height="18" rx="9" fill="rgba(192,132,252,0.2)" stroke="rgba(192,132,252,0.5)" strokeWidth="0.75" />
+      <rect x="120" y="44" width="58" height="18" rx="9" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" strokeWidth="0.75" />
       <text x="149" y="57" textAnchor="middle" fontFamily="ui-monospace, Menlo, monospace" fontSize="9" fill={ACCENT}>
         +TODO%
       </text>
@@ -138,7 +138,7 @@ function SpecReliability() {
         TODO-hash · TODO ago
       </text>
       {/* Deployed pill */}
-      <rect x="306" y="108" width="68" height="18" rx="9" fill="rgba(192,132,252,0.2)" stroke="rgba(192,132,252,0.5)" strokeWidth="0.75" />
+      <rect x="306" y="108" width="68" height="18" rx="9" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" strokeWidth="0.75" />
       <text x="340" y="121" textAnchor="middle" fontFamily="ui-monospace, Menlo, monospace" fontSize="9" fill={ACCENT}>
         Deployed
       </text>
@@ -153,7 +153,7 @@ function SpecLoyalty() {
     <Frame>
       <rect x="10" y="6" width="380" height="128" rx="8" fill={FILL_FAINT} stroke={STROKE_FAINT} strokeWidth="1" />
       {/* header */}
-      <circle cx="26" cy="22" r="8" fill="rgba(192,132,252,0.2)" stroke="rgba(192,132,252,0.55)" strokeWidth="0.75" />
+      <circle cx="26" cy="22" r="8" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.55)" strokeWidth="0.75" />
       <text x="26" y="25" textAnchor="middle" fontFamily="var(--font-cormorant), Georgia, serif" fontSize="9"  fontWeight="600" fill={ACCENT}>
         R
       </text>
@@ -165,7 +165,7 @@ function SpecLoyalty() {
       </text>
       <line x1="10" y1="34" x2="390" y2="34" stroke={STROKE_FAINT} strokeWidth="0.5" />
       {/* studio bubble (purple-tinted) */}
-      <rect x="22" y="42" width="252" height="36" rx="10" fill="rgba(192,132,252,0.14)" stroke="rgba(192,132,252,0.32)" strokeWidth="0.75" />
+      <rect x="22" y="42" width="252" height="36" rx="10" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.32)" strokeWidth="0.75" />
       <text x="30" y="54" fontFamily="ui-monospace, Menlo, monospace" fontSize="8" fill="#f5e7ff">
         Pushed a fix for the [TODO surface]
       </text>
