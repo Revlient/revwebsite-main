@@ -159,10 +159,12 @@ export default function ServicePinScroll() {
         (rawProgress - pinStartProgress) / Math.max(0.001, 1 - pinStartProgress)
       );
 
-      // Slots: [empty buffer, ...8 services, view-more CTA] = 10
-      const slots = SERVICES.length + 2;
+      // Slots: [empty buffer, ...8 services] = 9
+      // The View More CTA fades in alongside the LAST service
+      // (idx = SERVICES.length - 1) — no separate slot for it.
+      const slots = SERVICES.length + 1;
       const slot = Math.min(slots - 1, Math.floor(afterPin * slots));
-      // slot 0 = nothing, slot 1..8 = service slot-1, slot 9 = CTA
+      // slot 0 = nothing, slot 1..8 = service slot-1
       const idx = slot - 1;
       if (idx !== lastIdxRef.current) {
         lastIdxRef.current = idx;
@@ -235,13 +237,9 @@ export default function ServicePinScroll() {
     };
   }, []);
 
-  const isCtaSlot = activeIndex >= SERVICES.length;
   const isEmptySlot = activeIndex < 0;
-  const active = isEmptySlot
-    ? null
-    : isCtaSlot
-      ? { name: "View All Services", tags: [] }
-      : SERVICES[activeIndex];
+  const isLastService = activeIndex === SERVICES.length - 1;
+  const active = isEmptySlot ? null : SERVICES[activeIndex];
 
   return (
     <section ref={sectionRef} className="svcpin" aria-label="Studio services">
@@ -303,23 +301,24 @@ export default function ServicePinScroll() {
                 </li>
               );
             })}
-            {/* Final slot: immersive "View More" CTA */}
-            <li
-              className={`svcpin__row svcpin__row--cta${isCtaSlot ? " is-active" : ""}`}
-              aria-current={isCtaSlot ? "true" : undefined}
-            >
-              <a href="/services" className="svcpin__viewmore">
-                <span className="svcpin__viewmore-eyebrow">All services</span>
-                <span className="svcpin__viewmore-label">View More</span>
-                <span className="svcpin__viewmore-arrow" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14" />
-                    <path d="M13 6l6 6-6 6" />
-                  </svg>
-                </span>
-              </a>
-            </li>
           </ul>
+
+          {/* View More — fades in alongside the final service */}
+          <div
+            className={`svcpin__final${isLastService ? " is-active" : ""}`}
+            aria-hidden={!isLastService}
+          >
+            <a href="/services" className="svcpin__viewmore" tabIndex={isLastService ? 0 : -1}>
+              <span className="svcpin__viewmore-eyebrow">All services</span>
+              <span className="svcpin__viewmore-label">View More</span>
+              <span className="svcpin__viewmore-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

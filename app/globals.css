@@ -21191,13 +21191,35 @@ a.feat2-reach__line:hover {
 }
 
 
-/* ---- Final slot: immersive "View More" CTA ---- */
-.svcpin__row--cta { cursor: default; }
-.svcpin__row--cta.is-active { pointer-events: auto; }
+/* ---- Final CTA — sibling of the list, sits below the centred
+   slot. Hidden by default; fades + rises in with a 0.35s delay
+   so it arrives a beat after the 8th service title settles. ---- */
+.svcpin__final {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6%;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+  filter: blur(8px);
+  transition:
+    opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.35s,
+    transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s,
+    filter 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+  z-index: 2;
+}
+.svcpin__final.is-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  pointer-events: auto;
+}
 
 .svcpin__viewmore {
   position: relative;
-  grid-column: 1 / -1;
   justify-self: center;
   display: inline-flex;
   flex-direction: column;
