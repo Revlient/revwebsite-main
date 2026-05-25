@@ -5,7 +5,6 @@ import ShowcaseCards from "./components/ShowcaseCards";
 import Faq from "./components/Faq";
 import CapabilityGrid from "./components/CapabilityGrid";
 import ProcessSpine from "./components/ProcessSpine";
-import WorkFeatureSection from "./components/WorkFeatureSection";
 import WhyRevlient from "./components/WhyRevlient";
 import Services from "./components/Services";
 import FinalCTA from "./components/FinalCTA";
@@ -27,13 +26,6 @@ export default function HomePage() {
           <AiPromptSection />
         </div>
         <CapabilityGrid />
-        <WorkFeatureSection
-          pill="Included with every active project"
-          heading="CRM access for clients."
-          sub="Every active engagement comes with a private CRM workspace — track project phases live, transfer assets, raise enquiries, and watch the build pulse in real time."
-          greeting="Good afternoon, Kevin"
-          showcaseLabel="Client portal · Project phases · Asset transfer · Enquiries"
-        />
         <ProcessSpine />
         <Services />
         <Faq />
