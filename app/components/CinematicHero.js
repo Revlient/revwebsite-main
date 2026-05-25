@@ -34,6 +34,14 @@ export default function CinematicHero() {
         and ship the digital systems that move them forward.
       </p>
 
+      <a href="#start" className="cinhero__cta">
+        <span>Start a project</span>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M7 17L17 7" />
+          <path d="M7 7h10v10" />
+        </svg>
+      </a>
+
       {/* Top-right stat */}
       <div className="cinhero__stat cinhero__stat--tr">
         <div className="cinhero__stat-row">
