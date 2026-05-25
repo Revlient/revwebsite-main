@@ -251,6 +251,13 @@ export default function ServicePinScroll() {
       </div>
 
       <div ref={stageRef} className="svcpin__stage">
+        <div
+          className={`svcpin__chessboard${isCtaSlot ? " is-active" : ""}`}
+          aria-hidden="true"
+        >
+          <div className="svcpin__chessboard-half svcpin__chessboard-half--top" />
+          <div className="svcpin__chessboard-half svcpin__chessboard-half--bottom" />
+        </div>
         <div ref={playerRef} className="svcpin__player" aria-hidden="true">
           <video
             ref={videoRef}

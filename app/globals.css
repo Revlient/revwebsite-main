@@ -20785,57 +20785,7 @@ a.feat2-reach__line:hover {
 .cinhero__w--1 { top: 22%; left: 5%; }
 .cinhero__w--2 { top: 34%; left: 5%; }
 .cinhero__w--3 { top: 46%; left: 5%; }
-.cinhero__w--4 {
-  top: 58%;
-  left: 5%;
-  /* SVG container — bigger than the other words; LEGACIES is the
-     signature line and the light-trace effect needs room to breathe. */
-  width: clamp(360px, 56vw, 880px);
-  height: auto;
-  display: inline-flex;
-  align-items: center;
-}
-
-/* ---- LEGACIES: solid white text + a glowing stroke that loops
-   around each letter's outline. ---- */
-.cinhero__legacies-svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-.cinhero__legacies-base,
-.cinhero__legacies-glow {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 100px;
-  letter-spacing: -3px;
-  text-transform: uppercase;
-}
-.cinhero__legacies-base {
-  fill: #ffffff;
-  stroke: none;
-}
-.cinhero__legacies-glow {
-  fill: none;
-  stroke: #ffffff;
-  stroke-width: 2;
-  stroke-dasharray: 28 360;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter:
-    drop-shadow(0 0 6px rgba(255, 255, 255, 0.95))
-    drop-shadow(0 0 18px rgba(255, 255, 255, 0.55))
-    drop-shadow(0 0 36px rgba(96, 165, 250, 0.4));
-  animation: cinhero-legacies-trace 6.5s linear infinite;
-}
-@keyframes cinhero-legacies-trace {
-  to { stroke-dashoffset: -388; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .cinhero__legacies-glow { animation: none; }
-}
+.cinhero__w--4 { top: 58%; left: 5%; }
 
 /* ---- Description (uppercase, left-aligned under LEGACIES.) ---- */
 .cinhero__desc {
@@ -21235,17 +21185,27 @@ a.feat2-reach__line:hover {
 /* Curved (perspective-tilted) animated chess board behind the
    View More button. Pure black & white squares, very low
    opacity, soft radial mask so it fades at the edges. */
+/* Full-screen wrapper that holds two perspective-tilted halves
+   meeting in the middle — top half recedes upward, bottom half
+   recedes downward — giving the board a curved-inward
+   (hourglass / inward-bend) shape behind the View More button. */
 .svcpin__chessboard {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: clamp(640px, 110vw, 1600px);
-  height: clamp(420px, 70vh, 900px);
-  transform:
-    translate(-50%, -50%)
-    perspective(900px)
-    rotateX(58deg);
-  transform-origin: center bottom;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 0;
+  overflow: hidden;
+}
+.svcpin__chessboard.is-active { opacity: 0.16; }
+.svcpin__chessboard-half {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  height: 56%;
   background-color: #000;
   background-image:
     conic-gradient(
@@ -21257,30 +21217,30 @@ a.feat2-reach__line:hover {
     );
   background-size: 90px 90px;
   background-repeat: repeat;
-  -webkit-mask-image: radial-gradient(
-    ellipse 55% 55% at 50% 50%,
-    #000 0%,
-    rgba(0, 0, 0, 0.6) 35%,
-    transparent 78%
-  );
-  mask-image: radial-gradient(
-    ellipse 55% 55% at 50% 50%,
-    #000 0%,
-    rgba(0, 0, 0, 0.6) 35%,
-    transparent 78%
-  );
-  opacity: 0;
-  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
   animation: svcpin-chess-pan 26s linear infinite;
-  pointer-events: none;
-  z-index: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
-.svcpin__row--cta.is-active .svcpin__chessboard { opacity: 0.16; }
+.svcpin__chessboard-half--top {
+  top: 0;
+  transform: perspective(900px) rotateX(-46deg);
+  transform-origin: center bottom;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 35%, #000 100%);
+  mask-image:        linear-gradient(180deg, transparent 0%, #000 35%, #000 100%);
+}
+.svcpin__chessboard-half--bottom {
+  bottom: 0;
+  transform: perspective(900px) rotateX(46deg);
+  transform-origin: center top;
+  -webkit-mask-image: linear-gradient(0deg, transparent 0%, #000 35%, #000 100%);
+  mask-image:        linear-gradient(0deg, transparent 0%, #000 35%, #000 100%);
+}
 @keyframes svcpin-chess-pan {
   to { background-position: 180px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .svcpin__chessboard { animation: none; transition: none; }
+  .svcpin__chessboard,
+  .svcpin__chessboard-half { animation: none; transition: none; }
 }
 /* Ensure the button sits above the board */
 .svcpin__viewmore { z-index: 1; }
