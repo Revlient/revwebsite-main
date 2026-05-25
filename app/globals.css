@@ -17933,16 +17933,25 @@ a.feat-reach__line:hover {
   inset: 0;
   background:
     radial-gradient(
-      60% 50% at 20% 0%,
-      rgba(192, 132, 252, 0.08),
-      transparent 70%
-    ),
-    radial-gradient(
-      50% 40% at 90% 100%,
-      rgba(111, 140, 255, 0.06),
+      120% 90% at 50% 50%,
+      rgba(192, 132, 252, 0.05),
       transparent 70%
     );
   pointer-events: none;
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 18%,
+    #000 82%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 18%,
+    #000 82%,
+    transparent 100%
+  );
 }
 
 .faq__container {
