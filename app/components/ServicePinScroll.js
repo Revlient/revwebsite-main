@@ -173,7 +173,41 @@ export default function ServicePinScroll() {
     );
     io.observe(section);
 
-    if (reduced && videoRef.current) videoRef.current.pause();
+    // Video playback safety net: force-play on mount + restart on
+    // 'ended' (in case loop attribute is ignored), and try to resume
+    // if the browser quietly pauses it (autoplay throttling, off-
+    // screen pause heuristics, etc.).
+    const v = videoRef.current;
+    if (v) {
+      v.muted = true;
+      v.loop = true;
+      const tryPlay = () => v.play().catch(() => {});
+      tryPlay();
+      const onEnded = () => {
+        try {
+          v.currentTime = 0;
+        } catch (_) {}
+        tryPlay();
+      };
+      const onPause = () => {
+        if (inViewRef.current && !reduced) tryPlay();
+      };
+      const onCanPlay = () => tryPlay();
+      v.addEventListener("ended", onEnded);
+      v.addEventListener("pause", onPause);
+      v.addEventListener("canplay", onCanPlay);
+
+      if (reduced) v.pause();
+
+      return () => {
+        io.disconnect();
+        window.removeEventListener("scroll", onScroll);
+        cancelAnimationFrame(rafRef.current);
+        v.removeEventListener("ended", onEnded);
+        v.removeEventListener("pause", onPause);
+        v.removeEventListener("canplay", onCanPlay);
+      };
+    }
 
     return () => {
       io.disconnect();

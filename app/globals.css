@@ -21022,11 +21022,13 @@ a.feat2-reach__line:hover {
 .svcpin__player-eyebrow { color: rgba(255, 255, 255, 0.55); }
 .svcpin__player-name { color: #ffffff; font-weight: 600; }
 
-/* ---- List viewport — single centred slot where the active row
+/* ---- List viewport — full-screen slot where the active row
    fades in / out. The list is stacked, not scrolled. ---- */
 .svcpin__list-viewport {
   position: relative;
-  height: clamp(280px, 40vh, 460px);
+  /* fills the remaining viewport so the active row reads
+     full-screen rather than living in a narrow band */
+  height: clamp(420px, 80vh, 1000px);
   overflow: hidden;
   width: 100%;
   max-width: min(1640px, 96%);
@@ -21043,13 +21045,14 @@ a.feat2-reach__line:hover {
 }
 
 /* ---- Rows: each absolute-stacked in the centred slot. The active
-   row fades in and pops up; non-active fade out and drop slightly. */
+   row fades in and pops up; non-active fade out and drop slightly.
+   Long, gentle ease so transitions feel premium / cinematic. */
 .svcpin__row {
   position: absolute;
   top: 50%;
   left: 0;
   right: 0;
-  transform: translateY(-50%) translateY(28px) scale(0.94);
+  transform: translateY(-50%) translateY(40px) scale(0.92);
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -21061,25 +21064,26 @@ a.feat2-reach__line:hover {
   opacity: 0;
   pointer-events: none;
   transition:
-    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.6s ease;
-  filter: blur(6px);
+    opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: blur(10px);
   will-change: opacity, transform, filter;
 }
 
 .svcpin__row-index {
   font-family: var(--font-mono);
-  font-size: clamp(12px, 11px + 0.2vw, 14px);
+  font-size: clamp(13px, 12px + 0.2vw, 16px);
   letter-spacing: 0.06em;
   color: rgba(255, 255, 255, 0.5);
-  transition: color 0.3s ease;
+  transition: color 0.4s ease;
 }
 .svcpin__row-name {
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(1.8rem, 1.2rem + 2.4vw, 4rem);
-  letter-spacing: -0.025em;
+  font-size: clamp(2.4rem, 1.5rem + 4.4vw, 6.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
   text-transform: uppercase;
   color: #ffffff;
 }
