@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import Reveal from "./Reveal";
 import WorkFeatureSection from "./WorkFeatureSection";
-import AppShowcase from "./AppShowcase";
-import AppFeatures from "./AppFeatures";
+import AppShowcaseServices from "./services/AppShowcaseServices";
+import BundleShowcaseServices from "./services/BundleShowcaseServices";
 import BlueGlobe from "./BlueGlobe";
 import ProjectMockup from "./work/ProjectMockups";
 import { CTA_HREF, CONTACT_EMAIL } from "../lib/site";
@@ -28,16 +28,16 @@ const LOGOS = [
 ];
 
 /* ----- Service 1 props (study abroad ERP) ----- */
-const STUDY_ABROAD_PROPS = {
+export const STUDY_ABROAD_PROPS = {
   pill: "AI-integrated · 10× faster operations",
-  heading: "Built for study abroad agencies.",
+  heading: "Service No 1 — Automating study abroad industry.",
   sub: "Quotations, students, agents, applications, invoicing, visa tracking, finance — all on one system tuned for the ground reality of the industry.",
   greeting: "Good afternoon, Aswin",
   showcaseLabel: "Study abroad ERP · Live module",
 };
 
 /* ----- Service 4 props (industry-neutral bundle) ----- */
-const BUNDLE_PROPS = {
+export const BUNDLE_PROPS = {
   pill: "Customisable per industry",
   heading: "Shaped around your industry.",
   sub: "Projects, clients, quotations, invoicing, tally, timesheets, finance — every module customised, AI-accelerated, and yours to evolve.",
@@ -46,21 +46,21 @@ const BUNDLE_PROPS = {
 };
 
 /* ----- Detail tile data ----- */
-const STUDY_ABROAD_TILES = [
+export const STUDY_ABROAD_TILES = [
   { icon: "quote", label: "Quotations", body: "Send branded quotes in seconds with auto-updated tuition + currency." },
   { icon: "applications", label: "Applications", body: "Every student application tracked from enquiry to enrollment." },
   { icon: "visa", label: "Visa tracking", body: "Live status board with deadlines, document checklist, and reminders." },
   { icon: "finance", label: "Finance", body: "Invoicing, agent commissions and tally — all on one ledger." },
 ];
 
-const WEB_TILES = [
+export const WEB_TILES = [
   { icon: "delivery", label: "Fast delivery", body: "From kickoff to launch in weeks, not quarters." },
   { icon: "perf", label: "Performance-first", body: "Lighthouse 95+ baseline. Real users, real devices." },
   { icon: "cms", label: "Editable CMS", body: "Your team owns the content. No tickets for typo fixes." },
   { icon: "analytics", label: "Analytics from day 1", body: "Events wired, dashboards live, decisions data-led." },
 ];
 
-const APP_TILES = [
+export const APP_TILES = [
   { icon: "platforms", label: "iOS + Android build", body: "One codebase, native-grade polish on both stores." },
   { icon: "push", label: "Push notifications", body: "Targeted, scheduled, segmented — never spammy." },
   { icon: "offline", label: "Offline-first", body: "Designs that respect tunnels, lifts and bad signal." },
@@ -206,13 +206,21 @@ function Icon({ name }) {
 }
 
 /* ----- Reusable Service block wrapper ----- */
-function ServiceBlock({ pill, headingNode, sub, children, id }) {
+function ServiceBlock({ pill, headingNode, sub, children, id, slug }) {
   return (
     <section className="svc-block" id={id}>
       <Reveal className="svc-block__head">
         <span className="svc-block__pill">{pill}</span>
         <h2 className="svc-block__title">{headingNode}</h2>
         {sub && <p className="svc-block__sub">{sub}</p>}
+        {slug && (
+          <a href={`/services/${slug}`} className="svc-block__link-btn">
+            View service details
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14" /><path d="M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        )}
       </Reveal>
       {children}
       <span className="svc-block__rule" aria-hidden="true" />
@@ -220,7 +228,7 @@ function ServiceBlock({ pill, headingNode, sub, children, id }) {
   );
 }
 
-function DetailTiles({ tiles }) {
+export function DetailTiles({ tiles }) {
   return (
     <div className="svc-tiles">
       {tiles.map((t, i) => (
@@ -237,7 +245,7 @@ function DetailTiles({ tiles }) {
 }
 
 /* ----- Before/After bar chart for Service 1 ----- */
-function BeforeAfter() {
+export function BeforeAfter() {
   const TASKS = ["Quotations", "Application tracking", "Invoicing", "Reporting", "Follow-ups"];
   const beforeBars = [88, 72, 80, 64, 76]; // visual lengths (%) for "long" bars
   const afterBars = [22, 18, 26, 16, 20]; // short bars
@@ -283,7 +291,7 @@ function BeforeAfter() {
 }
 
 /* ----- Website projects bento (4 cards) ----- */
-function WebProjects() {
+export function WebProjects() {
   return (
     <div className="svc-webproj">
       {WEB_PROJECTS.map((p, i) => (
@@ -325,7 +333,7 @@ function WebProjects() {
 }
 
 /* ----- Web-client marquee (placeholder client wordmarks) ----- */
-function WebClientMarquee() {
+export function WebClientMarquee() {
   return (
     <div className="svc-webclients">
       <div className="svc-webclients__track">
@@ -345,46 +353,107 @@ function WebClientMarquee() {
 /* ----- Hero ----- */
 function HeroV2() {
   return (
-    <section className="svc-hero-v2">
-      <video
-        className="svc-hero-v2__video"
-        src={VIDEO_SRC}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-      />
-      <span className="svc-hero-v2__halo" aria-hidden="true" />
-      <span className="svc-hero-v2__grid" aria-hidden="true" />
+    <section className="svc-hero-v2" id="hero-futuristic">
+      {/* Background layers */}
+      <div className="svc-hero-v2__bg-deep" aria-hidden="true" />
+      <div className="svc-hero-v2__grid" aria-hidden="true" />
+      <div className="svc-hero-v2__glow svc-hero-v2__glow--center" aria-hidden="true" />
+      <div className="svc-hero-v2__glow svc-hero-v2__glow--left" aria-hidden="true" />
+      <div className="svc-hero-v2__glow svc-hero-v2__glow--right" aria-hidden="true" />
+      <div className="svc-hero-v2__beam svc-hero-v2__beam--1" aria-hidden="true" />
+      <div className="svc-hero-v2__beam svc-hero-v2__beam--2" aria-hidden="true" />
+
+      {/* Floating particles */}
+      <div className="svc-hero-v2__particles" aria-hidden="true">
+        {Array.from({ length: 24 }).map((_, i) => (
+          <span
+            key={i}
+            className="svc-hero-v2__particle"
+            style={{
+              left: `${5 + Math.random() * 90}%`,
+              top: `${5 + Math.random() * 90}%`,
+              animationDelay: `${Math.random() * 8}s`,
+              animationDuration: `${4 + Math.random() * 6}s`,
+              width: `${1.5 + Math.random() * 2}px`,
+              height: `${1.5 + Math.random() * 2}px`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Scan line */}
+      <div className="svc-hero-v2__scanline" aria-hidden="true" />
 
       <div className="svc-hero-v2__inner">
+        {/* Status bar */}
         <Reveal>
+          <div className="svc-hero-v2__status-bar">
+            <span className="svc-hero-v2__status-indicator">
+              <span className="svc-hero-v2__status-dot" />
+              Systems Online
+            </span>
+            <span className="svc-hero-v2__status-separator" />
+            <span className="svc-hero-v2__status-tag">v3.2 · Infrastructure</span>
+          </div>
+        </Reveal>
+
+        {/* Pill */}
+        <Reveal delay={80}>
           <span className="svc-hero-v2__pill">
             <span className="svc-hero-v2__pill-dot">Services</span>
-            Our services — what we build, end-to-end
+            What we design, engineer and ship
           </span>
         </Reveal>
-        <Reveal delay={120}>
+
+        {/* Title */}
+        <Reveal delay={160}>
           <h1 className="svc-hero-v2__title">
             What we build,<br />
-            end-to-end.
+            <span className="svc-hero-v2__title-accent">end-to-end.</span>
           </h1>
         </Reveal>
-        <Reveal delay={200}>
+
+        {/* Subtitle */}
+        <Reveal delay={240}>
           <p className="svc-hero-v2__sub">
             ERP, websites, apps and automation — designed and shipped by one
             studio. No handoffs, no agency stitching.
           </p>
         </Reveal>
-        <Reveal delay={280}>
-          <a href={CTA_HREF} className="svc-hero-v2__cta">
-            Talk to the studio
-          </a>
+
+        {/* CTA Row */}
+        <Reveal delay={320}>
+          <div className="svc-hero-v2__cta-row">
+            <a href={CTA_HREF} className="svc-hero-v2__cta">
+              <span className="svc-hero-v2__cta-glow" />
+              Talk to the studio
+            </a>
+            <a href="#study-abroad-erp" className="svc-hero-v2__cta-secondary">
+              Explore services
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="M6 11l6 6 6-6" /></svg>
+            </a>
+          </div>
         </Reveal>
 
-        <Reveal delay={400}>
+        {/* Metrics strip */}
+        <Reveal delay={380}>
+          <div className="svc-hero-v2__metrics">
+            {[
+              { val: "4", label: "Service pillars" },
+              { val: "10×", label: "Faster operations" },
+              { val: "99.9%", label: "Uptime SLA" },
+              { val: "AI", label: "Accelerated" },
+            ].map((m) => (
+              <div key={m.label} className="svc-hero-v2__metric">
+                <span className="svc-hero-v2__metric-val">{m.val}</span>
+                <span className="svc-hero-v2__metric-label">{m.label}</span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* Dashboard */}
+        <Reveal delay={450}>
           <HeroDashboard />
         </Reveal>
       </div>
@@ -392,62 +461,112 @@ function HeroV2() {
   );
 }
 
-/* Hero dashboard preview (smaller browser-frame mockup that echoes
-   the WorkFeatureSection visual without rendering the whole locked
-   component twice on the page). */
+/* Ultra-premium futuristic dashboard mockup with electric blue
+   accent lighting, perspective tilt, and glassmorphic surfaces. */
 function HeroDashboard() {
   return (
     <div className="svc-hero-v2__dashboard" aria-hidden="true">
+      <div className="svc-hero-v2__dashboard-halo" />
       <div className="svc-hero-v2__dashboard-frame">
+        {/* Browser chrome */}
         <div className="svc-hero-v2__dash-bar">
-          <span className="svc-hero-v2__dash-dot" />
-          <span className="svc-hero-v2__dash-dot" />
-          <span className="svc-hero-v2__dash-dot" />
-          <span className="svc-hero-v2__dash-url">erp.revlient.com</span>
+          <span className="svc-hero-v2__dash-dot svc-hero-v2__dash-dot--red" />
+          <span className="svc-hero-v2__dash-dot svc-hero-v2__dash-dot--yellow" />
+          <span className="svc-hero-v2__dash-dot svc-hero-v2__dash-dot--green" />
+          <span className="svc-hero-v2__dash-url">
+            <span className="svc-hero-v2__dash-lock">🔒</span>
+            erp.revlient.com
+          </span>
         </div>
+
+        {/* Dashboard body */}
         <div className="svc-hero-v2__dash-body">
+          {/* Sidebar */}
           <aside className="svc-hero-v2__dash-side">
             <div className="svc-hero-v2__dash-brand">
               <span className="svc-hero-v2__dash-mark" />
               <span>Revlient</span>
             </div>
-            {["Dashboard", "Pipeline", "Projects", "Assets", "Reports", "Settings"].map((l) => (
-              <div key={l} className="svc-hero-v2__dash-link">{l}</div>
+            {["Dashboard", "Pipeline", "Projects", "Assets", "Reports", "Settings"].map((l, i) => (
+              <div key={l} className={`svc-hero-v2__dash-link ${i === 0 ? "is-active" : ""}`}>
+                <span className="svc-hero-v2__dash-link-icon" />
+                {l}
+              </div>
             ))}
+            <div className="svc-hero-v2__dash-side-footer">
+              <span className="svc-hero-v2__dash-avatar" />
+              <div className="svc-hero-v2__dash-user">
+                <span className="svc-hero-v2__dash-username">Kevin R.</span>
+                <span className="svc-hero-v2__dash-role">Admin</span>
+              </div>
+            </div>
           </aside>
+
+          {/* Main content */}
           <div className="svc-hero-v2__dash-main">
-            <div className="svc-hero-v2__dash-title">Good afternoon, Kevin</div>
-            <div className="svc-hero-v2__dash-meta">Saturday · Mission control</div>
+            <div className="svc-hero-v2__dash-main-top">
+              <div>
+                <div className="svc-hero-v2__dash-title">Good afternoon, Kevin</div>
+                <div className="svc-hero-v2__dash-meta">
+                  <span className="svc-hero-v2__dash-meta-dot" />
+                  Saturday · Mission control
+                </div>
+              </div>
+              <div className="svc-hero-v2__dash-actions">
+                <span className="svc-hero-v2__dash-action-btn">+ New project</span>
+                <span className="svc-hero-v2__dash-action-btn svc-hero-v2__dash-action-btn--ghost">Export</span>
+              </div>
+            </div>
+
+            {/* KPI row */}
             <div className="svc-hero-v2__dash-kpis">
               {[
-                { label: "REVENUE", val: "TODO L", delta: "+TODO%" },
-                { label: "PIPELINE", val: "TODO L", delta: "+TODO%" },
-                { label: "QUOTATIONS", val: "TODO", delta: "TODO open" },
-                { label: "ACTIVE PROJECTS", val: "TODO", delta: "TODO milestone" },
+                { label: "REVENUE", val: "₹24.8L", delta: "+18.2%", up: true },
+                { label: "PIPELINE", val: "₹12.4L", delta: "+9.6%", up: true },
+                { label: "QUOTATIONS", val: "47", delta: "12 open", up: true },
+                { label: "ACTIVE PROJECTS", val: "8", delta: "3 milestones", up: true },
               ].map((k) => (
                 <div key={k.label} className="svc-hero-v2__dash-kpi">
                   <span className="svc-hero-v2__dash-kpi-label">{k.label}</span>
                   <span className="svc-hero-v2__dash-kpi-val">{k.val}</span>
-                  <span className="svc-hero-v2__dash-kpi-delta">{k.delta}</span>
+                  <span className={`svc-hero-v2__dash-kpi-delta ${k.up ? "is-up" : ""}`}>
+                    {k.up && "↑ "}{k.delta}
+                  </span>
                 </div>
               ))}
             </div>
+
+            {/* Chart */}
             <div className="svc-hero-v2__dash-chart">
+              <div className="svc-hero-v2__dash-chart-header">
+                <span className="svc-hero-v2__dash-chart-title">Revenue Overview</span>
+                <span className="svc-hero-v2__dash-chart-period">Last 12 months</span>
+              </div>
               <svg viewBox="0 0 400 100" preserveAspectRatio="none">
                 <defs>
-                  <linearGradient id="dash-grad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="rgba(192,132,252,0.5)" />
-                    <stop offset="100%" stopColor="rgba(192,132,252,0)" />
+                  <linearGradient id="dash-grad-purple" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="rgba(192, 132, 252, 0.45)" />
+                    <stop offset="100%" stopColor="rgba(192, 132, 252, 0)" />
+                  </linearGradient>
+                  <linearGradient id="line-grad-purple" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#c084fc" />
+                    <stop offset="50%" stopColor="#a855f7" />
+                    <stop offset="100%" stopColor="#f0d3ff" />
                   </linearGradient>
                 </defs>
-                <polyline points="0,80 50,72 100,76 150,60 200,52 250,40 300,46 350,28 400,32" fill="none" stroke="#c084fc" strokeWidth="2" />
-                <polygon points="0,80 50,72 100,76 150,60 200,52 250,40 300,46 350,28 400,32 400,100 0,100" fill="url(#dash-grad)" />
+                <polygon points="0,85 30,78 70,80 110,68 150,60 190,52 230,44 270,38 310,42 350,30 390,26 400,24 400,100 0,100" fill="url(#dash-grad-purple)" />
+                <polyline points="0,85 30,78 70,80 110,68 150,60 190,52 230,44 270,38 310,42 350,30 390,26 400,24" fill="none" stroke="url(#line-grad-purple)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                {/* Glow dot on latest point */}
+                <circle cx="400" cy="24" r="4" fill="#c084fc" opacity="0.8" />
+                <circle cx="400" cy="24" r="8" fill="#c084fc" opacity="0.2" />
               </svg>
             </div>
           </div>
         </div>
       </div>
-      <span className="svc-hero-v2__dashboard-halo" />
+
+      {/* Reflection line at base */}
+      <div className="svc-hero-v2__dashboard-reflection" />
     </div>
   );
 }
@@ -536,9 +655,10 @@ export default function ServicesPage() {
       <ServiceBlock
         id="study-abroad-erp"
         pill="Nº 01 · Major product"
+        slug="automation-systems"
         headingNode={
           <>
-            Automation for study abroad <em>agencies.</em>
+            Service No 1 — Automating study abroad <em>industry.</em>
           </>
         }
         sub="Our flagship ERP — tuned for the messy, paper-heavy ground reality of running a study abroad agency."
@@ -565,6 +685,7 @@ export default function ServicesPage() {
       <ServiceBlock
         id="websites"
         pill="Nº 02 · Web"
+        slug="web-development"
         headingNode={
           <>
             Websites that <em>convert,</em> and last.
@@ -584,6 +705,7 @@ export default function ServicesPage() {
       <ServiceBlock
         id="apps"
         pill="Nº 03 · Mobile / Web apps"
+        slug="application-development"
         headingNode={
           <>
             Apps that feel <em>native,</em> on every screen.
@@ -592,8 +714,7 @@ export default function ServicesPage() {
         sub="Product-grade applications — iOS, Android and web — with the polish stores reward."
       >
         {/* full-bleed app sections */}
-        <AppShowcase />
-        <AppFeatures />
+        <AppShowcaseServices />
         {/* constrained chip row */}
         <div className="svc-block__inner">
           <DetailTiles tiles={APP_TILES} />
@@ -604,6 +725,7 @@ export default function ServicesPage() {
       <ServiceBlock
         id="bundle"
         pill="Nº 04 · Bundle"
+        slug="software-development"
         headingNode={
           <>
             The ERP + CRM <em>bundle,</em> for any industry.
@@ -612,7 +734,7 @@ export default function ServicesPage() {
         sub="One workspace shaped around how your industry actually works. We've shipped it for healthcare, study abroad, consulting, retail — and we'll shape one for yours."
       >
         {/* full-bleed bundle showcase */}
-        <WorkFeatureSection {...BUNDLE_PROPS} />
+        <BundleShowcaseServices {...BUNDLE_PROPS} />
         <div className="svc-block__inner">
           <div className="svc-industries">
             {INDUSTRIES.map((ind) => (

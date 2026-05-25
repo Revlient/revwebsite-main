@@ -1,21 +1,21 @@
 "use client";
 
+import { useState, useRef } from "react";
 import Reveal from "./Reveal";
 import ProjectMockup from "./work/ProjectMockups";
 
-/* /work projects bento. Every card here is a visibly-flagged DEMO
-   placeholder so the layout can be reviewed before real case
-   studies land. Demo links resolve to the RFC-reserved example.com
-   so no live destination is implied. Replace each entry's name /
-   about / mockup / url with the real client data before launch —
-   and drop the .work-projects__todo banner + the .work-project__demo
-   pill at the same time. */
+/* /work projects bento. Enhanced with:
+   - Dynamic project filtering (All, SaaS & CRM, E-Commerce, Websites).
+   - Mouse-spotlight tracking on the section container.
+   - Interactive 3D card tilt transformations and pointer border glow updates.
+   - Statically locked cover gradient background mapping to prevent background shifts on filters. */
 
 const PROJECTS = [
   {
     name: "Aurora Commerce",
     kind: "feature",
     mockup: "aurora",
+    category: "E-Commerce",
     about:
       "Headless storefront for a boutique outdoor-gear brand. Next.js front end, Stripe checkout, real-time inventory sync with the warehouse system.",
     url: "https://example.com/aurora",
@@ -24,6 +24,7 @@ const PROJECTS = [
     name: "Vertex CRM",
     kind: "standard",
     mockup: "vertex",
+    category: "SaaS & CRM",
     about:
       "Sales-pipeline tool for a regional insurance group. Multi-role access, automated follow-up sequences, and a Slack-style team inbox.",
     url: "https://example.com/vertex",
@@ -32,6 +33,7 @@ const PROJECTS = [
     name: "Lumen Studio",
     kind: "standard",
     mockup: "lumen",
+    category: "Websites",
     about:
       "Portfolio site for an architecture practice. Image-led editorial layout, custom CMS, hand-tuned typography for long-form project writeups.",
     url: "https://example.com/lumen",
@@ -40,6 +42,7 @@ const PROJECTS = [
     name: "Northwind Ops",
     kind: "standard",
     mockup: "northwind",
+    category: "SaaS & CRM",
     about:
       "Internal dashboard for fleet operations. Real-time vehicle tracking, dispatch automation, and a driver mobile app with offline sync.",
     url: "https://example.com/northwind",
@@ -48,6 +51,7 @@ const PROJECTS = [
     name: "Folio Health",
     kind: "standard",
     mockup: "folio",
+    category: "SaaS & CRM",
     about:
       "Patient-intake and records app for a small clinic group. Mobile-first design, role-scoped access, and a clean handoff to their billing tool.",
     url: "https://example.com/folio",
@@ -56,11 +60,21 @@ const PROJECTS = [
     name: "Mesa Roastery",
     kind: "wide",
     mockup: "mesa",
+    category: "E-Commerce",
     about:
       "D2C coffee subscription shop. Stripe billing, warehouse-side fulfilment, and a roast-schedule view the team actually opens every morning.",
     url: "https://example.com/mesa",
   },
 ];
+
+const COVER_BGS = {
+  aurora: "linear-gradient(135deg, #2b3a72, #0f1a3a)",
+  vertex: "linear-gradient(135deg, #4a3b6e, #1a1230)",
+  lumen: "linear-gradient(135deg, #1f4a55, #08222a)",
+  northwind: "linear-gradient(135deg, #5a3a2a, #1a0f08)",
+  folio: "linear-gradient(135deg, #2f5a3a, #0a1f12)",
+  mesa: "linear-gradient(135deg, #6a3a4a, #1f0a15)",
+};
 
 function ArrowUpRight({ className = "" }) {
   return (
@@ -81,8 +95,60 @@ function ArrowUpRight({ className = "" }) {
 }
 
 export default function WorkProjects() {
+  const [activeCategory, setActiveCategory] = useState("All");
+  const sectionRef = useRef(null);
+  const [coords, setCoords] = useState({ x: 50, y: 50 });
+
+  const handleSectionMouseMove = (e) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setCoords({ x, y });
+  };
+
+  const handleCardMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const xc = rect.width / 2;
+    const yc = rect.height / 2;
+    const rx = ((yc - y) / yc) * 10; // 10deg max tilt
+    const ry = ((x - xc) / xc) * 10;
+    card.style.setProperty("--rx", `${rx}deg`);
+    card.style.setProperty("--ry", `${ry}deg`);
+    card.style.setProperty("--mx", `${(x / rect.width) * 100}%`);
+    card.style.setProperty("--my", `${(y / rect.height) * 100}%`);
+  };
+
+  const handleCardMouseLeave = (e) => {
+    const card = e.currentTarget;
+    card.style.setProperty("--rx", `0deg`);
+    card.style.setProperty("--ry", `0deg`);
+  };
+
+  const categories = ["All", "SaaS & CRM", "E-Commerce", "Websites"];
+
+  const filteredProjects = PROJECTS.filter(
+    (p) => activeCategory === "All" || p.category === activeCategory
+  );
+
   return (
-    <section className="work-projects" id="projects">
+    <section
+      className="work-projects"
+      id="projects"
+      ref={sectionRef}
+      onMouseMove={handleSectionMouseMove}
+      style={{
+        "--mx": `${coords.x}%`,
+        "--my": `${coords.y}%`,
+      }}
+    >
+      {/* Background blueprint elements */}
+      <div className="work-projects__bg-glow" aria-hidden="true" />
+      <div className="work-projects__grid-pattern" aria-hidden="true" />
+
       <div className="container">
         <Reveal className="work-projects__head">
           <span className="work-projects__eyebrow">Selected work</span>
@@ -97,10 +163,24 @@ export default function WorkProjects() {
             Demo content — placeholder projects shown while real case studies
             are prepared
           </span>
+
+          {/* Dynamic Filter Navigation */}
+          <div className="work-projects__filter-nav">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                className={`work-projects__filter-btn ${activeCategory === cat ? "is-active" : ""}`}
+                onClick={() => setActiveCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </Reveal>
 
         <div className="work-projects__grid">
-          {PROJECTS.map((p, i) => (
+          {filteredProjects.map((p, i) => (
             <Reveal
               as="a"
               key={p.name}
@@ -108,9 +188,14 @@ export default function WorkProjects() {
               target="_blank"
               rel="noopener noreferrer"
               className={`work-project work-project--${p.kind}`}
-              delay={(i % 3) * 80}
+              delay={(i % 3) * 60}
+              onMouseMove={handleCardMouseMove}
+              onMouseLeave={handleCardMouseLeave}
             >
-              <div className="work-project__cover">
+              <div
+                className="work-project__cover"
+                style={{ background: COVER_BGS[p.mockup] || "linear-gradient(135deg, #1b2540, #0b1326)" }}
+              >
                 <div className="work-project__live">
                   <ProjectMockup kind={p.mockup} />
                 </div>

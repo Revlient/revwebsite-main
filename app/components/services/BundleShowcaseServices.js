@@ -1,43 +1,24 @@
-// 🔒 LOCKED — ERP showcase template. Do not modify the dashboard
-// mockup (sidebar groups, KPIs, trend + AI panel, bottom row) or
-// the surrounding heading/sub copy without an explicit request from
-// the team. Real numbers shown here mirror the live
-// erp.revlient.com dashboard; the layout was finalised on the
-// pass that brought it in line with the live reference.
-//
-// Hero-section-1 (tailark) block placed under the WorkHero on /work.
-// Adapted from a shadcn/framer-motion/lucide-react brief to vanilla
-// JS + plain CSS — Tailwind utilities are rebuilt as scoped .wfs-*
-// rules, AnimatedGroup stagger replaced with CSS keyframes with
-// transition-delay, lucide-react replaced with inline SVG. The
-// navbar from the source is intentionally dropped (the page already
-// has the WorkHero's in-card nav).
+"use client";
 
-import { CTA_HREF } from "../lib/site";
+import { CTA_HREF } from "../../lib/site";
 
-// Optional props (all with defaults that keep the /work page rendering
-// identically) so this same component can be reused on the home page
-// with CRM-access-for-clients framing.
-export default function WorkFeatureSection({
-  pill = "AI-integrated · 10× faster operations",
-  heading = "A modern ERP, shaped around your business.",
-  sub = "Not the old CRM playbook. Projects, clients, quotations, invoicing, tally, timesheets and finance — fully customisable to how your team actually works, and accelerated by AI features that take routine work off the desk.",
-  greeting = "Good afternoon, admin",
-  showcaseLabel = "Showcase · Customisable ERP · AI-integrated",
-  videoSrc = "/work/erp-beam.mp4",
+export default function BundleShowcaseServices({
+  pill = "Customisable per industry",
+  heading = "Shaped around your industry.",
+  sub = "Projects, clients, quotations, invoicing, tally, timesheets, finance — every module customised, AI-accelerated, and yours to evolve.",
+  greeting = "Good afternoon, Operations",
+  showcaseLabel = "ERP + CRM bundle · Customisable · AI-integrated",
 } = {}) {
   return (
-    <section className="wfs">
-      <video
-        className="wfs__beam"
-        src={videoSrc}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-      />
+    <section className="wfs wfs--bundle">
+      {/* Cinematic Spotlight Beams */}
+      <div className="wfs__spotlights" aria-hidden="true">
+        <div className="wfs__spotlight wfs__spotlight--1" />
+        <div className="wfs__spotlight wfs__spotlight--2" />
+        <div className="wfs__spotlight wfs__spotlight--3" />
+        <div className="wfs__spotlight wfs__spotlight--4" />
+      </div>
+
       <div className="wfs__ambient" aria-hidden="true">
         <span className="wfs__blob wfs__blob--1" />
         <span className="wfs__blob wfs__blob--2" />
@@ -88,15 +69,15 @@ export default function WorkFeatureSection({
         {showcaseLabel}
       </div>
 
-      {/* Faithful inline replica of the live Revlient OS web dashboard
-          (erp.revlient.com). Real numbers shared by the team. Swap
-          for <img src="/work/revlient-os-erp.png" /> once the real
-          PNG is committed. */}
+      {/* Screen Wrapper with Neon Glowing Outline */}
       <div className="wfs__screenwrap wfs__screenwrap--full">
         <span className="wfs__screen-fade" aria-hidden="true" />
+        
+        {/* Neon Outline Glow Layer */}
+        <div className="wfs__screen-glow" aria-hidden="true" />
+
         <div className="wfs__screen">
           <div className="wfs__screen-bar">
-            <span className="wfs__screen-dot" />
             <span className="wfs__screen-dot" />
             <span className="wfs__screen-dot" />
             <span className="wfs__screen-url">erp.revlient.com</span>
@@ -278,8 +259,8 @@ export default function WorkFeatureSection({
                   <svg className="wfs__screen-trend-chart" viewBox="0 0 400 110" preserveAspectRatio="none" aria-hidden="true">
                     <defs>
                       <linearGradient id="wfsTrendFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0" stopColor="#3b82f6" stopOpacity="0.45" />
-                        <stop offset="1" stopColor="#3b82f6" stopOpacity="0" />
+                        <stop offset="0" stopColor="#c084fc" stopOpacity="0.45" />
+                        <stop offset="1" stopColor="#c084fc" stopOpacity="0" />
                       </linearGradient>
                     </defs>
                     <path
@@ -289,7 +270,7 @@ export default function WorkFeatureSection({
                     <path
                       d="M10 56 Q 70 48 105 54 T 200 48 Q 260 30 320 30 L 390 96"
                       fill="none"
-                      stroke="#3b82f6"
+                      stroke="#c084fc"
                       strokeWidth="2"
                     />
                   </svg>
