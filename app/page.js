@@ -1,4 +1,3 @@
-import Hero from "./components/Hero";
 import Nav from "./components/Nav";
 import AiPromptSection from "./components/AiPromptSection";
 import ShowcaseCards from "./components/ShowcaseCards";
@@ -13,23 +12,28 @@ import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
 import ContactWidget from "./components/ContactWidget";
 
-// Homepage. Server-rendered and statically prerendered.
+// Homepage. WorkFeatureSection is reused as the hero with hero-scale
+// copy — the existing erp-beam.mp4 + ERP mockup matches the huly hero
+// reference. ProcessSpine and WhyRevlient retained as-is. Remaining
+// sections to follow once each is approved.
 export default function HomePage() {
   return (
     <>
       <Nav className="page-home-nav" />
       <main>
-        <Hero />
+        <div className="page-hero">
+          <WorkFeatureSection
+            pill="Revlient — Creative Studio"
+            heading="Your project. Live in one workspace."
+            sub="A senior creative studio shipping serious products — design, engineering and motion delivered through a CRM workspace your team actually logs into."
+            greeting="Good afternoon, Kevin"
+            showcaseLabel="Live workspace · Project phases · Asset transfer · Enquiries"
+          />
+        </div>
+
         <AiPromptSection />
         <Features />
         <ProcessSpine />
-        <WorkFeatureSection
-          pill="Included with every active project"
-          heading="CRM access for clients."
-          sub="Every active engagement comes with a private CRM workspace — track project phases live, transfer assets, raise enquiries, and watch the build pulse in real time."
-          greeting="Good afternoon, Kevin"
-          showcaseLabel="Client portal · Project phases · Asset transfer · Enquiries"
-        />
         <Services />
         <Faq />
         <ShowcaseCards />
