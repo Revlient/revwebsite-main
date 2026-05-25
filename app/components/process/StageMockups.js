@@ -56,7 +56,7 @@ function MockDiscovery() {
             y={y + 46}
             textAnchor="middle"
             fontSize="7"
-            fontStyle="italic"
+            
             fill={ACCENT}
           >
             scope

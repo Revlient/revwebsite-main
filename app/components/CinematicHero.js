@@ -24,8 +24,26 @@ export default function CinematicHero() {
       />
 
       <div className="cinhero__hd">
-        <h1 className="cinhero__title">
-          we craft<br />digital<br />legacy.
+        <h1 className="cinhero__title" aria-label="we craft digital legacy">
+          {["WE CRAFT", "DIGITAL", "LEGACY."].map((line) => (
+            <svg
+              key={line}
+              className="cinhero__title-line"
+              viewBox="0 0 100 13"
+              preserveAspectRatio="xMidYMid meet"
+              aria-hidden="true"
+            >
+              <text
+                x="0"
+                y="11"
+                textLength="100"
+                lengthAdjust="spacingAndGlyphs"
+                fill="#ffffff"
+              >
+                {line}
+              </text>
+            </svg>
+          ))}
         </h1>
         <p className="cinhero__desc">
           we partner with serious businesses to design, engineer

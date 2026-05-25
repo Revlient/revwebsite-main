@@ -154,7 +154,7 @@ function SpecLoyalty() {
       <rect x="10" y="6" width="380" height="128" rx="8" fill={FILL_FAINT} stroke={STROKE_FAINT} strokeWidth="1" />
       {/* header */}
       <circle cx="26" cy="22" r="8" fill="rgba(192,132,252,0.2)" stroke="rgba(192,132,252,0.55)" strokeWidth="0.75" />
-      <text x="26" y="25" textAnchor="middle" fontFamily="var(--font-cormorant), Georgia, serif" fontSize="9" fontStyle="italic" fontWeight="600" fill={ACCENT}>
+      <text x="26" y="25" textAnchor="middle" fontFamily="var(--font-cormorant), Georgia, serif" fontSize="9"  fontWeight="600" fill={ACCENT}>
         R
       </text>
       <text x="40" y="20" fontFamily="ui-monospace, Menlo, monospace" fontSize="8.5" fill="#fff" fontWeight="500">

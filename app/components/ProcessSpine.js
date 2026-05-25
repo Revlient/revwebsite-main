@@ -178,7 +178,7 @@ function NodeLabel({ index }) {
         textAnchor="middle"
         dominantBaseline="hanging"
         className="spine__node-num"
-        fontStyle="italic"
+        
         fontSize="10"
       >
         {String(index + 1).padStart(2, "0")}

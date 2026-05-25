@@ -11,7 +11,7 @@
 
 :root {
   /* New premium type system */
-  --font-clash: "Clash Display", var(--font-dm-sans), system-ui, sans-serif;
+  --font-clash: "Clash Display", var(--font-body);
   --font-body: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: var(--font-ibm-mono), "SF Mono", Menlo, monospace;
 }
@@ -370,7 +370,7 @@ html.js .reveal.is-visible {
   gap: 0.25rem;
   padding: 0.375rem;
   border-radius: 9999px;
-  font-family: var(--font-barlow), var(--font), system-ui, sans-serif;
+  font-family: var(--font-body);
 }
 @media (min-width: 880px) { .nav__center { display: inline-flex; } }
 
@@ -1500,8 +1500,8 @@ html.js .reveal.is-visible {
 }
 
 .whyrev__eyebrow em {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   color: rgba(192, 220, 255, 0.95);
 }
@@ -1515,7 +1515,7 @@ html.js .reveal.is-visible {
 }
 
 .whyrev__title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(2rem, 1.4rem + 2.4vw, 3.4rem);
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -1526,8 +1526,8 @@ html.js .reveal.is-visible {
 }
 
 .whyrev__title em {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   font-size: 1.04em;
   background: linear-gradient(135deg, #c084fc 0%, #6f8cff 100%);
@@ -1618,7 +1618,7 @@ html.js .reveal.is-visible {
 }
 
 .whyrev__pillar-label {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.92rem;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -1640,7 +1640,7 @@ html.js .reveal.is-visible {
   background: linear-gradient(135deg, #2b5fff 0%, #1d4ed8 100%);
   color: #fff;
   text-decoration: none;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.92rem;
   font-weight: 600;
   padding: 0.75rem 1.4rem;
@@ -2194,7 +2194,7 @@ html.js .reveal.is-visible {
 }
 
 .svc-section__head h2 {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: clamp(2.2rem, 1.4rem + 2.8vw, 4.2rem);
   line-height: 1.05;
@@ -2204,8 +2204,8 @@ html.js .reveal.is-visible {
 }
 
 .svc-section__head h2 em {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   letter-spacing: -0.01em;
   /* sit the italic word slightly larger so the cursive arcs read
@@ -2622,7 +2622,7 @@ html.js .reveal.is-visible {
 }
 
 .svc-eco-card__chip {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   line-height: 1;
   padding: 0.32rem 0.55rem;
@@ -2854,7 +2854,7 @@ html.js .reveal.is-visible {
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(192, 132, 252, 0.9);
+  color: #ffffff;
   padding: 0.35rem 0.85rem;
   border: 1px solid rgba(168, 85, 247, 0.32);
   border-radius: 999px;
@@ -2938,7 +2938,7 @@ html.js .reveal.is-visible {
 }
 
 .spine__node-num {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   fill: rgba(214, 178, 252, 0.85);
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -2995,8 +2995,8 @@ html.js .reveal.is-visible {
 }
 
 .spine__num {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-size: 1.05rem;
   color: rgba(214, 178, 252, 0.9);
   letter-spacing: 0.06em;
@@ -3153,7 +3153,7 @@ html.js .reveal.is-visible {
 
 .finale__tag:hover {
   transform: scale(1.06) translateY(-2px) !important;
-  border-color: rgba(192, 132, 252, 0.35);
+  border-color: #ffffff;
   background: rgba(192, 132, 252, 0.08);
   color: #fff;
   box-shadow: 0 10px 25px -10px rgba(192, 132, 252, 0.3);
@@ -3182,8 +3182,8 @@ html.js .reveal.is-visible {
 }
 
 .finale__heading em {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   background: linear-gradient(135deg, #c084fc 0%, #4a78ff 100%);
   -webkit-background-clip: text;
@@ -3311,7 +3311,7 @@ html.js .reveal.is-visible {
   background: #08090c;
   padding: 48px 24px;
   color: #d4d6df;
-  font-family: var(--font-dm-sans), "DM Sans", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body);
 }
 
 .footer-section *,
@@ -3382,7 +3382,7 @@ html.js .reveal.is-visible {
 }
 
 .footer-logo-name {
-  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-family: var(--font-body);
   font-size: 22px;
   font-weight: 700;
   color: #fff;
@@ -3556,14 +3556,14 @@ html.js .reveal.is-visible {
   font-family: var(--font-caveat), "Caveat", cursive;
   font-size: 24px;
   font-weight: 600;
-  font-style: italic;
+  font-style: normal;
   color: #6b7280;
   margin-bottom: 18px;
 }
 
 .footer-col a {
   display: block;
-  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
   color: #e5e7eb;
@@ -3586,7 +3586,7 @@ html.js .reveal.is-visible {
 }
 
 .footer-copyright {
-  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-family: var(--font-body);
   font-size: 12.5px;
   font-weight: 500;
   color: #6b7280;
@@ -3599,7 +3599,7 @@ html.js .reveal.is-visible {
 }
 
 .footer-cta-mini h4 {
-  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   font-weight: 400;
   color: #9ca3af;
@@ -3630,7 +3630,7 @@ html.js .reveal.is-visible {
   background: transparent;
   border: none;
   outline: none;
-  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-family: var(--font-body);
   font-size: 13.5px;
   color: #ffffff;
   min-width: 0;
@@ -3644,7 +3644,7 @@ html.js .reveal.is-visible {
   padding: 11px 22px;
   background: #ffffff;
   color: #08090c;
-  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-family: var(--font-body);
   font-size: 13.5px;
   font-weight: 600;
   border: none;
@@ -3680,7 +3680,7 @@ html.js .reveal.is-visible {
 }
 
 .footer-watermark text {
-  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   letter-spacing: -0.03em;
   fill: rgba(255, 255, 255, 0.05);
@@ -4219,13 +4219,13 @@ html.js .reveal.is-visible {
   line-height: 0.98;
   letter-spacing: -0.025em;
   font-weight: 400;
-  font-family: var(--font-clash), Georgia, "Times New Roman", serif;
+  font-family: var(--font-clash);
   color: var(--text);
   text-wrap: balance;
 }
 
 .aiprompt__title em {
-  font-style: italic;
+  font-style: normal;
   color: rgba(245, 245, 247, 0.55);
 }
 
@@ -7587,7 +7587,7 @@ a.feat-reach__line:hover {
   background: linear-gradient(to right, #ffffff, #a98597);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
   color: transparent;
 }
 
@@ -7624,7 +7624,7 @@ a.feat-reach__line:hover {
   position: relative;
   background: #08050d;
   color: #ffffff;
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body);
   overflow: hidden;
   isolation: isolate;
   scroll-behavior: smooth;
@@ -7733,7 +7733,7 @@ a.feat-reach__line:hover {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   padding: 1.4rem clamp(1.5rem, 1rem + 2vw, 3rem);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   transition: background 0.3s var(--ease), backdrop-filter 0.3s var(--ease),
     border-color 0.3s var(--ease);
   border-bottom: 1px solid transparent;
@@ -7750,9 +7750,9 @@ a.feat-reach__line:hover {
 }
 
 .svc-nav__brand {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: 1.35rem;
-  font-style: italic;
+  font-style: normal;
   font-weight: 500;
   letter-spacing: -0.01em;
   color: #ffffff;
@@ -7786,13 +7786,13 @@ a.feat-reach__line:hover {
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: #6b5b7e;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
 }
 
 /* editorial heading mix */
 .svc-edit {
-  font-family: var(--font-clash), Georgia, "Times New Roman", serif;
+  font-family: var(--font-clash);
   font-weight: 400;
   letter-spacing: -0.01em;
   line-height: 1.05;
@@ -7802,12 +7802,12 @@ a.feat-reach__line:hover {
 }
 
 .svc-edit em {
-  font-style: italic;
+  font-style: normal;
   color: #e9d5ff;
 }
 
 .svc-edit strong {
-  font-style: italic;
+  font-style: normal;
   font-weight: 500;
   color: #e9d5ff;
 }
@@ -7968,8 +7968,8 @@ a.feat-reach__line:hover {
 
 .svc-hero__eyebrow {
   display: inline-block;
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-size: clamp(1rem, 0.9rem + 0.4vw, 1.25rem);
   color: rgba(214, 178, 252, 0.9);
   letter-spacing: 0.04em;
@@ -8016,8 +8016,8 @@ a.feat-reach__line:hover {
   user-select: none;
   text-align: center;
   color: #ffffff;
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   font-size: clamp(3rem, 2rem + 5vw, 6rem);
   line-height: 1;
@@ -8065,9 +8065,9 @@ a.feat-reach__line:hover {
   background: #08050d;
   border: 1px solid rgba(168, 85, 247, 0.4);
   color: #ffffff;
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: 1.15rem;
-  font-style: italic;
+  font-style: normal;
   box-shadow: 0 0 40px rgba(168, 85, 247, 0.45),
     inset 0 0 16px rgba(168, 85, 247, 0.18);
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
@@ -8088,17 +8088,17 @@ a.feat-reach__line:hover {
 
 .svc-hero__left p {
   margin: 0;
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: clamp(1.1rem, 0.9rem + 0.7vw, 1.5rem);
   line-height: 1.35;
-  font-style: italic;
+  font-style: normal;
   color: #ffffff;
   max-width: 22rem;
 }
 
 .svc-hero__left p strong {
   font-style: normal;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.84em;
   color: #a89bb8;
@@ -8246,9 +8246,9 @@ a.feat-reach__line:hover {
 
 .svc-philo__col h4 {
   margin: 0;
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: 1.4rem;
-  font-style: italic;
+  font-style: normal;
   font-weight: 500;
   color: #ffffff;
 }
@@ -8270,7 +8270,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-grid-section__head {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: clamp(2.4rem, 1.7rem + 3vw, 4.5rem);
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -8280,7 +8280,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-grid-section__head em {
-  font-style: italic;
+  font-style: normal;
   color: #e9d5ff;
 }
 
@@ -8388,14 +8388,14 @@ a.feat-reach__line:hover {
 
 .svc-card__idx {
   font-size: 0.72rem;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   letter-spacing: 0.2em;
   color: #6b5b7e;
 }
 
 .svc-card__name {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: clamp(1.65rem, 1.3rem + 0.9vw, 2.15rem);
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -8404,7 +8404,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-card__name em {
-  font-style: italic;
+  font-style: normal;
 }
 
 .svc-card__body {
@@ -8473,9 +8473,9 @@ a.feat-reach__line:hover {
   background: #10071a;
   border: 1px solid rgba(168, 85, 247, 0.4);
   color: #ffffff;
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: 1.05rem;
-  font-style: italic;
+  font-style: normal;
   box-shadow: 0 0 30px rgba(168, 85, 247, 0.32),
     inset 0 0 12px rgba(168, 85, 247, 0.1);
   transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease),
@@ -8868,7 +8868,7 @@ a.feat-reach__line:hover {
   position: relative;
   background: #0a0612;
   color: #ffffff;
-  font-family: var(--font-inter, var(--font-dm-sans), system-ui, -apple-system, sans-serif);
+  font-family: var(--font-body);
   overflow: hidden;
   padding-top: 80px; /* clear the fixed global Nav */
 }
@@ -8905,7 +8905,7 @@ a.feat-reach__line:hover {
 
 /* shared highlighted word — violet, non-gradient */
 .proc-step__hi {
-  color: #c084fc;
+  color: #ffffff;
 }
 
 /* ---------- Pill badge ---------- */
@@ -8917,7 +8917,7 @@ a.feat-reach__line:hover {
   border-radius: 999px;
   background: rgba(168, 85, 247, 0.12);
   border: 1px solid rgba(168, 85, 247, 0.32);
-  color: #c084fc;
+  color: #ffffff;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -9230,7 +9230,7 @@ a.feat-reach__line:hover {
 }
 
 .proc-chat__msg--rev .proc-chat__who {
-  color: rgba(192, 132, 252, 0.85);
+  color: #ffffff;
 }
 
 .proc-chat__msg p {
@@ -9278,7 +9278,7 @@ a.feat-reach__line:hover {
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.16em;
-  color: #c084fc;
+  color: #ffffff;
   margin-bottom: 0.5rem;
 }
 
@@ -9295,7 +9295,7 @@ a.feat-reach__line:hover {
 
 .proc-chat__scope li::before {
   content: "→ ";
-  color: rgba(192, 132, 252, 0.7);
+  color: #ffffff;
   margin-right: 0.25rem;
 }
 
@@ -9547,7 +9547,7 @@ a.feat-reach__line:hover {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: #c084fc;
+  color: #ffffff;
   font-size: 0.7rem;
   font-weight: 600;
   pointer-events: none;
@@ -9592,7 +9592,7 @@ a.feat-reach__line:hover {
   border-radius: 6px 6px 0 0;
   font-size: 0.74rem;
   color: rgba(255, 255, 255, 0.5);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
 }
 
 .proc-code__tab.is-active {
@@ -9618,7 +9618,7 @@ a.feat-reach__line:hover {
 
 .proc-code__pre {
   margin: 0;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   line-height: 1.65;
   color: rgba(255, 255, 255, 0.85);
@@ -9627,7 +9627,7 @@ a.feat-reach__line:hover {
 }
 
 .proc-code__k {
-  color: #c084fc;
+  color: #ffffff;
   font-weight: 600;
 }
 
@@ -9637,7 +9637,7 @@ a.feat-reach__line:hover {
 
 .proc-code__c {
   color: rgba(255, 255, 255, 0.4);
-  font-style: italic;
+  font-style: normal;
 }
 
 /* ---- Tests ---- */
@@ -9794,7 +9794,7 @@ a.feat-reach__line:hover {
   font-size: 0.86rem;
   font-weight: 600;
   color: #ffffff;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
 }
 
 .proc-deploy__tiles {
@@ -9867,7 +9867,7 @@ a.feat-reach__line:hover {
   padding: 1px 7px;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.06);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.65);
 }
@@ -10200,7 +10200,7 @@ a.feat-reach__line:hover {
 }
 
 .worth__title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(2rem, 1.4rem + 2.4vw, 3.6rem);
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -10210,8 +10210,8 @@ a.feat-reach__line:hover {
 }
 
 .worth__title em {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   font-size: 1.06em;
   background: linear-gradient(135deg, #c084fc 0%, #6f8cff 100%);
@@ -10247,8 +10247,8 @@ a.feat-reach__line:hover {
 }
 
 .worth-note__num {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   font-size: clamp(2.4rem, 1.6rem + 2.2vw, 3.6rem);
   letter-spacing: -0.02em;
@@ -10279,7 +10279,7 @@ a.feat-reach__line:hover {
 }
 
 .worth-note__label {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(1.15rem, 0.95rem + 0.5vw, 1.45rem);
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -10441,7 +10441,7 @@ a.feat-reach__line:hover {
   background: linear-gradient(180deg, #ffffff 0%, #b4c0ff 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
 }
 
 .appshow__sub {
@@ -11124,7 +11124,7 @@ a.feat-reach__line:hover {
 
 .work-projects__filter-btn.is-active {
   background: rgba(192, 132, 252, 0.15);
-  border-color: rgba(192, 132, 252, 0.45);
+  border-color: #ffffff;
   color: #fff;
   box-shadow: 0 4px 15px -5px rgba(192, 132, 252, 0.4);
 }
@@ -11177,7 +11177,7 @@ a.feat-reach__line:hover {
 
 .work-project:hover {
   --anim-speed: 2;
-  border-color: rgba(192, 132, 252, 0.3);
+  border-color: #ffffff;
   background: rgba(15, 19, 29, 0.7);
   box-shadow: 0 20px 48px -20px rgba(192, 132, 252, 0.22),
               0 0 0 1px rgba(192, 132, 252, 0.08);
@@ -12426,7 +12426,7 @@ a.feat-reach__line:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #c084fc;
+  color: #ffffff;
 }
 
 .wfs__screen-ai-icon svg {
@@ -13111,7 +13111,7 @@ a.feat-reach__line:hover {
 }
 
 .pscard__feature-mark {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: clamp(3rem, 2rem + 2vw, 4rem);
   line-height: 0.5;
   color: var(--blue-light);
@@ -13121,8 +13121,8 @@ a.feat-reach__line:hover {
 
 .pscard__feature-quote {
   margin: 0;
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.6rem);
   font-weight: 400;
   line-height: 1.3;
@@ -13158,7 +13158,7 @@ a.feat-reach__line:hover {
 
 .pscard__feature-avatar.t-b {
   background: rgba(192, 132, 252, 0.18);
-  border-color: rgba(192, 132, 252, 0.42);
+  border-color: #ffffff;
   color: #d6b2fc;
 }
 
@@ -13202,7 +13202,7 @@ a.feat-reach__line:hover {
   display: inline-block;
   align-self: center;
   margin-top: 0.55rem;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   line-height: 1;
   padding: 0.3rem 0.6rem;
@@ -13385,7 +13385,7 @@ a.feat-reach__line:hover {
 }
 
 .wol__head h2 {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: clamp(2.2rem, 1.4rem + 2.8vw, 3.8rem);
   letter-spacing: -0.02em;
@@ -13394,8 +13394,8 @@ a.feat-reach__line:hover {
 }
 
 .wol__head h2 em {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   font-size: 1.08em;
   background: linear-gradient(135deg, #c084fc 0%, #6f8cff 100%);
@@ -13416,7 +13416,7 @@ a.feat-reach__line:hover {
 .wol__spark {
   position: absolute;
   color: rgba(255, 255, 255, 0.18);
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   user-select: none;
   animation: wol-twinkle 4s ease-in-out infinite;
 }
@@ -13516,7 +13516,7 @@ a.feat-reach__line:hover {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.85rem;
   background: rgba(43, 95, 255, 0.18);
@@ -13526,7 +13526,7 @@ a.feat-reach__line:hover {
 
 .wol__avatar.t-b {
   background: rgba(192, 132, 252, 0.18);
-  border-color: rgba(192, 132, 252, 0.42);
+  border-color: #ffffff;
   color: #d6b2fc;
 }
 
@@ -13544,7 +13544,7 @@ a.feat-reach__line:hover {
 }
 
 .wol__card-name {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.95rem;
   color: #fafafa;
@@ -13555,21 +13555,21 @@ a.feat-reach__line:hover {
 }
 
 .wol__card-handle {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   color: rgba(180, 200, 230, 0.55);
 }
 
 .wol__card-quote {
   margin: 0;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.92rem;
   line-height: 1.55;
   color: #f5f5f5;
 }
 
 .wol__handle {
-  color: #c084fc;
+  color: #ffffff;
   font-weight: 500;
 }
 
@@ -13907,7 +13907,7 @@ a.feat-reach__line:hover {
 .shero__sparkle {
   position: absolute;
   color: rgba(255, 255, 255, 0.18);
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   user-select: none;
   animation: shero-twinkle var(--dur, 4s) ease-in-out infinite;
 }
@@ -13973,13 +13973,13 @@ a.feat-reach__line:hover {
 }
 
 .shero__author-name {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: 0.82rem;
   color: #fafafa;
 }
 
 .shero__author-name em {
-  font-style: italic;
+  font-style: normal;
   color: rgba(220, 200, 252, 0.95);
 }
 
@@ -13999,7 +13999,7 @@ a.feat-reach__line:hover {
   z-index: 3;
   margin: 0;
   text-align: center;
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 0.96;
@@ -14015,8 +14015,8 @@ a.feat-reach__line:hover {
 }
 
 .shero__headline-italic {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   font-size: clamp(4rem, 2rem + 6vw, 9rem);
   color: #ffffff;
@@ -14048,7 +14048,7 @@ a.feat-reach__line:hover {
 }
 
 .shero__meta-label {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.12em;
   color: rgba(255, 255, 255, 0.4);
@@ -14056,7 +14056,7 @@ a.feat-reach__line:hover {
 }
 
 .shero__meta-value {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 11px;
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.35;
@@ -14124,7 +14124,7 @@ a.feat-reach__line:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   font-weight: 600;
   color: #fff;
@@ -14166,11 +14166,11 @@ a.feat-reach__line:hover {
   color: rgba(255, 255, 255, 0.55);
   letter-spacing: 0.08em;
   margin-bottom: 2px;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
 }
 
 .shero__phone-title {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 13px;
   color: #fff;
@@ -14211,7 +14211,7 @@ a.feat-reach__line:hover {
 }
 
 .shero__phone-row-eyebrow {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 8.5px;
   letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.5);
@@ -14221,7 +14221,7 @@ a.feat-reach__line:hover {
 }
 
 .shero__phone-row-name {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 11px;
   font-weight: 600;
   color: #fff;
@@ -14251,7 +14251,7 @@ a.feat-reach__line:hover {
 .shero__phone-row-stack--small { width: 26px; height: 16px; }
 
 .shero__phone-row-count {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 11px;
   font-weight: 600;
   color: #fff;
@@ -14259,7 +14259,7 @@ a.feat-reach__line:hover {
 }
 
 .shero__phone-row-cta {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   padding: 4px 10px;
   border-radius: 999px;
@@ -14268,7 +14268,7 @@ a.feat-reach__line:hover {
 }
 
 .shero__phone-row-livepill {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 7.5px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -14305,14 +14305,14 @@ a.feat-reach__line:hover {
 }
 
 .shero__card-title {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 12px;
   color: #fff;
 }
 
 .shero__card-sub {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   color: rgba(255, 255, 255, 0.55);
 }
@@ -14323,7 +14323,7 @@ a.feat-reach__line:hover {
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   color: #fff;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 11px;
 }
 
@@ -14340,7 +14340,7 @@ a.feat-reach__line:hover {
 }
 
 .shero__card-live-pill {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 8px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -14484,8 +14484,8 @@ a.feat-reach__line:hover {
 }
 
 .shvh__title {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   font-size: clamp(2.4rem, 1.4rem + 3vw, 3.5rem);
   letter-spacing: -0.02em;
@@ -14496,7 +14496,7 @@ a.feat-reach__line:hover {
 }
 
 .shvh__sub {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(0.88rem, 0.82rem + 0.15vw, 0.95rem);
   line-height: 1.55;
   color: #64748b;
@@ -14510,7 +14510,7 @@ a.feat-reach__line:hover {
   gap: 0.5rem;
   background: #0a152d;
   color: #ffffff;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 600;
   padding: 0.7rem 1.4rem;
@@ -14565,7 +14565,7 @@ a.feat-reach__line:hover {
 }
 
 .shvh__navbar-link {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 12px;
   font-weight: 600;
   color: #64748b;
@@ -14587,7 +14587,7 @@ a.feat-reach__line:hover {
   background: #ffffff;
   padding: 0.5rem 1.1rem;
   border-radius: 999px;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 12px;
   font-weight: 600;
   color: #0a1b33;
@@ -14725,7 +14725,7 @@ a.feat-reach__line:hover {
 .svc-shell--v2 {
   background: #08060e;
   color: #fafafa;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   position: relative;
   overflow-x: hidden;
   isolation: isolate;
@@ -14744,21 +14744,21 @@ a.feat-reach__line:hover {
 }
 .svc-shell--v2 .svc-nav__brand {
   color: #fafafa;
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-style: normal;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 .svc-shell--v2 .svc-nav__links a {
   color: rgba(220, 200, 245, 0.7);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.85rem;
   text-transform: none;
   letter-spacing: 0;
 }
 .svc-shell--v2 .svc-nav__links a:hover {
-  color: #c084fc;
+  color: #ffffff;
 }
 
 /* ----- Hero — Ultra-premium futuristic (purple/magenta matching) ----- */
@@ -15043,7 +15043,7 @@ a.feat-reach__line:hover {
 
 /* Title */
 .svc-hero-v2__title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(2.8rem, 1.6rem + 3.5vw, 5rem);
   font-weight: 500;
   line-height: 1.05;
@@ -15056,7 +15056,7 @@ a.feat-reach__line:hover {
 .svc-hero-v2__title-accent {
   background: linear-gradient(135deg, #f0d3ff 0%, #c084fc 50%, #a855f7 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
   background-clip: text;
 }
 
@@ -15086,7 +15086,7 @@ a.feat-reach__line:hover {
   overflow: hidden;
   background: linear-gradient(135deg, #c084fc 0%, #7c3aed 100%);
   color: #fff;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.92rem;
   padding: 0.85rem 1.8rem;
@@ -15128,7 +15128,7 @@ a.feat-reach__line:hover {
   align-items: center;
   gap: 0.4rem;
   color: rgba(220, 200, 245, 0.8);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.92rem;
   padding: 0.85rem 1.4rem;
@@ -15142,7 +15142,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-hero-v2__cta-secondary:hover {
-  border-color: rgba(192, 132, 252, 0.4);
+  border-color: #ffffff;
   background: rgba(192, 132, 252, 0.08);
 }
 
@@ -15181,10 +15181,10 @@ a.feat-reach__line:hover {
 }
 
 .svc-hero-v2__metric-val {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: clamp(1.1rem, 1rem + 0.3vw, 1.4rem);
-  color: #c084fc;
+  color: #ffffff;
 }
 
 .svc-hero-v2__metric-label {
@@ -15281,7 +15281,7 @@ a.feat-reach__line:hover {
 
 .svc-hero-v2__dash-url {
   margin-left: 0.6rem;
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   color: rgba(220, 200, 245, 0.5);
   display: inline-flex;
@@ -15315,7 +15315,7 @@ a.feat-reach__line:hover {
   align-items: center;
   gap: 0.55rem;
   padding: 0.5rem 0.7rem;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 0.82rem;
   color: #fafafa;
@@ -15335,7 +15335,7 @@ a.feat-reach__line:hover {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.78rem;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   color: rgba(220, 200, 245, 0.5);
   padding: 0.45rem 0.7rem;
   border-radius: 6px;
@@ -15353,13 +15353,13 @@ a.feat-reach__line:hover {
 
 .svc-hero-v2__dash-link.is-active {
   background: rgba(192, 132, 252, 0.12);
-  color: #c084fc;
+  color: #ffffff;
   font-weight: 500;
 }
 
 .svc-hero-v2__dash-link.is-active .svc-hero-v2__dash-link-icon {
   background: rgba(192, 132, 252, 0.3);
-  border-color: rgba(192, 132, 252, 0.3);
+  border-color: #ffffff;
 }
 
 /* Sidebar footer — user avatar */
@@ -15386,14 +15386,14 @@ a.feat-reach__line:hover {
 }
 
 .svc-hero-v2__dash-username {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.72rem;
   font-weight: 600;
   color: #fafafa;
 }
 
 .svc-hero-v2__dash-role {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 9px;
   color: rgba(220, 200, 245, 0.4);
 }
@@ -15413,7 +15413,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-hero-v2__dash-title {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 1.1rem;
   color: #fafafa;
@@ -15424,7 +15424,7 @@ a.feat-reach__line:hover {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   color: rgba(220, 200, 245, 0.45);
 }
@@ -15445,7 +15445,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-hero-v2__dash-action-btn {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.72rem;
   font-weight: 500;
   padding: 0.35rem 0.7rem;
@@ -15480,31 +15480,31 @@ a.feat-reach__line:hover {
 }
 
 .svc-hero-v2__dash-kpi:hover {
-  border-color: rgba(192, 132, 252, 0.25);
+  border-color: #ffffff;
 }
 
 .svc-hero-v2__dash-kpi-label {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 8.5px;
   letter-spacing: 0.1em;
   color: rgba(220, 200, 245, 0.45);
 }
 
 .svc-hero-v2__dash-kpi-val {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   font-size: 1.15rem;
   color: #fafafa;
 }
 
 .svc-hero-v2__dash-kpi-delta {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 9.5px;
   color: rgba(220, 200, 245, 0.45);
 }
 
 .svc-hero-v2__dash-kpi-delta.is-up {
-  color: #c084fc;
+  color: #ffffff;
 }
 
 /* Chart */
@@ -15523,14 +15523,14 @@ a.feat-reach__line:hover {
 }
 
 .svc-hero-v2__dash-chart-title {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.78rem;
   color: rgba(220, 200, 245, 0.7);
 }
 
 .svc-hero-v2__dash-chart-period {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 9px;
   color: rgba(220, 200, 245, 0.35);
 }
@@ -15585,7 +15585,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-marquee-v2__card:hover {
-  border-color: rgba(192, 132, 252, 0.4);
+  border-color: #ffffff;
 }
 
 .svc-marquee-v2__grad {
@@ -15647,7 +15647,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-feat__title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(2rem, 1.4rem + 2vw, 3.4rem);
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -15657,8 +15657,8 @@ a.feat-reach__line:hover {
 }
 
 .svc-feat__title em {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   font-size: 1.08em;
   background: linear-gradient(135deg, #f0d3ff 0%, #a855f7 100%);
@@ -15732,7 +15732,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-feat__tile-label {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 1.1rem;
   color: #fafafa;
@@ -15742,7 +15742,7 @@ a.feat-reach__line:hover {
 
 .svc-feat__tile-body {
   color: rgba(214, 200, 245, 0.7);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.9rem;
   line-height: 1.55;
   margin: 0;
@@ -15799,7 +15799,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-others__card:hover {
-  border-color: rgba(192, 132, 252, 0.42);
+  border-color: #ffffff;
   background: rgba(192, 132, 252, 0.07);
   transform: translateY(-3px);
 }
@@ -15812,7 +15812,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-others__card-title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 1rem;
   color: #fafafa;
@@ -15885,7 +15885,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-cta-v2__title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(2rem, 1.4rem + 2.4vw, 3.6rem);
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -15895,8 +15895,8 @@ a.feat-reach__line:hover {
 }
 
 .svc-cta-v2__title em {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   font-size: 1.08em;
   background: linear-gradient(135deg, #f0d3ff 0%, #a855f7 100%);
@@ -15918,7 +15918,7 @@ a.feat-reach__line:hover {
   align-items: center;
   background: linear-gradient(135deg, #c084fc 0%, #6f0acc 100%);
   color: #fff;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.95rem;
   padding: 0.85rem 1.8rem;
@@ -15947,7 +15947,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-cta-v2__meta a:hover {
-  color: #c084fc;
+  color: #ffffff;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -16021,7 +16021,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-block__title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(2rem, 1.4rem + 2.2vw, 3.4rem);
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -16031,8 +16031,8 @@ a.feat-reach__line:hover {
 }
 
 .svc-block__title em {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 500;
   font-size: 1.08em;
   background: linear-gradient(135deg, #f0d3ff 0%, #a855f7 100%);
@@ -16088,7 +16088,7 @@ a.feat-reach__line:hover {
 
 .svc-block__link-btn:hover {
   background: rgba(192, 132, 252, 0.12);
-  border-color: rgba(192, 132, 252, 0.45);
+  border-color: #ffffff;
   color: #fff;
   transform: translateY(-1px);
   box-shadow: 0 8px 24px -6px rgba(168, 85, 247, 0.35);
@@ -16135,7 +16135,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-tile__label {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.98rem;
   color: #fafafa;
@@ -16178,7 +16178,7 @@ a.feat-reach__line:hover {
 
 .svc-ba__card--after {
   background: rgba(192, 132, 252, 0.06);
-  border-color: rgba(192, 132, 252, 0.32);
+  border-color: #ffffff;
   box-shadow: 0 18px 50px -28px rgba(168, 85, 247, 0.4);
 }
 
@@ -16193,7 +16193,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-ba__tag {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -16206,18 +16206,18 @@ a.feat-reach__line:hover {
 
 .svc-ba__tag--after {
   color: #f0d3ff;
-  border-color: rgba(192, 132, 252, 0.5);
+  border-color: #ffffff;
   background: rgba(192, 132, 252, 0.12);
 }
 
 .svc-ba__label {
   color: rgba(214, 200, 245, 0.65);
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.82rem;
 }
 
 .svc-ba__kpi {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.92rem;
   background: linear-gradient(135deg, #f0d3ff 0%, #a855f7 100%);
@@ -16252,7 +16252,7 @@ a.feat-reach__line:hover {
 
 .svc-ba__row-label {
   color: rgba(214, 200, 245, 0.85);
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
 }
 
 .svc-ba__bar {
@@ -16279,7 +16279,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-ba__row-val {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   color: rgba(214, 200, 245, 0.55);
   text-align: right;
@@ -16306,17 +16306,17 @@ a.feat-reach__line:hover {
 /* Override .work-project body text colour for the dark-magenta theme */
 .svc-shell--v2 .work-project {
   background: rgba(192, 132, 252, 0.04);
-  border-color: rgba(192, 132, 252, 0.18);
+  border-color: #ffffff;
 }
 .svc-shell--v2 .work-project:hover {
-  border-color: rgba(192, 132, 252, 0.45);
+  border-color: #ffffff;
   background: rgba(192, 132, 252, 0.07);
 }
 .svc-shell--v2 .work-project__name { color: #fafafa; }
 .svc-shell--v2 .work-project__about { color: rgba(214, 200, 245, 0.7); }
 .svc-shell--v2 .work-project__arrow {
   color: #f0d3ff;
-  border-color: rgba(192, 132, 252, 0.32);
+  border-color: #ffffff;
 }
 
 /* ----- Website-client marquee (sub-label variant) ----- */
@@ -16392,7 +16392,7 @@ a.feat-reach__line:hover {
 .svc-webclients__sub {
   position: relative;
   z-index: 1;
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.16em;
   color: rgba(214, 200, 245, 0.55);
@@ -16408,7 +16408,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-industries__pill {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.86rem;
   padding: 0.55rem 1.1rem;
@@ -16422,7 +16422,7 @@ a.feat-reach__line:hover {
   border-color: rgba(216, 162, 58, 0.55);
   background: rgba(216, 162, 58, 0.08);
   color: #d8a23a;
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   letter-spacing: 0.08em;
 }
@@ -16514,7 +16514,7 @@ a.feat-reach__line:hover {
   background: rgba(15, 19, 29, 0.42);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
   backdrop-filter: blur(18px) saturate(160%);
-  border-color: rgba(192, 132, 252, 0.28);
+  border-color: #ffffff;
 }
 
 /* Add a thin text-shadow on the heading/sub so they stay readable
@@ -16580,7 +16580,7 @@ a.feat-reach__line:hover {
 .svc-music-showcase__chip.is-active {
   color: #f0d3ff;
   background: rgba(192, 132, 252, 0.15);
-  border-color: rgba(192, 132, 252, 0.35);
+  border-color: #ffffff;
   box-shadow: 0 0 12px rgba(168, 85, 247, 0.15);
 }
 
@@ -16591,7 +16591,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-music-showcase__title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(2.2rem, 1.8rem + 2.5vw, 4.2rem);
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -16601,8 +16601,8 @@ a.feat-reach__line:hover {
 }
 
 .svc-music-showcase__title-italic {
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-weight: 400;
   background: linear-gradient(135deg, #f0d3ff 0%, #c084fc 50%, #a855f7 100%);
   -webkit-background-clip: text;
@@ -16751,7 +16751,7 @@ a.feat-reach__line:hover {
 }
 
 .svc-music-showcase__floating-card:hover {
-  border-color: rgba(192, 132, 252, 0.45);
+  border-color: #ffffff;
   box-shadow: 0 25px 50px -12px rgba(168, 85, 247, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transform: translateY(-4px);
 }
@@ -16766,11 +16766,11 @@ a.feat-reach__line:hover {
 
 .float-card-1__icon {
   font-size: 1.4rem;
-  color: #c084fc;
+  color: #ffffff;
 }
 
 .float-card-1 h4 {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   margin: 0;
   font-size: 0.95rem;
   font-weight: 600;
@@ -16798,7 +16798,7 @@ a.feat-reach__line:hover {
 .float-card-1__link {
   font-size: 0.72rem;
   color: rgba(214, 200, 245, 0.5);
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -16809,7 +16809,7 @@ a.feat-reach__line:hover {
   background: #c084fc;
   color: #0b0813;
   border: none;
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.78rem;
   padding: 0.4rem 0.85rem;
@@ -16837,7 +16837,7 @@ a.feat-reach__line:hover {
   background: rgba(239, 68, 68, 0.15);
   border: 1px solid rgba(239, 68, 68, 0.3);
   color: #ef4444;
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 700;
   padding: 0.2rem 0.5rem;
@@ -16903,7 +16903,7 @@ a.feat-reach__line:hover {
 }
 
 .float-card-2__sub {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 9px;
   color: rgba(214, 200, 245, 0.45);
   text-transform: uppercase;
@@ -16913,7 +16913,7 @@ a.feat-reach__line:hover {
 }
 
 .float-card-2 h4 {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   margin: 0 0 1rem;
   font-size: 1.05rem;
   font-weight: 600;
@@ -16928,7 +16928,7 @@ a.feat-reach__line:hover {
   width: 100%;
   padding: 0.55rem 0;
   border-radius: 10px;
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
@@ -16937,7 +16937,7 @@ a.feat-reach__line:hover {
 
 .float-card-2__btn:hover {
   background: rgba(192, 132, 252, 0.2);
-  border-color: rgba(192, 132, 252, 0.5);
+  border-color: #ffffff;
   color: #fafafa;
 }
 
@@ -16964,7 +16964,7 @@ a.feat-reach__line:hover {
 }
 
 .float-card-3 h4 {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   margin: 0;
   font-size: 0.95rem;
   font-weight: 600;
@@ -16982,7 +16982,7 @@ a.feat-reach__line:hover {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fafafa;
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.8rem;
   padding: 0.5rem 1.2rem;
@@ -16994,7 +16994,7 @@ a.feat-reach__line:hover {
 
 .float-card-3__btn:hover {
   background: rgba(192, 132, 252, 0.15);
-  border-color: rgba(192, 132, 252, 0.35);
+  border-color: #ffffff;
   color: #f0d3ff;
 }
 
@@ -17056,8 +17056,8 @@ a.feat-reach__line:hover {
 .float-card-4__badge {
   background: rgba(168, 85, 247, 0.1);
   border: 1px solid rgba(168, 85, 247, 0.3);
-  color: #c084fc;
-  font-family: ui-monospace, Menlo, monospace;
+  color: #ffffff;
+  font-family: var(--font-mono);
   font-size: 9px;
   padding: 0.15rem 0.45rem;
   border-radius: 4px;
@@ -17069,7 +17069,7 @@ a.feat-reach__line:hover {
 }
 
 .float-card-4__sub {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 9px;
   color: rgba(214, 200, 245, 0.45);
   text-transform: uppercase;
@@ -17079,7 +17079,7 @@ a.feat-reach__line:hover {
 }
 
 .float-card-4 h4 {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   margin: 0 0 1rem;
   font-size: 1.05rem;
   font-weight: 600;
@@ -17093,7 +17093,7 @@ a.feat-reach__line:hover {
   width: 100%;
   padding: 0.55rem 0;
   border-radius: 10px;
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
@@ -17102,7 +17102,7 @@ a.feat-reach__line:hover {
 
 .float-card-4__btn:hover {
   background: rgba(192, 132, 252, 0.2);
-  border-color: rgba(192, 132, 252, 0.5);
+  border-color: #ffffff;
   color: #fafafa;
 }
 
@@ -17162,7 +17162,7 @@ a.feat-reach__line:hover {
   justify-content: space-between;
   align-items: center;
   z-index: 9;
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   color: rgba(255, 255, 255, 0.8);
   font-weight: 600;
@@ -17220,7 +17220,7 @@ a.feat-reach__line:hover {
 }
 
 .phone-screen__badge {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.12em;
   font-weight: 700;
@@ -17243,7 +17243,7 @@ a.feat-reach__line:hover {
 }
 
 .phone-screen__podcast-title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 1.6rem;
   font-weight: 700;
   color: #fafafa;
@@ -17320,7 +17320,7 @@ a.feat-reach__line:hover {
 }
 
 .speaking-card__label {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 8px;
   color: #f97316;
   text-transform: uppercase;
@@ -17330,7 +17330,7 @@ a.feat-reach__line:hover {
 }
 
 .speaking-card__info h4 {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 0.9rem;
   margin: 0;
   font-weight: 600;
@@ -17401,7 +17401,7 @@ a.feat-reach__line:hover {
   width: 100%;
   height: 100%;
   background: rgba(192, 132, 252, 0.2);
-  color: #c084fc;
+  color: #ffffff;
   padding: 4px;
 }
 
@@ -17410,7 +17410,7 @@ a.feat-reach__line:hover {
   height: 28px;
   border-radius: 50%;
   background: rgba(192, 132, 252, 0.15);
-  color: #c084fc;
+  color: #ffffff;
   font-size: 8px;
   font-weight: 700;
   display: flex;
@@ -17429,8 +17429,8 @@ a.feat-reach__line:hover {
 .discuss-card__btn {
   background: rgba(192, 132, 252, 0.12);
   border: 1px solid rgba(192, 132, 252, 0.3);
-  color: #c084fc;
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  color: #ffffff;
+  font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.35rem 0.8rem;
@@ -17442,7 +17442,7 @@ a.feat-reach__line:hover {
 .discuss-card__btn:hover {
   background: #c084fc;
   color: #0b0813;
-  border-color: #c084fc;
+  border-color: #ffffff;
 }
 
 .discuss-card__badge {
@@ -17472,7 +17472,7 @@ a.feat-reach__line:hover {
 }
 
 .next-card__label {
-  font-family: ui-monospace, Menlo, monospace;
+  font-family: var(--font-mono);
   font-size: 8px;
   color: rgba(214, 200, 245, 0.5);
   font-weight: 700;
@@ -17706,7 +17706,7 @@ a.feat-reach__line:hover {
   color: #fafafa !important;
 }
 .wfs--bundle .wfs__screen-kpi-chart {
-  color: #c084fc !important;
+  color: #ffffff !important;
 }
 .wfs--bundle .wfs__screen-ai {
   background: rgba(168, 85, 247, 0.03) !important;
@@ -17714,14 +17714,14 @@ a.feat-reach__line:hover {
 }
 .wfs--bundle .wfs__screen-ai-icon {
   background: rgba(168, 85, 247, 0.12) !important;
-  color: #c084fc !important;
+  color: #ffffff !important;
   border-color: rgba(192, 132, 252, 0.2) !important;
 }
 .wfs--bundle .wfs__screen-ai-refresh {
   color: rgba(220, 200, 245, 0.5) !important;
 }
 .wfs--bundle .wfs__screen-ai-refresh:hover {
-  color: #c084fc !important;
+  color: #ffffff !important;
 }
 .wfs--bundle .wfs__screen-ai-send {
   background: linear-gradient(135deg, #c084fc, #7c3aed) !important;
@@ -17787,7 +17787,7 @@ a.feat-reach__line:hover {
 }
 
 .svcpage-hero__title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: clamp(2.6rem, 1.8rem + 3.2vw, 4.8rem);
   line-height: 1.05;
@@ -17797,7 +17797,7 @@ a.feat-reach__line:hover {
 }
 
 .svcpage-hero__summary {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   color: rgba(220, 200, 245, 0.65);
   font-size: clamp(1rem, 0.95rem + 0.1vw, 1.15rem);
   line-height: 1.7;
@@ -17865,7 +17865,7 @@ a.feat-reach__line:hover {
 }
 
 .svcpage-card__title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: clamp(1.4rem, 1.2rem + 0.5vw, 1.85rem);
   color: #fafafa;
@@ -17874,7 +17874,7 @@ a.feat-reach__line:hover {
 }
 
 .svcpage-card__desc {
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   color: rgba(220, 200, 245, 0.5);
   font-size: 0.9rem;
   line-height: 1.5;
@@ -17901,7 +17901,7 @@ a.feat-reach__line:hover {
   height: 22px;
   border-radius: 50%;
   background: rgba(168, 85, 247, 0.15);
-  color: #c084fc;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17937,7 +17937,7 @@ a.feat-reach__line:hover {
 }
 
 .svcpage-tech__title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: clamp(1.4rem, 1.2rem + 0.4vw, 1.7rem);
   color: #fafafa;
@@ -17970,7 +17970,7 @@ a.feat-reach__line:hover {
 
 .svcpage-tech__chip:hover {
   background: rgba(192, 132, 252, 0.08);
-  border-color: rgba(192, 132, 252, 0.3);
+  border-color: #ffffff;
   transform: translateY(-1px);
 }
 
@@ -18002,21 +18002,21 @@ a.feat-reach__line:hover {
 }
 .svc-shell--v2 .nav a.brand {
   color: #fafafa;
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-style: normal;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 .svc-shell--v2 .nav__links a {
   color: rgba(220, 200, 245, 0.7);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.85rem;
   text-transform: none;
   letter-spacing: 0;
 }
 .svc-shell--v2 .nav__links a:hover {
-  color: #c084fc;
+  color: #ffffff;
 }
 
 /* Mobile & tablet navigation overrides */
@@ -18061,7 +18061,7 @@ a.feat-reach__line:hover {
 }
 
 .svcpage-seo__title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.8rem);
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -18086,13 +18086,13 @@ a.feat-reach__line:hover {
 
 .svcpage-seo-card:hover {
   background: rgba(192, 132, 252, 0.06);
-  border-color: rgba(192, 132, 252, 0.38);
+  border-color: #ffffff;
   transform: translateY(-3px);
   box-shadow: 0 16px 36px -12px rgba(168, 85, 247, 0.25);
 }
 
 .svcpage-seo-card__title {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: var(--step-0);
   font-weight: 600;
   color: #fafafa;
@@ -18262,7 +18262,7 @@ a.feat-reach__line:hover {
 .feat2-header__brand {
   background: linear-gradient(135deg, #a855f7, #22d3ee);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
   background-clip: text;
   font-weight: 600;
 }
@@ -18575,7 +18575,7 @@ a.feat-reach__line:hover {
   color: rgba(255, 255, 255, 0.82);
   margin: 0;
   padding-left: 0.5rem;
-  font-style: italic;
+  font-style: normal;
 }
 
 .feat2-voice__quotemark {
@@ -18587,7 +18587,7 @@ a.feat-reach__line:hover {
   font-style: normal;
   background: linear-gradient(135deg, #a855f7, #6366f1);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
   background-clip: text;
   opacity: 0.5;
 }
@@ -18641,7 +18641,7 @@ a.feat-reach__line:hover {
   line-height: 1;
   background: linear-gradient(180deg, #fff 30%, rgba(168, 85, 247, 0.6));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
   background-clip: text;
   filter: drop-shadow(0 4px 20px rgba(99, 102, 241, 0.3));
   position: relative;
@@ -18915,7 +18915,7 @@ a.feat2-reach__line:hover {
   color: rgba(220, 200, 245, 0.78);
   margin-bottom: 1.2rem;
 }
-.faq__eyebrow em { font-style: italic; color: #c084fc; font-weight: 500; }
+.faq__eyebrow em { font-style: normal; color: #ffffff; font-weight: 500; }
 .faq__eyebrow-dot {
   width: 6px; height: 6px; border-radius: 50%;
   background: #c084fc;
@@ -18928,7 +18928,7 @@ a.feat2-reach__line:hover {
 }
 
 .faq__title {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3.6rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -18937,13 +18937,13 @@ a.feat2-reach__line:hover {
   font-weight: 500;
 }
 .faq__title em {
-  font-style: italic;
-  color: #c084fc;
+  font-style: normal;
+  color: #ffffff;
   font-weight: 400;
   background: linear-gradient(135deg, #c084fc 0%, #e9d5ff 60%, #6f8cff 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
 }
 
 .faq__sub {
@@ -19090,7 +19090,7 @@ a.feat2-reach__line:hover {
 .faq__q-index {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: rgba(192, 132, 252, 0.85);
+  color: #ffffff;
   letter-spacing: 0.1em;
 }
 .faq__q-cat {
@@ -19109,12 +19109,12 @@ a.feat2-reach__line:hover {
 .faq__row.is-open .faq__q-cat,
 .faq__q:hover .faq__q-cat {
   color: #f5e7ff;
-  border-color: rgba(192, 132, 252, 0.4);
+  border-color: #ffffff;
   background: rgba(192, 132, 252, 0.1);
 }
 
 .faq__q-text {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: clamp(1.2rem, 1.05rem + 0.55vw, 1.6rem);
   font-weight: 500;
   line-height: 1.3;
@@ -19141,13 +19141,13 @@ a.feat2-reach__line:hover {
     box-shadow 0.3s var(--ease);
 }
 .faq__q:hover .faq__q-icon {
-  border-color: rgba(192, 132, 252, 0.4);
+  border-color: #ffffff;
   background: rgba(192, 132, 252, 0.08);
 }
 .faq__row.is-open .faq__q-icon {
   transform: rotate(45deg);
   background: rgba(192, 132, 252, 0.18);
-  border-color: rgba(192, 132, 252, 0.55);
+  border-color: #ffffff;
   color: #ffffff;
   box-shadow: 0 0 0 4px rgba(192, 132, 252, 0.1),
     0 6px 20px -8px rgba(192, 132, 252, 0.6);
@@ -19239,7 +19239,7 @@ a.feat2-reach__line:hover {
     rgba(192, 132, 252, 0.32),
     rgba(111, 140, 255, 0.22)
   );
-  border-color: rgba(192, 132, 252, 0.7);
+  border-color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 12px 28px -12px rgba(192, 132, 252, 0.55);
 }
@@ -19324,7 +19324,7 @@ a.feat2-reach__line:hover {
 }
 
 .stp-h2 {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: clamp(2rem, 1.4rem + 2.4vw, 3.4rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -19333,12 +19333,12 @@ a.feat2-reach__line:hover {
   color: var(--stp-text);
 }
 .stp-h2 em {
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   background: linear-gradient(135deg, var(--stp-blue-light) 0%, var(--stp-cyan) 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
 }
 
 .stp-sub {
@@ -19429,7 +19429,7 @@ a.feat2-reach__line:hover {
 }
 .stp-card:hover .stp-card__glow { opacity: 1; }
 .stp-card__title {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.55rem);
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -19571,7 +19571,7 @@ a.feat2-reach__line:hover {
   max-width: 880px;
 }
 .stp-hero__title {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: clamp(2.6rem, 1.8rem + 4.4vw, 5rem);
   line-height: 1.02;
   letter-spacing: -0.025em;
@@ -19580,12 +19580,12 @@ a.feat2-reach__line:hover {
   color: #fff;
 }
 .stp-hero__title em {
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   background: linear-gradient(135deg, var(--stp-blue-light) 0%, var(--stp-cyan) 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
 }
 .stp-hero__sub {
   color: var(--stp-muted);
@@ -19672,7 +19672,7 @@ a.feat2-reach__line:hover {
 }
 .stp-phil__statement { padding: clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem); }
 .stp-phil__h {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: clamp(1.8rem, 1.4rem + 1.8vw, 2.8rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -19681,12 +19681,12 @@ a.feat2-reach__line:hover {
   color: #fff;
 }
 .stp-phil__h em {
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   background: linear-gradient(135deg, var(--stp-blue-light), var(--stp-cyan));
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
 }
 .stp-phil__p {
   color: var(--stp-muted);
@@ -19783,8 +19783,8 @@ a.feat2-reach__line:hover {
 .stp-voices__quote {
   margin: 0;
   color: var(--stp-text);
-  font-family: var(--font-clash), Georgia, serif;
-  font-style: italic;
+  font-family: var(--font-clash);
+  font-style: normal;
   font-size: 1.04rem;
   line-height: 1.55;
   letter-spacing: -0.005em;
@@ -19845,7 +19845,7 @@ a.feat2-reach__line:hover {
 }
 .stp-tier__head { position: relative; z-index: 1; }
 .stp-tier__name {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: clamp(1.6rem, 1.4rem + 0.6vw, 2rem);
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -20008,7 +20008,7 @@ a.feat2-reach__line:hover {
 }
 .stp-cta__inner { position: relative; z-index: 1; }
 .stp-cta__h {
-  font-family: var(--font-clash), Georgia, serif;
+  font-family: var(--font-clash);
   font-size: clamp(2.2rem, 1.6rem + 3vw, 4rem);
   line-height: 1.08;
   letter-spacing: -0.02em;
@@ -20018,12 +20018,12 @@ a.feat2-reach__line:hover {
   color: #fff;
 }
 .stp-cta__h em {
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   background: linear-gradient(135deg, var(--stp-blue-light) 0%, var(--stp-cyan) 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
 }
 .stp-cta__p {
   color: var(--stp-muted);
@@ -20400,12 +20400,12 @@ a.feat2-reach__line:hover {
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.06em;
-  color: rgba(192,132,252,0.85);
+  color: #ffffff;
   margin-bottom: 1rem;
 }
 .cap__title {
   font-family: var(--font-clash), serif;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(2.4rem, 1.6rem + 4vw, 5rem);
   line-height: 0.95;
   letter-spacing: -0.025em;
@@ -20414,14 +20414,14 @@ a.feat2-reach__line:hover {
   margin: 0 0 1rem;
 }
 .cap__title em {
-  font-style: italic;
+  font-style: normal;
   background: linear-gradient(135deg, #C084FC 0%, #60A5FA 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
 }
 .cap__sub {
-  font-family: var(--font-barlow), var(--font), sans-serif;
+  font-family: var(--font-body);
   font-weight: 300;
   color: rgba(255,255,255,0.62);
   max-width: 58ch;
@@ -20509,12 +20509,12 @@ a.feat2-reach__line:hover {
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(192,132,252,0.75);
+  color: #ffffff;
   margin-bottom: 0.45rem;
 }
 .cap__card-h {
   font-family: var(--font-clash), serif;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem);
   line-height: 1.05;
@@ -20523,7 +20523,7 @@ a.feat2-reach__line:hover {
   margin: 0 0 0.55rem;
 }
 .cap__card-p {
-  font-family: var(--font-barlow), var(--font), sans-serif;
+  font-family: var(--font-body);
   font-weight: 300;
   font-size: 0.92rem;
   line-height: 1.5;
@@ -20670,7 +20670,7 @@ a.feat2-reach__line:hover {
 .cap-v--brand { flex-direction: column; gap: 1rem; padding: 1.2rem; }
 .cap-v__type {
   font-family: var(--font-clash), serif;
-  font-style: italic;
+  font-style: normal;
   font-size: 4.5rem;
   font-weight: 400;
   line-height: 0.85;
@@ -20678,7 +20678,7 @@ a.feat2-reach__line:hover {
   background: linear-gradient(135deg, #ffffff 0%, #C084FC 60%, #60A5FA 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: initial;
 }
 .cap-v__swatches { display: flex; gap: 0.4rem; }
 .cap-v__swatches span {
@@ -20761,16 +20761,29 @@ a.feat2-reach__line:hover {
   padding: 0 1.5rem;
   pointer-events: none;
 }
+/* Heavy uppercase title — each line is its own SVG that stretches
+   to fill the same container width via lengthAdjust, so left + right
+   edges of every line align. */
 .cinhero__title {
   margin: 0;
+  width: min(1100px, 92%);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   font-family: var(--font-clash);
-  font-weight: 500;
-  color: #fff;
-  font-size: clamp(3rem, 1.8rem + 7vw, 9.5rem);
-  line-height: 0.92;
-  letter-spacing: -0.04em;
-  text-transform: lowercase;
-  text-wrap: balance;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+.cinhero__title-line {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.cinhero__title-line text {
+  font-family: var(--font-clash);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 /* ---- Description (under the headline) ---- */
