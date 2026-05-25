@@ -20766,7 +20766,7 @@ a.feat2-reach__line:hover {
    edges of every line align. */
 .cinhero__title {
   margin: 0;
-  width: min(1100px, 92%);
+  width: min(820px, 78%);
   display: flex;
   flex-direction: column;
   gap: 0;
