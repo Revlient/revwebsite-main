@@ -20347,13 +20347,13 @@ a.feat2-reach__line:hover {
    framing business transformation outcomes.
    ==================================================================== */
 .cap {
-  --cap-bg: #06070D;
+  --cap-bg: #fbfbfd;
   --cap-violet: #C084FC;
   --cap-blue: #60A5FA;
   --cap-ease: cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
   background: var(--cap-bg);
-  color: #ffffff;
+  color: #0A0A0C;
   padding-block: clamp(5rem, 3.5rem + 5vw, 9rem);
   overflow: hidden;
   isolation: isolate;
@@ -20365,19 +20365,19 @@ a.feat2-reach__line:hover {
   position: absolute;
   border-radius: 50%;
   filter: blur(110px);
-  opacity: 0.55;
+  opacity: 0.32;
   will-change: transform, opacity;
 }
 .cap__bloom--violet {
   width: 48rem; height: 48rem;
   top: -18rem; left: -12rem;
-  background: radial-gradient(closest-side, rgba(192,132,252,0.4), transparent 70%);
+  background: radial-gradient(closest-side, rgba(192,132,252,0.32), transparent 70%);
   animation: cap-drift 22s var(--cap-ease) infinite alternate;
 }
 .cap__bloom--blue {
   width: 42rem; height: 42rem;
   bottom: -16rem; right: -10rem;
-  background: radial-gradient(closest-side, rgba(96,165,250,0.34), transparent 70%);
+  background: radial-gradient(closest-side, rgba(96,165,250,0.28), transparent 70%);
   animation: cap-drift 26s var(--cap-ease) infinite alternate-reverse;
 }
 @keyframes cap-drift {
@@ -20386,9 +20386,9 @@ a.feat2-reach__line:hover {
 }
 .cap__grain {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  opacity: 0.06;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  mix-blend-mode: overlay;
+  mix-blend-mode: multiply;
 }
 
 /* Override the global container cap so the cap section can run
@@ -20408,7 +20408,7 @@ a.feat2-reach__line:hover {
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.06em;
-  color: #ffffff;
+  color: rgba(10, 10, 12, 0.55);
   margin-bottom: 1rem;
 }
 .cap__title {
@@ -20417,21 +20417,19 @@ a.feat2-reach__line:hover {
   font-size: clamp(2.4rem, 1.6rem + 4vw, 5rem);
   line-height: 0.95;
   letter-spacing: -0.025em;
-  font-weight: 400;
-  color: #ffffff;
+  font-weight: 600;
+  color: #0A0A0C;
   margin: 0 0 1rem;
 }
 .cap__title em {
   font-style: normal;
-  background: linear-gradient(135deg, #C084FC 0%, #60A5FA 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: initial;
+  font-weight: 600;
+  color: #0A0A0C;
 }
 .cap__sub {
   font-family: var(--font-body);
   font-weight: 300;
-  color: rgba(255,255,255,0.62);
+  color: rgba(10, 10, 12, 0.6);
   max-width: 58ch;
   font-size: clamp(0.98rem, 0.94rem + 0.3vw, 1.15rem);
   line-height: 1.55;
