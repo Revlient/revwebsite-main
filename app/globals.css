@@ -3747,20 +3747,17 @@ html.js .reveal.is-visible {
   pointer-events: auto;
 }
 
-/* glassmorphic floating CTA */
+/* glassmorphic floating CTA — solid white */
 .sticky-cta .btn {
-  background: rgba(43, 95, 255, 0.22);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
-  backdrop-filter: blur(16px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: #fff;
-  box-shadow: 0 14px 40px -12px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  color: #0A0A0C;
+  box-shadow: 0 14px 40px -12px rgba(0, 0, 0, 0.55);
 }
 
 .sticky-cta .btn:hover {
-  background: rgba(74, 120, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 255, 255, 0.92);
 }
 
 /* ---------- Floating contact widget + chat bot ---------- */
@@ -3819,26 +3816,26 @@ html.js .reveal.is-visible {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  border: 1px solid var(--line-strong);
-  background: var(--blue);
-  color: #fff;
+  border: 1px solid #ffffff;
+  background: #ffffff;
+  color: #0A0A0C;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 14px 40px -10px rgba(0, 0, 0, 0.6),
-    0 8px 30px -10px var(--blue-glow);
+  box-shadow: 0 14px 40px -10px rgba(0, 0, 0, 0.55);
   transition: transform 0.35s var(--ease), background 0.3s var(--ease);
 }
 
 .cwidget__fab:hover {
   transform: translateY(-2px) scale(1.04);
-  background: var(--blue-light);
+  background: rgba(255, 255, 255, 0.92);
 }
 
 .cwidget__fab.is-open {
   background: var(--panel-2);
   color: var(--text);
+  border-color: var(--line-strong);
 }
 
 .cwidget__actions {
@@ -20773,7 +20770,7 @@ a.feat2-reach__line:hover {
   font-family: var(--font-body);
   font-weight: 700;
   color: #ffffff;
-  font-size: clamp(3rem, 1.6rem + 7vw, 8.6rem);
+  font-size: clamp(2rem, 1rem + 4vw, 5.2rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
   text-transform: uppercase;
@@ -20785,60 +20782,10 @@ a.feat2-reach__line:hover {
        CRAFT
        DIGITAL
        LEGACIES. */
-.cinhero__w--1 { top: 14%; left: 5%; }
-.cinhero__w--2 { top: 30%; left: 5%; }
+.cinhero__w--1 { top: 22%; left: 5%; }
+.cinhero__w--2 { top: 34%; left: 5%; }
 .cinhero__w--3 { top: 46%; left: 5%; }
-.cinhero__w--4 {
-  top: 62%;
-  left: 5%;
-  /* SVG container — larger so LEGACIES feels like the signature
-     word of the hero, still left-anchored at 5%. */
-  width: clamp(380px, 78vw, 1080px);
-  height: auto;
-  display: inline-flex;
-  align-items: center;
-}
-
-/* ---- LEGACIES: solid white text + a glowing stroke that
-   traces the letter outlines ---- */
-.cinhero__legacies-svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-.cinhero__legacies-base,
-.cinhero__legacies-glow {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 100px;
-  letter-spacing: -3px;
-  text-transform: uppercase;
-}
-.cinhero__legacies-base {
-  fill: #ffffff;
-  stroke: none;
-}
-.cinhero__legacies-glow {
-  fill: none;
-  stroke: #ffffff;
-  stroke-width: 2;
-  stroke-dasharray: 30 380;
-  stroke-dashoffset: 0;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter:
-    drop-shadow(0 0 6px rgba(255, 255, 255, 0.95))
-    drop-shadow(0 0 18px rgba(255, 255, 255, 0.55))
-    drop-shadow(0 0 36px rgba(96, 165, 250, 0.45));
-  animation: cinhero-legacies-trace 6.5s linear infinite;
-}
-@keyframes cinhero-legacies-trace {
-  to { stroke-dashoffset: -410; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .cinhero__legacies-glow { animation: none; }
-}
+.cinhero__w--4 { top: 58%; left: 5%; }
 
 /* ---- Description (uppercase, left-aligned under LEGACIES.) ---- */
 .cinhero__desc {
