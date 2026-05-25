@@ -13,28 +13,36 @@ const VIDEO_SRC = "/work/erp-beam.mp4";
 
 const SERVICES = [
   {
-    name: "AI Automation",
-    tags: ["Agents", "Pipelines", "Integrations"],
+    name: "Enterprise Management Solution",
+    tags: ["ERP", "Operations", "Automation"],
   },
   {
-    name: "Premium Websites",
-    tags: ["Web", "Motion", "Performance"],
+    name: "Website & CMS Solutions",
+    tags: ["Web", "CMS", "Performance"],
   },
   {
-    name: "ERP & Custom Platforms",
-    tags: ["ERP", "Internal tools", "Scale"],
+    name: "Enterprise Ecommerce Platform",
+    tags: ["Commerce", "Catalog", "Checkout"],
   },
   {
-    name: "Brand & Digital Growth",
-    tags: ["Identity", "Content", "Growth"],
+    name: "Custom Application Development",
+    tags: ["Web app", "Mobile", "Internal tools"],
   },
   {
-    name: "CRM & Workflows",
-    tags: ["CRM", "Ops", "Portals"],
+    name: "SaaS Solutions",
+    tags: ["Multi-tenant", "Subscriptions", "Cloud"],
   },
   {
-    name: "Post-launch Support",
-    tags: ["Retainer", "Uptime", "Iteration"],
+    name: "Advanced Technology Solutions",
+    tags: ["AI", "Automation", "Integrations"],
+  },
+  {
+    name: "Design & Experience",
+    tags: ["UI", "Motion", "Brand"],
+  },
+  {
+    name: "Cybersecurity Solutions",
+    tags: ["Audit", "Hardening", "Compliance"],
   },
 ];
 
