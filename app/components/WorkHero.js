@@ -1,8 +1,8 @@
 "use client";
 
-import Logo from "./Logo";
 import InfiniteGrid from "./InfiniteGrid";
-import { CTA_HREF, NAV_LINKS } from "../lib/site";
+import { CTA_HREF } from "../lib/site";
+import { useTransition } from "../../src/context/TransitionContext";
 
 /* /work page hero — adapted from a React/TS/Tailwind + lucide-react
    brief into vanilla JS + plain CSS, inline SVG arrows in place of
@@ -15,6 +15,16 @@ const VIDEO_SRC =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_215831_c6a8989c-d716-4d8d-8745-e972a2eec711.mp4";
 
 export default function WorkHero() {
+  const { navigate } = useTransition();
+
+  const handleNavClick = (e, href) => {
+    if (href.startsWith("http") || href.startsWith("#") || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+      return;
+    }
+    e.preventDefault();
+    navigate(href);
+  };
+
   return (
     <section className="whero">
       <InfiniteGrid />
@@ -29,18 +39,6 @@ export default function WorkHero() {
       />
 
       <div className="whero__content">
-        <nav className="whero-nav" aria-label="Primary">
-          <a href="/" className="whero-nav__logo" aria-label="Home">
-            <Logo className="whero-nav__logo-mark" />
-          </a>
-          <div className="whero-nav__pill">
-            {NAV_LINKS.map((link) => (
-              <a key={link.href} href={link.href} className="whero-nav__link">
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </nav>
 
         <div className="whero__body">
           <div className="whero__inner">
@@ -48,7 +46,7 @@ export default function WorkHero() {
               Selected work, end-to-end.
             </h1>
             <p className="whero__sub">A glimpse of the projects we&apos;ve shipped.</p>
-            <a href={CTA_HREF} className="whero__cta">
+            <a href={CTA_HREF} className="whero__cta" onClick={(e) => handleNavClick(e, CTA_HREF)}>
               <span>Start a project</span>
               <span className="whero__cta-arrow" aria-hidden="true">→</span>
             </a>

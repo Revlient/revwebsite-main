@@ -10,9 +10,7 @@ export const BRAND = {
 };
 
 // The persistent "Start a project" target.
-// FOLLOW-ON TASK: point this at the dedicated /start enquiry form once built.
-// For now it scrolls to the closing CTA section so the homepage has no dead links.
-export const CTA_HREF = "#start";
+export const CTA_HREF = "/contact";
 export const CTA_LABEL = "Start a project";
 
 // Revlient Systems — the separate site that serves ERP / CRM / automation buyers.
@@ -33,8 +31,9 @@ export const CONTACT_EMAIL = "hello@revlient.com"; // TODO: real enquiry inbox
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Work", href: "/work" },
-  { label: "Services", href: "/services" },
+  { label: "Services", href: "/services", hasDropdown: true },
   { label: "Process", href: "/process" },
-  { label: "Studio", href: "/studio" },
+  { label: "Studio", href: "/studio", hasDropdown: true },
   { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];

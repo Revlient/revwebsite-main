@@ -8,6 +8,8 @@ import BundleShowcaseServices from "./services/BundleShowcaseServices";
 import BlueGlobe from "./BlueGlobe";
 import ProjectMockup from "./work/ProjectMockups";
 import { CTA_HREF, CONTACT_EMAIL } from "../lib/site";
+import { useTransition } from "../../src/context/TransitionContext";
+import Nav from "./Nav";
 
 /* /services — Proxima-style dark + magenta landing.
    Four service sections (Study abroad ERP / Websites / Apps /
@@ -207,6 +209,12 @@ function Icon({ name }) {
 
 /* ----- Reusable Service block wrapper ----- */
 function ServiceBlock({ pill, headingNode, sub, children, id, slug }) {
+  const { navigate } = useTransition();
+  const handleNavClick = (e, href) => {
+    if (href.startsWith("http") || href.startsWith("#") || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    navigate(href);
+  };
   return (
     <section className="svc-block" id={id}>
       <Reveal className="svc-block__head">
@@ -214,7 +222,11 @@ function ServiceBlock({ pill, headingNode, sub, children, id, slug }) {
         <h2 className="svc-block__title">{headingNode}</h2>
         {sub && <p className="svc-block__sub">{sub}</p>}
         {slug && (
-          <a href={`/services/${slug}`} className="svc-block__link-btn">
+          <a 
+            href={`/services/${slug}`} 
+            className="svc-block__link-btn"
+            onClick={(e) => handleNavClick(e, `/services/${slug}`)}
+          >
             View service details
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M5 12h14" /><path d="M12 5l7 7-7 7" />
@@ -352,6 +364,12 @@ export function WebClientMarquee() {
 
 /* ----- Hero ----- */
 function HeroV2() {
+  const { navigate } = useTransition();
+  const handleNavClick = (e, href) => {
+    if (href.startsWith("http") || href.startsWith("#") || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    navigate(href);
+  };
   return (
     <section className="svc-hero-v2" id="hero-futuristic">
       {/* Background layers */}
@@ -424,7 +442,7 @@ function HeroV2() {
         {/* CTA Row */}
         <Reveal delay={320}>
           <div className="svc-hero-v2__cta-row">
-            <a href={CTA_HREF} className="svc-hero-v2__cta">
+            <a href={CTA_HREF} className="svc-hero-v2__cta" onClick={(e) => handleNavClick(e, CTA_HREF)}>
               <span className="svc-hero-v2__cta-glow" />
               Talk to the studio
             </a>
@@ -594,6 +612,12 @@ function LogoMarquee() {
 }
 
 function ClosingCTA() {
+  const { navigate } = useTransition();
+  const handleNavClick = (e, href) => {
+    if (href.startsWith("http") || href.startsWith("#") || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    navigate(href);
+  };
   return (
     <section className="svc-cta-v2">
       <video
@@ -613,7 +637,7 @@ function ClosingCTA() {
         <p className="svc-cta-v2__sub">
           Tell us what you&apos;re building. The first conversation is always free.
         </p>
-        <a href={CTA_HREF} className="svc-cta-v2__btn">
+        <a href={CTA_HREF} className="svc-cta-v2__btn" onClick={(e) => handleNavClick(e, CTA_HREF)}>
           Start a project
         </a>
         <div className="svc-cta-v2__meta">
@@ -628,6 +652,12 @@ function ClosingCTA() {
 
 export default function ServicesPage() {
   const [scrolled, setScrolled] = useState(false);
+  const { navigate } = useTransition();
+  const handleNavClick = (e, href) => {
+    if (href.startsWith("http") || href.startsWith("#") || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    navigate(href);
+  };
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
@@ -637,16 +667,7 @@ export default function ServicesPage() {
 
   return (
     <div className="svc-shell svc-shell--v2">
-      <header className={`svc-nav ${scrolled ? "is-scrolled" : ""}`}>
-        <a href="/" className="svc-nav__brand">Revlient</a>
-        <nav className="svc-nav__links" aria-label="Primary">
-          <a href="/">Home</a>
-          <a href="/services">Services</a>
-          <a href="/process">Process</a>
-          <a href="/work">Work</a>
-          <a href={CTA_HREF}>Contact</a>
-        </nav>
-      </header>
+      <Nav scrolledOnly={false} />
 
       <HeroV2 />
       <LogoMarquee />

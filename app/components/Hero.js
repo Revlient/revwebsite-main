@@ -1,6 +1,7 @@
 "use client";
 
 import { BRAND, CTA_HREF } from "../lib/site";
+import { useTransition } from "../../src/context/TransitionContext";
 
 /* Card-in-page hero adapted from a RIVR DeFi spec. Glass nav across
    the top, centred title + sparkle badge, frosted bottom-left fact
@@ -24,6 +25,7 @@ const NAV = [
   { label: "Process", href: "/process" },
   { label: "Studio", href: "/studio", hasDropdown: true },
   { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 function Sparkles({ className = "" }) {
@@ -80,6 +82,16 @@ function ChevronRight({ className = "" }) {
 }
 
 export default function Hero() {
+  const { navigate } = useTransition();
+
+  const handleNavClick = (e, href) => {
+    if (href.startsWith("http") || href.startsWith("#") || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+      return;
+    }
+    e.preventDefault();
+    navigate(href);
+  };
+
   return (
     <section className="rhero" id="top">
       <div className="rhero__card">
@@ -99,7 +111,7 @@ export default function Hero() {
             <ul className="rhero-nav__menu">
               {NAV.map((item) => (
                 <li key={item.label} className="rhero-nav__item">
-                  <a href={item.href}>
+                  <a href={item.href} onClick={(e) => handleNavClick(e, item.href)}>
                     <span>{item.label}</span>
                     {item.hasDropdown && (
                       <ChevronRight className="rhero-nav__chev" />
@@ -110,7 +122,7 @@ export default function Hero() {
             </ul>
             <div className="rhero-nav__logo-m">{BRAND.name}</div>
             <div className="rhero-nav__right">
-              <a href={CTA_HREF} className="rhero-nav__cta">
+              <a href={CTA_HREF} className="rhero-nav__cta" onClick={(e) => handleNavClick(e, CTA_HREF)}>
                 <span className="rhero-nav__cta-badge">
                   <ArrowUpRight className="rhero-nav__cta-icon" />
                 </span>
@@ -137,7 +149,7 @@ export default function Hero() {
           <div className="rhero-bl rhero-anim rhero-anim--from-left">
             <div className="rhero-bl__num">4</div>
             <div className="rhero-bl__label">Service pillars</div>
-            <a href={CTA_HREF} className="rhero-bl__cta">
+            <a href={CTA_HREF} className="rhero-bl__cta" onClick={(e) => handleNavClick(e, CTA_HREF)}>
               <span className="rhero-bl__cta-badge">
                 <ArrowUpRight className="rhero-bl__cta-icon" />
               </span>
@@ -156,12 +168,12 @@ export default function Hero() {
                 <path d="M56 56H0C30.9279 56 56 30.9279 56 0V56Z" fill="#f0f0f0" />
               </svg>
             </span>
-            <a href="/studio" className="rhero-br__circle" aria-label="Visit the studio">
+            <a href="/studio" className="rhero-br__circle" aria-label="Visit the studio" onClick={(e) => handleNavClick(e, "/studio")}>
               <ArrowUpRight className="rhero-br__circle-icon" />
             </a>
             <div className="rhero-br__info">
               <div className="rhero-br__title">Documentation</div>
-              <a href="/studio" className="rhero-br__link">
+              <a href="/studio" className="rhero-br__link" onClick={(e) => handleNavClick(e, "/studio")}>
                 <span>Studio</span>
                 <ChevronRight className="rhero-br__chev" />
               </a>

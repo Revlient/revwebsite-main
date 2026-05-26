@@ -1,4 +1,5 @@
 import WorkHero from "../components/WorkHero";
+import Nav from "../components/Nav";
 import WorkProjects from "../components/WorkProjects";
 import WorkFeatureSection from "../components/WorkFeatureSection";
 import ErpFeatures from "../components/ErpFeatures";
@@ -20,10 +21,11 @@ export const metadata = {
    nav at the top, then the existing case-studies grid, FinalCTA,
    then footer + sticky bits. The hero is self-contained — it
    carries its own navbar — so the global <Nav /> isn't rendered
-   here. */
+   here (unless scrolled, where we reveal it dynamically). */
 export default function WorkPage() {
   return (
     <>
+      <Nav scrolledOnly={false} />
       <main className="page-work">
         <WorkHero />
         <WorkFeatureSection />
