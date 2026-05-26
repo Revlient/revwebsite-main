@@ -8,7 +8,7 @@
 const STROKE = "rgba(255, 255, 255, 0.42)";
 const STROKE_FAINT = "rgba(255, 255, 255, 0.22)";
 const FILL_FAINT = "rgba(255, 255, 255, 0.06)";
-const ACCENT = "#C084FC";
+const ACCENT = "#ffffff";
 
 function Frame({ children, vb = "0 0 400 240", className = "" }) {
   return (
@@ -71,8 +71,8 @@ function MockAurora() {
           width="100"
           height="18"
           rx="9"
-          fill="rgba(192, 132, 252, 0.22)"
-          stroke="rgba(192, 132, 252, 0.55)"
+          fill="rgba(255, 255, 255, 0.22)"
+          stroke="rgba(255, 255, 255, 0.55)"
           strokeWidth="1"
         />
         <text
@@ -140,8 +140,8 @@ function MockVertex() {
           width="108"
           height="30"
           rx="4"
-          fill="rgba(192, 132, 252, 0.14)"
-          stroke="rgba(192, 132, 252, 0.55)"
+          fill="rgba(255, 255, 255, 0.14)"
+          stroke="rgba(255, 255, 255, 0.55)"
           strokeWidth="1"
         />
         <rect x="156" y="56" width="60" height="4" rx="1" fill={ACCENT} opacity="0.95" />
@@ -241,8 +241,8 @@ function MockNorthwind() {
       />
       <defs>
         <linearGradient id="wproj-nw-grad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#C084FC" stopOpacity="0.5" />
-          <stop offset="1" stopColor="#C084FC" stopOpacity="0" />
+          <stop offset="0" stopColor="#ffffff" stopOpacity="0.5" />
+          <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
         </linearGradient>
       </defs>
       {/* KPI */}

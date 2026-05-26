@@ -1,12 +1,12 @@
 /* Six static SVG mockups, one per process stage. Inline strokes only,
-   muted greys with a single purple accent (#C084FC) — except the
+   muted greys with a single purple accent (#ffffff) — except the
    "200 OK" pill in Launch which is intentionally green (status colour).
    No animation inside; this is decoration for the card top. */
 
 const STROKE = "rgba(255, 255, 255, 0.42)";
 const STROKE_FAINT = "rgba(255, 255, 255, 0.22)";
 const FILL_FAINT = "rgba(255, 255, 255, 0.06)";
-const ACCENT = "#C084FC";
+const ACCENT = "#ffffff";
 
 function Frame({ children }) {
   return (
@@ -47,8 +47,8 @@ function MockDiscovery() {
             width="36"
             height="10"
             rx="5"
-            fill="rgba(192, 132, 252, 0.18)"
-            stroke="rgba(192, 132, 252, 0.55)"
+            fill="rgba(255, 255, 255, 0.18)"
+            stroke="rgba(255, 255, 255, 0.55)"
             strokeWidth="1"
           />
           <text
@@ -56,7 +56,7 @@ function MockDiscovery() {
             y={y + 46}
             textAnchor="middle"
             fontSize="7"
-            fontStyle="italic"
+            
             fill={ACCENT}
           >
             scope
@@ -82,7 +82,7 @@ function MockOnboarding() {
     <Frame>
       <rect x="14" y="6" width="372" height="98" rx="8" fill={FILL_FAINT} stroke={STROKE_FAINT} strokeWidth="1" />
       {/* sidebar */}
-      <rect x="14" y="6" width="68" height="98" rx="8" fill="rgba(192, 132, 252, 0.06)" />
+      <rect x="14" y="6" width="68" height="98" rx="8" fill="rgba(255, 255, 255, 0.06)" />
       <line x1="82" y1="6" x2="82" y2="104" stroke={STROKE_FAINT} strokeWidth="0.75" />
       {/* sidebar items */}
       <rect x="22" y="20" width="48" height="6" rx="2" fill={ACCENT} opacity="0.85" />
@@ -180,8 +180,8 @@ function MockStrategy() {
         width="60"
         height="14"
         rx="3"
-        fill="rgba(192, 132, 252, 0.1)"
-        stroke="rgba(192, 132, 252, 0.5)"
+        fill="rgba(255, 255, 255, 0.1)"
+        stroke="rgba(255, 255, 255, 0.5)"
         strokeWidth="1"
       />
     </Frame>
@@ -207,7 +207,7 @@ function MockDesign() {
             height="40"
             rx="2"
             fill={FILL_FAINT}
-            stroke={i === 1 ? "rgba(192, 132, 252, 0.6)" : STROKE_FAINT}
+            stroke={i === 1 ? "rgba(255, 255, 255, 0.6)" : STROKE_FAINT}
             strokeWidth="1"
           />
           <line
@@ -374,8 +374,8 @@ function MockLaunch() {
       />
       <defs>
         <linearGradient id="mock-launch-grad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#C084FC" stopOpacity="0.5" />
-          <stop offset="1" stopColor="#C084FC" stopOpacity="0" />
+          <stop offset="0" stopColor="#ffffff" stopOpacity="0.5" />
+          <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
         </linearGradient>
       </defs>
       {/* trending arrow */}

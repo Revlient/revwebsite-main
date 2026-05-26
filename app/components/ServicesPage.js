@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Reveal from "./Reveal";
+import Nav from "./Nav";
 import WorkFeatureSection from "./WorkFeatureSection";
 import AppShowcaseServices from "./services/AppShowcaseServices";
 import BundleShowcaseServices from "./services/BundleShowcaseServices";
@@ -20,7 +21,7 @@ const LOGOS = [
   { name: "Procure", src: "https://svgl.app/library/procure.svg", grad: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)" },
   { name: "Shopify", src: "https://svgl.app/library/shopify.svg", grad: "linear-gradient(135deg, #fde047 0%, #ca8a04 100%)" },
   { name: "Blender", src: "https://svgl.app/library/blender.svg", grad: "linear-gradient(135deg, #60a5fa 0%, #1e40af 100%)" },
-  { name: "Figma", src: "https://svgl.app/library/figma.svg", grad: "linear-gradient(135deg, #c084fc 0%, #7c3aed 100%)" },
+  { name: "Figma", src: "https://svgl.app/library/figma.svg", grad: "linear-gradient(135deg, #ffffff 0%, #7c3aed 100%)" },
   { name: "Spotify", src: "https://svgl.app/library/spotify.svg", grad: "linear-gradient(135deg, #fb7185 0%, #be123c 100%)" },
   { name: "Lottielab", src: "https://svgl.app/library/lottielab.svg", grad: "linear-gradient(135deg, #facc15 0%, #65a30d 100%)" },
   { name: "Google Cloud", src: "https://svgl.app/library/google-cloud.svg", grad: "linear-gradient(135deg, #93c5fd 0%, #3b82f6 100%)" },
@@ -365,20 +366,27 @@ function HeroV2() {
 
       {/* Floating particles */}
       <div className="svc-hero-v2__particles" aria-hidden="true">
-        {Array.from({ length: 24 }).map((_, i) => (
-          <span
-            key={i}
-            className="svc-hero-v2__particle"
-            style={{
-              left: `${5 + Math.random() * 90}%`,
-              top: `${5 + Math.random() * 90}%`,
-              animationDelay: `${Math.random() * 8}s`,
-              animationDuration: `${4 + Math.random() * 6}s`,
-              width: `${1.5 + Math.random() * 2}px`,
-              height: `${1.5 + Math.random() * 2}px`,
-            }}
-          />
-        ))}
+        {Array.from({ length: 24 }).map((_, i) => {
+          const left = (i * 17) % 91 + 5;
+          const top = (i * 23 + 11) % 86 + 5;
+          const delay = ((i * 0.7) % 8).toFixed(1);
+          const duration = (4 + (i * 1.3) % 6).toFixed(1);
+          const size = (1.5 + (i * 0.3) % 2).toFixed(1);
+          return (
+            <span
+              key={i}
+              className="svc-hero-v2__particle"
+              style={{
+                left: `${left}%`,
+                top: `${top}%`,
+                animationDelay: `${delay}s`,
+                animationDuration: `${duration}s`,
+                width: `${size}px`,
+                height: `${size}px`,
+              }}
+            />
+          );
+        })}
       </div>
 
       {/* Scan line */}
@@ -545,20 +553,20 @@ function HeroDashboard() {
               <svg viewBox="0 0 400 100" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="dash-grad-purple" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="rgba(192, 132, 252, 0.45)" />
-                    <stop offset="100%" stopColor="rgba(192, 132, 252, 0)" />
+                    <stop offset="0%" stopColor="rgba(255, 255, 255, 0.45)" />
+                    <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
                   </linearGradient>
                   <linearGradient id="line-grad-purple" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#c084fc" />
-                    <stop offset="50%" stopColor="#a855f7" />
+                    <stop offset="0%" stopColor="#ffffff" />
+                    <stop offset="50%" stopColor="#ffffff" />
                     <stop offset="100%" stopColor="#f0d3ff" />
                   </linearGradient>
                 </defs>
                 <polygon points="0,85 30,78 70,80 110,68 150,60 190,52 230,44 270,38 310,42 350,30 390,26 400,24 400,100 0,100" fill="url(#dash-grad-purple)" />
                 <polyline points="0,85 30,78 70,80 110,68 150,60 190,52 230,44 270,38 310,42 350,30 390,26 400,24" fill="none" stroke="url(#line-grad-purple)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 {/* Glow dot on latest point */}
-                <circle cx="400" cy="24" r="4" fill="#c084fc" opacity="0.8" />
-                <circle cx="400" cy="24" r="8" fill="#c084fc" opacity="0.2" />
+                <circle cx="400" cy="24" r="4" fill="#ffffff" opacity="0.8" />
+                <circle cx="400" cy="24" r="8" fill="#ffffff" opacity="0.2" />
               </svg>
             </div>
           </div>
@@ -627,26 +635,9 @@ function ClosingCTA() {
 }
 
 export default function ServicesPage() {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <div className="svc-shell svc-shell--v2">
-      <header className={`svc-nav ${scrolled ? "is-scrolled" : ""}`}>
-        <a href="/" className="svc-nav__brand">Revlient</a>
-        <nav className="svc-nav__links" aria-label="Primary">
-          <a href="/">Home</a>
-          <a href="/services">Services</a>
-          <a href="/process">Process</a>
-          <a href="/work">Work</a>
-          <a href={CTA_HREF}>Contact</a>
-        </nav>
-      </header>
+      <Nav />
 
       <HeroV2 />
       <LogoMarquee />

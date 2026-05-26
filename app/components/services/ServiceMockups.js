@@ -5,7 +5,7 @@
 const STROKE = "rgba(255, 255, 255, 0.42)";
 const STROKE_FAINT = "rgba(255, 255, 255, 0.22)";
 const FILL_FAINT = "rgba(255, 255, 255, 0.06)";
-const ACCENT = "#C084FC";
+const ACCENT = "#ffffff";
 
 function Frame({ children }) {
   return (
@@ -40,7 +40,7 @@ function MockWeb() {
       {/* hero section */}
       <rect x="26" y="48" width="180" height="6" rx="2" fill={STROKE} />
       <rect x="26" y="58" width="140" height="4" rx="2" fill={STROKE_FAINT} />
-      <rect x="26" y="66" width="50" height="10" rx="5" fill="rgba(192, 132, 252, 0.22)" stroke="rgba(192, 132, 252, 0.55)" strokeWidth="0.75" />
+      <rect x="26" y="66" width="50" height="10" rx="5" fill="rgba(255, 255, 255, 0.22)" stroke="rgba(255, 255, 255, 0.55)" strokeWidth="0.75" />
       <rect x="226" y="46" width="148" height="34" rx="4" fill={FILL_FAINT} stroke={STROKE_FAINT} strokeWidth="0.75" />
       {/* 3-col grid */}
       {[0, 1, 2].map((i) => (
@@ -128,7 +128,7 @@ function MockApp() {
           <rect x="124" y={30 + i * 30} width="80" height="3" rx="1.5" fill={STROKE_FAINT} />
           {i === 1 ? (
             <g>
-              <rect x="328" y={22 + i * 30} width="42" height="12" rx="6" fill="rgba(192, 132, 252, 0.22)" stroke="rgba(192, 132, 252, 0.55)" strokeWidth="0.75" />
+              <rect x="328" y={22 + i * 30} width="42" height="12" rx="6" fill="rgba(255, 255, 255, 0.22)" stroke="rgba(255, 255, 255, 0.55)" strokeWidth="0.75" />
               <text x="349" y={31 + i * 30} fontSize="7" fontFamily="ui-monospace, Menlo, monospace" fill={ACCENT} textAnchor="middle">Open</text>
             </g>
           ) : (
@@ -150,8 +150,8 @@ function MockAutomation() {
         width="78"
         height="30"
         rx="6"
-        fill={hot ? "rgba(192, 132, 252, 0.18)" : FILL_FAINT}
-        stroke={hot ? "rgba(192, 132, 252, 0.55)" : STROKE_FAINT}
+        fill={hot ? "rgba(255, 255, 255, 0.18)" : FILL_FAINT}
+        stroke={hot ? "rgba(255, 255, 255, 0.55)" : STROKE_FAINT}
         strokeWidth="1"
       />
       <circle cx={x + 12} cy={y + 15} r="3.5" fill={hot ? ACCENT : STROKE} />

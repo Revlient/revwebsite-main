@@ -45,7 +45,7 @@ export default function FinalCTA() {
       {/* Concentric rotating orbits */}
       <div className="finale__orbit-wrapper" aria-hidden="true">
         <svg viewBox="0 0 400 400" className="finale__orbit finale__orbit--inner">
-          <circle cx="200" cy="200" r="130" stroke="rgba(192, 132, 252, 0.08)" strokeWidth="1" strokeDasharray="3 5" fill="none" />
+          <circle cx="200" cy="200" r="130" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="1" strokeDasharray="3 5" fill="none" />
         </svg>
         <svg viewBox="0 0 400 400" className="finale__orbit finale__orbit--outer">
           <circle cx="200" cy="200" r="170" stroke="rgba(111, 140, 255, 0.06)" strokeWidth="1" strokeDasharray="8 12" fill="none" />

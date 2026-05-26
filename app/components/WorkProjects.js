@@ -97,19 +97,41 @@ function ArrowUpRight({ className = "" }) {
 export default function WorkProjects() {
   const [activeCategory, setActiveCategory] = useState("All");
   const sectionRef = useRef(null);
+  const sectionRectRef = useRef(null);
+  const cardRectsRef = useRef(new Map());
   const [coords, setCoords] = useState({ x: 50, y: 50 });
 
+  const handleSectionMouseEnter = () => {
+    if (sectionRef.current) {
+      sectionRectRef.current = sectionRef.current.getBoundingClientRect();
+    }
+  };
+
   const handleSectionMouseMove = (e) => {
-    if (!sectionRef.current) return;
-    const rect = sectionRef.current.getBoundingClientRect();
+    if (!sectionRectRef.current) {
+      if (sectionRef.current) {
+        sectionRectRef.current = sectionRef.current.getBoundingClientRect();
+      } else {
+        return;
+      }
+    }
+    const rect = sectionRectRef.current;
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
     setCoords({ x, y });
   };
 
+  const handleSectionMouseLeave = () => {
+    sectionRectRef.current = null;
+  };
+
   const handleCardMouseMove = (e) => {
     const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
+    let rect = cardRectsRef.current.get(card);
+    if (!rect) {
+      rect = card.getBoundingClientRect();
+      cardRectsRef.current.set(card, rect);
+    }
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     const xc = rect.width / 2;
@@ -124,6 +146,7 @@ export default function WorkProjects() {
 
   const handleCardMouseLeave = (e) => {
     const card = e.currentTarget;
+    cardRectsRef.current.delete(card);
     card.style.setProperty("--rx", `0deg`);
     card.style.setProperty("--ry", `0deg`);
   };
@@ -139,7 +162,9 @@ export default function WorkProjects() {
       className="work-projects"
       id="projects"
       ref={sectionRef}
+      onMouseEnter={handleSectionMouseEnter}
       onMouseMove={handleSectionMouseMove}
+      onMouseLeave={handleSectionMouseLeave}
       style={{
         "--mx": `${coords.x}%`,
         "--my": `${coords.y}%`,

@@ -1,0 +1,373 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+/* Pinned service showcase, two-screen flow:
+   1. Section starts. User sees the 16:9 video at the top of section.
+   2. As they scroll, video moves up naturally.
+   3. When 40% of the video has scrolled out, the stage pins
+      (position: sticky with a negative top equal to 40% of player
+      height) and further scroll translates the service list upward.
+   4. Each new active row plays a synthesized "node" tick.
+   PROOF RULE: studio capability framing only — no client names,
+   metrics, fabricated proof. */
+
+const VIDEO_SRC = "/work/saas-demo.mp4";
+
+/* Each service paired with a glass chess piece that pops in
+   alongside the title. Symbols chosen to read against the
+   service: governance, versatility, fortress, agility, range,
+   strategy, foundation, defence. */
+const SERVICES = [
+  { name: "Enterprise Management Solution", piece: "♔", tags: ["ERP", "Operations", "Automation"] },
+  { name: "Website & CMS Solutions",        piece: "♕", tags: ["Web", "CMS", "Performance"] },
+  { name: "Enterprise Ecommerce Platform",  piece: "♖", tags: ["Commerce", "Catalog", "Checkout"] },
+  { name: "Custom Application Development", piece: "♘", tags: ["Web app", "Mobile", "Internal tools"] },
+  { name: "SaaS Solutions",                 piece: "♗", tags: ["Multi-tenant", "Subscriptions", "Cloud"] },
+  { name: "Advanced Technology Solutions",  piece: "♚", tags: ["AI", "Automation", "Integrations"] },
+  { name: "Design & Experience",            piece: "♙", tags: ["UI", "Motion", "Brand"] },
+  { name: "Cybersecurity Solutions",        piece: "♜", tags: ["Audit", "Hardening", "Compliance"] },
+];
+
+/* Synthesized node-tick (Web Audio API) — no asset needed. */
+function makeTick() {
+  let ctx = null;
+  let unlocked = false;
+
+  const unlock = () => {
+    if (ctx) return;
+    try {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      unlocked = true;
+    } catch (_) {
+      ctx = null;
+    }
+  };
+
+  const play = () => {
+    if (!unlocked || !ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(880, now);
+      osc.frequency.exponentialRampToValueAtTime(440, now + 0.08);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.06, now + 0.005);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.13);
+    } catch (_) {}
+  };
+
+  return { unlock, play };
+}
+
+export default function ServicePinScroll() {
+  const sectionRef = useRef(null);
+  const stageRef = useRef(null);
+  const listRef = useRef(null);
+  const playerRef = useRef(null);
+  const videoRef = useRef(null);
+  const rafRef = useRef(0);
+  const inViewRef = useRef(false);
+  const tickRef = useRef(null);
+  const lastIdxRef = useRef(-1);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const [hoverIndex, setHoverIndex] = useState(-1);
+
+  useEffect(() => {
+    tickRef.current = makeTick();
+
+    const onFirstInteract = () => {
+      tickRef.current.unlock();
+      window.removeEventListener("pointerdown", onFirstInteract);
+      window.removeEventListener("keydown", onFirstInteract);
+      window.removeEventListener("wheel", onFirstInteract);
+      window.removeEventListener("touchstart", onFirstInteract);
+    };
+    window.addEventListener("pointerdown", onFirstInteract, { once: true });
+    window.addEventListener("keydown", onFirstInteract, { once: true });
+    window.addEventListener("wheel", onFirstInteract, { once: true, passive: true });
+    window.addEventListener("touchstart", onFirstInteract, { once: true, passive: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", onFirstInteract);
+      window.removeEventListener("keydown", onFirstInteract);
+      window.removeEventListener("wheel", onFirstInteract);
+      window.removeEventListener("touchstart", onFirstInteract);
+    };
+  }, []);
+
+  // Sync stage sticky top so pin engages AFTER the video has fully
+  // scrolled off-screen. JS reads player.offsetHeight and writes
+  // -playerHeight (plus stage's top padding) to --svcpin-stick.
+  useEffect(() => {
+    const stage = stageRef.current;
+    const player = playerRef.current;
+    if (!stage || !player) return;
+    const syncPinTop = () => {
+      const h = player.offsetHeight;
+      // pull stage up by full player height so video is fully out
+      // before pin engages
+      stage.style.setProperty("--svcpin-stick", `${-Math.round(h + 24)}px`);
+    };
+    syncPinTop();
+    const ro = new ResizeObserver(syncPinTop);
+    ro.observe(player);
+    window.addEventListener("resize", syncPinTop);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", syncPinTop);
+    };
+  }, []);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const list = listRef.current;
+    if (!section || !list) return;
+
+    const reduced =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let lastProgress = -1;
+
+    const update = () => {
+      const rect = section.getBoundingClientRect();
+      const total = Math.max(1, section.offsetHeight - window.innerHeight);
+      const rawProgress = Math.max(0, Math.min(1, -rect.top / total));
+      if (rawProgress === lastProgress) return;
+      lastProgress = rawProgress;
+
+      const listH = list.scrollHeight;
+      const viewportH = list.parentElement.clientHeight;
+      const maxY = Math.max(0, listH - viewportH);
+      const y = rawProgress * maxY;
+      list.style.transform = `translate3d(0, ${-y}px, 0)`;
+
+      // Shift slot mapping so nothing appears until the stage has
+      // actually pinned. The user sees the video fully scroll out
+      // and the section "stop", then the first service fades in.
+      const playerH = playerRef.current ? playerRef.current.offsetHeight : 0;
+      const pinStartProgress = (playerH + 24) / total;
+      const afterPin = Math.max(
+        0,
+        (rawProgress - pinStartProgress) / Math.max(0.001, 1 - pinStartProgress)
+      );
+
+      // Slots: [empty, ...8 services, outro panel] = 10.
+      // After service 8 fades out, slot 9 = outro panel rises.
+      const slots = SERVICES.length + 2;
+      const slot = Math.min(slots - 1, Math.floor(afterPin * slots));
+      // slot 0 = empty, slot 1..8 = service slot-1, slot 9 = outro
+      const idx = slot - 1;
+      if (idx !== lastIdxRef.current) {
+        lastIdxRef.current = idx;
+        setActiveIndex(idx);
+        if (tickRef.current && !reduced && idx >= 0) tickRef.current.play();
+      }
+    };
+
+    const onScroll = () => {
+      if (!inViewRef.current) return;
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(update);
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        const e = entries[0];
+        inViewRef.current = e.isIntersecting;
+        if (e.isIntersecting) {
+          window.addEventListener("scroll", onScroll, { passive: true });
+          update();
+        } else {
+          window.removeEventListener("scroll", onScroll);
+        }
+      },
+      { rootMargin: "0px 0px -1px 0px", threshold: 0 }
+    );
+    io.observe(section);
+
+    // Video playback safety net: force-play on mount + restart on
+    // 'ended' (in case loop attribute is ignored), and try to resume
+    // if the browser quietly pauses it (autoplay throttling, off-
+    // screen pause heuristics, etc.).
+    const v = videoRef.current;
+    if (v) {
+      v.muted = true;
+      v.loop = true;
+      const tryPlay = () => v.play().catch(() => {});
+      tryPlay();
+      const onEnded = () => {
+        try {
+          v.currentTime = 0;
+        } catch (_) {}
+        tryPlay();
+      };
+      const onPause = () => {
+        if (inViewRef.current && !reduced) tryPlay();
+      };
+      const onCanPlay = () => tryPlay();
+      v.addEventListener("ended", onEnded);
+      v.addEventListener("pause", onPause);
+      v.addEventListener("canplay", onCanPlay);
+
+      if (reduced) v.pause();
+
+      return () => {
+        io.disconnect();
+        window.removeEventListener("scroll", onScroll);
+        cancelAnimationFrame(rafRef.current);
+        v.removeEventListener("ended", onEnded);
+        v.removeEventListener("pause", onPause);
+        v.removeEventListener("canplay", onCanPlay);
+      };
+    }
+
+    return () => {
+      io.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  const isEmptySlot = activeIndex < 0;
+  const isOutroSlot = activeIndex >= SERVICES.length;
+  const active = isEmptySlot || isOutroSlot ? null : SERVICES[activeIndex];
+
+  return (
+    <section ref={sectionRef} className="svcpin" aria-label="Studio services">
+      <div className="svcpin__atmosphere" aria-hidden="true">
+        <span className="svcpin__bloom svcpin__bloom--blue" />
+        <span className="svcpin__bloom svcpin__bloom--violet" />
+      </div>
+
+      <div ref={stageRef} className="svcpin__stage">
+        <div ref={playerRef} className="svcpin__player" aria-hidden="true">
+          <video
+            ref={videoRef}
+            className="svcpin__video"
+            src={VIDEO_SRC}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+          />
+          <div className="svcpin__player-vignette" />
+          <div className="svcpin__player-caption">
+            <span className="svcpin__player-dot" />
+            <span className="svcpin__player-eyebrow">Now showing</span>
+            <span className="svcpin__player-name" aria-live="polite">
+              {active ? active.name : "Scroll to explore"}
+            </span>
+          </div>
+        </div>
+
+        <div className="svcpin__list-viewport">
+          {/* Intro heading — visible during the empty leading slot,
+              fades out the moment the first service activates. */}
+          <div
+            className={`svcpin__intro${isEmptySlot ? " is-active" : ""}`}
+            aria-hidden={!isEmptySlot}
+          >
+            <span className="svcpin__intro-eyebrow">
+              <span className="svcpin__intro-dot" />
+              Capabilities · 01 / {String(SERVICES.length).padStart(2, "0")}
+            </span>
+            <h2 className="svcpin__intro-title">
+              <span className="svcpin__intro-word">Our</span>
+              <span className="svcpin__intro-word">Major</span>
+              <span className="svcpin__intro-word svcpin__intro-word--accent">
+                Services.
+              </span>
+            </h2>
+            <span className="svcpin__intro-hint">
+              <span className="svcpin__intro-hint-line" />
+              Keep scrolling
+            </span>
+          </div>
+          <ul ref={listRef} className="svcpin__list">
+            {SERVICES.map((svc, i) => {
+              const isActive = i === activeIndex;
+              const isHover = i === hoverIndex;
+              return (
+                <li
+                  key={svc.name}
+                  className={`svcpin__row${isActive ? " is-active" : ""}${isHover ? " is-hover" : ""}`}
+                  aria-current={isActive ? "true" : undefined}
+                  onPointerEnter={() => setHoverIndex(i)}
+                  onPointerLeave={() => setHoverIndex(-1)}
+                  onFocus={() => setHoverIndex(i)}
+                  onBlur={() => setHoverIndex(-1)}
+                  tabIndex={0}
+                >
+                  <span className="svcpin__row-index">
+                    {String(i + 1).padStart(2, "0")}.
+                  </span>
+                  <span className="svcpin__row-piece" aria-hidden="true">
+                    {svc.piece}
+                  </span>
+                  <span className="svcpin__row-name">{svc.name}</span>
+                  <span className="svcpin__row-tags">
+                    {svc.tags.map((t) => (
+                      <span key={t} className="svcpin__row-tag">{t}</span>
+                    ))}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        {/* Outro panel — rises from below after the 8th service
+            fades out. Oversized glass card that bleeds off-screen
+            top + right. Contains View More + Start a Project. */}
+        <div
+          className={`svcpin__outro${isOutroSlot ? " is-active" : ""}`}
+          aria-hidden={!isOutroSlot}
+        >
+          <div className="svcpin__outro-content">
+            <span className="svcpin__outro-eyebrow">Ready to start?</span>
+            <h3 className="svcpin__outro-title">
+              Let&apos;s build<br />your system.
+            </h3>
+            <p className="svcpin__outro-p">
+              Browse the full service catalogue or skip straight to
+              a kickoff call.
+            </p>
+            <div className="svcpin__outro-actions">
+              <a
+                href="/services"
+                className="svcpin__outro-btn svcpin__outro-btn--primary"
+                tabIndex={isOutroSlot ? 0 : -1}
+              >
+                <span>View More Services</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="M13 6l6 6-6 6" />
+                </svg>
+              </a>
+              <a
+                href="#start"
+                className="svcpin__outro-btn svcpin__outro-btn--ghost"
+                tabIndex={isOutroSlot ? 0 : -1}
+              >
+                <span>Start a project</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

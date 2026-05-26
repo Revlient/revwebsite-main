@@ -37,8 +37,13 @@ export default function InfiniteGrid() {
       raf = requestAnimationFrame(tick);
     };
 
+    let rect = node.getBoundingClientRect();
+
+    const handleResize = () => {
+      rect = node.getBoundingClientRect();
+    };
+
     const onMove = (e) => {
-      const rect = node.getBoundingClientRect();
       node.style.setProperty("--imx", `${e.clientX - rect.left}px`);
       node.style.setProperty("--imy", `${e.clientY - rect.top}px`);
     };
@@ -48,12 +53,16 @@ export default function InfiniteGrid() {
 
     document.addEventListener("mousemove", onMove, { passive: true });
     document.addEventListener("visibilitychange", onVis);
+    window.addEventListener("resize", handleResize, { passive: true });
 
     let io = null;
     if (typeof IntersectionObserver !== "undefined") {
       io = new IntersectionObserver(
         (entries) => {
           inView = entries[0] ? entries[0].isIntersecting : true;
+          if (inView) {
+            rect = node.getBoundingClientRect();
+          }
         },
         { rootMargin: "200px" }
       );
@@ -66,6 +75,7 @@ export default function InfiniteGrid() {
       cancelAnimationFrame(raf);
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("visibilitychange", onVis);
+      window.removeEventListener("resize", handleResize);
       if (io) io.disconnect();
     };
   }, []);

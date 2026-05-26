@@ -287,7 +287,7 @@ export default function ErpFeatures() {
                       <svg className="rosphone__kpi-chart" viewBox="0 0 120 28" preserveAspectRatio="none">
                         <polyline
                           fill="none"
-                          stroke="#a855f7"
+                          stroke="#ffffff"
                           strokeWidth="1.6"
                           points="2,16 26,12 48,13 70,10 92,14 118,22"
                         />

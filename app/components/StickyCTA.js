@@ -10,6 +10,8 @@ export default function StickyCTA() {
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
+    let nearFinale = false;
+
     const finale =
       typeof document !== "undefined"
         ? document.getElementById("start")
@@ -17,20 +19,27 @@ export default function StickyCTA() {
 
     const onScroll = () => {
       const pastHero = window.scrollY > window.innerHeight * 0.9;
-      let nearFinale = false;
-      if (finale) {
-        const rect = finale.getBoundingClientRect();
-        nearFinale = rect.top < window.innerHeight * 0.9;
-      }
       setShown(pastHero && !nearFinale);
     };
 
+    let observer = null;
+    if (finale && typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(([entry]) => {
+        nearFinale = entry.isIntersecting;
+        onScroll();
+      }, {
+        rootMargin: "0px 0px -10% 0px"
+      });
+      observer.observe(finale);
+    }
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      if (observer) observer.disconnect();
     };
   }, []);
 
