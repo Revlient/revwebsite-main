@@ -1,4 +1,5 @@
 import Hero from "./components/Hero";
+import Nav from "./components/Nav";
 import AiPromptSection from "./components/AiPromptSection";
 import ShowcaseCards from "./components/ShowcaseCards";
 import Faq from "./components/Faq";
@@ -19,6 +20,7 @@ import ContactWidget from "./components/ContactWidget";
 export default function HomePage() {
   return (
     <>
+      <Nav scrolledOnly={true} />
       <main>
         <Hero />
         <AiPromptSection />

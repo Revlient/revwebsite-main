@@ -4,12 +4,72 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { WHATSAPP_URL, PHONE_TEL, PHONE_DISPLAY } from "../lib/site";
 import { GREETING, QUICK_REPLIES, botReply } from "../lib/chatbot";
 
-/* Persistent right-side contact widget.
-   - A always-visible launcher that expands ("drop down") into
-     WhatsApp + Call actions.
-   - A self-contained, rule-based chat bot (no external SDK, no API key,
-     no new dependency — keyword matching with canned answers that route
-     to the real channels). Honest: it's an assistant, not an LLM. */
+// Safely converts basic markdown tags to styled HTML for the popup chatbot
+function parseMarkdown(text) {
+  if (!text) return "";
+  
+  // Escape HTML characters to prevent XSS
+  let html = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+  
+  // Code block: ```code```
+  html = html.replace(/```([\s\S]*?)```/g, (_, code) => {
+    return `<pre class="aichat__code-block"><code>${code.trim()}</code></pre>`;
+  });
+
+  // Inline code: `code`
+  html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
+
+  // Headers: ### Header
+  html = html.replace(/^### (.*?)$/gm, "<h3>$1</h3>");
+  html = html.replace(/^## (.*?)$/gm, "<h2>$1</h2>");
+  html = html.replace(/^# (.*?)$/gm, "<h1>$1</h1>");
+
+  // Bold: **text**
+  html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+
+  // Italic: *text*
+  html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+
+  // Bullet lists: - item or * item
+  let inList = false;
+  const lines = html.split("\n");
+  const processedLines = lines.map((line) => {
+    const trimmed = line.trim();
+    if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+      const content = trimmed.substring(2);
+      let prefix = "";
+      if (!inList) {
+        inList = true;
+        prefix = '<ul class="aichat__list">';
+      }
+      return `${prefix}<li>${content}</li>`;
+    } else {
+      let suffix = "";
+      if (inList) {
+        inList = false;
+        suffix = "</ul>";
+      }
+      return `${suffix}${line}`;
+    }
+  });
+  if (inList) {
+    processedLines.push("</ul>");
+  }
+  html = processedLines.join("\n");
+
+  // Convert standard newlines to <br /> (excluding existing block structures)
+  html = html.replace(/\n/g, "<br />");
+  
+  // Cleanups
+  html = html.replace(/<\/ul><br \/>/g, "</ul>");
+  html = html.replace(/<ul class="aichat__list"><br \/>/g, '<ul class="aichat__list">');
+  html = html.replace(/<\/li><br \/>/g, "</li>");
+  
+  return html;
+}
 
 const IconChat = () => (
   <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
@@ -53,6 +113,7 @@ export default function ContactWidget() {
     { from: "bot", text: GREETING, actions: null },
   ]);
   const [draft, setDraft] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const bodyRef = useRef(null);
 
   useEffect(() => {
@@ -70,19 +131,53 @@ export default function ContactWidget() {
     if (bodyRef.current) {
       bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
     }
-  }, [messages, chat]);
+  }, [messages, chat, isTyping]);
 
-  const send = useCallback((text) => {
+  const send = useCallback(async (text) => {
     const value = text.trim();
     if (!value) return;
-    const reply = botReply(value);
-    setMessages((m) => [
-      ...m,
-      { from: "user", text: value },
-      { from: "bot", text: reply.text, actions: reply.actions || null },
-    ]);
+
+    setMessages((m) => [...m, { from: "user", text: value }]);
     setDraft("");
-  }, []);
+    setIsTyping(true);
+
+    try {
+      const history = [...messages, { from: "user", text: value }].map((m) => ({
+        role: m.from === "user" ? "user" : "assistant",
+        content: m.text,
+      }));
+
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: history }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Chat widget API route failed");
+      }
+
+      const data = await res.json();
+      if (!data.text) {
+        throw new Error("Invalid API payload returned");
+      }
+
+      setMessages((m) => [
+        ...m,
+        { from: "bot", text: data.text, actions: data.actions || null },
+      ]);
+    } catch (err) {
+      console.warn("Popup AI Chat API failed, falling back to rule replies:", err);
+      // Offline fallback
+      const reply = botReply(value);
+      setMessages((m) => [
+        ...m,
+        { from: "bot", text: reply.text, actions: reply.actions || null },
+      ]);
+    } finally {
+      setIsTyping(false);
+    }
+  }, [messages]);
 
   return (
     <div className="cwidget">
@@ -109,7 +204,11 @@ export default function ContactWidget() {
           <div className="chatbot__body" ref={bodyRef}>
             {messages.map((m, i) => (
               <div key={i} className={`chatbot__msg is-${m.from}`}>
-                <p>{m.text}</p>
+                {m.from === "bot" ? (
+                  <p dangerouslySetInnerHTML={{ __html: parseMarkdown(m.text) }} />
+                ) : (
+                  <p>{m.text}</p>
+                )}
                 {m.actions && (
                   <div className="chatbot__actions">
                     {m.actions.map((a) => (
@@ -133,7 +232,17 @@ export default function ContactWidget() {
               </div>
             ))}
 
-            {messages.length === 1 && (
+            {isTyping && (
+              <div className="chatbot__msg is-bot is-typing">
+                <div className="chatbot__typing-dots">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              </div>
+            )}
+
+            {messages.length === 1 && !isTyping && (
               <div className="chatbot__quick">
                 {QUICK_REPLIES.map((q) => (
                   <button
@@ -161,8 +270,9 @@ export default function ContactWidget() {
               onChange={(e) => setDraft(e.target.value)}
               placeholder="Type a message…"
               aria-label="Message"
+              disabled={isTyping}
             />
-            <button type="submit" aria-label="Send">
+            <button type="submit" aria-label="Send" disabled={isTyping}>
               <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
                 <path d="M4 4l16 8-16 8 3.4-8L4 4Z" fill="currentColor" />
               </svg>

@@ -7,6 +7,7 @@ import Reveal from "../../components/Reveal";
 import Footer from "../../components/Footer";
 import StickyCTA from "../../components/StickyCTA";
 import ContactWidget from "../../components/ContactWidget";
+import Nav from "../../components/Nav";
 import { SERVICES, getService } from "../../lib/services";
 import { CTA_HREF, CTA_LABEL } from "../../lib/site";
 
@@ -93,16 +94,7 @@ export default async function ServicePage({ params }) {
   return (
     <div className="svc-shell svc-shell--v2 svcpage-shell">
       {/* Shared Nav Header */}
-      <header className="svc-nav is-scrolled">
-        <a href="/" className="svc-nav__brand">Revlient</a>
-        <nav className="svc-nav__links" aria-label="Primary">
-          <a href="/">Home</a>
-          <a href="/services">Services</a>
-          <a href="/process">Process</a>
-          <a href="/work">Work</a>
-          <a href={CTA_HREF}>Contact</a>
-        </nav>
-      </header>
+      <Nav scrolledOnly={false} />
 
       <main className="svcpage-main">
         {/* Immersive Hero Section */}
