@@ -76,8 +76,9 @@ export default function FadingVideo({ src, className = "", style }) {
       autoPlay
       muted
       playsInline
-      preload="auto"
+      preload="metadata"
       aria-hidden="true"
     />
+
   );
 }

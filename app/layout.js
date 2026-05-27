@@ -11,7 +11,9 @@ import {
 import { BRAND } from "./lib/site";
 import MusicToggle from "./components/MusicToggle";
 import GlobalOptimizer from "./components/GlobalOptimizer";
+import SmoothScroll from "./components/SmoothScroll";
 import { TransitionProvider } from "../src/context/TransitionContext";
+
 import { TransitionOverlay } from "../src/components/TransitionOverlay";
 
 // DM Sans + Caveat are scoped to the new footer via CSS variables — the
@@ -119,6 +121,7 @@ export default function RootLayout({ children }) {
         {/* Persists across route changes (lives in the root layout). */}
         <MusicToggle />
         <GlobalOptimizer />
+        <SmoothScroll />
       </body>
     </html>
   );

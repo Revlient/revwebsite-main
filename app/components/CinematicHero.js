@@ -19,7 +19,7 @@ export default function CinematicHero() {
         loop
         muted
         playsInline
-        preload="auto"
+        preload="metadata"
         aria-hidden="true"
       />
 

@@ -12,14 +12,39 @@ import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
 import ContactWidget from "./components/ContactWidget";
+import { BRAND, CONTACT_EMAIL, PHONE_TEL } from "./lib/site";
 
 // Homepage. Cinematic hero + capabilities open the page; the rest
 // of the sections follow. WorkFeatureSection moves down to live
 // between the AmbientDashboard cockpit and ProcessSpine.
 export default function HomePage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": BRAND.name,
+    "legalName": BRAND.legalName,
+    "url": "https://revlient.com",
+    "logo": "https://revlient.com/logo.svg",
+    "description": "Revlient is a premium creative studio crafting 3D-grade websites and applications, engineered to feel as good as they look.",
+    "telephone": PHONE_TEL,
+    "email": CONTACT_EMAIL,
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "IN"
+    },
+    "sameAs": [
+      "https://systems.revlient.com"
+    ]
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Nav className="page-home-nav" />
+
       <main>
         <CinematicHero />
 
