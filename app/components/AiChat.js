@@ -3,19 +3,23 @@
 import { useEffect, useRef, useState } from "react";
 import AiPromptBox from "./AiPromptBox";
 import { botReply } from "../lib/chatbot";
+import { fetchAIReply } from "../lib/ai";
 
 // Inline chat for the prompt section. The conversation happens right
 // here — the message is answered in place, it does not open the
-// floating contact widget. Same shared rule-based bot.
+// floating contact widget. Uses the Groq-backed assistant endpoint with
+// a local fallback when necessary.
 export default function AiChat({ onChattingChange }) {
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const threadRef = useRef(null);
 
   useEffect(() => {
     if (threadRef.current) {
       threadRef.current.scrollTop = threadRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, loading]);
 
   // Bubble the active state up so the section can switch into its
   // full-screen chat layout (prompt pinned to the bottom, thread
@@ -24,15 +28,30 @@ export default function AiChat({ onChattingChange }) {
     if (onChattingChange) onChattingChange(messages.length > 0);
   }, [messages.length, onChattingChange]);
 
-  const handleSend = (message) => {
+  const handleSend = async (message) => {
     const value = (message || "").trim();
     if (!value) return;
-    const reply = botReply(value);
-    setMessages((m) => [
-      ...m,
-      { from: "user", text: value },
-      { from: "bot", text: reply.text, actions: reply.actions || null },
-    ]);
+    const outgoing = { from: "user", text: value };
+    setError(null);
+    setMessages((m) => [...m, outgoing]);
+    setLoading(true);
+
+    const conversation = [...messages, outgoing].map((m) => ({
+      role: m.from === "user" ? "user" : "assistant",
+      content: m.text,
+    }));
+
+    try {
+      const data = await fetchAIReply(conversation);
+      const replyText = data.text || "Thanks — our team will be in touch with the next step.";
+      setMessages((m) => [...m, { from: "bot", text: replyText, actions: data.actions || null }]);
+    } catch (err) {
+      const reply = botReply(value);
+      setMessages((m) => [...m, { from: "bot", text: reply.text, actions: reply.actions || null }]);
+      setError("AI assistant unavailable, using fallback response.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -59,6 +78,12 @@ export default function AiChat({ onChattingChange }) {
               )}
             </div>
           ))}
+          {loading && (
+            <div className="aichat__msg is-bot">
+              <p>Thinking…</p>
+            </div>
+          )}
+          {error && <div className="aichat__error">{error}</div>}
         </div>
       )}
       <AiPromptBox

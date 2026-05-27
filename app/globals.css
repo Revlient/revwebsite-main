@@ -3892,15 +3892,19 @@ html.js .reveal.is-visible {
 
 /* Chat bot panel */
 .chatbot {
+  position: fixed;
+  right: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  bottom: 6rem;
   width: min(360px, calc(100vw - 2rem));
   height: min(520px, calc(100vh - 8rem));
-  background: var(--panel);
-  border: 1px solid var(--line-strong);
+  background: rgba(10, 13, 20, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(20px);
 }
 
 .chatbot__head {
@@ -3908,8 +3912,8 @@ html.js .reveal.is-visible {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.1rem;
-  background: var(--panel-2);
-  border-bottom: 1px solid var(--line);
+  background: rgba(15, 20, 32, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .chatbot__head strong {
@@ -3940,21 +3944,21 @@ html.js .reveal.is-visible {
 .chatbot__body {
   flex: 1;
   overflow-y: auto;
-  padding: 1.1rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 0.75rem;
 }
 
 .chatbot__msg {
-  max-width: 85%;
+  max-width: 86%;
 }
 
 .chatbot__msg p {
-  padding: 0.65rem 0.9rem;
-  border-radius: 14px;
+  padding: 0.8rem 1rem;
+  border-radius: 20px;
   font-size: var(--step--1);
-  line-height: 1.45;
+  line-height: 1.6;
 }
 
 .chatbot__msg.is-bot {
@@ -4015,19 +4019,19 @@ html.js .reveal.is-visible {
 .chatbot__form {
   display: flex;
   gap: 0.5rem;
-  padding: 0.75rem;
-  border-top: 1px solid var(--line);
-  background: var(--panel-2);
+  padding: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 20, 32, 0.95);
 }
 
 .chatbot__form input {
   flex: 1;
   font: inherit;
   font-size: var(--step--1);
-  padding: 0.6rem 0.85rem;
+  padding: 0.75rem 1rem;
   border-radius: 999px;
-  border: 1px solid var(--line-strong);
-  background: var(--bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--text);
 }
 
@@ -4052,6 +4056,17 @@ html.js .reveal.is-visible {
 
 .chatbot__form button:hover {
   background: var(--blue-light);
+}
+
+.chatbot__error,
+.aichat__error {
+  margin-top: 0.6rem;
+  padding: 0.75rem 0.95rem;
+  border-radius: 16px;
+  background: rgba(255, 85, 85, 0.12);
+  color: #ffb3b3;
+  font-size: 0.86rem;
+  border: 1px solid rgba(255, 85, 85, 0.18);
 }
 
 @media (max-width: 480px) {
@@ -20123,6 +20138,7 @@ a.feat2-reach__line:hover {
 .h-chat-light {
   position: relative;
   isolation: isolate;
+  overflow-x: clip;
 }
 .h-chat-light::before {
   content: "";
@@ -20925,7 +20941,8 @@ a.feat2-reach__line:hover {
      (empty buffer + 8 services + CTA) with comfortable
      dwell time per service. */
   min-height: 460vh;
-  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
   isolation: isolate;
 }
 
@@ -21484,7 +21501,8 @@ a.feat2-reach__line:hover {
   background: #04050A;
   color: #ffffff;
   min-height: 360vh;
-  overflow: visible;
+  overflow-x: clip;
+  overflow-y: visible;
   isolation: isolate;
 }
 .csscroll::before {

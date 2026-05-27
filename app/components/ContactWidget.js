@@ -3,13 +3,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { WHATSAPP_URL, PHONE_TEL, PHONE_DISPLAY } from "../lib/site";
 import { GREETING, QUICK_REPLIES, botReply } from "../lib/chatbot";
+import { fetchAIReply } from "../lib/ai";
 
 /* Persistent right-side contact widget.
-   - A always-visible launcher that expands ("drop down") into
-     WhatsApp + Call actions.
-   - A self-contained, rule-based chat bot (no external SDK, no API key,
-     no new dependency — keyword matching with canned answers that route
-     to the real channels). Honest: it's an assistant, not an LLM. */
+   - Always-visible launcher that expands into WhatsApp + Call actions.
+   - Supports a live AI assistant using the Groq API key from the server,
+     with a local fallback if the AI service is unavailable.
+   - Designed to qualify leads and gently ask for contact details when the
+     user is ready to talk about a project. */
 
 const IconChat = () => (
   <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
@@ -53,6 +54,8 @@ export default function ContactWidget() {
     { from: "bot", text: GREETING, actions: null },
   ]);
   const [draft, setDraft] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const bodyRef = useRef(null);
 
   useEffect(() => {
@@ -72,17 +75,39 @@ export default function ContactWidget() {
     }
   }, [messages, chat]);
 
-  const send = useCallback((text) => {
+  const send = async (text) => {
     const value = text.trim();
     if (!value) return;
-    const reply = botReply(value);
-    setMessages((m) => [
-      ...m,
-      { from: "user", text: value },
-      { from: "bot", text: reply.text, actions: reply.actions || null },
-    ]);
+    const outgoing = { from: "user", text: value };
+    setMessages((m) => [...m, outgoing]);
     setDraft("");
-  }, []);
+    setLoading(true);
+    setError(null);
+
+    const conversation = [...messages, outgoing].map((m) => ({
+      role: m.from === "user" ? "user" : "assistant",
+      content: m.text,
+    }));
+
+    try {
+      const data = await fetchAIReply(conversation);
+      const replyText = data.text || "Thanks — our team will follow up shortly.";
+
+      setMessages((m) => [
+        ...m,
+        { from: "bot", text: replyText, actions: data.actions || null },
+      ]);
+    } catch (err) {
+      const reply = botReply(value);
+      setMessages((m) => [
+        ...m,
+        { from: "bot", text: reply.text, actions: reply.actions || null },
+      ]);
+      setError("AI assistant unavailable, using fallback response.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="cwidget">
@@ -132,6 +157,11 @@ export default function ContactWidget() {
                 )}
               </div>
             ))}
+            {loading && (
+              <div className="chatbot__msg is-bot">
+                <p>Typing…</p>
+              </div>
+            )}
 
             {messages.length === 1 && (
               <div className="chatbot__quick">
@@ -146,6 +176,7 @@ export default function ContactWidget() {
                 ))}
               </div>
             )}
+            {error && <div className="chatbot__error">{error}</div>}
           </div>
 
           <form

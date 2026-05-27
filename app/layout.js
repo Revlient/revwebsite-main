@@ -11,6 +11,8 @@ import {
 import { BRAND } from "./lib/site";
 import MusicToggle from "./components/MusicToggle";
 import GlobalOptimizer from "./components/GlobalOptimizer";
+import { TransitionProvider } from "../src/context/TransitionContext";
+import { TransitionOverlay } from "../src/components/TransitionOverlay";
 
 // DM Sans + Caveat are scoped to the new footer via CSS variables — the
 // rest of the site continues to use the system stack defined in globals.
@@ -110,7 +112,10 @@ export default function RootLayout({ children }) {
             __html: "document.documentElement.classList.add('js')",
           }}
         />
-        {children}
+        <TransitionProvider>
+          <TransitionOverlay />
+          {children}
+        </TransitionProvider>
         {/* Persists across route changes (lives in the root layout). */}
         <MusicToggle />
         <GlobalOptimizer />

@@ -17,15 +17,13 @@ export const metadata = {
   description: `Selected work from ${BRAND.name} — projects shipped end-to-end through our four-pillar service core.`,
 };
 
-/* Dedicated /work route. Video-backed hero card with the in-card
-   nav at the top, then the existing case-studies grid, FinalCTA,
-   then footer + sticky bits. The hero is self-contained — it
-   carries its own navbar — so the global <Nav /> isn't rendered
-   here. */
+/* Dedicated /work route. Video-backed hero card at the top,
+   then the existing case-studies grid, FinalCTA, then footer
+   + sticky bits. The global navbar handles navigation now. */
 export default function WorkPage() {
   return (
     <>
-      <Nav className="page-home-nav" />
+      <Nav />
       <main className="page-work">
         <WorkHero />
         <WorkFeatureSection />

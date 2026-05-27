@@ -29,19 +29,6 @@ export default function WorkHero() {
       />
 
       <div className="whero__content">
-        <nav className="whero-nav" aria-label="Primary">
-          <a href="/" className="whero-nav__logo" aria-label="Home">
-            <Logo className="whero-nav__logo-mark" />
-          </a>
-          <div className="whero-nav__pill">
-            {NAV_LINKS.map((link) => (
-              <a key={link.href} href={link.href} className="whero-nav__link">
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </nav>
-
         <div className="whero__body">
           <div className="whero__inner">
             <h1 className="whero__heading">
