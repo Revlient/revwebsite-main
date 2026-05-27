@@ -22,11 +22,11 @@ export const SYSTEMS_URL = "https://systems.revlient.com";
 // Contact channels for the floating widget.
 // TODO: replace with the studio's real numbers before launch.
 // wa.me requires international format, digits only (no +, spaces or dashes).
-export const WHATSAPP_NUMBER = "910000000000"; // TODO: real WhatsApp number
+export const WHATSAPP_NUMBER = "916238714197"; // WhatsApp number (digits only)
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
-export const PHONE_TEL = "+910000000000"; // TODO: real phone number
-export const PHONE_DISPLAY = "+91 00000 00000"; // TODO: real phone number
-export const CONTACT_EMAIL = "hello@revlient.com"; // TODO: real enquiry inbox
+export const PHONE_TEL = "+916238714197";
+export const PHONE_DISPLAY = "+91 62387 14197";
+export const CONTACT_EMAIL = "Connect@revlient.com";
 
 // In-page navigation. Each entry either scrolls to a homepage section
 // (id matches a <section id="…">) or routes to a dedicated page.

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Logo from "./Logo";
 import Reveal from "./Reveal";
-import { BRAND, CTA_HREF, CTA_LABEL } from "../lib/site";
+import { BRAND, CTA_HREF, CTA_LABEL, CONTACT_EMAIL } from "../lib/site";
 
 /* /studio landing page. Dark navy + electric-blue glow aesthetic.
    Scoped under .studiopage so the cooler palette doesn't bleed
@@ -768,7 +768,7 @@ function StudioFooter() {
           <div>
             <p className="stp-foot__h">Reach</p>
             <a href={CTA_HREF}>Start a project</a>
-            <a href="mailto:hello@revlient.com">hello@revlient.com</a>
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             <a href="/blog">Journal</a>
           </div>
         </div>

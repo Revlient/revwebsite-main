@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
-import { CTA_LABEL, CTA_HREF } from "../lib/site";
+import { CTA_LABEL, CTA_HREF, CONTACT_EMAIL } from "../lib/site";
 
 // Closing CTA. id="start" is the anchor every persistent "Start a project"
 // button currently resolves to.
@@ -80,10 +80,10 @@ export default function FinalCTA() {
             </div>
 
             <a
-              href="mailto:hello@revlient.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="btn btn--ghost finale__email"
             >
-              hello@revlient.com
+              {CONTACT_EMAIL}
             </a>
           </div>
 
