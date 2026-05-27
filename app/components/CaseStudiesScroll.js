@@ -115,7 +115,7 @@ export default function CaseStudiesScroll() {
         <header className="csscroll__head">
           <span className="csscroll__eyebrow">// Industries</span>
           <h2 className="csscroll__title">
-            Built for the businesses we know.
+            Industries we have expertise in.
           </h2>
           <div className="csscroll__meta">
             <span className="csscroll__counter">
