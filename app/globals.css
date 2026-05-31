@@ -21502,14 +21502,14 @@ a.feat2-reach__line:hover {
   height: 100svh;
   display: flex;
   flex-direction: column;
-  padding-top: clamp(4rem, 3rem + 3vw, 7rem);
-  padding-bottom: clamp(2rem, 1.5rem + 2vw, 4rem);
+  padding-top: clamp(2rem, 1.5rem + 1.5vw, 4rem);
+  padding-bottom: clamp(1.5rem, 1rem + 1vw, 2.5rem);
   z-index: 1;
 }
 
 .csscroll__head {
   width: min(1640px, 96%);
-  margin: 0 auto clamp(2rem, 1.4rem + 2vw, 3.5rem);
+  margin: 0 auto clamp(1rem, 0.8rem + 1vw, 2rem);
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
@@ -21590,7 +21590,7 @@ a.feat2-reach__line:hover {
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  padding: clamp(1.8rem, 1.2rem + 1.6vw, 3rem);
+  padding: clamp(1.4rem, 1.2rem + 1.2vw, 2.2rem);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.05) inset,
     0 40px 100px -28px rgba(0, 0, 0, 0.5);
@@ -21622,7 +21622,7 @@ a.feat2-reach__line:hover {
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: clamp(1.5rem, 1rem + 1.6vw, 3rem);
+  margin-bottom: clamp(1rem, 0.8rem + 1vw, 1.8rem);
 }
 .csscroll__card-num {
   font-family: var(--font-mono);
@@ -21656,7 +21656,7 @@ a.feat2-reach__line:hover {
   margin: 0;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(2.4rem, 1.4rem + 4.4vw, 6.5rem);
+  font-size: clamp(2rem, 1.4rem + 3.2vw, 5rem);
   line-height: 0.95;
   letter-spacing: -0.035em;
   text-transform: uppercase;
@@ -21682,7 +21682,7 @@ a.feat2-reach__line:hover {
 .csscroll__card-foot {
   position: relative;
   z-index: 1;
-  margin-top: clamp(1.4rem, 1rem + 1.4vw, 2.4rem);
+  margin-top: clamp(1rem, 0.8rem + 1vw, 1.6rem);
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;

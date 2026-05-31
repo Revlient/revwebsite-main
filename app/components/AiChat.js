@@ -14,6 +14,15 @@ export default function AiChat({ onChattingChange }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const threadRef = useRef(null);
+  // One id per conversation so the backend can upsert a single lead row
+  // as the visitor's details come in across turns.
+  const sessionIdRef = useRef(null);
+  if (!sessionIdRef.current) {
+    sessionIdRef.current =
+      typeof crypto !== "undefined" && crypto.randomUUID
+        ? crypto.randomUUID()
+        : `sess-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  }
 
   useEffect(() => {
     if (threadRef.current) {
@@ -42,7 +51,7 @@ export default function AiChat({ onChattingChange }) {
     }));
 
     try {
-      const data = await fetchAIReply(conversation);
+      const data = await fetchAIReply(conversation, sessionIdRef.current);
       const replyText = data.text || "Thanks — our team will be in touch with the next step.";
       setMessages((m) => [...m, { from: "bot", text: replyText, actions: data.actions || null }]);
     } catch (err) {
