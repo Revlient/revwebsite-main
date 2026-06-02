@@ -22,6 +22,18 @@ export default function ChatBackdrop() {
     const video = videoRef.current;
     if (!video) return undefined;
 
+    // Honour reduced-motion: skip the autoplay loop entirely. The
+    // section's gradient backdrop + vignette carry the look on their own,
+    // so motion-sensitive visitors get a calm, still scene.
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      video.style.opacity = "0";
+      return undefined;
+    }
+
     // Cancel any in-flight fade so a new one resumes from the current
     // opacity rather than snapping back to a previous start point.
     function cancelRaf() {

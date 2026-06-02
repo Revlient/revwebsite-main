@@ -103,9 +103,9 @@ const CAPS = [
   {
     id: "ai",
     eyebrow: "AI Automation",
-    headline: "Operations that run themselves.",
+    headline: "Automations that actually deliver.",
     body:
-      "Custom AI agents and automation pipelines that take routine work off your team's desk — from intake to invoicing.",
+      "Instead of generic chatbots, we engineer custom AI pipelines and intelligent agents that handle real operational workflows — transforming raw intake into audited, paid invoices.",
     tags: ["Agents", "Pipelines", "AI ops", "Integrations"],
     Visual: VisualAi,
     span: "wide",
@@ -113,9 +113,9 @@ const CAPS = [
   {
     id: "web",
     eyebrow: "Premium Websites",
-    headline: "Sites that close the deal.",
+    headline: "Websites that command authority.",
     body:
-      "Cinematic web experiences engineered to convert serious buyers — design, motion and performance held to launch-day standards.",
+      "Immersive, 3D-grade brand experiences designed to convert high-value buyers. We hold our load times, micro-interactions, and accessibility to a rigorous standard.",
     tags: ["Web", "Motion", "Performance"],
     Visual: VisualWeb,
     span: "half",
@@ -123,9 +123,9 @@ const CAPS = [
   {
     id: "erp",
     eyebrow: "ERP & Platforms",
-    headline: "Software shaped to your business.",
+    headline: "Systems built for your operational quirks.",
     body:
-      "Custom ERP and internal platforms — built around how your team actually works, not the other way around.",
+      "Stop warping your business to fit rigid software. We build tailormade ERPs and client pipelines designed around your team's exact workflow.",
     tags: ["ERP", "Internal tools", "Scale"],
     Visual: VisualErp,
     span: "third",
@@ -133,9 +133,9 @@ const CAPS = [
   {
     id: "brand",
     eyebrow: "Brand & Growth",
-    headline: "Brand systems that compound.",
+    headline: "Identity systems that compound.",
     body:
-      "Identity, messaging and growth surfaces designed to look the same in five years as they do at launch.",
+      "We craft clean, memorable visual identities, clear messaging frameworks, and growth engines designed to stay modern, fresh, and relevant for years.",
     tags: ["Identity", "Content", "Growth"],
     Visual: VisualBrand,
     span: "third",
@@ -143,9 +143,9 @@ const CAPS = [
   {
     id: "crm",
     eyebrow: "CRM & Workflows",
-    headline: "Workspaces your team logs into.",
+    headline: "Workspaces you actually enjoy logging into.",
     body:
-      "Tailored CRM and ops workspaces — project tracking, client portals, invoicing and reporting on one calm surface.",
+      "Consolidate scattered files, invoicing, customer history, and tasks onto a single, cohesive, beautifully designed interface.",
     tags: ["CRM", "Ops", "Portals"],
     Visual: VisualCrm,
     span: "third",
@@ -179,7 +179,7 @@ export default function CapabilityGrid() {
             <Reveal
               key={c.id}
               as="article"
-              className={`cap__card cap__card--${c.span}`}
+              className={`cap__card cap__card--${c.span} cap__card--${c.id}`}
               delay={i * 80}
             >
               <div className="cap__card-glow" aria-hidden="true" />

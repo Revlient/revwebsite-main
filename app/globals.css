@@ -410,8 +410,8 @@ html.js .reveal.is-visible {
   margin-left: 0.25rem;
   padding: 0.55rem 1rem;
   border-radius: 9999px;
-  background: #fff;
-  color: #000;
+  background: #fafafc;
+  color: #08090c;
   font-size: 0.86rem;
   font-weight: 600;
   text-decoration: none;
@@ -423,7 +423,7 @@ html.js .reveal.is-visible {
 }
 .nav__cta:hover {
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.92);
+  background: #eceff4;
 }
 
 .nav__toggle {
@@ -496,7 +496,7 @@ html.js .reveal.is-visible {
   align-items: stretch;
   justify-content: center;
   padding: clamp(0.75rem, 0.5rem + 0.5vw, 1.25rem);
-  background: #f0f0f0;
+  background: var(--bg);
   box-sizing: border-box;
 }
 
@@ -577,7 +577,7 @@ html.js .reveal.is-visible {
   list-style: none;
   padding: 0;
   margin: 0;
-  color: rgb(45, 45, 45);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 0.875rem;
   font-weight: 400;
 }
@@ -585,7 +585,7 @@ html.js .reveal.is-visible {
 .rhero-nav__logo-m {
   font-size: 1.25rem;
   letter-spacing: -0.03em;
-  color: rgba(30, 50, 90, 0.9);
+  color: #ffffff;
   font-weight: 400;
 }
 
@@ -630,7 +630,7 @@ html.js .reveal.is-visible {
   align-items: center;
   gap: 0.5rem;
   padding: 0.375rem 1rem 0.375rem 0.5rem;
-  background: rgba(30, 50, 90, 0.8);
+  background: rgba(255, 255, 255, 0.12);
   color: #fff;
   border-radius: 9999px;
   font-size: 0.75rem;
@@ -647,7 +647,7 @@ html.js .reveal.is-visible {
 }
 
 .rhero-nav__cta:hover {
-  background: rgba(30, 50, 90, 1);
+  background: rgba(255, 255, 255, 0.22);
   transform: scale(1.02);
 }
 
@@ -701,27 +701,27 @@ html.js .reveal.is-visible {
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   margin: 0 auto 0.75rem;
   width: fit-content;
   font-size: 14px;
-  color: rgba(30, 50, 90, 0.9);
+  color: #ffffff;
   font-weight: 400;
 }
 
 .rhero-badge__icon {
   width: 16px;
   height: 16px;
-  color: rgba(30, 50, 90, 0.8);
+  color: #ffffff;
 }
 
 .rhero-title {
   font-size: clamp(2.25rem, 1.4rem + 4.4vw, 5rem);
   font-weight: 400;
-  color: #5e6470;
+  color: var(--text);
   margin-bottom: 0.5rem;
   letter-spacing: -0.04em;
   line-height: 1.05;
@@ -729,7 +729,7 @@ html.js .reveal.is-visible {
 
 .rhero-sub {
   font-size: clamp(0.875rem, 0.8rem + 0.5vw, 1.125rem);
-  color: #5e6470;
+  color: rgba(255, 255, 255, 0.7);
   opacity: 0.8;
   line-height: 1.6;
   max-width: 36rem;
@@ -743,9 +743,10 @@ html.js .reveal.is-visible {
   right: 1rem;
   padding: 0.75rem;
   border-radius: 1.2rem;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -778,14 +779,14 @@ html.js .reveal.is-visible {
 .rhero-bl__num {
   font-size: clamp(1.5rem, 1.2rem + 1vw, 1.875rem);
   font-weight: 400;
-  color: rgba(30, 50, 90, 0.9);
+  color: #ffffff;
   letter-spacing: -0.02em;
   line-height: 1;
 }
 
 .rhero-bl__label {
   font-size: 10px;
-  color: rgba(30, 50, 90, 0.6);
+  color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 400;
@@ -802,8 +803,8 @@ html.js .reveal.is-visible {
   align-items: center;
   gap: 0.5rem;
   padding: 0.375rem 1.25rem 0.375rem 0.375rem;
-  background: #fff;
-  color: rgba(30, 50, 90, 0.9);
+  background: #fafafc;
+  color: #08090c;
   border-radius: 9999px;
   align-self: flex-start;
   font-size: 14px;
@@ -811,7 +812,7 @@ html.js .reveal.is-visible {
 }
 
 .rhero-bl__cta:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: #eceff4;
   transform: scale(1.02);
 }
 
@@ -820,7 +821,7 @@ html.js .reveal.is-visible {
 }
 
 .rhero-bl__cta-badge {
-  background: rgba(30, 50, 90, 0.1);
+  background: rgba(255, 255, 255, 0.2);
   padding: 0.25rem;
   border-radius: 9999px;
   display: inline-flex;
@@ -831,7 +832,7 @@ html.js .reveal.is-visible {
 .rhero-bl__cta-icon {
   width: 16px;
   height: 16px;
-  color: rgba(30, 50, 90, 0.9);
+  color: #08090c;
 }
 
 /* bottom-right faux-cutout */
@@ -840,7 +841,7 @@ html.js .reveal.is-visible {
   bottom: 0;
   right: 0;
   padding: 0.75rem 0.75rem 0.75rem 2rem;
-  background: #f0f0f0;
+  background: var(--bg);
   border-top-left-radius: 1.5rem;
   display: flex;
   align-items: center;
@@ -4108,7 +4109,7 @@ html.js .reveal.is-visible {
      .rhero flows straight into this section with no dark band.
      The bottom of the section fades to var(--bg) inside the vignette
      so handoff to the next (dark) section stays clean. */
-  background: #f0f0f0;
+  background: var(--bg);
   margin-top: -1px;
 }
 
@@ -4163,18 +4164,8 @@ html.js .reveal.is-visible {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  /* Cream at the very top so it meets the Hero gutter on identical
-     colour; falls to var(--bg) by ~22% so the video / vignette and
-     the dark section below all flow naturally. Bridges the cream→
-     dark band regardless of whether the looping video is currently
-     fading in or out. */
-  background: linear-gradient(
-    180deg,
-    #f0f0f0 0%,
-    #f0f0f0 4%,
-    var(--bg) 22%,
-    var(--bg) 100%
-  );
+  /* Deep dark gradient integrated with the rest of the site */
+  background: var(--bg);
   pointer-events: none;
 }
 
@@ -4207,13 +4198,11 @@ html.js .reveal.is-visible {
   inset: 0;
   pointer-events: none;
   background:
-    /* Top fades from the Hero's cream gutter (#f0f0f0) so the
-       sections meet on identical colour; bottom fades to var(--bg)
-       so the next dark section below joins cleanly. */
+    /* Top and bottom fade to var(--bg) so the sections meet cleanly */
     linear-gradient(
       180deg,
-      #f0f0f0 0%,
-      #f0f0f0 4%,
+      var(--bg) 0%,
+      var(--bg) 4%,
       transparent 18%,
       transparent 78%,
       var(--bg) 100%
@@ -4291,6 +4280,7 @@ html.js .reveal.is-visible {
 
 .aichat__msg {
   max-width: 85%;
+  min-width: 0; /* let long content shrink instead of overflowing the flex track */
 }
 
 .aichat__msg p {
@@ -4298,6 +4288,20 @@ html.js .reveal.is-visible {
   border-radius: 16px;
   font-size: var(--step-0);
   line-height: 1.45;
+  /* Pasted URLs, long tokens, and CJK strings stay inside the bubble */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.aichat__img {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  max-height: 200px;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 0.4rem;
+  object-fit: cover;
 }
 
 .aichat__msg.is-user {
@@ -4379,8 +4383,15 @@ html.js .reveal.is-visible {
   height: 56px;
   border-radius: 12px;
   overflow: hidden;
+}
+
+.aibox__thumb-view {
+  display: block;
+  width: 100%;
+  height: 100%;
   border: 0;
   padding: 0;
+  margin: 0;
   cursor: pointer;
   background: none;
 }
@@ -4389,20 +4400,24 @@ html.js .reveal.is-visible {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .aibox__thumb-x {
   position: absolute;
   top: 3px;
   right: 3px;
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  padding: 0;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.7);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .aibox__ta {
@@ -4417,7 +4432,18 @@ html.js .reveal.is-visible {
   resize: none;
   min-height: 46px;
   max-height: 220px;
-  outline: none;
+}
+
+/* Keyboard focus must stay visible. The box also lifts its border on
+   focus-within so pointer users get the same affordance. */
+.aibox__ta:focus-visible {
+  outline: 2px solid var(--blue-light);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+.aibox:focus-within {
+  border-color: rgba(74, 120, 255, 0.55);
 }
 
 .aibox__ta::placeholder {
@@ -4647,6 +4673,12 @@ html.js .reveal.is-visible {
   color: #ef4444;
 }
 
+.aibox__send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
 
 .aibox__modal {
   position: fixed;
@@ -4686,6 +4718,20 @@ html.js .reveal.is-visible {
 @media (max-width: 520px) {
   .aibox__pill span {
     display: none;
+  }
+}
+
+/* Reduced-motion: still the recording visualiser, the pulse dot, and the
+   pill icon spin. The backdrop video is held paused in ChatBackdrop.js. */
+@media (prefers-reduced-motion: reduce) {
+  .aibox__viz span,
+  .aibox__rec-time .dot {
+    animation: none;
+  }
+  .aibox__pill .aibox-pill-icon,
+  .aibox__send.is-go:hover {
+    transition: none;
+    transform: none;
   }
 }
 
@@ -20525,6 +20571,26 @@ a.feat2-reach__line:hover {
 }
 .cap__card:hover .cap__card-glow { opacity: 1; }
 
+/* Desktop-only: break monotony by turning the wide AI card horizontal */
+@media (min-width: 961px) {
+  .cap__card--ai {
+    flex-direction: row !important;
+    align-items: center;
+    gap: clamp(1.5rem, 1rem + 2vw, 3rem);
+  }
+  .cap__card--ai .cap__card-visual {
+    flex: 1.25;
+    order: 2;
+    min-height: clamp(280px, 24vh + 40px, 360px);
+    height: 100%;
+    margin: 0;
+  }
+  .cap__card--ai .cap__card-body {
+    flex: 1;
+    order: 1;
+  }
+}
+
 .cap__card-visual {
   position: relative;
   z-index: 1;
@@ -20851,9 +20917,9 @@ a.feat2-reach__line:hover {
   gap: 0.55rem;
   padding: 0.9rem 1.7rem;
   border-radius: 9999px;
-  background: #ffffff;
-  border: 1px solid #ffffff;
-  color: #0A0A0C;
+  background: #fafafc;
+  border: 1px solid #fafafc;
+  color: #08090c;
   text-decoration: none;
   font-family: var(--font-body);
   font-size: 13px;
@@ -20865,7 +20931,8 @@ a.feat2-reach__line:hover {
   box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.4);
 }
 .cinhero__cta:hover {
-  background: rgba(255, 255, 255, 0.92);
+  background: #eceff4;
+  border-color: #eceff4;
   transform: translate(-50%, calc(-50% - 2px));
   box-shadow: 0 14px 32px -8px rgba(0, 0, 0, 0.5);
 }
@@ -21050,6 +21117,46 @@ a.feat2-reach__line:hover {
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  pointer-events: auto;
+}
+.svcpin__player-caption-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.svcpin__sound-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.25s var(--ease);
+  pointer-events: auto;
+  margin-left: 0.6rem;
+}
+.svcpin__sound-toggle:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+.svcpin__sound-toggle.is-active {
+  background: rgba(74, 120, 255, 0.2);
+  border-color: rgba(74, 120, 255, 0.4);
+  color: #4a78ff;
+}
+.svcpin__sound-toggle.is-active:hover {
+  background: rgba(74, 120, 255, 0.3);
+  color: #fff;
+  border-color: rgba(74, 120, 255, 0.6);
 }
 .svcpin__player-dot {
   width: 6px; height: 6px; border-radius: 50%;

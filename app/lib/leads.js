@@ -1,19 +1,17 @@
 // Lead capture for the website assistant.
 //
-// The assistant funnels each visitor for their name, email and phone
-// during the conversation. This module turns that conversation into a
-// structured lead and hands it to the database.
+// The assistant funnels each visitor through a short data-collection phase.
+// This module turns that conversation into a structured ERP lead.
 //
 // Extraction is DETERMINISTIC (regex + light heuristics) on purpose —
 // we never rely on the LLM to emit clean JSON, so capture works the same
 // whether Groq answers or the local fallback does.
 //
-// `saveLead` is the single place to connect your database. Today it is a
-// stub: it builds the record, logs it, and returns it. Wire your DB where
-// marked and everything upstream keeps working unchanged.
+// `saveLead` is the single server-side integration point for the ERP.
 
 const EMAIL_RE = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i;
 const EMAIL_RE_G = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi;
+const EMPTY_FIELD_RE = /^(?:n\/?a|none|no|skip|not applicable|not sure|-+)$/i;
 
 // Ways people introduce themselves. Each captures up to three words after
 // the lead-in; we sanitize the capture afterwards.
@@ -32,6 +30,7 @@ const NON_NAME = new Set([
   "interested", "looking", "trying", "not", "just", "here", "good", "fine",
   "ok", "okay", "sorry", "still", "really", "very", "yes", "no", "sure",
   "hi", "hello", "hey", "thanks", "thank", "maybe", "idk", "nothing", "none",
+  "skip",
   "yeah", "yep", "nope", "hmm", "well", "actually", "please", "wondering",
   "planning", "building", "working", "hoping", "asking", "reaching", "from",
   "about", "the", "a", "an", "we", "our", "your",
@@ -104,13 +103,31 @@ const extractPhone = (text) => {
   return null;
 };
 
-// Walk the conversation and pull out whatever contact details have been
-// shared so far. Later turns override earlier ones, so corrections win.
+const matchLabeledField = (text, labels) => {
+  const escaped = labels.map((label) => label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  return String(text).match(
+    new RegExp(`(?:^|\\n)\\s*(?:${escaped.join("|")})\\s*[:=-]\\s*(.+)\\s*$`, "im")
+  );
+};
+
+const extractLabeledField = (text, labels) => {
+  const match = matchLabeledField(text, labels);
+  const value = match?.[1]?.trim();
+  return value && !EMPTY_FIELD_RE.test(value) ? value : null;
+};
+
+// Walk the conversation and pull out lead details shared so far. Later turns
+// override earlier ones, so corrections win. The labeled fields match the
+// compact template requested during the Lead Data Collection phase.
 // `messages` is the [{ role, content }] array sent to the chat API.
 export function extractLead(messages = []) {
   let name = null;
   let email = null;
   let phone = null;
+  let company = null;
+  let project = null;
+  let message = null;
+  let budget = null;
 
   for (let i = 0; i < messages.length; i++) {
     const msg = messages[i];
@@ -120,8 +137,16 @@ export function extractLead(messages = []) {
     const emailMatch = text.match(EMAIL_RE);
     if (emailMatch) email = emailMatch[0].toLowerCase();
 
-    const foundPhone = extractPhone(text);
+    const labeledPhone = matchLabeledField(text, ["phone", "phone number", "mobile"]);
+    const foundPhone = labeledPhone
+      ? extractPhone(labeledPhone[1])
+      : extractPhone(text);
     if (foundPhone) phone = foundPhone;
+
+    company = extractLabeledField(text, ["company", "organization"]) || company;
+    project = extractLabeledField(text, ["project", "project type"]) || project;
+    message = extractLabeledField(text, ["message", "brief", "project brief"]) || message;
+    budget = extractLabeledField(text, ["budget", "budget range"]) || budget;
 
     // 1) Explicit "my name is …" style.
     let candidate = null;
@@ -146,67 +171,50 @@ export function extractLead(messages = []) {
     if (candidate) name = titleCase(candidate);
   }
 
-  return { name, email, phone };
+  return { name, email, phone, company, project, message, budget };
 }
 
 export const hasContact = (lead) => Boolean(lead && (lead.email || lead.phone));
 export const isLeadComplete = (lead) =>
   Boolean(lead && lead.name && lead.email && lead.phone);
 
-// Persist a lead. THIS is the place to connect your database.
-//
-// Suggested table (Postgres / Supabase):
-//   create table leads (
-//     id           uuid primary key default gen_random_uuid(),
-//     session_id   text unique,
-//     name         text,
-//     email        text,
-//     phone        text,
-//     source       text default 'chat',
-//     captured_at  timestamptz default now(),
-//     updated_at   timestamptz default now()
-//   );
-//
-// Upsert on session_id so one conversation = one row that fills in as the
-// visitor shares more details.
+// Send leads from server-side code only so the ERP secret is never exposed
+// to the browser.
+const LEADS_ENDPOINT =
+  process.env.LEADS_INBOUND_URL || "https://erp.revlient.com/api/leads/inbound";
+
 export async function saveLead(lead, meta = {}) {
+  if (!lead?.name || !lead?.email) return null;
+
+  const secret = process.env.LEADS_INBOUND_SECRET;
+  if (!secret) {
+    throw new Error("Missing LEADS_INBOUND_SECRET");
+  }
+
   const record = {
-    sessionId: meta.sessionId || null,
-    name: lead.name || null,
-    email: lead.email || null,
-    phone: lead.phone || null,
-    source: meta.source || "chat",
-    complete: isLeadComplete(lead),
-    capturedAt: new Date().toISOString(),
-    ...(meta.extra || {}),
+    name: lead.name,
+    email: lead.email,
+    ...(lead.phone ? { phone: lead.phone } : {}),
+    ...(lead.company ? { company: lead.company } : {}),
+    ...(lead.project ? { project: lead.project } : {}),
+    ...(lead.message ? { message: lead.message } : {}),
+    ...(lead.budget ? { budget: lead.budget } : {}),
   };
 
-  // ── Connect your database here ───────────────────────────────────────
-  // Supabase example (npm i @supabase/supabase-js):
-  //
-  //   import { createClient } from "@supabase/supabase-js";
-  //   const supabase = createClient(
-  //     process.env.SUPABASE_URL,
-  //     process.env.SUPABASE_SERVICE_ROLE_KEY // server-only key
-  //   );
-  //   const { error } = await supabase.from("leads").upsert(
-  //     {
-  //       session_id: record.sessionId,
-  //       name: record.name,
-  //       email: record.email,
-  //       phone: record.phone,
-  //       source: record.source,
-  //       updated_at: record.capturedAt,
-  //     },
-  //     { onConflict: "session_id" }
-  //   );
-  //   if (error) throw error;
-  //
-  // Or any client (Prisma, node-postgres, Mongo, an external CRM webhook…)
-  // — just upsert `record` and return it.
-  // ─────────────────────────────────────────────────────────────────────
+  const response = await fetch(LEADS_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-lead-secret": secret,
+    },
+    body: JSON.stringify(record),
+  });
 
-  // Stub until the DB is wired up: log so capture is verifiable now.
-  console.log("[lead] captured", record);
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`Lead ERP request failed (${response.status}): ${body}`);
+  }
+
+  console.log("[lead] sent to ERP", { sessionId: meta.sessionId || null });
   return record;
 }

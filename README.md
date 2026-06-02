@@ -28,6 +28,10 @@ npm install
 npm run dev      # http://localhost:3000
 ```
 
+Create `.env` from `.env.example` and set `LEADS_INBOUND_SECRET` to the
+server-side ERP lead secret. The website assistant sends qualified leads to
+`https://erp.revlient.com/api/leads/inbound`.
+
 ### Production build
 
 ```bash

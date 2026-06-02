@@ -78,6 +78,37 @@ export default function ServicePinScroll() {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [hoverIndex, setHoverIndex] = useState(-1);
 
+  const [soundEnabled, setSoundEnabled] = useState(false);
+  const soundEnabledRef = useRef(false);
+
+  // Sync state with ref to avoid stale closures in scroll handlers
+  useEffect(() => {
+    soundEnabledRef.current = soundEnabled;
+  }, [soundEnabled]);
+
+  // Load user preference on client-side mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("revlient_scroll_sound");
+      if (saved === "true") {
+        setSoundEnabled(true);
+      }
+    }
+  }, []);
+
+  const toggleSound = (e) => {
+    e.stopPropagation();
+    const nextVal = !soundEnabled;
+    setSoundEnabled(nextVal);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("revlient_scroll_sound", String(nextVal));
+    }
+    if (nextVal && tickRef.current) {
+      tickRef.current.unlock();
+      tickRef.current.play();
+    }
+  };
+
   useEffect(() => {
     tickRef.current = makeTick();
 
@@ -168,7 +199,7 @@ export default function ServicePinScroll() {
       if (idx !== lastIdxRef.current) {
         lastIdxRef.current = idx;
         setActiveIndex(idx);
-        if (tickRef.current && !reduced && idx >= 0) tickRef.current.play();
+        if (tickRef.current && !reduced && idx >= 0 && soundEnabledRef.current) tickRef.current.play();
       }
     };
 
@@ -248,7 +279,7 @@ export default function ServicePinScroll() {
       </div>
 
       <div ref={stageRef} className="svcpin__stage">
-        <div ref={playerRef} className="svcpin__player" aria-hidden="true">
+        <div ref={playerRef} className="svcpin__player">
           <video
             ref={videoRef}
             className="svcpin__video"
@@ -258,14 +289,40 @@ export default function ServicePinScroll() {
             muted
             playsInline
             preload="auto"
+            aria-hidden="true"
           />
-          <div className="svcpin__player-vignette" />
+          <div className="svcpin__player-vignette" aria-hidden="true" />
           <div className="svcpin__player-caption">
-            <span className="svcpin__player-dot" />
-            <span className="svcpin__player-eyebrow">Now showing</span>
-            <span className="svcpin__player-name" aria-live="polite">
-              {active ? active.name : "Scroll to explore"}
-            </span>
+            <div className="svcpin__player-caption-left">
+              <span className="svcpin__player-dot" />
+              <span className="svcpin__player-eyebrow">Now showing</span>
+              <span className="svcpin__player-name" aria-live="polite">
+                {active ? active.name : "Scroll to explore"}
+              </span>
+            </div>
+            <button
+              type="button"
+              className={`svcpin__sound-toggle ${soundEnabled ? "is-active" : ""}`}
+              onClick={toggleSound}
+              aria-label={soundEnabled ? "Disable scroll sound effects" : "Enable scroll sound effects"}
+              aria-pressed={soundEnabled}
+            >
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                {soundEnabled ? (
+                  <>
+                    <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                  </>
+                ) : (
+                  <>
+                    <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                    <line x1="22" y1="9" x2="16" y2="15" />
+                    <line x1="16" y1="9" x2="22" y2="15" />
+                  </>
+                )}
+              </svg>
+              <span>{soundEnabled ? "Sound On" : "Sound Off"}</span>
+            </button>
           </div>
         </div>
 

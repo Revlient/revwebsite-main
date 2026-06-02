@@ -67,7 +67,8 @@ const Icon = {
 
 export default function AiPromptBox({
   onSend,
-  placeholder = "Describe your project — goal, scope, timeline…",
+  placeholder = "Describe your project: goal, scope, timeline…",
+  busy = false,
 }) {
   const [input, setInput] = useState("");
   const [preview, setPreview] = useState(null);
@@ -143,7 +144,7 @@ export default function AiPromptBox({
   const hasContent = input.trim() !== "" || !!preview;
 
   const submit = () => {
-    if (!hasContent) return;
+    if (!hasContent || busy) return;
     const prefix = mode ? `[${mode}] ` : "";
     const message = `${prefix}${input}`.trim();
     if (typeof onSend === "function") onSend(message, preview);
@@ -168,25 +169,24 @@ export default function AiPromptBox({
     >
       {preview && !recording && (
         <div className="aibox__files">
-          <button
-            type="button"
-            className="aibox__thumb"
-            onClick={() => setZoom(true)}
-            aria-label="View attached image"
-          >
-            <img src={preview} alt="attachment preview" />
-            <span
+          <div className="aibox__thumb">
+            <button
+              type="button"
+              className="aibox__thumb-view"
+              onClick={() => setZoom(true)}
+              aria-label="View attached image"
+            >
+              <img src={preview} alt="attachment preview" />
+            </button>
+            <button
+              type="button"
               className="aibox__thumb-x"
-              role="button"
-              aria-label="Remove image"
-              onClick={(e) => {
-                e.stopPropagation();
-                setPreview(null);
-              }}
+              aria-label="Remove attached image"
+              onClick={() => setPreview(null)}
             >
               <Icon.X />
-            </span>
-          </button>
+            </button>
+          </div>
         </div>
       )}
 
@@ -196,6 +196,8 @@ export default function AiPromptBox({
           className="aibox__ta"
           rows={1}
           value={input}
+          aria-label="Describe your project"
+          maxLength={2000}
           placeholder={
             mode === "search"
               ? "Search the web…"
@@ -261,6 +263,7 @@ export default function AiPromptBox({
               className={`aibox__pill ${mode === "search" ? "is-on s" : ""}`}
               onClick={() => toggle("search")}
               title="Search mode"
+              aria-pressed={mode === "search"}
             >
               <span className="aibox-pill-icon">
                 <Icon.Globe />
@@ -273,6 +276,7 @@ export default function AiPromptBox({
               className={`aibox__pill ${mode === "think" ? "is-on t" : ""}`}
               onClick={() => toggle("think")}
               title="Think mode"
+              aria-pressed={mode === "think"}
             >
               <span className="aibox-pill-icon">
                 <Icon.Brain />
@@ -285,6 +289,7 @@ export default function AiPromptBox({
               className={`aibox__pill ${mode === "canvas" ? "is-on c" : ""}`}
               onClick={() => toggle("canvas")}
               title="Canvas mode"
+              aria-pressed={mode === "canvas"}
             >
               <span className="aibox-pill-icon">
                 <Icon.Code />
@@ -299,15 +304,25 @@ export default function AiPromptBox({
           className={`aibox__send ${hasContent ? "is-go" : ""} ${
             recording ? "is-rec" : ""
           }`}
+          disabled={busy}
+          aria-busy={busy}
           title={
-            recording
+            busy
+              ? "Waiting for a reply…"
+              : recording
               ? "Stop recording"
               : hasContent
               ? "Send"
               : "Voice message"
           }
           aria-label={
-            recording ? "Stop recording" : hasContent ? "Send" : "Record"
+            busy
+              ? "Waiting for a reply"
+              : recording
+              ? "Stop recording"
+              : hasContent
+              ? "Send"
+              : "Record"
           }
           onClick={() => {
             if (recording) {

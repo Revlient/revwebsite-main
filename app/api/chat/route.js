@@ -4,21 +4,42 @@ import { extractLead, saveLead } from "../../lib/leads";
 const GROQ_API_BASE = process.env.GROQ_API_HOST || "https://api.groq.com/openai/v1";
 const GROQ_API_URLS = [`${GROQ_API_BASE}/chat/completions`];
 const MODEL = process.env.GROQ_MODEL || "llama-3.1-8b-instant";
+const LEAD_COLLECTION_COMPLETE_MARKER = "[[LEAD_COLLECTION_COMPLETE]]";
+const LEAD_COLLECTION_COMPLETE_TEXT = "Lead Data Collection phase is complete.";
 
 const SYSTEM_PROMPT = `You are Revlient's website assistant — the voice of a premium digital studio: concise, warm, and professional.
 
 You have two jobs, in this order:
 1) Genuinely help. Answer questions about our services, work, pricing approach and timelines honestly and briefly. Never invent client names, prices, or internal details.
-2) Qualify and capture the lead. As the conversation develops, naturally collect the visitor's contact details so the team can follow up — in this order: their NAME, then EMAIL, then PHONE number.
+2) When a visitor wants to discuss, quote, or start a project, run a short phase named exactly "Lead Data Collection".
 
-How to capture details, naturally:
-- Lead with value: answer their question before asking for anything.
-- Ask for ONE detail at a time, in context — never present a form. For example, after helping: "Happy to put together a tailored proposal — who am I speaking with?", then "Great, [name] — what's the best email to send it to?", then "And a phone number in case the team wants to talk it through?".
-- If they volunteer a detail unprompted, acknowledge it and move to the next missing one.
-- Never re-ask for something they already gave. If they decline, respect it and keep helping.
-- Once you have name, email and phone, briefly confirm them back and tell them the team will follow up with a tailored proposal — then stop asking.
+Lead Data Collection rules:
+- Clearly say that the Lead Data Collection phase is starting.
+- Collect the details in ONE compact request whenever possible: Name and Email are required. Also ask for Phone, Company, Project, Budget, and Message / short brief. Tell the visitor they may write "skip" for optional fields.
+- Ask the visitor to reply using exactly this compact template so their details are recorded accurately:
+Name:
+Email:
+Phone:
+Company:
+Project:
+Budget:
+Message:
+- If required or useful details are still missing, ask ONE concise follow-up listing all remaining fields together. Finish collection within 1–2 visitor replies. Never ask for fields one by one.
+- When Name and Email are available and the visitor has answered the collection request, close the phase. Briefly confirm that the team will follow up, include the exact sentence "${LEAD_COLLECTION_COMPLETE_TEXT}", and append ${LEAD_COLLECTION_COMPLETE_MARKER} on its own line.
+- Never append ${LEAD_COLLECTION_COMPLETE_MARKER} before the phase is over. Append it only once. Do not mention the marker.
 
 Keep replies short (1–3 sentences). Be human, never pushy.`;
+
+const hasCompletedLeadCollection = (messages) =>
+  messages.some(
+    (message) =>
+      message.role === "assistant" &&
+      typeof message.content === "string" &&
+      message.content.includes(LEAD_COLLECTION_COMPLETE_TEXT)
+  );
+
+const stripLeadCollectionMarker = (text) =>
+  text.replace(LEAD_COLLECTION_COMPLETE_MARKER, "").trim();
 
 const formatConversation = (messages) => {
   const lines = [`${SYSTEM_PROMPT}`, `Conversation:`];
@@ -126,24 +147,9 @@ export async function POST(request) {
     });
   }
 
-  // Capture the lead from the conversation BEFORE answering, so a contact
-  // detail is never lost even if the model call later fails. We only save
-  // when this turn introduced something new (save-on-change), which keeps
-  // the DB upserting one evolving row per conversation.
-  let lead = { name: null, email: null, phone: null };
-  try {
-    lead = extractLead(messages);
-    const prior = extractLead(messages.slice(0, -1)); // before this user turn
-    const newInfo =
-      (lead.name && lead.name !== prior.name) ||
-      (lead.email && lead.email !== prior.email) ||
-      (lead.phone && lead.phone !== prior.phone);
-    if (newInfo) {
-      await saveLead(lead, { sessionId, source: "chat" });
-    }
-  } catch (captureError) {
-    console.error("[lead] capture failed", captureError);
-  }
+  // Extract before answering, but submit only when the assistant explicitly
+  // closes the Lead Data Collection phase below.
+  const lead = extractLead(messages);
 
   if (!apiKey) {
     const lastUser = getLastUserMessage(formatConversation(messages));
@@ -166,6 +172,15 @@ export async function POST(request) {
       if (!text) {
         throw new Error("Empty response from Groq API");
       }
+      const completedNow = text.includes(LEAD_COLLECTION_COMPLETE_MARKER);
+      if (completedNow && !hasCompletedLeadCollection(messages)) {
+        try {
+          await saveLead(lead, { sessionId, source: "chat" });
+        } catch (captureError) {
+          console.error("[lead] ERP submission failed", captureError);
+        }
+      }
+      text = stripLeadCollectionMarker(text);
       return new Response(JSON.stringify({ text, source: "groq", host: url, lead }), {
         status: 200,
         headers: { "content-type": "application/json" },

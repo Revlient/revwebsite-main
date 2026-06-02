@@ -46,7 +46,7 @@ export default function CinematicHero() {
       <div className="cinhero__stat cinhero__stat--tr">
         <div className="cinhero__stat-row">
           <span className="cinhero__stat-div" aria-hidden="true" />
-          <span className="cinhero__stat-n">TODO</span>
+          <span className="cinhero__stat-n">32</span>
         </div>
         <p className="cinhero__stat-lbl">businesses partnered</p>
       </div>
@@ -55,7 +55,7 @@ export default function CinematicHero() {
       <div className="cinhero__stat cinhero__stat--br">
         <div className="cinhero__stat-row">
           <span className="cinhero__stat-div cinhero__stat-div--neg" aria-hidden="true" />
-          <span className="cinhero__stat-n">TODO</span>
+          <span className="cinhero__stat-n">$12M+</span>
         </div>
         <p className="cinhero__stat-lbl cinhero__stat-lbl--right">
           project value delivered
