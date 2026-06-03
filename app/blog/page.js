@@ -14,7 +14,7 @@ export const metadata = {
 export default function BlogRoute() {
   return (
     <>
-      <Nav />
+      <Nav className="blog-nav" />
       <main className="page-blog">
         <BlogList />
         <FinalCTA />

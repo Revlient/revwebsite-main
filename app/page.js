@@ -5,9 +5,10 @@ import ShowcaseCards from "./components/ShowcaseCards";
 import Faq from "./components/Faq";
 import CapabilityGrid from "./components/CapabilityGrid";
 import ProcessSpine from "./components/ProcessSpine";
-import ServicePinScroll from "./components/ServicePinScroll";
+import LockedServicesScroll from "./components/LockedServicesScroll";
 import CaseStudiesScroll from "./components/CaseStudiesScroll";
 import WhyRevlient from "./components/WhyRevlient";
+import IndustriesListSection from "./components/IndustriesListSection";
 import FinalCTA from "./components/FinalCTA";
 import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
@@ -53,10 +54,11 @@ export default function HomePage() {
         </div>
         <CapabilityGrid />
         <ProcessSpine />
-        <ServicePinScroll />
+        <LockedServicesScroll />
         <CaseStudiesScroll />
         <Faq />
         <ShowcaseCards />
+        <IndustriesListSection />
         <WhyRevlient />
         <FinalCTA />
       </main>

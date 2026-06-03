@@ -12,6 +12,7 @@ import { BRAND } from "./lib/site";
 import MusicToggle from "./components/MusicToggle";
 import GlobalOptimizer from "./components/GlobalOptimizer";
 import SmoothScroll from "./components/SmoothScroll";
+import SideFixedBar from "./components/SideFixedBar";
 import { TransitionProvider } from "../src/context/TransitionContext";
 
 import { TransitionOverlay } from "../src/components/TransitionOverlay";
@@ -122,6 +123,7 @@ export default function RootLayout({ children }) {
         <MusicToggle />
         <GlobalOptimizer />
         <SmoothScroll />
+        <SideFixedBar />
       </body>
     </html>
   );

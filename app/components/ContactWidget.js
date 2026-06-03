@@ -20,6 +20,11 @@ const IconChat = () => (
     />
   </svg>
 );
+const IconSparkle = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" className="cwidget__sparkle-icon" aria-hidden="true">
+    <path d="M12 3c.13 4.28 2.72 6.87 7 7-4.28.13-6.87 2.72-7 7-.13-4.28-2.72-6.87-7-7 4.28-.13 6.87-2.72 7-7Z" />
+  </svg>
+);
 const IconClose = () => (
   <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
     <path
@@ -240,9 +245,9 @@ export default function ContactWidget() {
 
       <button
         type="button"
-        className={`cwidget__fab ${open ? "is-open" : ""}`}
+        className={`cwidget__fab ${open || chat ? "is-open" : "has-video"}`}
         aria-expanded={open}
-        aria-label={open ? "Close contact menu" : "Contact us"}
+        aria-label={open || chat ? "Close contact menu" : "Contact us"}
         onClick={() => {
           if (chat) {
             setChat(false);
@@ -251,7 +256,24 @@ export default function ContactWidget() {
           setOpen((v) => !v);
         }}
       >
-        {open ? <IconClose /> : <IconChat />}
+        {open || chat ? <IconClose /> : (
+          <div className="cwidget__video-container">
+            <video
+              ref={(el) => {
+                if (el) el.playbackRate = 0.55;
+              }}
+              src="/ai_circle.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="cwidget__video"
+            />
+            <div className="cwidget__sparkle-overlay">
+              <IconSparkle />
+            </div>
+          </div>
+        )}
       </button>
     </div>
   );

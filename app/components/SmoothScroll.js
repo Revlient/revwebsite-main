@@ -23,6 +23,7 @@ export default function SmoothScroll() {
     });
 
     lenisRef.current = lenis;
+    window.lenis = lenis;
 
     // 2. Connect Lenis updates to requestAnimationFrame
     let rafId = 0;
@@ -37,6 +38,7 @@ export default function SmoothScroll() {
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      window.lenis = undefined;
       lenisRef.current = null;
     };
   }, []);

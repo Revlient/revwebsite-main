@@ -191,7 +191,9 @@ function NodeLabel({ index }) {
 export default function ProcessSpine() {
   const sectionRef = useRef(null);
   const desktopPathRef = useRef(null);
+  const desktopGlowRef = useRef(null);
   const mobilePathRef = useRef(null);
+  const mobileGlowRef = useRef(null);
   const desktopNodeRefs = useRef([]);
   const mobileNodeRefs = useRef([]);
   const [reduced, setReduced] = useState(false);
@@ -216,8 +218,12 @@ export default function ProcessSpine() {
       const off = String(1 - p);
       if (desktopPathRef.current)
         desktopPathRef.current.setAttribute("stroke-dashoffset", off);
+      if (desktopGlowRef.current)
+        desktopGlowRef.current.setAttribute("stroke-dashoffset", off);
       if (mobilePathRef.current)
         mobilePathRef.current.setAttribute("stroke-dashoffset", off);
+      if (mobileGlowRef.current)
+        mobileGlowRef.current.setAttribute("stroke-dashoffset", off);
       const setNodes = (arr) => {
         for (let i = 0; i < arr.length; i++) {
           const n = arr[i];
@@ -344,7 +350,19 @@ export default function ProcessSpine() {
             fill="none"
             pathLength="1"
           />
-          {/* bright scroll-driven overlay */}
+          {/* bright scroll-driven wider glow outline overlay (no high-cost SVG filter!) */}
+          <path
+            ref={desktopGlowRef}
+            d={PATH_D_DESKTOP}
+            stroke="rgba(255, 255, 255, 0.22)"
+            strokeWidth="8"
+            fill="none"
+            pathLength="1"
+            strokeDasharray="1 1"
+            strokeDashoffset="1"
+            strokeLinecap="round"
+          />
+          {/* bright scroll-driven sharp core overlay */}
           <path
             id="spine-path-desktop"
             ref={desktopPathRef}
@@ -356,7 +374,6 @@ export default function ProcessSpine() {
             strokeDasharray="1 1"
             strokeDashoffset="1"
             strokeLinecap="round"
-            filter="url(#spineGlowD)"
           />
 
           {NODES_DESKTOP.map((n, i) => (
@@ -420,6 +437,19 @@ export default function ProcessSpine() {
             fill="none"
             pathLength="1"
           />
+          {/* bright scroll-driven wider glow outline overlay (no dynamic blur filter!) */}
+          <path
+            ref={mobileGlowRef}
+            d={PATH_D_MOBILE}
+            stroke="rgba(255, 255, 255, 0.22)"
+            strokeWidth="8"
+            fill="none"
+            pathLength="1"
+            strokeDasharray="1 1"
+            strokeDashoffset="1"
+            strokeLinecap="round"
+          />
+          {/* bright scroll-driven sharp core overlay */}
           <path
             id="spine-path-mobile"
             ref={mobilePathRef}
@@ -431,7 +461,6 @@ export default function ProcessSpine() {
             strokeDasharray="1 1"
             strokeDashoffset="1"
             strokeLinecap="round"
-            filter="url(#spineGlowM)"
           />
 
           {NODES_MOBILE.map((n, i) => (

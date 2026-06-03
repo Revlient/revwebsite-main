@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 /* Home hero — fullscreen looping video + staggered giant headline
    words + four stat callouts. Adapted from a "securify"-style brief,
    re-framed for Revlient as a high-conversion digital engineering
@@ -10,6 +12,84 @@ const HERO_VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_063509_7d167302-4fd4-480b-8260-18ab572333d4.mp4";
 
 export default function CinematicHero() {
+  const ctaRef = useRef(null);
+
+  useEffect(() => {
+    const cta = ctaRef.current;
+    if (!cta) return;
+
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let frameId = null;
+
+    const onMouseMove = (e) => {
+      const isMobile = window.innerWidth <= 768;
+      if (isMobile) {
+        targetX = 0;
+        targetY = 0;
+        return;
+      }
+
+      const rect = cta.getBoundingClientRect();
+      const ctaX = rect.left + rect.width / 2;
+      const ctaY = rect.top + rect.height / 2;
+
+      // Distance between cursor and button center
+      const dx = e.clientX - ctaX;
+      const dy = e.clientY - ctaY;
+      const distance = Math.hypot(dx, dy);
+
+      // Magnetic attraction zone: 90px
+      const radius = 90;
+
+      if (distance < radius) {
+        // Pull strength (moves button 35% of the distance to the cursor)
+        const pull = 0.35;
+        targetX = dx * pull;
+        targetY = dy * pull;
+      } else {
+        // Return smoothly to baseline position
+        targetX = 0;
+        targetY = 0;
+      }
+    };
+
+    const onMouseLeave = () => {
+      targetX = 0;
+      targetY = 0;
+    };
+
+    const animate = () => {
+      const isMobile = window.innerWidth <= 768;
+
+      if (!isMobile) {
+        // Smooth interpolation (lerp) for spring-like deceleration
+        currentX += (targetX - currentX) * 0.12;
+        currentY += (targetY - currentY) * 0.12;
+        cta.style.transform = `translate3d(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px), 0)`;
+      } else {
+        // Reset transform on mobile to let CSS absolute position rules take over
+        currentX = 0;
+        currentY = 0;
+        cta.style.transform = "";
+      }
+
+      frameId = requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    cta.addEventListener("mouseleave", onMouseLeave, { passive: true });
+    frameId = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      if (cta) cta.removeEventListener("mouseleave", onMouseLeave);
+      cancelAnimationFrame(frameId);
+    };
+  }, []);
+
   return (
     <section className="cinhero" aria-label="Hero">
       <video
@@ -34,7 +114,7 @@ export default function CinematicHero() {
         and ship the digital systems that move them forward.
       </p>
 
-      <a href="#start" className="cinhero__cta">
+      <a ref={ctaRef} href="#start" className="cinhero__cta">
         <span>Start a project</span>
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M7 17L17 7" />

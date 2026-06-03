@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Logo from "./Logo";
 import Reveal from "./Reveal";
+import Nav from "./Nav";
 import { BRAND, CTA_HREF, CTA_LABEL, CONTACT_EMAIL } from "../lib/site";
 
 /* /studio landing page. Dark navy + electric-blue glow aesthetic.
@@ -10,48 +11,6 @@ import { BRAND, CTA_HREF, CTA_LABEL, CONTACT_EMAIL } from "../lib/site";
    into the rest of the site. PROOF RULE: pricing numbers, founder
    names where not real, and any metric are marked TODO. */
 
-/* -----------------------------------------------------------
- * Nav
- * --------------------------------------------------------- */
-function StudioNav() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const links = [
-    { href: "/", label: "Home" },
-    { href: "/work", label: "Work" },
-    { href: "/services", label: "Services" },
-    { href: "/process", label: "Process" },
-    { href: "#stp-contact", label: "Contact" },
-  ];
-
-  return (
-    <header className={`stp-nav${scrolled ? " is-scrolled" : ""}`}>
-      <div className="stp-nav__inner">
-        <a href="/" className="stp-nav__brand" aria-label={`${BRAND.name} home`}>
-          <Logo className="brand__mark" />
-          <span>{BRAND.name}</span>
-        </a>
-        <nav className="stp-nav__links" aria-label="Studio sections">
-          {links.map((l) => (
-            <a key={l.href} href={l.href}>
-              {l.label}
-            </a>
-          ))}
-        </nav>
-        <a href={CTA_HREF} className="stp-nav__cta">
-          {CTA_LABEL}
-        </a>
-      </div>
-    </header>
-  );
-}
 
 /* -----------------------------------------------------------
  * Hero
@@ -784,7 +743,7 @@ function StudioFooter() {
 export default function StudioPage() {
   return (
     <div className="studiopage">
-      <StudioNav />
+      <Nav />
       <main>
         <StudioHero />
         <StudioWhy />
