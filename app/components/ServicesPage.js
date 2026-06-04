@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Reveal from "./Reveal";
 import Nav from "./Nav";
 import WorkFeatureSection from "./WorkFeatureSection";
@@ -351,6 +350,52 @@ export function WebClientMarquee() {
   );
 }
 
+function ServicesHero() {
+  const revealWords = "Interfaces, automations, and internal systems shaped with the discipline of product design and the speed of a focused studio.".split(" ");
+
+  return (
+    <section className="svc-hero-v2" id="services-hero" aria-labelledby="services-hero-title">
+      <div className="svc-hero-v2__backdrop" aria-hidden="true" />
+      <div className="svc-hero-v2__grain" aria-hidden="true" />
+      <div className="svc-hero-v2__grid">
+        <Reveal className="svc-hero-v2__copy">
+          <h1 id="services-hero-title" className="svc-hero-v2__title">
+            Digital systems
+            <span
+              className="svc-hero-v2__inline-image"
+              aria-hidden="true"
+            />
+            built with restraint.
+          </h1>
+          <p className="svc-hero-v2__sub">
+            {revealWords.map((word, index) => (
+              <span key={`${word}-${index}`} style={{ "--word-index": index }}>
+                {word}{" "}
+              </span>
+            ))}
+          </p>
+          <div className="svc-hero-v2__cta-row">
+            <a href={CTA_HREF} className="svc-hero-v2__cta svc-hero-v2__cta--primary">
+              Start a project
+            </a>
+            <a href="#study-abroad-erp" className="svc-hero-v2__cta svc-hero-v2__cta--secondary">
+              View services
+            </a>
+          </div>
+        </Reveal>
+
+      </div>
+      <div className="svc-hero-v2__marquee" aria-hidden="true">
+        <div className="svc-hero-v2__marquee-track">
+          {["Websites", "Applications", "ERP", "CRM", "Automation", "Interfaces", "Websites", "Applications", "ERP", "CRM", "Automation", "Interfaces"].map((item, index) => (
+            <span key={`${item}-${index}`}>{item}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ----- Hero ----- */
 function HeroV2() {
   return (
@@ -639,20 +684,19 @@ export default function ServicesPage() {
     <div className="svc-shell svc-shell--v2">
       <Nav />
 
-      <HeroV2 />
+      <ServicesHero />
       <LogoMarquee />
 
       {/* Service 1 — Study abroad ERP (major) */}
       <ServiceBlock
         id="study-abroad-erp"
-        pill="Nº 01 · Major product"
-        slug="automation-systems"
-        headingNode={
-          <>
-            Service No 1 — Automating study abroad <em>industry.</em>
-          </>
-        }
-        sub="Our flagship ERP — tuned for the messy, paper-heavy ground reality of running a study abroad agency."
+        // pill="Nº 01 · Major product"
+        // slug="automation-systems"
+        // headingNode={
+        //   <>
+        //     Service No 1 — Automating study abroad <em>industry.</em>
+        //   </>
+        // }
       >
         {/* full-bleed ERP showcase with BlueGlobe behind — ~35% peeks
             above the frame, ~65% sits behind the glassmorphic

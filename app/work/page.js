@@ -1,5 +1,5 @@
-import WorkHero from "../components/WorkHero";
 import Nav from "../components/Nav";
+import WorkHero from "../components/WorkHero";
 import WorkProjects from "../components/WorkProjects";
 import WorkFeatureSection from "../components/WorkFeatureSection";
 import ErpFeatures from "../components/ErpFeatures";
@@ -14,12 +14,11 @@ import { BRAND } from "../lib/site";
 
 export const metadata = {
   title: "Work",
-  description: `Selected work from ${BRAND.name} — projects shipped end-to-end through our four-pillar service core.`,
+  description: `Selected work from ${BRAND.name}, projects shipped end-to-end through our four-pillar service core.`,
 };
 
-/* Dedicated /work route. Video-backed hero card at the top,
-   then the existing case-studies grid, FinalCTA, then footer
-   + sticky bits. The global navbar handles navigation now. */
+/* Dedicated /work route. The redesigned WorkHero opens the page,
+   then the existing case-study and service sections continue unchanged. */
 export default function WorkPage() {
   return (
     <>

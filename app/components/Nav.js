@@ -97,7 +97,6 @@ export default function Nav({ className = "" }) {
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
         >
-          <span className="nav__toggle-text">Menu</span>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             {open ? (
               <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />

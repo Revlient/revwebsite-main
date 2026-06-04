@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef, useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { CTA_HREF } from "../lib/site";
 
 /* Application showcase placed under the ErpFeatures grid on /work.
@@ -206,9 +208,12 @@ function TabBar({ active }) {
   );
 }
 
-function PhoneFrame({ variant, activeTab, children }) {
+function PhoneFrame({ variant, activeTab, style, children }) {
   return (
-    <div className={`appshow__phone appshow__phone--${variant}`}>
+    <motion.div
+      style={style}
+      className={`appshow__phone appshow__phone--${variant}`}
+    >
       <span className="appshow__phone-notch" aria-hidden="true" />
       <div className="appshow__phone-screen">
         <div className="rapp-shell">
@@ -217,13 +222,90 @@ function PhoneFrame({ variant, activeTab, children }) {
         </div>
         <span className="appshow__phone-reflection" aria-hidden="true" />
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export default function AppShowcase() {
+  const containerRef = useRef(null);
+
+  const [isMobile, setIsMobile] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 720);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+    const motionListener = (e) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener("change", motionListener);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+      mediaQuery.removeEventListener("change", motionListener);
+    };
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "center center"],
+  });
+
+  const leftX = useTransform(scrollYProgress, [0, 0.85], ["115%", "0%"]);
+  const leftY = useTransform(scrollYProgress, [0, 0.85], ["120px", "20px"]);
+  const leftRotate = useTransform(scrollYProgress, [0, 0.85], [0, -9]);
+  const leftScale = useTransform(scrollYProgress, [0, 0.85], [0.9, 1]);
+  const leftOpacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
+
+  const centerY = useTransform(scrollYProgress, [0, 0.85], ["120px", "-32px"]);
+  const centerScale = useTransform(scrollYProgress, [0, 0.85], [0.9, 1]);
+  const centerOpacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
+
+  const rightX = useTransform(scrollYProgress, [0, 0.85], ["-115%", "0%"]);
+  const rightY = useTransform(scrollYProgress, [0, 0.85], ["120px", "20px"]);
+  const rightRotate = useTransform(scrollYProgress, [0, 0.85], [0, 9]);
+  const rightScale = useTransform(scrollYProgress, [0, 0.85], [0.9, 1]);
+  const rightOpacity = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
+
+  const shouldAnimate = !isMobile && !prefersReducedMotion;
+
+  const leftStyle = shouldAnimate
+    ? {
+        x: leftX,
+        y: leftY,
+        rotate: leftRotate,
+        scale: leftScale,
+        opacity: leftOpacity,
+        animation: "none",
+      }
+    : undefined;
+
+  const centerStyle = shouldAnimate
+    ? {
+        y: centerY,
+        scale: centerScale,
+        opacity: centerOpacity,
+        animation: "none",
+      }
+    : undefined;
+
+  const rightStyle = shouldAnimate
+    ? {
+        x: rightX,
+        y: rightY,
+        rotate: rightRotate,
+        scale: rightScale,
+        opacity: rightOpacity,
+        animation: "none",
+      }
+    : undefined;
+
   return (
-    <section className="appshow" aria-label="Mobile application showcase">
+    <section ref={containerRef} className="appshow" aria-label="Mobile application showcase">
       <div className="appshow__glow appshow__glow--a" aria-hidden="true" />
       <div className="appshow__glow appshow__glow--b" aria-hidden="true" />
       <span className="appshow__orbit" aria-hidden="true" />
@@ -251,13 +333,13 @@ export default function AppShowcase() {
       </header>
 
       <div className="appshow__cluster">
-        <PhoneFrame variant="left" activeTab="Home">
+        <PhoneFrame variant="left" activeTab="Home" style={leftStyle}>
           <AIMatchScreen />
         </PhoneFrame>
-        <PhoneFrame variant="center" activeTab="Home">
+        <PhoneFrame variant="center" activeTab="Home" style={centerStyle}>
           <HomeScreen />
         </PhoneFrame>
-        <PhoneFrame variant="right" activeTab="Home">
+        <PhoneFrame variant="right" activeTab="Home" style={rightStyle}>
           <ExploreScreen />
         </PhoneFrame>
       </div>

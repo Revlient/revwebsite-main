@@ -1,82 +1,77 @@
 "use client";
 
+import { useState } from "react";
 import Reveal from "./Reveal";
 
 /* /blog landing — hero + grid of post cards. Vanilla JS + plain CSS,
-   inline SVGs in place of lucide-react.
-
-   PROOF RULE: every post below is a clearly-flagged TODO placeholder.
-   Replace title / excerpt / author / date / coverHue with the real
-   Revlient post data before launch — and add /blog/[slug] routes
-   to make the 'Read article →' link actually go somewhere. */
+   inline SVGs in place of lucide-react. */
 
 const POSTS = [
   {
-    slug: "todo-post-01",
-    category: "Studio Notes",
-    title: "TODO · What 'shipping' actually means at Revlient",
+    slug: "shipping-at-revlient",
+    category: "Creativity",
+    title: "Crafting digital momentum: What 'shipping' actually means at Revlient",
     excerpt:
-      "Placeholder excerpt — replace with the real post intro. A short paragraph that pulls the reader into the piece before they click through.",
-    author: "TODO: author",
-    date: "TODO: date",
-    readMins: "—",
-    coverHue: 0, // brand blue
-    featured: true,
+      "A deep dive into our core product philosophy — why shipping fast is a design feature, how we balance aesthetic polish with runtime performance, and the systems we use to ship premium interfaces on budget.",
+    author: "Revlient Studio",
+    date: "Jun 2026",
+    readMins: "6",
+    cover: "/blog-creativity.png",
   },
   {
-    slug: "todo-post-02",
-    category: "Engineering",
-    title: "TODO · The case for a custom CMS over an off-the-shelf one",
+    slug: "custom-headless-cms",
+    category: "Code",
+    title: "The architectural choice: Custom headless CMS vs legacy suites",
     excerpt:
-      "Placeholder excerpt — when the headless option wins, when the legacy option wins, and the third path most teams overlook.",
-    author: "TODO: author",
-    date: "TODO: date",
-    readMins: "—",
-    coverHue: 1,
+      "When the headless option wins, when the legacy monolithic option wins, and the third hybrid path that most technical teams overlook. An engineering analysis of content rendering speed, security boundaries, and editing experience.",
+    author: "Engineering Team",
+    date: "May 2026",
+    readMins: "8",
+    cover: "/blog-code.png",
   },
   {
-    slug: "todo-post-03",
-    category: "Design",
-    title: "TODO · Designing for a sceptical buyer",
+    slug: "designing-skeptical-buyer",
+    category: "Creativity",
+    title: "Designing for the conversion threshold: Building skepticism-proof trust",
     excerpt:
-      "Placeholder excerpt — how the visual decisions inside a homepage either build or burn trust in the first five seconds.",
-    author: "TODO: author",
-    date: "TODO: date",
-    readMins: "—",
-    coverHue: 2,
+      "How visual decisions, font hierarchies, micro-animations, and loaded state handling inside a homepage build or burn trust with a technical buyer in the first five critical seconds of interaction.",
+    author: "Design Group",
+    date: "Apr 2026",
+    readMins: "5",
+    cover: "/blog-creativity.png",
   },
   {
-    slug: "todo-post-04",
-    category: "AI",
-    title: "TODO · Practical AI inside an ERP — what we actually shipped",
+    slug: "practical-ai-erp",
+    category: "Code",
+    title: "Enterprise ERP systems: Integrating practical AI agents in production",
     excerpt:
-      "Placeholder excerpt — a walkthrough of the AI assistant, the matchmaker and the auto-quotation engine that ship with Revlient OS.",
-    author: "TODO: author",
-    date: "TODO: date",
-    readMins: "—",
-    coverHue: 3,
+      "A technical walkthrough of how we shipped a live AI assistant, semantic matching engines, and auto-quotation processors inside the custom Revlient OS without bloat or token latency issues.",
+    author: "AI Lab",
+    date: "Mar 2026",
+    readMins: "9",
+    cover: "/blog-code.png",
   },
   {
-    slug: "todo-post-05",
-    category: "Process",
-    title: "TODO · Six stages, four pillars, one studio",
+    slug: "seo-organic-playbook",
+    category: "Seo",
+    title: "The organic playbook: Advanced SEO strategies for modern scale",
     excerpt:
-      "Placeholder excerpt — how the discovery → strategy → design → development → QA → launch loop holds up under real client pressure.",
-    author: "TODO: author",
-    date: "TODO: date",
-    readMins: "—",
-    coverHue: 4,
+      "Stop chasing algorithm updates. Learn the semantic indexing, site architecture, core web vitals, and structured schema schemas we use to generate millions in high-intent organic traffic without paid ads.",
+    author: "SEO Team",
+    date: "Feb 2026",
+    readMins: "7",
+    cover: "/blog-ranking.png",
   },
   {
-    slug: "todo-post-06",
-    category: "Client Story",
-    title: "TODO · Inside the Study2India rebuild",
+    slug: "study2india-case-study",
+    category: "Marketing",
+    title: "Unlocking counsellor momentum: Rebuilding Study2India from the ground up",
     excerpt:
-      "Placeholder excerpt — what the team was selling before, what we shipped, and what changed for the counsellors on day one.",
-    author: "TODO: author",
-    date: "TODO: date",
-    readMins: "—",
-    coverHue: 5,
+      "What the education platform was selling before, how we re-engineered the user acquisition funnel, and what changed for the international counsellors on day one of launching the new portal.",
+    author: "Product Team",
+    date: "Jan 2026",
+    readMins: "11",
+    cover: "/blog-laptop.png",
   },
 ];
 
@@ -98,22 +93,24 @@ function Arrow({ className = "" }) {
   );
 }
 
-function PostCover({ hue, featured }) {
-  // 6 deterministic gradient flavours, all sitting in the brand blue
-  // → purple range so the grid feels cohesive.
-  const flavours = [
-    "linear-gradient(135deg, #2b5fff 0%, #1c2a6b 100%)",
-    "linear-gradient(135deg, #4a78ff 0%, #3730a3 100%)",
-    "linear-gradient(135deg, #7c3aed 0%, #1e1b4b 100%)",
-    "linear-gradient(135deg, #2b5fff 0%, #ffffff 100%)",
-    "linear-gradient(135deg, #1e3a5f 0%, #2b5fff 100%)",
-    "linear-gradient(135deg, #ffffff 0%, #4a78ff 100%)",
-  ];
+function PostCover({ coverUrl, category }) {
+  if (coverUrl) {
+    return (
+      <div
+        className="blog-card__cover"
+        style={{
+          backgroundImage: `url(${coverUrl})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <span className="blog-card__cover-grid" />
+        <span className="blog-card__cover-orb" />
+      </div>
+    );
+  }
   return (
-    <div
-      className={`blog-card__cover ${featured ? "blog-card__cover--lg" : ""}`}
-      style={{ backgroundImage: flavours[hue % flavours.length] }}
-    >
+    <div className="blog-card__cover">
       <span className="blog-card__cover-grid" />
       <span className="blog-card__cover-orb" />
     </div>
@@ -122,8 +119,8 @@ function PostCover({ hue, featured }) {
 
 function BlogCard({ post }) {
   return (
-    <Reveal as="article" className={`blog-card ${post.featured ? "blog-card--featured" : ""}`}>
-      <PostCover hue={post.coverHue} featured={post.featured} />
+    <Reveal as="article" className="blog-card">
+      <PostCover coverUrl={post.cover} category={post.category} />
       <div className="blog-card__body">
         <span className="blog-card__tag">{post.category}</span>
         <h3 className="blog-card__title">{post.title}</h3>
@@ -147,39 +144,56 @@ function BlogCard({ post }) {
 }
 
 export default function BlogList() {
-  const featured = POSTS.filter((p) => p.featured);
-  const rest = POSTS.filter((p) => !p.featured);
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const categories = ["All", "Seo", "Marketing", "Creativity", "Code"];
+
+  const filteredPosts = activeCategory === "All"
+    ? POSTS
+    : POSTS.filter(p => p.category.toLowerCase() === activeCategory.toLowerCase());
 
   return (
     <div className="blog">
       <header className="blog__hero">
         <span className="blog__hero-spot" aria-hidden="true" />
         <Reveal className="blog__hero-inner">
-          <span className="blog__pill">
-            <span className="blog__pill-dot" />
-            Field notes
-          </span>
-          <h1 className="blog__title">
-            Notes from the studio.
-          </h1>
-          <p className="blog__sub">
-            Long-form pieces on craft, code and the systems we ship —
-            written by the team that built them.
-          </p>
+          <div className="blog__hero-grid">
+            <div className="blog__hero-left">
+              <h1 className="blog__title">
+                Blogs and<br />Insights
+              </h1>
+            </div>
+            <div className="blog__hero-right">
+              <p className="blog__sub">
+                Insights, ideas, and strategies shaping the future of digital and business transformation
+              </p>
+            </div>
+          </div>
+
+          <div className="blog__filters">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setActiveCategory(cat)}
+                className={`blog__filter-btn ${activeCategory === cat ? "is-active" : ""}`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </Reveal>
       </header>
 
       <section className="blog__list">
-        {featured.map((p) => (
-          <BlogCard key={p.slug} post={p} />
-        ))}
-
         <div className="blog__grid">
-          {rest.map((p) => (
+          {filteredPosts.map((p) => (
             <BlogCard key={p.slug} post={p} />
           ))}
         </div>
       </section>
+
+
     </div>
   );
 }

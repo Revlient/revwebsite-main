@@ -20,6 +20,13 @@ export default function SideFixedBar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
+  // Open form panel programmatically via custom event
+  useEffect(() => {
+    const handleOpen = () => setIsOpen(true);
+    window.addEventListener("open-request-panel", handleOpen);
+    return () => window.removeEventListener("open-request-panel", handleOpen);
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);

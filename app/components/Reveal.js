@@ -10,6 +10,8 @@ export default function Reveal({
   as: Tag = "div",
   delay = 0,
   className = "",
+  style = {},
+  ...rest
 }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -44,11 +46,17 @@ export default function Reveal({
     return () => observer.disconnect();
   }, []);
 
+  const combinedStyle = {
+    ...style,
+    ...(delay ? { transitionDelay: `${delay}ms` } : {}),
+  };
+
   return (
     <Tag
       ref={ref}
       className={`reveal ${visible ? "is-visible" : ""} ${className}`.trim()}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      style={combinedStyle}
+      {...rest}
     >
       {children}
     </Tag>
