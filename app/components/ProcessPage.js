@@ -242,23 +242,47 @@ export default function ProcessPage() {
       <section className="proc-hero">
         <span className="proc-hero__spot" aria-hidden="true" />
         <div className="proc-hero__inner">
-          <Pill icon="rocket" label="Our Process" />
-          <h1 className="proc-hero__title">
-            How We Build <span className="proc-step__hi">Digital Products</span>
-            <br />
-            That Deliver
-          </h1>
-          <p className="proc-hero__sub">
-            Six deliberate stages — from the first conversation to the day
-            after launch. Revlient turns ambitious briefs into shipped
-            software, end-to-end.
-          </p>
+          <div className="proc-hero__copy">
+            <h1 className="proc-hero__title">
+              A calmer way to build digital products that actually ship
+            </h1>
+            <p className="proc-hero__sub">
+              We move from raw ambition to designed, tested, launched software
+              through a quiet sequence of research, prototypes, engineering,
+              and post-launch care.
+            </p>
+            <div className="proc-hero__actions">
+              <a href={CTA_HREF} className="proc-hero__btn proc-hero__btn--primary">
+                Start a project
+              </a>
+              <a href="#process-stages" className="proc-hero__btn proc-hero__btn--ghost">
+                See the method
+              </a>
+            </div>
+          </div>
+
+          <div className="proc-hero__media" aria-hidden="true">
+            <div className="proc-hero__frame">
+              <img
+                src="https://picsum.photos/seed/revlient-process-studio/1200/1500"
+                alt=""
+              />
+            </div>
+            <div className="proc-hero__panel">
+              <span>Discovery</span>
+              <span>Prototype</span>
+              <span>Build</span>
+              <span>Launch</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      {STEPS.map((step, i) => (
-        <ProcessStep step={step} index={i} key={step.badge} />
-      ))}
+      <div id="process-stages">
+        {STEPS.map((step, i) => (
+          <ProcessStep step={step} index={i} key={step.badge} />
+        ))}
+      </div>
 
       <section className="proc-cta">
         <span className="proc-cta__spot" aria-hidden="true" />

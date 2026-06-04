@@ -118,9 +118,7 @@ export default function IndustriesListSection() {
       <div className="container indlist__inner">
         {/* Section Header */}
         <Reveal className="indlist__head">
-          <span className="indlist__eyebrow">
-            VERTICAL SEGMENTS // INDUSTRIES IN FOCUS
-          </span>
+          
           <h2 className="indlist__title">
             Our Key Industries
           </h2>
