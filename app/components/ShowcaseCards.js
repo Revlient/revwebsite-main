@@ -1,69 +1,131 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import Reveal from "./Reveal";
-import NebulaBackdrop from "./showcase/NebulaBackdrop";
 import { CTA_HREF } from "../lib/site";
 
-/* Wall of love — two rows of testimonial cards drifting horizontally
-   in opposite directions. Glassmorphic cards on the dark NebulaBackdrop
-   cosmos. Same data the bookshelf used; restyled as avatar + name +
-   @handle on top of the card with the quote body underneath.
-
-   PROOF RULE: real client identities only when supplied. Handles +
-   quote bodies stay placeholder until permission-cleared content
-   lands. No fabricated faces — empty img falls back to tone-coloured
-   initials. */
-
-const TONES = ["a", "b", "c"];
-
-// Slight variation in placeholder copy per entry so the wall doesn't
-// read as the same string repeating. Each card includes a "TODO N"
-// counter + an @revlient mention so the highlighted-link styling on
-// @handles in quotes is visible.
-const QUOTE_VARIANTS = [
-  "@revlient delivered — placeholder testimonial TODO 01. Real, approved quote lands here before launch.",
-  "Working with @revlient was — placeholder testimonial TODO 02. Replace with the real, approved quote.",
-  "@revlient shipped the whole thing — placeholder testimonial TODO 03. Real quote pending.",
-  "Talked to @revlient about — placeholder testimonial TODO 04. Approved wording goes here.",
-  "What I noticed about @revlient — placeholder testimonial TODO 05. Real quote before launch.",
-  "@revlient handled the part — placeholder testimonial TODO 06. Replace before launch.",
-  "Honestly, @revlient is — placeholder testimonial TODO 07. Real quote pending approval.",
-  "@revlient picked up — placeholder testimonial TODO 08. Approved copy lands here.",
-  "What surprised me about @revlient — placeholder testimonial TODO 09. Real quote pending.",
-  "@revlient turned the spec into — placeholder testimonial TODO 10. Replace before launch.",
-  "@revlient stayed on it — placeholder testimonial TODO 11. Real, approved quote here.",
-  "@revlient figured out — placeholder testimonial TODO 12. Approved quote lands before launch.",
+const TESTIMONIAL_ROWS = [
+  [
+    { quote: "The cinematic digital presence Antigravity crafted perfectly matches our architectural standards.", author: "House of Eleven", short: "XI", color: "#C5A880" },
+    { quote: "A highly structured, high-conversion SPA that doubled our inbound consultation inquiries.", author: "IBS Consultants", short: "IBS", color: "#4F46E5" },
+    { quote: "A gorgeous digital flagship that truly captures the premium, boutique feel of our coworking spaces.", author: "Covspace", short: "COV", color: "#10B981" },
+    { quote: "Minimalist, editorial, and fast. Our Shopify storefront conversion rate has soared since launch.", author: "Ronspire", short: "RON", color: "#F43F5E" },
+    { quote: "The interactive course discovery modules and student portal have transformed our digital campus.", author: "Perpex B-School", short: "MGN", color: "#3B82F6" }
+  ],
+  [
+    { quote: "A refined, architectural approach to corporate identity. Clean service presentation at its best.", author: "Perpex Group", short: "PRX", color: "#8B5CF6" },
+    { quote: "Outstanding EdTech platform performance. Handles real-time competitive scoring under load flawlessly.", author: "Mathlete", short: "MTH", color: "#F59E0B" },
+    { quote: "A trustworthy gateway for global education consultancy, built with absolute detail and polish.", author: "The Magnates", short: "TMG", color: "#EAB308" },
+    { quote: "Clean SaaS design and intelligent recruitment workflows. Our clients love the new interface.", author: "UniGo", short: "UNG", color: "#06B6D4" },
+    { quote: "An elegant, premium booking experience and gallery that reflects the luxury of our studio.", author: "Soumya Shyam", short: "SS", color: "#EC4899" }
+  ],
+  [
+    { quote: "A beautiful and fluid fruit subscription e-commerce flow. High conversion out of the box.", author: "Nutriboxx", short: "NBX", color: "#10B981" },
+    { quote: "A minimal, high-performing green storefront. Our sustainable personal care sales have grown.", author: "Bambrush", short: "BAM", color: "#84CC16" },
+    { quote: "Incredible execution on our AI and learning dashboards. Clean, crisp, and robust.", author: "Magnate Academy", short: "MGN", color: "#3B82F6" },
+    { quote: "A premium overseas portal that beautifully highlights our university partnerships.", author: "Magnate Study Abroad", short: "MGN", color: "#C5A880" },
+    { quote: "Premier admitted-student workflows and visa-support tools built with outstanding UX polish.", author: "Magnate Global", short: "IBS", color: "#4F46E5" }
+  ]
 ];
 
-const TESTIMONIALS = [
-  { name: "Anil Chakkrapani", role: "Founder, Medcity International Academy" },
-  { name: "Client Name", role: "Director, Company" },
-  { name: "Aswin Pradeep", role: "Magnate Study Abroad" },
-  { name: "Client Name", role: "Head of Product, Company" },
-  { name: "Client Name", role: "Founder, Company" },
-  { name: "Client Name", role: "Managing Director, Company" },
-  { name: "Client Name", role: "COO, Company" },
-  { name: "Client Name", role: "Co-founder, Company" },
-  { name: "Client Name", role: "CEO, Company" },
-  { name: "Client Name", role: "VP Engineering, Company" },
-  { name: "Johnson", role: "Founder, IBS Consultancy" },
-  { name: "Client Name", role: "Founder, Company" },
-].map((t, i) => ({
-  ...t,
-  quote: QUOTE_VARIANTS[i % QUOTE_VARIANTS.length],
-  handle: "@todo-handle",
-  tone: TONES[i % 3],
-  initials: t.name
-    .split(/\s+/)
-    .map((w) => w[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase(),
-}));
+const COMPANY_LOGOS = [
+  { name: "House of Eleven", short: "XI", color: "#C5A880" },
+  { name: "IBS Consultants", short: "IBS", color: "#4F46E5" },
+  { name: "Covspace", short: "COV", color: "#10B981" },
+  { name: "Ronspire", short: "RON", color: "#F43F5E" },
+  { name: "Perpex Group", short: "PRX", color: "#8B5CF6" },
+  { name: "Mathlete", short: "MTH", color: "#F59E0B" },
+  { name: "UniGo", short: "UNG", color: "#06B6D4" },
+  { name: "Soumya Shyam", short: "SS", color: "#EC4899" },
+  { name: "Nutriboxx", short: "NBX", color: "#10B981" },
+  { name: "Bambrush", short: "BAM", color: "#84CC16" },
+  { name: "The Magnates", short: "TMG", color: "#EAB308" },
+  { name: "Magnate Academy", short: "MGN", color: "#3B82F6" }
+];
 
-// Cycle 3 width variants so adjacent cards differ — desktop only.
-const WIDTHS = ["min(360px, 90%)", "min(420px, 92%)", "min(480px, 95%)"];
+function LogoMark({ short, color = "currentColor" }) {
+  switch (short) {
+    case "XI":
+      return (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M6 5v14M18 5v14M6 9h12M6 15h12" />
+        </svg>
+      );
+    case "IBS":
+      return (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 18V6l6 6 6-6v12" />
+        </svg>
+      );
+    case "COV":
+      return (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2">
+          <circle cx="8" cy="12" r="4.5" />
+          <circle cx="16" cy="12" r="4.5" />
+        </svg>
+      );
+    case "RON":
+      return (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M9 14V10h3a2 2 0 1 1 0 4H9m3 0l3 3" />
+        </svg>
+      );
+    case "PRX":
+      return (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        </svg>
+      );
+    case "MTH":
+      return (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 20h18M12 4L4 16h16z" />
+        </svg>
+      );
+    case "UNG":
+      return (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 12h16M13 5l7 7-7 7" />
+        </svg>
+      );
+    case "SS":
+      return (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="1.8">
+          <circle cx="12" cy="12" r="8" strokeDasharray="3 3" />
+          <circle cx="12" cy="12" r="2.5" fill={color} />
+        </svg>
+      );
+    case "NBX":
+      return (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="4" width="16" height="16" rx="2" />
+          <path d="M9 9h6v6H9z" fill={color} fillOpacity="0.1" />
+        </svg>
+      );
+    case "BAM":
+      return (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round">
+          <path d="M7 3v18M12 3v18M17 3v18M5 8h4M10 14h4M15 10h4" />
+        </svg>
+      );
+    case "TMG":
+      return (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z" />
+          <path d="M12 6l3 6H9l3-6z" />
+        </svg>
+      );
+    case "MGN":
+    default:
+      return (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5" />
+        </svg>
+      );
+  }
+}
 
 const Arrow = ({ dir = 1 }) => (
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
@@ -78,154 +140,134 @@ const Arrow = ({ dir = 1 }) => (
   </svg>
 );
 
-/* Tokenises a quote string and wraps any @-prefixed token in a
-   styled span so @mentions render as purple links. Splits on
-   whitespace to preserve word boundaries. */
-function QuoteBody({ text }) {
-  const tokens = text.split(/(\s+)/);
-  return (
-    <>
-      {tokens.map((tok, i) => {
-        if (tok.startsWith("@")) {
-          return (
-            <span key={i} className="wol__handle">
-              {tok}
-            </span>
-          );
-        }
-        return tok;
-      })}
-    </>
-  );
-}
-
-function Card({ t, widthIndex }) {
-  return (
-    <figure
-      className="wol__card"
-      role="figure"
-      style={{ width: WIDTHS[widthIndex % WIDTHS.length] }}
-    >
-      <header className="wol__card-head">
-        <span className={`wol__avatar t-${t.tone}`} aria-hidden="true">
-          <span>{t.initials}</span>
-        </span>
-        <span className="wol__card-id">
-          <span className="wol__card-name">{t.name}</span>
-          <span className="wol__card-handle">{t.handle}</span>
-        </span>
-      </header>
-      <blockquote className="wol__card-quote">
-        <QuoteBody text={t.quote} />
-      </blockquote>
-      <figcaption className="sr-only">
-        {t.name}, {t.role}
-      </figcaption>
-    </figure>
-  );
-}
-
-function SparkleField() {
-  // 18 deterministic-position "+" twinkle marks behind the section
-  // head — same pattern as the showcase hero. SSR-stable via useMemo.
-  const marks = useMemo(() => {
-    const out = [];
-    for (let i = 0; i < 18; i++) {
-      out.push({
-        top: (i * 47 + 9) % 100,
-        left: (i * 73 + 13) % 100,
-        size: 8 + ((i * 0.7) % 6),
-        delay: -((i * 0.91) % 6),
-        dur: 4 + ((i * 1.1) % 4),
-      });
-    }
-    return out;
-  }, []);
-  return (
-    <div className="wol__sparks" aria-hidden="true">
-      {marks.map((m, i) => (
-        <span
-          key={i}
-          className="wol__spark"
-          style={{
-            top: `${m.top}%`,
-            left: `${m.left}%`,
-            fontSize: `${m.size}px`,
-            animationDelay: `${m.delay}s`,
-            animationDuration: `${m.dur}s`,
-          }}
-        >
-          +
-        </span>
-      ))}
-    </div>
-  );
-}
-
 export default function ShowcaseCards() {
-  // Hover any card → pause both rows. Touch / focus also toggles it.
-  const [paused, setPaused] = useState(false);
+  const sectionRef = useRef(null);
 
-  // Split into two rows. Even indices to row 1, odd to row 2, so each
-  // row stays varied. Each row gets duplicated for the seamless loop.
-  const row1 = TESTIMONIALS.filter((_, i) => i % 2 === 0);
-  const row2 = TESTIMONIALS.filter((_, i) => i % 2 === 1);
+  useEffect(() => {
+    const root = sectionRef.current;
+    if (!root) return undefined;
+
+    const mm = gsap.matchMedia();
+    const tweens = [];
+
+    mm.add(
+      {
+        reduceMotion: "(prefers-reduced-motion: reduce)",
+        isDesktop: "(min-width: 760px)",
+      },
+      (context) => {
+        const { reduceMotion, isDesktop } = context.conditions;
+        const tracks = gsap.utils.toArray(".wol__marquee-track", root);
+
+        if (reduceMotion) {
+          gsap.set(tracks, { xPercent: 0 });
+          return undefined;
+        }
+
+        tracks.forEach((track, index) => {
+          const direction = index % 2 === 0 ? -50 : 0;
+          const from = index % 2 === 0 ? 0 : -50;
+          gsap.set(track, { xPercent: from });
+
+          tweens.push(
+            gsap.to(track, {
+              xPercent: direction,
+              duration: isDesktop ? 34 + index * 6 : 42 + index * 5,
+              ease: "none",
+              repeat: -1,
+            })
+          );
+        });
+
+        return () => {
+          tweens.splice(0).forEach((tween) => tween.kill());
+        };
+      },
+      root
+    );
+
+    const pause = () => tweens.forEach((tween) => tween.pause());
+    const play = () => tweens.forEach((tween) => tween.play());
+
+    const marquees = root.querySelectorAll(".wol__marquee, .wol__logos-marquee");
+
+    marquees.forEach((el) => {
+      el.addEventListener("mouseenter", pause);
+      el.addEventListener("mouseleave", play);
+      el.addEventListener("focusin", pause);
+      el.addEventListener("focusout", play);
+    });
+
+    return () => {
+      marquees.forEach((el) => {
+        el.removeEventListener("mouseenter", pause);
+        el.removeEventListener("mouseleave", play);
+        el.removeEventListener("focusin", pause);
+        el.removeEventListener("focusout", play);
+      });
+      mm.revert();
+    };
+  }, []);
 
   return (
     <section
-      className="section pscard pscard--xero"
-      aria-label="Client testimonials"
+      ref={sectionRef}
+      className="section pscard pscard--minimal"
+      aria-label="Selected client work"
     >
-      <NebulaBackdrop />
-
       <div className="container">
-        <SparkleField />
-
-        <Reveal>
-          <div className="pscard__head wol__head">
-            <span className="wol__eyebrow">Wall of love</span>
+        <Reveal className="wol">
+          <div className="wol__intro">
+            <p className="wol__kicker">Selected trust</p>
             <h2>
-              Loved by <em>builders.</em>
+              Loved by builders who need the work to feel considered.
             </h2>
-            <p className="pscard__sub">In their words.</p>
-            <p className="pscard__desc">
-              Here&apos;s what teams are saying about working with us.
+            <p>
+              A quieter look at the teams and operators who bring us in when
+              the product has to be clear, usable, and ready to ship.
             </p>
-            <a href={CTA_HREF} className="pscard__cta">
+            <a href={CTA_HREF} className="wol__cta">
               <span>Start a project</span>
-              <span className="pscard__cta-badge" aria-hidden="true">
+              <span aria-hidden="true">
                 <Arrow />
               </span>
             </a>
           </div>
+
+          <div className="wol__panel">
+            <div className="wol__marquee" aria-label="Client testimonials">
+              {TESTIMONIAL_ROWS.map((row, rowIndex) => (
+                <div className="wol__marquee-row" key={rowIndex}>
+                  <div className="wol__marquee-track">
+                    {[...row, ...row].map((item, index) => (
+                      <div
+                        className="wol__testimonial-card"
+                        key={`${rowIndex}-${item.author}-${index}`}
+                      >
+                        <span className="wol__testimonial-quote">“{item.quote}”</span>
+                        <span className="wol__testimonial-author">{item.author}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="wol__logos-section">
+              <p className="wol__logos-title">Trusted by industry leaders & builders</p>
+              <div className="wol__logos-marquee" aria-label="Partner logos">
+                <div className="wol__marquee-track">
+                  {[...COMPANY_LOGOS, ...COMPANY_LOGOS].map((company, index) => (
+                    <div className="wol__logo-capsule" key={`${company.name}-${index}`}>
+                      <LogoMark short={company.short} color={company.color} />
+                      <span className="wol__logo-name">{company.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </Reveal>
-
-        <div
-          className={`wol${paused ? " is-paused" : ""}`}
-          aria-label="Client testimonials"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onFocusCapture={() => setPaused(true)}
-          onBlurCapture={() => setPaused(false)}
-        >
-          {/* Row 1 — drifts LEFT */}
-          <div className="wol__row wol__row--left">
-            <div className="wol__track">
-              {[...row1, ...row1].map((t, i) => (
-                <Card key={`r1-${i}`} t={t} widthIndex={i} />
-              ))}
-            </div>
-          </div>
-
-          {/* Row 2 — drifts RIGHT (desktop only) */}
-          <div className="wol__row wol__row--right wol__row--desktop">
-            <div className="wol__track">
-              {[...row2, ...row2].map((t, i) => (
-                <Card key={`r2-${i}`} t={t} widthIndex={i + 1} />
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

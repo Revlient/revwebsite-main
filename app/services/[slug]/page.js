@@ -154,7 +154,7 @@ export default async function ServicePage({ params }) {
 
             <Reveal delay={260}>
               <div className="svcpage-hero__actions">
-                <a href={`/${CTA_HREF}`} className="svc-hero-v2__cta">
+                <a href={CTA_HREF} className="svc-hero-v2__cta">
                   <span className="svc-hero-v2__cta-glow" />
                   {CTA_LABEL}
                 </a>

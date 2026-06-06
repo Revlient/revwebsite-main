@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { CTA_HREF } from "../lib/site";
 
 /* Pinned service showcase, two-screen flow:
    1. Section starts. User sees the 16:9 video at the top of section.
@@ -411,7 +412,7 @@ export default function ServicePinScroll() {
                 </svg>
               </a>
               <a
-                href="#start"
+                href={CTA_HREF}
                 className="svcpin__outro-btn svcpin__outro-btn--ghost"
                 tabIndex={isOutroSlot ? 0 : -1}
               >

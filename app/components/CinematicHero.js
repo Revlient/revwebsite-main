@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { CTA_HREF } from "../lib/site";
 
 /* Home hero — fullscreen looping video + staggered giant headline
    words + four stat callouts. Adapted from a "securify"-style brief,
@@ -8,11 +9,12 @@ import { useEffect, useRef } from "react";
    firm. The global <Nav /> covers the top bar; no internal nav.
    PROOF RULE: stat numbers are placeholder "TODO" until verified. */
 
-const HERO_VIDEO =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_063509_7d167302-4fd4-480b-8260-18ab572333d4.mp4";
+const HERO_VIDEO = "/bg_vid1.mp4";
+  // "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_063509_7d167302-4fd4-480b-8260-18ab572333d4.mp4";
 
 export default function CinematicHero() {
   const ctaRef = useRef(null);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     const cta = ctaRef.current;
@@ -90,9 +92,33 @@ export default function CinematicHero() {
     };
   }, []);
 
+  // Slow down background video playback for a more cinematic feel
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    const setRate = () => {
+      try {
+        // Set target playback rate (0.7 = 70% speed). Adjust as needed.
+        v.playbackRate = 0.7;
+      } catch (e) {
+        // Ignore — some platforms may throw when setting before metadata
+      }
+    };
+
+    // Ensure rate is applied after metadata loads and on attach
+    setRate();
+    v.addEventListener("loadedmetadata", setRate, { passive: true });
+
+    return () => {
+      v.removeEventListener("loadedmetadata", setRate);
+    };
+  }, []);
+
   return (
     <section className="cinhero" aria-label="Hero">
       <video
+        ref={videoRef}
         className="cinhero__video"
         src={HERO_VIDEO}
         autoPlay
@@ -114,7 +140,7 @@ export default function CinematicHero() {
         and ship the digital systems that move them forward.
       </p>
 
-      <a ref={ctaRef} href="#start" className="cinhero__cta">
+      <a ref={ctaRef} href={CTA_HREF} className="cinhero__cta">
         <span>Start a project</span>
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M7 17L17 7" />

@@ -56,8 +56,8 @@ export default function HomePage() {
         <ProcessSpine />
         <LockedServicesScroll />
         <CaseStudiesScroll />
-        <Faq />
         <ShowcaseCards />
+        <Faq />
         <IndustriesListSection />
         <WhyRevlient />
         <FinalCTA />

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import {
   BRAND,
+  CTA_HREF,
   CONTACT_EMAIL,
   SYSTEMS_URL,
   WHATSAPP_URL,
@@ -45,7 +46,7 @@ const NAV_COL = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "Studio", href: "/studio" },
-  { label: "Start a project", href: "#start" },
+  { label: "Start a project", href: CTA_HREF },
 ];
 
 const COMPANY_COL = [
