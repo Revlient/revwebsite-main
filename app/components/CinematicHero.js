@@ -122,26 +122,6 @@ export default function CinematicHero() {
         </svg>
       </a>
 
-      {/* Top-right stat */}
-      <div className="cinhero__stat cinhero__stat--tr">
-        <div className="cinhero__stat-row">
-          <span className="cinhero__stat-div" aria-hidden="true" />
-          <span className="cinhero__stat-n">32</span>
-        </div>
-        <p className="cinhero__stat-lbl">businesses partnered</p>
-      </div>
-
-      {/* Bottom-right stat */}
-      <div className="cinhero__stat cinhero__stat--br">
-        <div className="cinhero__stat-row">
-          <span className="cinhero__stat-div cinhero__stat-div--neg" aria-hidden="true" />
-          <span className="cinhero__stat-n">$12M+</span>
-        </div>
-        <p className="cinhero__stat-lbl cinhero__stat-lbl--right">
-          project value delivered
-        </p>
-      </div>
-
       <div className="cinhero__fade" aria-hidden="true" />
     </section>
   );

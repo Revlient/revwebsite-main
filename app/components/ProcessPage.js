@@ -241,15 +241,22 @@ export default function ProcessPage() {
 
       <section className="proc-hero">
         <span className="proc-hero__spot" aria-hidden="true" />
+        <span className="proc-hero__wash proc-hero__wash--one" aria-hidden="true" />
+        <span className="proc-hero__wash proc-hero__wash--two" aria-hidden="true" />
         <div className="proc-hero__inner">
           <div className="proc-hero__copy">
             <h1 className="proc-hero__title">
-              A calmer way to build digital products that actually ship
+              Build from the first sharp idea{" "}
+              <span
+                className="proc-hero__inline-img"
+                aria-hidden="true"
+              />
+              to the release people can trust.
             </h1>
             <p className="proc-hero__sub">
-              We move from raw ambition to designed, tested, launched software
-              through a quiet sequence of research, prototypes, engineering,
-              and post-launch care.
+              A disciplined studio rhythm for turning unclear requirements into
+              designed flows, reviewed code, launch checks, and the next useful
+              iteration.
             </p>
             <div className="proc-hero__actions">
               <a href={CTA_HREF} className="proc-hero__btn proc-hero__btn--primary">
@@ -262,17 +269,26 @@ export default function ProcessPage() {
           </div>
 
           <div className="proc-hero__media" aria-hidden="true">
+            <div className="proc-hero__rail">
+              {["Listen", "Map", "Prototype", "Ship"].map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
             <div className="proc-hero__frame">
               <img
-                src="https://picsum.photos/seed/revlient-process-studio/1200/1500"
+                src="https://picsum.photos/seed/revlient-process-command/1200/1500"
                 alt=""
               />
+              <div className="proc-hero__glass">
+                <span>Decision log</span>
+                <strong>Every sprint leaves a trace</strong>
+              </div>
             </div>
             <div className="proc-hero__panel">
-              <span>Discovery</span>
-              <span>Prototype</span>
-              <span>Build</span>
-              <span>Launch</span>
+              <span>Research notes</span>
+              <span>Interface proof</span>
+              <span>Code review</span>
+              <span>Launch room</span>
             </div>
           </div>
         </div>
