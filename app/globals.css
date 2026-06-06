@@ -14778,6 +14778,21 @@ a.feat-reach__line:hover {
   .wol__marquee-row:nth-child(3) {
     margin-inline: 0;
   }
+
+  .wol--mobile-motion .wol__marquee-track {
+    animation: wol-mobile-marquee 32s linear infinite;
+  }
+
+  .wol--mobile-motion .wol__marquee-row:nth-child(2) .wol__marquee-track,
+  .wol--mobile-motion .wol__marquee-row:nth-child(3) .wol__marquee-track,
+  .wol--mobile-motion .wol__logos-marquee .wol__marquee-track {
+    animation-direction: reverse;
+  }
+}
+
+@keyframes wol-mobile-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 /* ---------- Contact page ---------- */

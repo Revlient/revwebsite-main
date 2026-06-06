@@ -153,15 +153,24 @@ export default function ShowcaseCards() {
     mm.add(
       {
         reduceMotion: "(prefers-reduced-motion: reduce)",
+        isMobile: "(max-width: 759px)",
         isDesktop: "(min-width: 760px)",
       },
       (context) => {
-        const { reduceMotion, isDesktop } = context.conditions;
+        const { reduceMotion, isMobile, isDesktop } = context.conditions;
         const tracks = gsap.utils.toArray(".wol__marquee-track", root);
 
         if (reduceMotion) {
           gsap.set(tracks, { xPercent: 0 });
           return undefined;
+        }
+
+        if (isMobile) {
+          gsap.set(tracks, { xPercent: 0 });
+          root.classList.add("wol--mobile-motion");
+          return () => {
+            root.classList.remove("wol--mobile-motion");
+          };
         }
 
         tracks.forEach((track, index) => {
