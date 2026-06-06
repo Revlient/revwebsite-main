@@ -497,7 +497,7 @@ const TIERS = [
   {
     name: "Starter",
     sub: "Single surface · fixed scope",
-    price: "From $TODO",
+    price: "Pricing on request",
     features: [
       "Marketing site or landing page",
       "Brand polish + responsive design",
@@ -511,7 +511,7 @@ const TIERS = [
     name: "Studio",
     featured: true,
     sub: "Most picked · full product surface",
-    price: "From $TODO",
+    price: "Pricing on request",
     features: [
       "Full marketing site or product app",
       "Custom motion + interactions",
@@ -524,7 +524,7 @@ const TIERS = [
   {
     name: "Enterprise",
     sub: "Multi-surface · ongoing retainer",
-    price: "Custom · by quote",
+    price: "Pricing on request",
     features: [
       "Multi-surface system or platform",
       "Design + engineering retainer",
