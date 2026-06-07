@@ -79,7 +79,7 @@ function FaqRow({ item, index, open, onToggle }) {
           <span className="faq__q-index">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <span className="faq__q-cat">{item.cat}</span>
+          {/* <span className="faq__q-cat">{item.cat}</span> */}
         </span>
         <span className="faq__q-text">{item.q}</span>
         <span className="faq__q-icon" aria-hidden="true">

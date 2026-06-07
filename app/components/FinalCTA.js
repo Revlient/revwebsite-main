@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reveal from "./Reveal";
 import { CTA_LABEL, CTA_HREF, CONTACT_EMAIL } from "../lib/site";
 
@@ -8,90 +10,170 @@ import { CTA_LABEL, CTA_HREF, CONTACT_EMAIL } from "../lib/site";
 // button currently resolves to.
 export default function FinalCTA() {
   const containerRef = useRef(null);
-  const [coords, setCoords] = useState({ x: 50, y: 50 });
+  const mediaRef = useRef(null);
+  const wordRefs = useRef([]);
 
-  const handleMouseMove = (e) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setCoords({ x, y });
-  };
-
-  const tags = [
-    { label: "Interactive 3D", className: "finale__tag--1" },
-    { label: "Custom ERP", className: "finale__tag--2" },
-    { label: "SaaS Portals", className: "finale__tag--3" },
-    { label: "iOS & Android", className: "finale__tag--4" },
-    { label: "Creative Motion", className: "finale__tag--5" },
-    { label: "Performance Ops", className: "finale__tag--6" },
+  const headingWords =
+    "A serious product deserves a quieter, sharper build.".split(" ");
+  const proofItems = [
+    "Strategy",
+    "Interface",
+    "Systems",
+    "Motion",
+    "Launch",
+  ];
+  const testimonials = [
+    {
+      name: "Product founder",
+      text: "Clear scope, elegant execution, no theatre.",
+      seed: "founder-portrait",
+    },
+    {
+      name: "Operations lead",
+      text: "They turned a messy workflow into a calm product.",
+      seed: "ops-portrait",
+    },
+    {
+      name: "Creative director",
+      text: "The site finally feels as considered as the brand.",
+      seed: "creative-portrait",
+    },
   ];
 
+  useEffect(() => {
+    const root = containerRef.current;
+    if (!root) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const reduceMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduceMotion) {
+      gsap.set(wordRefs.current, { opacity: 1, y: 0 });
+      gsap.set(mediaRef.current, { opacity: 1, scale: 1 });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        wordRefs.current,
+        { opacity: 0.18, y: 18 },
+        {
+          opacity: 1,
+          y: 0,
+          ease: "none",
+          stagger: 0.08,
+          scrollTrigger: {
+            trigger: root,
+            start: "top 72%",
+            end: "center 42%",
+            scrub: true,
+          },
+        }
+      );
+
+      gsap.fromTo(
+        mediaRef.current,
+        { opacity: 0.28, scale: 0.88, y: 42 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: root,
+            start: "top 76%",
+            end: "center center",
+            scrub: 0.7,
+          },
+        }
+      );
+    }, root);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section
-      className="section finale"
-      id="start"
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      style={{
-        "--mx": `${coords.x}%`,
-        "--my": `${coords.y}%`,
-      }}
-    >
-      {/* Background spotlight gradient & grid wireframe */}
-      <div className="finale__bg-glow" aria-hidden="true" />
-      <div className="finale__grid" aria-hidden="true" />
-
-      {/* Concentric rotating orbits */}
-      <div className="finale__orbit-wrapper" aria-hidden="true">
-        <svg viewBox="0 0 400 400" className="finale__orbit finale__orbit--inner">
-          <circle cx="200" cy="200" r="130" stroke="rgba(255, 255, 255, 0.08)" strokeWidth="1" strokeDasharray="3 5" fill="none" />
-        </svg>
-        <svg viewBox="0 0 400 400" className="finale__orbit finale__orbit--outer">
-          <circle cx="200" cy="200" r="170" stroke="rgba(111, 140, 255, 0.06)" strokeWidth="1" strokeDasharray="8 12" fill="none" />
-        </svg>
-      </div>
-
-      {/* Floating tags */}
-      <div className="finale__tags" aria-hidden="true">
-        {tags.map((t, idx) => (
-          <span key={idx} className={`finale__tag ${t.className}`}>
-            {t.label}
-          </span>
-        ))}
-      </div>
+    <section className="section finale" id="start" ref={containerRef}>
+      <div className="finale__wash" aria-hidden="true" />
 
       <div className="container finale__container">
         <Reveal className="finale__inner">
-          <h2 className="finale__heading">
-            Have something <em>worth crafting?</em>
-          </h2>
-          <p className="finale__description">
-            Tell us what you&apos;re building. We&apos;ll tell you, honestly, whether
-            we&apos;re the studio to build it — and how we&apos;d approach it.
-          </p>
+          <div className="finale__copy">
+            <h2 className="finale__heading" aria-label={headingWords.join(" ")}>
+              {headingWords.map((word, index) => (
+                <span
+                  key={`${word}-${index}`}
+                  ref={(node) => {
+                    if (node) wordRefs.current[index] = node;
+                  }}
+                  className="finale__word"
+                >
+                  {word}
+                </span>
+              ))}
+              <span className="finale__inline-image" aria-hidden="true" />
+            </h2>
 
-          <div className="finale__actions">
-            <div className="finale__btn-glow-wrapper">
-              <a href={CTA_HREF} className="btn btn--primary finale__btn">
+            <p className="finale__description">
+              Tell us what you&apos;re building. We&apos;ll give you a clear read
+              on scope, budget, timing, and the sharpest path to ship.
+            </p>
+
+            <div className="finale__actions">
+              <a href={CTA_HREF} className="btn finale__btn finale__btn--primary">
                 {CTA_LABEL}
               </a>
-              <span className="finale__btn-glow" />
-            </div>
 
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="btn btn--ghost finale__email"
-            >
-              {CONTACT_EMAIL}
-            </a>
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="btn finale__btn finale__btn--ghost"
+              >
+                {CONTACT_EMAIL}
+              </a>
+            </div>
           </div>
 
-          <p className="finale__note">
-            One screen, low friction. Tell us the goal, the budget range and
-            a short brief — we&apos;ll take it from there.
-          </p>
+          <div className="finale__media" ref={mediaRef}>
+            <div className="finale__image-stack" aria-hidden="true">
+              <span className="finale__image finale__image--large" />
+              <span className="finale__image finale__image--small" />
+            </div>
+            <p className="finale__studio-note">
+              We take on fewer builds so the work can stay exact.
+            </p>
+          </div>
         </Reveal>
+
+        <div className="finale__proof">
+          <div className="finale__marquee" aria-hidden="true">
+            <div className="finale__marquee-track">
+              {[...proofItems, ...proofItems, ...proofItems].map((item, index) => (
+                <span key={`${item}-${index}`}>{item}</span>
+              ))}
+            </div>
+          </div>
+
+          <div className="finale__testimonials" aria-label="Client notes">
+            {testimonials.map((item) => (
+              <figure className="finale__testimonial" key={item.seed}>
+                <span
+                  className="finale__avatar"
+                  style={{
+                    backgroundImage: `url(https://picsum.photos/seed/${item.seed}/160/160)`,
+                  }}
+                  aria-hidden="true"
+                />
+                <figcaption>
+                  <p>&quot;{item.text}&quot;</p>
+                  <span>{item.name}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

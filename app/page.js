@@ -59,7 +59,7 @@ export default function HomePage() {
         <ShowcaseCards />
         <Faq />
         <IndustriesListSection />
-        <WhyRevlient />
+        {/* <WhyRevlient /> */}
         <FinalCTA />
       </main>
       <Footer />

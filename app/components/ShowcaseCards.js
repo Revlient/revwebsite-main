@@ -30,102 +30,22 @@ const TESTIMONIAL_ROWS = [
 ];
 
 const COMPANY_LOGOS = [
-  { name: "House of Eleven", short: "XI", color: "#C5A880" },
-  { name: "IBS Consultants", short: "IBS", color: "#4F46E5" },
-  { name: "Covspace", short: "COV", color: "#10B981" },
-  { name: "Ronspire", short: "RON", color: "#F43F5E" },
-  { name: "Perpex Group", short: "PRX", color: "#8B5CF6" },
-  { name: "Mathlete", short: "MTH", color: "#F59E0B" },
-  { name: "UniGo", short: "UNG", color: "#06B6D4" },
-  { name: "Soumya Shyam", short: "SS", color: "#EC4899" },
-  { name: "Nutriboxx", short: "NBX", color: "#10B981" },
-  { name: "Bambrush", short: "BAM", color: "#84CC16" },
-  { name: "The Magnates", short: "TMG", color: "#EAB308" },
-  { name: "Magnate Academy", short: "MGN", color: "#3B82F6" }
+  { name: "House of Eleven", src: "/logos/houseof11.png" },
+  { name: "IBS Consultants", src: "/logos/ibs.jpg" },
+  { name: "Covspace", src: "/logos/covspace.png" },
+  { name: "Ronspire", src: "/logos/ronspire.svg" },
+  { name: "Perpex B-School", src: "/logos/perpexbschool.svg" },
+  { name: "Perpex Group", src: "/logos/perpex.png" },
+  { name: "Mathlete", src: "/logos/mathlete.png" },
+  { name: "The Magnates", src: "/logos/themagnates.svg" },
+  { name: "UniGo", src: "/logos/unigo.png" },
+  { name: "Soumya Shyam", src: "/logos/soumyashyam.png" },
+  { name: "Nutriboxx", src: "/logos/nutriboxx.png" },
+  { name: "Bambrush", src: "/logos/bambrush.webp" },
+  { name: "Magnate Academy", src: "/logos/magnateacademy.svg" },
+  { name: "Magnate Study Abroad", src: "/logos/magnatestudyabroad.svg" },
+  { name: "Magnate Global", src: "/logos/magnateglobal.svg" }
 ];
-
-function LogoMark({ short, color = "currentColor" }) {
-  switch (short) {
-    case "XI":
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M6 5v14M18 5v14M6 9h12M6 15h12" />
-        </svg>
-      );
-    case "IBS":
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M4 18V6l6 6 6-6v12" />
-        </svg>
-      );
-    case "COV":
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2">
-          <circle cx="8" cy="12" r="4.5" />
-          <circle cx="16" cy="12" r="4.5" />
-        </svg>
-      );
-    case "RON":
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="9" />
-          <path d="M9 14V10h3a2 2 0 1 1 0 4H9m3 0l3 3" />
-        </svg>
-      );
-    case "PRX":
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-        </svg>
-      );
-    case "MTH":
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 20h18M12 4L4 16h16z" />
-        </svg>
-      );
-    case "UNG":
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M4 12h16M13 5l7 7-7 7" />
-        </svg>
-      );
-    case "SS":
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="1.8">
-          <circle cx="12" cy="12" r="8" strokeDasharray="3 3" />
-          <circle cx="12" cy="12" r="2.5" fill={color} />
-        </svg>
-      );
-    case "NBX":
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect x="4" y="4" width="16" height="16" rx="2" />
-          <path d="M9 9h6v6H9z" fill={color} fillOpacity="0.1" />
-        </svg>
-      );
-    case "BAM":
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round">
-          <path d="M7 3v18M12 3v18M17 3v18M5 8h4M10 14h4M15 10h4" />
-        </svg>
-      );
-    case "TMG":
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z" />
-          <path d="M12 6l3 6H9l3-6z" />
-        </svg>
-      );
-    case "MGN":
-    default:
-      return (
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5" />
-        </svg>
-      );
-  }
-}
 
 const Arrow = ({ dir = 1 }) => (
   <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
@@ -268,7 +188,12 @@ export default function ShowcaseCards() {
                 <div className="wol__marquee-track">
                   {[...COMPANY_LOGOS, ...COMPANY_LOGOS].map((company, index) => (
                     <div className="wol__logo-capsule" key={`${company.name}-${index}`}>
-                      <LogoMark short={company.short} color={company.color} />
+                      <img
+                        className="wol__logo-image"
+                        src={company.src}
+                        alt={`${company.name} logo`}
+                        loading="lazy"
+                      />
                       <span className="wol__logo-name">{company.name}</span>
                     </div>
                   ))}
