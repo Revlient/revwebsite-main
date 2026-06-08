@@ -215,6 +215,13 @@ export async function saveLead(lead, meta = {}) {
     throw new Error(`Lead ERP request failed (${response.status}): ${body}`);
   }
 
-  console.log("[lead] sent to ERP", { sessionId: meta.sessionId || null });
-  return record;
+  let resData = {};
+  try {
+    resData = await response.json();
+  } catch (err) {
+    // Ignore JSON parse error if ERP doesn't return JSON
+  }
+
+  console.log("[lead] sent to ERP", { sessionId: meta.sessionId || null, resData });
+  return { ...record, ...resData };
 }

@@ -361,7 +361,6 @@ export default function WorkProjects() {
                     <span className="work-project__live-dot" />
                     Live site ↗
                   </span>
-                  <span className="work-project__number">{p.number}</span>
                 </div>
                 <div className="work-project__body">
                   <div className="work-project__meta">

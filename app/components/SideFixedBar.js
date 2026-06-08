@@ -27,8 +27,25 @@ export default function SideFixedBar() {
     return () => window.removeEventListener("open-request-panel", handleOpen);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      await fetch("/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to save lead in ERP:", err);
+    }
+
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);

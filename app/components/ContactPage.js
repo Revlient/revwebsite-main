@@ -1,6 +1,6 @@
 "use client";
-
-import { useEffect, useRef } from "react";
+ 
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Reveal from "./Reveal";
 import {
@@ -11,7 +11,7 @@ import {
   SYSTEMS_URL,
   WHATSAPP_URL,
 } from "../lib/site";
-
+ 
 const SIGNALS = [
   {
     label: "Response",
@@ -29,23 +29,27 @@ const SIGNALS = [
     body: "A few sentences are enough if the target, timeline, and reference are clear.",
   },
 ];
-
+ 
 const CONTACT_ROWS = [
   { label: "Email", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
   { label: "Phone", value: PHONE_DISPLAY, href: `tel:${PHONE_TEL}` },
   { label: "WhatsApp", value: "Open chat", href: WHATSAPP_URL, external: true },
   { label: "Systems", value: "revlient.com/systems", href: SYSTEMS_URL, external: true },
 ];
-
+ 
 const FIELDS = [
   { id: "name", label: "Name", type: "text", placeholder: "Your name" },
   { id: "email", label: "Email", type: "email", placeholder: "you@company.com" },
+  { id: "phone", label: "Phone", type: "tel", placeholder: "Your phone number" },
   { id: "company", label: "Company", type: "text", placeholder: "Company or studio" },
+  { id: "project", label: "Project", type: "text", placeholder: "Project type (e.g. Website redesign)" },
   { id: "budget", label: "Budget", type: "text", placeholder: "Budget range" },
 ];
 
 export default function ContactPage() {
   const rootRef = useRef(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -86,32 +90,66 @@ export default function ContactPage() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     const form = event.currentTarget;
     const data = new FormData(form);
 
     const name = String(data.get("name") || "").trim();
     const email = String(data.get("email") || "").trim();
+    const phone = String(data.get("phone") || "").trim();
     const company = String(data.get("company") || "").trim();
+    const project = String(data.get("project") || "").trim();
     const budget = String(data.get("budget") || "").trim();
     const brief = String(data.get("brief") || "").trim();
 
-    const subject = encodeURIComponent(
-      `${company || "New project"} inquiry from ${name || "a visitor"}`
-    );
-    const body = encodeURIComponent(
-      [
-        `Name: ${name || "-"}`,
-        `Email: ${email || "-"}`,
-        `Company: ${company || "-"}`,
-        `Budget: ${budget || "-"}`,
-        "",
-        brief || "Brief not provided.",
-      ].join("\n")
-    );
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          company,
+          project,
+          budget,
+          message: brief,
+        }),
+      });
 
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+      if (!res.ok) {
+        throw new Error("Failed to submit lead");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Failed to save lead in ERP, opening mail client:", err);
+      // Fallback: open email client draft if ERP submission fails
+      const subject = encodeURIComponent(
+        `${company || "New project"} inquiry from ${name || "a visitor"}`
+      );
+      const body = encodeURIComponent(
+        [
+          `Name: ${name || "-"}`,
+          `Email: ${email || "-"}`,
+          `Phone: ${phone || "-"}`,
+          `Company: ${company || "-"}`,
+          `Project: ${project || "-"}`,
+          `Budget: ${budget || "-"}`,
+          "",
+          brief || "Brief not provided.",
+        ].join("\n")
+      );
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -184,45 +222,60 @@ export default function ContactPage() {
 
         <section className="contact-form-wrap">
           <Reveal className="contact-form-card contact__fade" delay={120}>
-            <div className="contact-form-card__head">
-              <p className="contact-hero__eyebrow">Send a brief</p>
-              <h2>Write the project in plain language.</h2>
-              <p>
-                A few structured details help us reply faster and with less back
-                and forth.
-              </p>
-            </div>
-
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="contact-form__grid">
-                {FIELDS.map((field) => (
-                  <label key={field.id} className="contact-field" htmlFor={field.id}>
-                    <span>{field.label}</span>
-                    <input id={field.id} name={field.id} type={field.type} placeholder={field.placeholder} />
-                  </label>
-                ))}
-              </div>
-
-              <label className="contact-field contact-field--textarea" htmlFor="brief">
-                <span>Project brief</span>
-                <textarea
-                  id="brief"
-                  name="brief"
-                  rows="6"
-                  placeholder="What are you building, what should it do, and what needs to feel better?"
-                />
-              </label>
-
-              <div className="contact-form__actions">
-                <button type="submit" className="contact-btn contact-btn--primary">
-                  Open email draft
-                </button>
-                <p>
-                  Or reach us directly at{" "}
-                  <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+            {submitted ? (
+              <div className="contact-form__success" style={{ padding: "3rem 1.5rem", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "350px" }}>
+                <svg viewBox="0 0 24 24" width="54" height="54" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{ color: "#e5be6e", marginBottom: "1.5rem" }}>
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+                <h2 style={{ fontSize: "2rem", fontWeight: "700", marginBottom: "0.85rem", color: "#ffffff" }}>Brief Received</h2>
+                <p style={{ color: "rgba(255, 255, 255, 0.7)", maxWidth: "26rem", margin: "0 auto", fontSize: "1.05rem", lineHeight: "1.6" }}>
+                  Thank you! Your project brief has been recorded directly in our system. We will review it and follow up shortly.
                 </p>
               </div>
-            </form>
+            ) : (
+              <>
+                <div className="contact-form-card__head">
+                  <p className="contact-hero__eyebrow">Send a brief</p>
+                  <h2>Write the project in plain language.</h2>
+                  <p>
+                    A few structured details help us reply faster and with less back
+                    and forth.
+                  </p>
+                </div>
+
+                <form className="contact-form" onSubmit={handleSubmit}>
+                  <div className="contact-form__grid">
+                    {FIELDS.map((field) => (
+                      <label key={field.id} className="contact-field" htmlFor={field.id}>
+                        <span>{field.label}</span>
+                        <input id={field.id} name={field.id} type={field.type} placeholder={field.placeholder} required={field.id === "name" || field.id === "email"} />
+                      </label>
+                    ))}
+                  </div>
+
+                  <label className="contact-field contact-field--textarea" htmlFor="brief">
+                    <span>Project brief</span>
+                    <textarea
+                      id="brief"
+                      name="brief"
+                      rows="6"
+                      placeholder="What are you building, what should it do, and what needs to feel better?"
+                    />
+                  </label>
+
+                  <div className="contact-form__actions">
+                    <button type="submit" className="contact-btn contact-btn--primary" disabled={isSubmitting}>
+                      {isSubmitting ? "Submitting..." : "Submit"}
+                    </button>
+                    <p>
+                      Or reach us directly at{" "}
+                      <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+                    </p>
+                  </div>
+                </form>
+              </>
+            )}
           </Reveal>
 
           <div className="contact-side">

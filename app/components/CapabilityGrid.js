@@ -4,7 +4,7 @@ import Reveal from "./Reveal";
 
 /* Capability showcase — Huly-inspired bento. Five business
    capabilities framed as transformation outcomes, not features.
-   Dark cinematic surface, glassmorphic cards, ambient blue/violet
+   Dark cinematic surface, glassmorphic cards, monochrome
    bloom behind. PROOF RULE: no fabricated client names, metrics,
    or testimonials embedded. */
 
@@ -70,10 +70,10 @@ function VisualBrand() {
     <div className="cap-v cap-v--brand" aria-hidden="true">
       <div className="cap-v__type">Aa</div>
       <div className="cap-v__swatches">
-        <span style={{ background: "#0F1423" }} />
+        <span style={{ background: "#0A0A0C" }} />
         <span style={{ background: "#ffffff" }} />
-        <span style={{ background: "#60A5FA" }} />
-        <span style={{ background: "#F2EFEA" }} />
+        <span style={{ background: "#727272" }} />
+        <span style={{ background: "#E8E8E8" }} />
       </div>
     </div>
   );
@@ -156,8 +156,8 @@ export default function CapabilityGrid() {
   return (
     <section className="cap" aria-label="What we build">
       <div className="cap__atmosphere" aria-hidden="true">
-        <span className="cap__bloom cap__bloom--violet" />
-        <span className="cap__bloom cap__bloom--blue" />
+        <span className="cap__bloom cap__bloom--white" />
+        <span className="cap__bloom cap__bloom--black" />
       </div>
       <div className="cap__grain" aria-hidden="true" />
 

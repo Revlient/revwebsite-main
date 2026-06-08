@@ -4,7 +4,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTransition } from "../context/TransitionContext";
 
-export const TransitionOverlay = ({ color = "#0a0f1d" }) => {
+export const TransitionOverlay = ({ color = "#000000" }) => {
   const { state, onCovered } = useTransition();
   const { isTransitioning, targetPage } = state;
   const duration = 0.58;
