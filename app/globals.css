@@ -22610,7 +22610,21 @@ a.feat2-reach__line:hover {
   background: linear-gradient(90deg, rgba(8, 9, 12, 0.4), rgba(96,165,250,0.5));
 }
 .cap-v__tile-bar--short { width: 60%; flex: none; }
-.cap-v__tile-bar--shorter { width: 35%; flex: none; background: rgba(8, 9, 12, 0.1); }
+.cap-v--video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+.cap-v--video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .cap__bloom,
@@ -27735,13 +27749,15 @@ a.feat2-reach__line:hover {
 
 /* Tagline Noto Sans Devanagari / Philosopher font override */
 .hero-legacies {
-  font-family: var(--font-noto-devanagari), var(--font-philosopher), var(--font-cormorant), sans-serif !important;
+  font-family: var(--font-caveat), cursive !important;
   font-weight: 600;
   font-style: italic !important;
-  font-variation-settings: "wdth" 100;
   text-transform: none;
   letter-spacing: normal;
   display: inline-block;
+  font-size: 1.25em;
+  line-height: 0.8;
+  transform: rotate(-2deg);
 }
 
 /* Tooltip styling for CTAs */

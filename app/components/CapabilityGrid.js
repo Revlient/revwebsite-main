@@ -30,21 +30,15 @@ function VisualAi() {
 }
 
 function VisualWeb() {
-  // Stacked translucent browser fragments — premium product reveal.
   return (
-    <div className="cap-v cap-v--web" aria-hidden="true">
-      <div className="cap-v__pane cap-v__pane--3" />
-      <div className="cap-v__pane cap-v__pane--2" />
-      <div className="cap-v__pane cap-v__pane--1">
-        <div className="cap-v__pane-bar">
-          <span /><span /><span />
-        </div>
-        <div className="cap-v__pane-body">
-          <span className="cap-v__pane-h" />
-          <span className="cap-v__pane-l" />
-          <span className="cap-v__pane-l cap-v__pane-l--short" />
-        </div>
-      </div>
+    <div className="cap-v cap-v--video" aria-hidden="true">
+      <video
+        src="/Flight_graphic_glides_across_das…_202606090343.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
     </div>
   );
 }
@@ -80,21 +74,15 @@ function VisualBrand() {
 }
 
 function VisualCrm() {
-  // Workspace tiles — calm operational surface
   return (
-    <div className="cap-v cap-v--crm" aria-hidden="true">
-      <div className="cap-v__tile">
-        <span className="cap-v__tile-dot" />
-        <span className="cap-v__tile-bar" />
-      </div>
-      <div className="cap-v__tile">
-        <span className="cap-v__tile-dot cap-v__tile-dot--alt" />
-        <span className="cap-v__tile-bar cap-v__tile-bar--short" />
-      </div>
-      <div className="cap-v__tile">
-        <span className="cap-v__tile-dot cap-v__tile-dot--soft" />
-        <span className="cap-v__tile-bar cap-v__tile-bar--shorter" />
-      </div>
+    <div className="cap-v cap-v--video" aria-hidden="true">
+      <video
+        src="/CRM_SAAS.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
     </div>
   );
 }
@@ -131,24 +119,13 @@ const CAPS = [
     span: "third",
   },
   {
-    id: "brand",
-    eyebrow: "Brand & Growth",
-    headline: "Identity systems that compound.",
-    body:
-      "We craft clean, memorable visual identities, clear messaging frameworks, and growth engines designed to stay modern, fresh, and relevant for years.",
-    tags: ["Identity", "Content", "Growth"],
-    Visual: VisualBrand,
-    span: "third",
-  },
-  {
     id: "crm",
-    eyebrow: "CRM & Workflows",
-    headline: "Workspaces you actually enjoy logging into.",
-    body:
-      "Consolidate scattered files, invoicing, customer history, and tasks onto a single, cohesive, beautifully designed interface.",
-    tags: ["CRM", "Ops", "Portals"],
+    eyebrow: "CRM & Growth Workspaces",
+    headline: "Unified platforms that power your operations.",
+    body: "Consolidate your visual identity, customer history, invoicing, and automated workflows onto a single, custom-built system designed to feel as good as it looks.",
+    tags: ["CRM", "Workspace", "Ops", "Growth"],
     Visual: VisualCrm,
-    span: "third",
+    span: "wide",
   },
 ];
 
