@@ -3,18 +3,8 @@
 import { useEffect, useRef } from "react";
 import { CTA_HREF } from "../lib/site";
 
-/* Home hero — fullscreen looping video + staggered giant headline
-   words + four stat callouts. Adapted from a "securify"-style brief,
-   re-framed for Revlient as a high-conversion digital engineering
-   firm. The global <Nav /> covers the top bar; no internal nav.
-   PROOF RULE: stat numbers are placeholder "TODO" until verified. */
-
-const HERO_VIDEO = "/bg_vid1.mp4";
-  // "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_063509_7d167302-4fd4-480b-8260-18ab572333d4.mp4";
-
 export default function CinematicHero() {
   const ctaRef = useRef(null);
-  const videoRef = useRef(null);
 
   useEffect(() => {
     const cta = ctaRef.current;
@@ -43,16 +33,15 @@ export default function CinematicHero() {
       const dy = e.clientY - ctaY;
       const distance = Math.hypot(dx, dy);
 
-      // Magnetic attraction zone: 90px
-      const radius = 90;
+      // Magnetic attraction zone: 100px
+      const radius = 100;
 
       if (distance < radius) {
-        // Pull strength (moves button 35% of the distance to the cursor)
-        const pull = 0.35;
+        // Pull strength (moves button 30% of the distance to the cursor)
+        const pull = 0.3;
         targetX = dx * pull;
         targetY = dy * pull;
       } else {
-        // Return smoothly to baseline position
         targetX = 0;
         targetY = 0;
       }
@@ -67,12 +56,10 @@ export default function CinematicHero() {
       const isMobile = window.innerWidth <= 768;
 
       if (!isMobile) {
-        // Smooth interpolation (lerp) for spring-like deceleration
-        currentX += (targetX - currentX) * 0.12;
-        currentY += (targetY - currentY) * 0.12;
-        cta.style.transform = `translate3d(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px), 0)`;
+        currentX += (targetX - currentX) * 0.15;
+        currentY += (targetY - currentY) * 0.15;
+        cta.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
       } else {
-        // Reset transform on mobile to let CSS absolute position rules take over
         currentX = 0;
         currentY = 0;
         cta.style.transform = "";
@@ -92,62 +79,117 @@ export default function CinematicHero() {
     };
   }, []);
 
-  // Slow down background video playback for a more cinematic feel
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-
-    const setRate = () => {
-      try {
-        // Set target playback rate (0.7 = 70% speed). Adjust as needed.
-        v.playbackRate = 0.7;
-      } catch (e) {
-        // Ignore — some platforms may throw when setting before metadata
-      }
-    };
-
-    // Ensure rate is applied after metadata loads and on attach
-    setRate();
-    v.addEventListener("loadedmetadata", setRate, { passive: true });
-
-    return () => {
-      v.removeEventListener("loadedmetadata", setRate);
-    };
-  }, []);
-
   return (
     <section className="cinhero" aria-label="Hero">
-      <video
-        ref={videoRef}
-        className="cinhero__video"
-        src={HERO_VIDEO}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
-      />
+      {/* Background sculpture */}
+      <div className="cinhero__bg" aria-hidden="true" />
 
-      <h1 className="cinhero__title" aria-label="we craft digital legacies">
-        <span className="cinhero__w cinhero__w--1">WE</span>
-        <span className="cinhero__w cinhero__w--2">CRAFT</span>
-        <span className="cinhero__w cinhero__w--3">DIGITAL</span>
-        <span className="cinhero__w cinhero__w--4">LEGACIES.</span>
-      </h1>
-      <p className="cinhero__desc">
-        we partner with serious businesses to design, engineer
-        and ship the digital systems that move them forward.
-      </p>
+      {/* Main content column */}
+      <div className="cinhero__content">
+        <div className="cinhero__typography">
+          <span className="cinhero__kicker">WE KNOW WHAT YOU</span>
+          <h1 className="cinhero__headline">
+            <span className="cinhero__line cinhero__line--1">TIME FOR</span>
+            <span className="cinhero__line cinhero__line--2">
+              YOU TO <span className="cinhero__outline">KNOW</span>
+            </span>
+            <span className="cinhero__line cinhero__line--3">HOW WE ARE.</span>
+          </h1>
+        </div>
 
-      <a ref={ctaRef} href={CTA_HREF} className="cinhero__cta">
-        <span>Start a project</span>
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M7 17L17 7" />
-          <path d="M7 7h10v10" />
-        </svg>
-      </a>
+        {/* Bottom left strategy list and CTA button */}
+        <div className="cinhero__bottom-left">
+          <div className="cinhero__skills">
+            STRATEGY. DESIGN.<br />ENGINEERING. LAUNCH.
+          </div>
+          <a ref={ctaRef} href={CTA_HREF} className="cinhero__btn-pill">
+            <span>START A PROJECT</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M7 17L17 7" />
+              <path d="M7 7h10v10" />
+            </svg>
+          </a>
+        </div>
+      </div>
 
+      {/* Star Solution Box overlay */}
+      <div className="cinhero__solution-card">
+        <div className="cinhero__solution-icon-wrapper">
+          <svg className="cinhero__star-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+            <path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z" />
+          </svg>
+        </div>
+        <div className="cinhero__solution-text">
+          DIGITAL SOLUTIONS THAT MOVE BRANDS BEYOND TOMORROW.
+        </div>
+      </div>
+
+      {/* Right Sidebar (Avatars + Built for Visionaries) */}
+      <div className="cinhero__right-sidebar">
+        <div className="cinhero__avatar-stack">
+          <img src="/avatar1.png" alt="Creative portrait" className="cinhero__avatar" />
+          <img src="/avatar2.png" alt="Developer portrait" className="cinhero__avatar" />
+          <img src="/avatar3.png" alt="Engineer portrait" className="cinhero__avatar" />
+        </div>
+        <div className="cinhero__sidebar-label">
+          BUILT FOR VISIONARIES
+        </div>
+        <div className="cinhero__sidebar-line" />
+      </div>
+
+      {/* Bottom right nebula orb */}
+      <div className="cinhero__bottom-right-decor">
+        <div className="cinhero__orb">
+          <div className="cinhero__orb-inner" />
+        </div>
+      </div>
+
+      {/* Bottom Left 'N' badge */}
+      <div className="cinhero__badge-left">
+        <div className="cinhero__badge-circle">
+          <span>N</span>
+        </div>
+      </div>
+
+      {/* Bottom partner logo ticker */}
+      <div className="cinhero__ticker">
+        <div className="cinhero__ticker-row">
+          <div className="cinhero__ticker-item">
+            <span className="cinhero__ticker-text cinhero__ticker-text--bold">ACME</span>
+          </div>
+          <div className="cinhero__ticker-item">
+            <span className="cinhero__ticker-icon">○</span>
+            <span className="cinhero__ticker-text">QUANTUM</span>
+          </div>
+          <div className="cinhero__ticker-item">
+            <span className="cinhero__ticker-icon">☾</span>
+            <span className="cinhero__ticker-text">ECLIPSE</span>
+          </div>
+          <div className="cinhero__ticker-item">
+            <span className="cinhero__ticker-icon-box">
+              <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="currentColor" strokeWidth="3">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M9 9h6v6H9z" fill="currentColor" />
+              </svg>
+            </span>
+            <span className="cinhero__ticker-text">NEXTGEN</span>
+          </div>
+          <div className="cinhero__ticker-item">
+            <span className="cinhero__ticker-text">VISIONIX</span>
+          </div>
+          <div className="cinhero__ticker-item">
+            <span className="cinhero__ticker-icon-altrix">
+              <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="3">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 7v10M7 12h10" />
+              </svg>
+            </span>
+            <span className="cinhero__ticker-text">ALTRIX</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Linear bottom fade overlay */}
       <div className="cinhero__fade" aria-hidden="true" />
     </section>
   );

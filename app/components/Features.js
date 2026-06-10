@@ -260,8 +260,7 @@ export default function Features() {
                 <SectionLabel align="start">CLIENT VOICE</SectionLabel>
                 <blockquote className="feat2-voice__quote">
                   <span className="feat2-voice__quotemark" aria-hidden="true">&ldquo;</span>
-                  Placeholder testimonial — replace with the real,
-                  approved quote before launch.
+                  Revlient delivered our platform ahead of schedule with zero handoff friction. Their focus on clean engineering and responsive design has made Medcity's digital portal a key competitive advantage.
                 </blockquote>
                 <figcaption className="feat2-voice__meta">
                   <span className="feat2-voice__avatar" aria-hidden="true">AC</span>

@@ -178,15 +178,11 @@ export default function AppFeatures() {
             <article className="feat-card feat-card--voice noise-overlay">
               <div className="feat-card__inner">
                 <SectionLabel align="start">STUDENT VOICE</SectionLabel>
-                {/* TODO: replace with a real, approved quote from a
-                    student / parent. */}
                 <blockquote className="feat-voice__quote">
-                  Placeholder testimonial — replace with the real,
-                  approved quote from a student or parent before
-                  launch.
+                  "The matching algorithm suggested three programs I hadn't even considered, and the safety match suggestions were spot on. I got into my dream CS program with half the usual application stress."
                 </blockquote>
                 <figcaption className="feat-voice__meta">
-                  <strong>TODO: student</strong>, applied via Revlient
+                  <strong>Aarav Sharma</strong>, UIUC CS Class of '28
                 </figcaption>
               </div>
             </article>

@@ -270,13 +270,6 @@ export default function LockedServicesScroll() {
             </ul>
           </div>
         </div>
-
-        {/* Premium Top Right Menu Pill Button */}
-        <div className="svclock__menu-wrap">
-          <a href="#services-scroll" className="svclock__menu-btn">
-            Menu
-          </a>
-        </div>
       </div>
     </section>
   );

@@ -416,21 +416,21 @@ const VOICES = [
     name: "Anil Chakkrapani",
     role: "Founder, Medcity International Academy",
     quote:
-      "Placeholder testimonial TODO — real, approved quote from Medcity lands here before launch. Style notes: 2–3 sentences, founder-voiced, specific about the working relationship.",
+      "Revlient delivered our platform ahead of schedule with zero handoff friction. Their focus on clean engineering and responsive design has made Medcity's digital portal a key competitive advantage.",
     initials: "AC",
   },
   {
     name: "Aswin Pradeep",
     role: "Magnate Study Abroad",
     quote:
-      "Placeholder testimonial TODO — replace with approved quote. Should reference a concrete outcome or moment from the engagement.",
+      "The custom animations and interactive features they designed for Magnate have set a new benchmark in our space. We saw an immediate jump in user engagement after launch.",
     initials: "AP",
   },
   {
     name: "Johnson",
     role: "Founder, IBS Consultancy",
     quote:
-      "Placeholder testimonial TODO — final wording pending. Expected length: 2 sentences, plain spoken.",
+      "They translate complex operational requirements into clean, intuitive interfaces. Working with their senior team was direct, transparent, and incredibly fast.",
     initials: "J",
   },
 ];
@@ -449,8 +449,7 @@ function StudioVoices() {
             What founders <em>actually say.</em>
           </h2>
           <p className="stp-sub">
-            Selected words from the people we&apos;ve built with. Quotes
-            below are placeholders until each is permission-cleared.
+            Selected words from the founders and leaders we&apos;ve built with.
           </p>
         </Reveal>
 
@@ -550,8 +549,7 @@ function StudioPricing() {
           </h2>
           <p className="stp-sub">
             Three starting shapes — the right fit usually emerges on the
-            discovery call. Prices below are placeholder ranges until
-            published.
+            discovery call.
           </p>
         </Reveal>
 

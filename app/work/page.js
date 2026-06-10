@@ -25,7 +25,7 @@ export default function WorkPage() {
       <Nav />
       <main className="page-work">
         <WorkHero />
-        <WorkFeatureSection />
+        {/* <WorkFeatureSection /> */}
         <ErpFeatures />
         <AppShowcase />
         <AppFeatures />

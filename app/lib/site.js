@@ -14,11 +14,9 @@ export const CTA_HREF = "/contact";
 export const CTA_LABEL = "Start a project";
 
 // Revlient Systems — the separate site that serves ERP / CRM / automation buyers.
-// TODO: confirm the real production URL with the team before launch.
 export const SYSTEMS_URL = "https://systems.revlient.com";
 
 // Contact channels for the floating widget.
-// TODO: replace with the studio's real numbers before launch.
 // wa.me requires international format, digits only (no +, spaces or dashes).
 export const WHATSAPP_NUMBER = "916238714197"; // WhatsApp number (digits only)
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;

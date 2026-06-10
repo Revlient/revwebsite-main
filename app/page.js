@@ -5,6 +5,7 @@ import ShowcaseCards from "./components/ShowcaseCards";
 import Faq from "./components/Faq";
 import CapabilityGrid from "./components/CapabilityGrid";
 import ProcessSpine from "./components/ProcessSpine";
+import RevealServices from "./components/RevealServices";
 import LockedServicesScroll from "./components/LockedServicesScroll";
 import CaseStudiesScroll from "./components/CaseStudiesScroll";
 import WhyRevlient from "./components/WhyRevlient";
@@ -49,10 +50,11 @@ export default function HomePage() {
       <main>
         <CinematicHero />
 
-        <div className="h-chat-light">
+        {/* <div className="h-chat-light">
           <AiPromptSection />
-        </div>
+        </div> */}
         <CapabilityGrid />
+        <RevealServices />
         <ProcessSpine />
         <LockedServicesScroll />
         <CaseStudiesScroll />

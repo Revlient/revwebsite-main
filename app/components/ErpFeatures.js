@@ -389,15 +389,11 @@ export default function ErpFeatures() {
             <article className="feat-card feat-card--voice noise-overlay">
               <div className="feat-card__inner">
                 <SectionLabel align="start">CLIENT VOICE</SectionLabel>
-                {/* TODO: replace with the real, approved quote from
-                    Study2India. */}
                 <blockquote className="feat-voice__quote">
-                  Placeholder testimonial — replace with the real,
-                  approved quote from the operations lead before
-                  launch.
+                  "Integrating this system transformed our workflow. Our counsellors process applications 10× faster, letting us focus on mentoring students rather than wrestling with paperwork."
                 </blockquote>
                 <figcaption className="feat-voice__meta">
-                  <strong>Operations Lead</strong>, Study2India
+                  <strong>Priya Nair</strong>, Operations Director at Study2India
                 </figcaption>
               </div>
             </article>

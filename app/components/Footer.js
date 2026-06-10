@@ -53,8 +53,8 @@ const COMPANY_COL = [
   { label: "Contact", href: `mailto:${CONTACT_EMAIL}` },
   { label: "WhatsApp", href: WHATSAPP_URL },
   { label: "Revlient Systems", href: SYSTEMS_URL, external: true },
-  { label: "Terms (TODO)", href: "#" },
-  { label: "Privacy (TODO)", href: "#" },
+  { label: "Terms", href: "#" },
+  { label: "Privacy", href: "#" },
 ];
 
 export default function Footer() {

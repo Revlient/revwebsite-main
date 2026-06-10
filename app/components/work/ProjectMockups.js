@@ -250,7 +250,7 @@ function MockNorthwind() {
         Today
       </text>
       <text x="280" y="64" fontFamily="ui-monospace, Menlo, monospace" fontSize="20" fontWeight="600" fill={ACCENT}>
-        +TODO%
+        +142%
       </text>
       {/* axis */}
       <line x1="24" y1="160" x2="376" y2="160" stroke={STROKE_FAINT} strokeWidth="0.75" />

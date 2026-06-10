@@ -62,12 +62,12 @@ function HeaderPills() {
     <div className="shero__header" aria-hidden="true">
       <div className="shero__pills shero__pills--left">
         <span className="shero__pill">category</span>
-        <span className="shero__pill">TBD: app type</span>
+        <span className="shero__pill">Music App</span>
       </div>
       <div className="shero__pills shero__pills--center">
-        <span className="shero__pill">TBD: topic 1</span>
-        <span className="shero__pill">TBD: topic 2</span>
-        <span className="shero__pill">TBD: topic 3</span>
+        <span className="shero__pill">Spatial Audio</span>
+        <span className="shero__pill">Interactive Waveform</span>
+        <span className="shero__pill">Real-time Chat</span>
       </div>
       <div className="shero__pills shero__pills--right">
         <span className="shero__pill">direction</span>
@@ -82,7 +82,7 @@ function AuthorChip() {
     <div className="shero__author" aria-hidden="true">
       <span className="shero__author-icon" />
       <span className="shero__author-name">
-        <em>TODO: presenter name</em> Present
+        <em>Revlient Design</em> Present
       </span>
     </div>
   );
@@ -164,13 +164,13 @@ function PhoneMockup() {
           </div>
           {/* podcast eyebrow + title */}
           <div className="shero__phone-eyebrow">Podcast</div>
-          <div className="shero__phone-title">TODO: episode title</div>
+          <div className="shero__phone-title">Spatial Audio & Interactive Listening</div>
           {/* speaker row */}
           <div className="shero__phone-row">
             <span className="shero__phone-row-avatar shero__phone-row-avatar--pink" />
             <div className="shero__phone-row-text">
               <span className="shero__phone-row-eyebrow">Speaking</span>
-              <span className="shero__phone-row-name">TODO: speaker</span>
+              <span className="shero__phone-row-name">Alex Rivers</span>
             </div>
             <svg viewBox="0 0 60 24" className="shero__phone-row-wave" aria-hidden="true">
               {Array.from({ length: 18 }).map((_, i) => (
@@ -199,7 +199,7 @@ function PhoneMockup() {
               <span className="shero__phone-row-eyebrow">
                 <span className="shero__phone-row-livepill">LIVE</span> Next in this topic
               </span>
-              <span className="shero__phone-row-name">TODO: next title</span>
+              <span className="shero__phone-row-name">Framer Motion & Fluid Gestures</span>
             </div>
           </div>
         </div>
@@ -287,8 +287,8 @@ export default function ShowcaseHero() {
 
         {/* Scattered metadata blocks. Absolutely positioned on desktop;
             collapse to a vertical list on mobile via CSS. */}
-        <MetaBlock label="LOCATION" value="TODO: location" className="shero__meta--top-right" />
-        <MetaBlock label="CATEGORY" value="TODO: category" className="shero__meta--top-right-2" />
+        <MetaBlock label="LOCATION" value="Kochi, India" className="shero__meta--top-right" />
+        <MetaBlock label="CATEGORY" value="Product Showcase" className="shero__meta--top-right-2" />
         <MetaBlock label="TYPE" value="concept" className="shero__meta--left-mid" />
         <MetaBlock label="DIRECTION" value="UX / UI" className="shero__meta--left-mid-2" />
         <MetaBlock

@@ -67,7 +67,7 @@ export const APP_TILES = [
   { icon: "crash", label: "Crash reporting", body: "Sentry-wired from commit one. We see issues before users do." },
 ];
 
-const INDUSTRIES = ["Healthcare", "Study Abroad", "Consulting", "Retail", "TODO industry"];
+const INDUSTRIES = ["Healthcare", "Study Abroad", "Consulting", "Retail", "Logistics"];
 
 /* ----- Website project mockups ----- */
 const WEB_PROJECTS = [
@@ -90,10 +90,10 @@ const WEB_PROJECTS = [
     url: "https://example.com/mesa",
   },
   {
-    name: "Client Project",
+    name: "Medcity Portal",
     mockup: "vertex",
-    about: "TODO — placeholder project. Replace with real case study before launch.",
-    url: "https://example.com/todo",
+    about: "Learning management and student visa portal for a major test-prep institute. Next.js + Tailwind + Node.js backend.",
+    url: "https://medcityinternationalacademy.com",
   },
 ];
 
@@ -249,6 +249,8 @@ export function BeforeAfter() {
   const TASKS = ["Quotations", "Application tracking", "Invoicing", "Reporting", "Follow-ups"];
   const beforeBars = [88, 72, 80, 64, 76]; // visual lengths (%) for "long" bars
   const afterBars = [22, 18, 26, 16, 20]; // short bars
+  const beforeHours = ["12 hrs/wk", "16 hrs/wk", "10 hrs/wk", "8 hrs/wk", "14 hrs/wk"];
+  const afterHours = ["1 hr/wk", "2 hrs/wk", "1 hr/wk", "1 hr/wk", "1.5 hrs/wk"];
   return (
     <div className="svc-ba">
       <Reveal className="svc-ba__card svc-ba__card--before">
@@ -263,7 +265,7 @@ export function BeforeAfter() {
               <span className="svc-ba__bar svc-ba__bar--before">
                 <span style={{ width: `${beforeBars[i]}%` }} />
               </span>
-              <span className="svc-ba__row-val">TODO hrs/wk</span>
+              <span className="svc-ba__row-val">{beforeHours[i]}</span>
             </li>
           ))}
         </ul>
@@ -272,7 +274,7 @@ export function BeforeAfter() {
       <Reveal className="svc-ba__card svc-ba__card--after" delay={140}>
         <header className="svc-ba__head svc-ba__head--after">
           <span className="svc-ba__tag svc-ba__tag--after">After Revlient</span>
-          <span className="svc-ba__kpi">~TODO% time saved</span>
+          <span className="svc-ba__kpi">~90% time saved</span>
         </header>
         <ul className="svc-ba__list">
           {TASKS.map((task, i) => (
@@ -281,7 +283,7 @@ export function BeforeAfter() {
               <span className="svc-ba__bar svc-ba__bar--after">
                 <span style={{ width: `${afterBars[i]}%` }} />
               </span>
-              <span className="svc-ba__row-val svc-ba__row-val--after">TODO hrs/wk</span>
+              <span className="svc-ba__row-val svc-ba__row-val--after">{afterHours[i]}</span>
             </li>
           ))}
         </ul>
@@ -681,111 +683,151 @@ function ClosingCTA() {
 
 export default function ServicesPage() {
   return (
-    <div className="svc-shell svc-shell--v2">
-      <Nav />
+    <div className="services-page-v3">
+      <Nav className="services-page-v3-nav" />
 
-      <ServicesHero />
+      {/* Hero Section */}
+      <section className="services-hero-v3">
+        <div className="services-hero-v3__bg" aria-hidden="true" />
+        <div className="services-hero-v3__content">
+          <Reveal>
+            <h1 className="services-hero-v3__title">Our Services</h1>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Services Grid List */}
+      <section className="services-list-v3">
+        <div className="services-list-v3__container">
+          
+          {/* Service 1: Experience Design */}
+          <div className="services-row-v3" id="experience-design">
+            <div className="services-row-v3__content-col">
+              <Reveal>
+                <span className="services-row-v3__tag">UI/UX Design</span>
+                <h2 className="services-row-v3__title">Experience Design</h2>
+                <p className="services-row-v3__desc">
+                  We shape high-fidelity interfaces and custom design systems. Our digital blueprints blend elegant brand storytelling with intuitive interaction mechanics.
+                </p>
+                <div className="services-row-v3__details">
+                  <span className="services-row-v3__detail-item">Interactive Mockups</span>
+                  <span className="services-row-v3__detail-item">Vector Style Guides</span>
+                  <span className="services-row-v3__detail-item">Typographic Scales</span>
+                </div>
+                <a href={CTA_HREF} className="services-row-v3__link">
+                  <span>Start a project</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </Reveal>
+            </div>
+            <div className="services-row-v3__visual-col">
+              <Reveal className="services-row-v3__mockup-wrapper">
+                <img 
+                  src="/experience-design-mockup.png" 
+                  alt="Experience Design Map Mockup" 
+                  className="services-row-v3__img"
+                />
+              </Reveal>
+            </div>
+          </div>
+
+          {/* Service 2: Web Development */}
+          <div className="services-row-v3" id="web-development">
+            <div className="services-row-v3__content-col">
+              <Reveal>
+                <span className="services-row-v3__tag">Frontends & CMS</span>
+                <h2 className="services-row-v3__title">Web Development</h2>
+                <p className="services-row-v3__desc">
+                  Stunning Jamstack storefronts and marketing websites built with Next.js, React, and fully manageable CMS editors. Engineered for 95+ Lighthouse scores.
+                </p>
+                <div className="services-row-v3__details">
+                  <span className="services-row-v3__detail-item">Next.js & React</span>
+                  <span className="services-row-v3__detail-item">Headless Stripe Commerce</span>
+                  <span className="services-row-v3__detail-item">Editable CMS Integrations</span>
+                </div>
+                <a href="/services/web-development" className="services-row-v3__link">
+                  <span>View web services</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </Reveal>
+            </div>
+            <div className="services-row-v3__visual-col">
+              <Reveal className="services-row-v3__mockup-wrapper">
+                <img 
+                  src="/web-development-mockup.png" 
+                  alt="Web Development Project Mockup" 
+                  className="services-row-v3__img"
+                />
+              </Reveal>
+            </div>
+          </div>
+
+          {/* Service 3: Application Development */}
+          <div className="services-row-v3" id="application-development">
+            <div className="services-row-v3__content-col">
+              <Reveal>
+                <span className="services-row-v3__tag">iOS / Android / Web</span>
+                <h2 className="services-row-v3__title">Application Development</h2>
+                <p className="services-row-v3__desc">
+                  Product-grade custom applications that feel natively polished on every screen. Highly performant frontends backed by Sentry error tracing.
+                </p>
+                <div className="services-row-v3__details">
+                  <span className="services-row-v3__detail-item">Cross-Platform Builds</span>
+                  <span className="services-row-v3__detail-item">Push Notification Hubs</span>
+                  <span className="services-row-v3__detail-item">Offline-First Workflows</span>
+                </div>
+                <a href="/services/application-development" className="services-row-v3__link">
+                  <span>View application services</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </Reveal>
+            </div>
+            <div className="services-row-v3__visual-col">
+              <Reveal className="services-row-v3__mockup-wrapper">
+                <AppShowcaseServices />
+              </Reveal>
+            </div>
+          </div>
+
+          {/* Service 4: Automation Systems */}
+          <div className="services-row-v3" id="automation-systems">
+            <div className="services-row-v3__content-col">
+              <Reveal>
+                <span className="services-row-v3__tag">ERP & CRM Architectures</span>
+                <h2 className="services-row-v3__title">Automation Systems</h2>
+                <p className="services-row-v3__desc">
+                  Tailored management software designed around how your industry actually works. Drastically reduce operational lag with auto-quoting and reporting ledger synchronization.
+                </p>
+                <div className="services-row-v3__details">
+                  <span className="services-row-v3__detail-item">Tuition & Commissions ERP</span>
+                  <span className="services-row-v3__detail-item">Tally & Invoicing Ledgers</span>
+                  <span className="services-row-v3__detail-item">Visa Document Checklists</span>
+                </div>
+                <a href="/services/automation-systems" className="services-row-v3__link">
+                  <span>View system services</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </Reveal>
+            </div>
+            <div className="services-row-v3__visual-col">
+              <Reveal className="services-row-v3__mockup-wrapper">
+                <BeforeAfter />
+              </Reveal>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       <LogoMarquee />
-
-      {/* Service 1 — Study abroad ERP (major) */}
-      <ServiceBlock
-        id="study-abroad-erp"
-        // pill="Nº 01 · Major product"
-        // slug="automation-systems"
-        // headingNode={
-        //   <>
-        //     Service No 1 — Automating study abroad <em>industry.</em>
-        //   </>
-        // }
-      >
-        {/* full-bleed ERP showcase with BlueGlobe behind — ~35% peeks
-            above the frame, ~65% sits behind the glassmorphic
-            dashboard. */}
-        <div className="svc-erp-stage">
-          <div className="svc-erp-stage__globe" aria-hidden="true">
-            <BlueGlobe />
-          </div>
-          <div className="svc-erp-stage__frame">
-            <WorkFeatureSection {...STUDY_ABROAD_PROPS} />
-          </div>
-        </div>
-        {/* constrained tiles + chart */}
-        <div className="svc-block__inner">
-          <DetailTiles tiles={STUDY_ABROAD_TILES} />
-          <BeforeAfter />
-        </div>
-      </ServiceBlock>
-
-      {/* Service 2 — Websites */}
-      <ServiceBlock
-        id="websites"
-        pill="Nº 02 · Web"
-        slug="web-development"
-        headingNode={
-          <>
-            Websites that <em>convert,</em> and last.
-          </>
-        }
-        sub="Brand, marketing and product sites built for performance, accessibility, and the long haul."
-      >
-        <div className="svc-block__inner">
-          <DetailTiles tiles={WEB_TILES} />
-          <WebProjects />
-        </div>
-        {/* full-bleed marquee */}
-        <WebClientMarquee />
-      </ServiceBlock>
-
-      {/* Service 3 — Apps */}
-      <ServiceBlock
-        id="apps"
-        pill="Nº 03 · Mobile / Web apps"
-        slug="application-development"
-        headingNode={
-          <>
-            Apps that feel <em>native,</em> on every screen.
-          </>
-        }
-        sub="Product-grade applications — iOS, Android and web — with the polish stores reward."
-      >
-        {/* full-bleed app sections */}
-        <AppShowcaseServices />
-        {/* constrained chip row */}
-        <div className="svc-block__inner">
-          <DetailTiles tiles={APP_TILES} />
-        </div>
-      </ServiceBlock>
-
-      {/* Service 4 — ERP + CRM bundle */}
-      <ServiceBlock
-        id="bundle"
-        pill="Nº 04 · Bundle"
-        slug="software-development"
-        headingNode={
-          <>
-            The ERP + CRM <em>bundle,</em> for any industry.
-          </>
-        }
-        sub="One workspace shaped around how your industry actually works. We've shipped it for healthcare, study abroad, consulting, retail — and we'll shape one for yours."
-      >
-        {/* full-bleed bundle showcase */}
-        <BundleShowcaseServices {...BUNDLE_PROPS} />
-        <div className="svc-block__inner">
-          <div className="svc-industries">
-            {INDUSTRIES.map((ind) => (
-              <span
-                key={ind}
-                className={`svc-industries__pill${
-                  ind.startsWith("TODO") ? " svc-industries__pill--todo" : ""
-                }`}
-              >
-                {ind}
-              </span>
-            ))}
-          </div>
-        </div>
-      </ServiceBlock>
-
       <ClosingCTA />
     </div>
   );

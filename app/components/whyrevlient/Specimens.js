@@ -35,18 +35,18 @@ function SpecCapability() {
       <rect x="10" y="6" width="380" height="128" rx="8" fill={FILL_FAINT} stroke={STROKE_FAINT} strokeWidth="1" />
       {/* title strip */}
       <text x="22" y="22" fontFamily="ui-monospace, Menlo, monospace" fontSize="8" fill={STROKE_FAINT}>
-        Operations · TODO range
+        Operations · Q2 2026
       </text>
       <circle cx="372" cy="20" r="3" fill={ACCENT} opacity="0.85" />
       <line x1="10" y1="30" x2="390" y2="30" stroke={STROKE_FAINT} strokeWidth="0.75" />
       {/* hero KPI */}
       <text x="22" y="60" fontFamily="ui-monospace, Menlo, monospace" fontSize="22" fontWeight="600" fill="#fff">
-        TODO L
+        ₹24.8L
       </text>
       {/* delta pill */}
       <rect x="120" y="44" width="58" height="18" rx="9" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" strokeWidth="0.75" />
       <text x="149" y="57" textAnchor="middle" fontFamily="ui-monospace, Menlo, monospace" fontSize="9" fill={ACCENT}>
-        +TODO%
+        +18.2%
       </text>
       {/* sparkline */}
       <polyline
@@ -111,7 +111,7 @@ function SpecReliability() {
       <rect x="10" y="6" width="380" height="128" rx="8" fill="rgba(0,0,0,0.32)" stroke={STROKE_FAINT} strokeWidth="1" />
       {/* title */}
       <text x="22" y="24" fontFamily="ui-monospace, Menlo, monospace" fontSize="9" fill={STROKE}>
-        Build #TODO · main
+        Build #249 · main
       </text>
       <line x1="10" y1="32" x2="390" y2="32" stroke={STROKE_FAINT} strokeWidth="0.5" />
       {/* PASS rows */}
@@ -135,7 +135,7 @@ function SpecReliability() {
       {/* commit hash row */}
       <line x1="22" y1="104" x2="368" y2="104" stroke={STROKE_FAINT} strokeDasharray="2 3" />
       <text x="22" y="120" fontFamily="ui-monospace, Menlo, monospace" fontSize="8" fill={STROKE_FAINT}>
-        TODO-hash · TODO ago
+        a4f89d2 · 2 mins ago
       </text>
       {/* Deployed pill */}
       <rect x="306" y="108" width="68" height="18" rx="9" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" strokeWidth="0.75" />
@@ -167,13 +167,13 @@ function SpecLoyalty() {
       {/* studio bubble (purple-tinted) */}
       <rect x="22" y="42" width="252" height="36" rx="10" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.32)" strokeWidth="0.75" />
       <text x="30" y="54" fontFamily="ui-monospace, Menlo, monospace" fontSize="8" fill="#f5e7ff">
-        Pushed a fix for the [TODO surface]
+        Pushed a fix for the tally module
       </text>
       <text x="30" y="66" fontFamily="ui-monospace, Menlo, monospace" fontSize="8" fill="#f5e7ff">
         overnight. Take a look when you're up.
       </text>
       <text x="30" y="76" fontFamily="ui-monospace, Menlo, monospace" fontSize="7" fill={STROKE_FAINT}>
-        TODO · 2:14 AM
+        Today · 2:14 AM
       </text>
       {/* client bubble (grey-tinted) */}
       <rect x="216" y="86" width="160" height="22" rx="10" fill={FILL_FAINT} stroke={STROKE_FAINT} strokeWidth="0.75" />

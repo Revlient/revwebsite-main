@@ -3,10 +3,10 @@
    "200 OK" pill in Launch which is intentionally green (status colour).
    No animation inside; this is decoration for the card top. */
 
-const STROKE = "rgba(255, 255, 255, 0.42)";
-const STROKE_FAINT = "rgba(255, 255, 255, 0.22)";
-const FILL_FAINT = "rgba(255, 255, 255, 0.06)";
-const ACCENT = "#ffffff";
+const STROKE = "rgba(8, 9, 12, 0.38)";
+const STROKE_FAINT = "rgba(8, 9, 12, 0.16)";
+const FILL_FAINT = "rgba(8, 9, 12, 0.02)";
+const ACCENT = "var(--blue-light)";
 
 function Frame({ children }) {
   return (
@@ -47,17 +47,16 @@ function MockDiscovery() {
             width="36"
             height="10"
             rx="5"
-            fill="rgba(255, 255, 255, 0.18)"
-            stroke="rgba(255, 255, 255, 0.55)"
-            strokeWidth="1"
+            fill="var(--blue-light)"
+            stroke="none"
           />
           <text
             x={x + 26}
             y={y + 46}
             textAnchor="middle"
             fontSize="7"
-            
-            fill={ACCENT}
+            fontFamily="ui-monospace, Menlo, monospace"
+            fill="#ffffff"
           >
             scope
           </text>
@@ -82,7 +81,7 @@ function MockOnboarding() {
     <Frame>
       <rect x="14" y="6" width="372" height="98" rx="8" fill={FILL_FAINT} stroke={STROKE_FAINT} strokeWidth="1" />
       {/* sidebar */}
-      <rect x="14" y="6" width="68" height="98" rx="8" fill="rgba(255, 255, 255, 0.06)" />
+      <rect x="14" y="6" width="68" height="98" rx="8" fill="rgba(8, 9, 12, 0.03)" />
       <line x1="82" y1="6" x2="82" y2="104" stroke={STROKE_FAINT} strokeWidth="0.75" />
       {/* sidebar items */}
       <rect x="22" y="20" width="48" height="6" rx="2" fill={ACCENT} opacity="0.85" />
@@ -180,8 +179,8 @@ function MockStrategy() {
         width="60"
         height="14"
         rx="3"
-        fill="rgba(255, 255, 255, 0.1)"
-        stroke="rgba(255, 255, 255, 0.5)"
+        fill="rgba(74, 120, 255, 0.08)"
+        stroke="rgba(74, 120, 255, 0.45)"
         strokeWidth="1"
       />
     </Frame>
@@ -207,7 +206,7 @@ function MockDesign() {
             height="40"
             rx="2"
             fill={FILL_FAINT}
-            stroke={i === 1 ? "rgba(255, 255, 255, 0.6)" : STROKE_FAINT}
+            stroke={i === 1 ? "rgba(74, 120, 255, 0.75)" : STROKE_FAINT}
             strokeWidth="1"
           />
           <line
@@ -267,16 +266,16 @@ function MockDevelopment() {
         y={44}
         segments={[
           { x: 56, w: 32, c: ACCENT },
-          { x: 92, w: 60, c: "#ffffff", o: 0.7 },
+          { x: 92, w: 60, c: "rgba(8, 9, 12, 0.7)", o: 1 },
           { x: 156, w: 18, c: STROKE },
-          { x: 178, w: 90, c: "#ffffff", o: 0.5 },
+          { x: 178, w: 90, c: "rgba(8, 9, 12, 0.5)", o: 1 },
         ]}
       />
       <Line
         y={58}
         segments={[
           { x: 64, w: 16, c: ACCENT },
-          { x: 84, w: 70, c: "#ffffff", o: 0.7 },
+          { x: 84, w: 70, c: "rgba(8, 9, 12, 0.7)", o: 1 },
           { x: 160, w: 110, c: STROKE_FAINT, o: 0.8 },
         ]}
       />
@@ -284,9 +283,9 @@ function MockDevelopment() {
         y={72}
         segments={[
           { x: 56, w: 22, c: ACCENT },
-          { x: 82, w: 40, c: "#ffffff", o: 0.7 },
+          { x: 82, w: 40, c: "rgba(8, 9, 12, 0.7)", o: 1 },
           { x: 126, w: 28, c: STROKE },
-          { x: 158, w: 70, c: "#ffffff", o: 0.5 },
+          { x: 158, w: 70, c: "rgba(8, 9, 12, 0.5)", o: 1 },
         ]}
       />
       {/* comment line */}
@@ -302,8 +301,8 @@ function MockTesting() {
   // terminal: prompt + PASS lines + 1 WARN
   return (
     <Frame>
-      <rect x="40" y="10" width="320" height="90" rx="6" fill="rgba(0, 0, 0, 0.32)" stroke={STROKE_FAINT} strokeWidth="1" />
-      <text x="52" y="28" fontFamily="ui-monospace, Menlo, monospace" fontSize="9" fill={STROKE}>
+      <rect x="40" y="10" width="320" height="90" rx="6" fill="#121318" stroke="rgba(8, 9, 12, 0.1)" strokeWidth="1" />
+      <text x="52" y="28" fontFamily="ui-monospace, Menlo, monospace" fontSize="9" fill="rgba(255, 255, 255, 0.85)">
         $ npm test
       </text>
       {[
@@ -319,7 +318,7 @@ function MockTesting() {
             y={row.y}
             fontFamily="ui-monospace, Menlo, monospace"
             fontSize="8"
-            fill={row.warn ? "#f59e0b" : "#10b981"}
+            fill={row.warn ? "#fbbf24" : "#34d399"}
           >
             {row.warn ? "WARN" : "PASS ✓"}
           </text>
@@ -328,7 +327,7 @@ function MockTesting() {
             y={row.y}
             fontFamily="ui-monospace, Menlo, monospace"
             fontSize="8"
-            fill={STROKE}
+            fill="rgba(255, 255, 255, 0.75)"
           >
             {row.label}
           </text>
@@ -337,7 +336,7 @@ function MockTesting() {
             y={row.y}
             fontFamily="ui-monospace, Menlo, monospace"
             fontSize="7"
-            fill={STROKE_FAINT}
+            fill="rgba(255, 255, 255, 0.4)"
           >
             {(12 + i * 4) + "ms"}
           </text>
@@ -355,7 +354,7 @@ function MockLaunch() {
       <rect x="40" y="14" width="220" height="82" rx="4" fill={FILL_FAINT} stroke={STROKE_FAINT} strokeWidth="1" />
       {/* grid lines */}
       {[28, 50, 72].map((y, i) => (
-        <line key={i} x1="40" y1={y} x2="260" y2={y} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+        <line key={i} x1="40" y1={y} x2="260" y2={y} stroke="rgba(8, 9, 12, 0.04)" strokeWidth="1" />
       ))}
       {/* trending line */}
       <polyline
@@ -374,8 +373,8 @@ function MockLaunch() {
       />
       <defs>
         <linearGradient id="mock-launch-grad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#ffffff" stopOpacity="0.5" />
-          <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
+          <stop offset="0" stopColor="var(--blue-light)" stopOpacity="0.3" />
+          <stop offset="1" stopColor="var(--blue-light)" stopOpacity="0" />
         </linearGradient>
       </defs>
       {/* trending arrow */}
