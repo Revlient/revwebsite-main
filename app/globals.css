@@ -11376,7 +11376,7 @@ a.feat-reach__line:hover {
   font-style: normal;
   font-weight: 500;
   font-size: 1.06em;
-  color: var(--blue);
+  color: var(--text);
 }
 
 .worth__sub {
@@ -11590,8 +11590,6 @@ a.feat-reach__line:hover {
   line-height: 1.05;
   text-wrap: balance;
   color: var(--text);
-
-  color: var(--blue);
 }
 
 .appshow__sub {
@@ -11660,15 +11658,16 @@ a.feat-reach__line:hover {
   gap: 0.55rem;
   padding: 0.65rem 1.15rem;
   border-radius: 12px;
-  background: linear-gradient(135deg, #4a78ff, #2b5fff);
+  background: #08090c;
   color: #fff;
   font-size: 0.92rem;
   font-weight: 600;
   box-shadow: 0 12px 30px -14px rgba(0, 0, 0, 0.4);
-  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
 }
 
 .appshow__cta:hover {
+  background: #20232a;
   transform: translateY(-1px);
   box-shadow: 0 18px 40px -14px rgba(0, 0, 0, 0.5);
 }
@@ -25743,7 +25742,7 @@ a.feat2-reach__line:hover {
 
 /* Ensure the header text in Services page doesn't look dark when over black, but global nav has overrides for white page */
 .services-page-v3-nav {
-  position: absolute !important;
+  position: fixed !important;
   background: transparent !important;
   border-bottom: none !important;
 }
@@ -27166,6 +27165,633 @@ a.feat2-reach__line:hover {
 .page-work .appshow__glow--b {
   background: rgba(8, 9, 12, 0.02) !important;
 }
+
+/* 10. Work Projects full-width masonry grid layout overrides */
+.page-work .work-projects .container {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-inline: clamp(1rem, 0.5rem + 3vw, 4rem) !important;
+}
+
+.page-work .work-projects__grid {
+  display: block !important; /* Override standard CSS Grid */
+  column-count: 4 !important;
+  column-gap: clamp(1rem, 0.6rem + 1vw, 1.5rem) !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+}
+
+@media (max-width: 1400px) {
+  .page-work .work-projects__grid {
+    column-count: 3 !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .page-work .work-projects__grid {
+    column-count: 2 !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .page-work .work-projects__grid {
+    column-count: 1 !important;
+  }
+}
+
+.page-work .work-project {
+  display: inline-flex !important; /* Avoid card split in columns */
+  flex-direction: column !important;
+  width: 100% !important;
+  break-inside: avoid !important;
+  margin-bottom: clamp(1rem, 0.6rem + 1vw, 1.5rem) !important;
+}
+
+.page-work .work-project--feature {
+  grid-column: auto !important;
+  grid-row: auto !important;
+}
+
+.page-work .work-project--wide {
+  grid-column: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.page-work .work-project--wide .work-project__cover {
+  order: initial !important;
+}
+
+.page-work .work-project--wide .work-project__body {
+  order: initial !important;
+  padding: 1.4rem 1.4rem 1.6rem !important;
+}
+
+/* Vary card cover aspect ratios to showcase the staggered masonry grid layout */
+.page-work .work-project:nth-child(3n + 1) .work-project__cover {
+  aspect-ratio: 16 / 10 !important; /* Shorter card */
+}
+
+.page-work .work-project:nth-child(3n + 2) .work-project__cover {
+  aspect-ratio: 4 / 3 !important; /* Medium card */
+}
+
+.page-work .work-project:nth-child(3n) .work-project__cover {
+  aspect-ratio: 1 / 1.12 !important; /* Taller card */
+}
+
+/* 11. Dark Solid Glass Navbar overrides for visibility on all page themes */
+.nav__link {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+.nav__link:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+.nav__logo-mark {
+  color: #ffffff !important;
+  filter: none !important;
+}
+.nav__cta {
+  background: #ffffff !important;
+  color: #08090c !important;
+}
+.nav__cta:hover {
+  background: #f0f0f2 !important;
+  transform: translateY(-1px) !important;
+}
+.nav__toggle {
+  color: #ffffff !important;
+  background: rgba(8, 9, 12, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
+}
+.nav__toggle:hover {
+  background: rgba(8, 9, 12, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+.nav .liquid-glass {
+  background: rgba(8, 9, 12, 0.88) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06) !important;
+}
+.nav .liquid-glass::before {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.04) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.04) 80%,
+    rgba(255, 255, 255, 0.12) 100%
+  ) !important;
+}
+
+/* 12. Process Page Light Theme (Black & White Editorial Style) Overrides */
+.page-process,
+.proc-shell {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.proc-shell .proc-sparkles,
+.proc-shell .proc-hero__spot,
+.proc-shell .proc-step__spot,
+.proc-shell .proc-cta__spot,
+.proc-shell .proc-hero__wash {
+  display: none !important;
+}
+
+.proc-shell .proc-step__hi {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-pill {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  color: #000000 !important;
+}
+
+.proc-shell .proc-hero {
+  background: #ffffff !important;
+}
+
+.proc-shell .proc-hero__title {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-hero__inline-img {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 18px 44px rgba(0, 0, 0, 0.1) !important;
+  filter: grayscale(1) contrast(1.1) !important;
+}
+
+.proc-shell .proc-hero__sub {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.proc-shell .proc-hero__btn--primary {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #000000 !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.proc-shell .proc-hero__btn--primary:hover {
+  background: #20232a !important;
+}
+
+.proc-shell .proc-hero__btn--ghost {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: #000000 !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+}
+
+.proc-shell .proc-hero__btn--ghost:hover {
+  border-color: rgba(0, 0, 0, 0.3) !important;
+  background: rgba(0, 0, 0, 0.08) !important;
+}
+
+.proc-shell .proc-hero__frame {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 42px 120px rgba(0, 0, 0, 0.08), -24px 28px 90px rgba(0, 0, 0, 0.05) !important;
+}
+
+.proc-shell .proc-hero__frame img {
+  opacity: 0.95 !important;
+  filter: grayscale(1) contrast(1.1) !important;
+}
+
+.proc-shell .proc-hero__frame::after {
+  background: linear-gradient(180deg, transparent 35%, rgba(255, 255, 255, 0.8) 100%) !important;
+}
+
+.proc-shell .proc-hero__rail {
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.06) !important;
+}
+
+.proc-shell .proc-hero__rail span {
+  border-right: 1px solid rgba(0, 0, 0, 0.12) !important;
+  color: #000000 !important;
+}
+
+.proc-shell .proc-hero__glass {
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+.proc-shell .proc-hero__glass span {
+  color: rgba(0, 0, 0, 0.55) !important;
+}
+
+.proc-shell .proc-hero__glass strong {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-hero__panel {
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.06) !important;
+}
+
+.proc-shell .proc-hero__panel span {
+  color: rgba(0, 0, 0, 0.65) !important;
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.proc-shell .proc-step__heading {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-step__body {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.proc-shell .proc-step__card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+.proc-shell .proc-step__card:hover {
+  border-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+/* --- Mockups styling inside white cards --- */
+.proc-shell .proc-chat__head {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.proc-shell .proc-chat__dot {
+  background: rgba(0, 0, 0, 0.15) !important;
+}
+
+.proc-shell .proc-chat__title {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.proc-shell .proc-chat__msg--client {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  color: rgba(0, 0, 0, 0.85) !important;
+}
+
+.proc-shell .proc-chat__msg--rev {
+  background: rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+  color: #000000 !important;
+}
+
+.proc-shell .proc-chat__who {
+  color: rgba(0, 0, 0, 0.45) !important;
+}
+
+.proc-shell .proc-chat__msg--rev .proc-chat__who {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-chat__typing {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.proc-shell .proc-chat__typing span {
+  background: rgba(0, 0, 0, 0.4) !important;
+}
+
+.proc-shell .proc-chat__scope {
+  background: rgba(0, 0, 0, 0.015) !important;
+  border: 1px dashed rgba(0, 0, 0, 0.2) !important;
+}
+
+.proc-shell .proc-chat__scope-tag {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-chat__scope ul {
+  color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.proc-shell .proc-chat__scope li::before {
+  color: #000000 !important;
+}
+
+/* Kanban */
+.proc-shell .proc-kanban__head {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.proc-shell .proc-kanban__title {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-kanban__date {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.proc-shell .proc-kanban__col {
+  background: rgba(0, 0, 0, 0.015) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.proc-shell .proc-kanban__col header {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.proc-shell .proc-kanban__count {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.proc-shell .proc-kanban__task {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: rgba(0, 0, 0, 0.85) !important;
+}
+
+.proc-shell .proc-kanban__task--design {
+  border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.proc-shell .proc-kanban__task--design .proc-kanban__task-dot {
+  background: #000000 !important;
+}
+
+.proc-shell .proc-kanban__task--dev {
+  border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.proc-shell .proc-kanban__task--dev .proc-kanban__task-dot {
+  background: #000000 !important;
+}
+
+.proc-shell .proc-kanban__task--qa {
+  border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.proc-shell .proc-kanban__task--qa .proc-kanban__task-dot {
+  background: #000000 !important;
+}
+
+/* Design */
+.proc-shell .proc-design {
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.proc-shell .proc-design__chrome {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.proc-shell .proc-design__dot {
+  background: rgba(0, 0, 0, 0.15) !important;
+}
+
+.proc-shell .proc-design__file {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.proc-shell .proc-design__layers {
+  border-right: 1px solid rgba(0, 0, 0, 0.06) !important;
+  background: rgba(0, 0, 0, 0.01) !important;
+}
+
+.proc-shell .proc-design__layer-title {
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.proc-shell .proc-design__layer {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.proc-shell .proc-design__layer.is-active {
+  background: rgba(0, 0, 0, 0.06) !important;
+  color: #000000 !important;
+}
+
+.proc-shell .proc-design__canvas {
+  background: rgba(0, 0, 0, 0.005) !important;
+}
+
+.proc-shell .proc-design__page {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.proc-shell .proc-design__nav {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+.proc-shell .proc-design__hero {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.01)) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.proc-shell .proc-design__line {
+  background: rgba(0, 0, 0, 0.15) !important;
+}
+
+.proc-shell .proc-design__btn {
+  background: #000000 !important;
+}
+
+.proc-shell .proc-design__card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.proc-shell .proc-design__cursor {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-design__cursor span {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+/* Code */
+.proc-shell .proc-code {
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.proc-shell .proc-code__tabs {
+  background: rgba(0, 0, 0, 0.02) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.proc-shell .proc-code__tab {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.proc-shell .proc-code__tab.is-active {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border-bottom-color: transparent !important;
+}
+
+.proc-shell .proc-code__tab-icon {
+  background: #000000 !important;
+}
+
+.proc-shell .proc-code__body {
+  background: #ffffff !important;
+}
+
+.proc-shell .proc-code__pre {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-code__k {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-code__f {
+  color: #555555 !important;
+}
+
+.proc-shell .proc-code__c {
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Tests */
+.proc-shell .proc-tests__head {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.proc-shell .proc-tests__rate {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-tests__rate-sub {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.proc-shell .proc-tests__bug {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  color: #000000 !important;
+}
+
+.proc-shell .proc-tests__bug-pulse {
+  background: #000000 !important;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2) !important;
+  animation: procBWPulse 2s ease-in-out infinite !important;
+}
+
+@keyframes procBWPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.15); }
+  50% { box-shadow: 0 0 0 6px rgba(0, 0, 0, 0); }
+}
+
+.proc-shell .proc-tests__row {
+  background: rgba(0, 0, 0, 0.01) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.proc-shell .proc-tests__check {
+  background: rgba(0, 0, 0, 0.06) !important;
+  color: #000000 !important;
+}
+
+.proc-shell .proc-tests__label {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-tests__count {
+  color: rgba(0, 0, 0, 0.55) !important;
+}
+
+.proc-shell .proc-tests__status {
+  color: #000000 !important;
+}
+
+/* Deploy */
+.proc-shell .proc-deploy__head {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.proc-shell .proc-deploy__pill {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+  color: #000000 !important;
+}
+
+.proc-shell .proc-deploy__live {
+  background: #000000 !important;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2) !important;
+  animation: procBWPulse 2s ease-in-out infinite !important;
+}
+
+.proc-shell .proc-deploy__title {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-deploy__tiles > div {
+  background: rgba(0, 0, 0, 0.015) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.proc-shell .proc-deploy__label {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.proc-shell .proc-deploy__value {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-deploy__value em {
+  color: rgba(0, 0, 0, 0.55) !important;
+}
+
+.proc-shell .proc-deploy__log {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.proc-shell .proc-deploy__log-dot {
+  background: #000000 !important;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.proc-shell .proc-deploy__log-sha {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: rgba(0, 0, 0, 0.65) !important;
+}
+
+/* CTA */
+.proc-shell .proc-cta {
+  background: #ffffff !important;
+}
+
+.proc-shell .proc-cta__title {
+  color: #000000 !important;
+}
+
+.proc-shell .proc-cta__sub {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.proc-shell .proc-cta__btn {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #000000 !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.proc-shell .proc-cta__btn:hover {
+  background: #20232a !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25) !important;
+}
+
+
 
 
 

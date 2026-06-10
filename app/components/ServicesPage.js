@@ -17,14 +17,21 @@ import { CTA_HREF, CONTACT_EMAIL } from "../lib/site";
 const VIDEO_SRC = "/whyrev/blackhole.mp4";
 
 const LOGOS = [
-  { name: "Procure", src: "https://svgl.app/library/procure.svg", grad: "linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)" },
-  { name: "Shopify", src: "https://svgl.app/library/shopify.svg", grad: "linear-gradient(135deg, #fde047 0%, #ca8a04 100%)" },
-  { name: "Blender", src: "https://svgl.app/library/blender.svg", grad: "linear-gradient(135deg, #60a5fa 0%, #1e40af 100%)" },
-  { name: "Figma", src: "https://svgl.app/library/figma.svg", grad: "linear-gradient(135deg, #ffffff 0%, #7c3aed 100%)" },
-  { name: "Spotify", src: "https://svgl.app/library/spotify.svg", grad: "linear-gradient(135deg, #fb7185 0%, #be123c 100%)" },
-  { name: "Lottielab", src: "https://svgl.app/library/lottielab.svg", grad: "linear-gradient(135deg, #facc15 0%, #65a30d 100%)" },
-  { name: "Google Cloud", src: "https://svgl.app/library/google-cloud.svg", grad: "linear-gradient(135deg, #93c5fd 0%, #3b82f6 100%)" },
-  { name: "Bing", src: "https://svgl.app/library/bing.svg", grad: "linear-gradient(135deg, #67e8f9 0%, #0891b2 100%)" },
+  { name: "House of Eleven", src: "/logos/houseof11.png", grad: "linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%)" },
+  { name: "IBS Consultants", src: "/logos/ibs.jpg", grad: "linear-gradient(135deg, #4dabf7 0%, #1971c2 100%)" },
+  { name: "Covspace", src: "/logos/covspace.png", grad: "linear-gradient(135deg, #37b24d 0%, #2b8a3e 100%)" },
+  { name: "Ronspire", src: "/logos/ronspire.svg", grad: "linear-gradient(135deg, #f783ac 0%, #d6336c 100%)" },
+  { name: "Perpex B-School", src: "/logos/perpexbschool.svg", grad: "linear-gradient(135deg, #7048e8 0%, #5f3dc4 100%)" },
+  { name: "Perpex Group", src: "/logos/perpex.png", grad: "linear-gradient(135deg, #ae3ec9 0%, #862e9c 100%)" },
+  { name: "Mathlete", src: "/logos/mathlete.png", grad: "linear-gradient(135deg, #f76707 0%, #d9480f 100%)" },
+  { name: "The Magnates", src: "/logos/themagnates.svg", grad: "linear-gradient(135deg, #fcc419 0%, #e67700 100%)" },
+  { name: "UniGo", src: "/logos/unigo.png", grad: "linear-gradient(135deg, #2b8a3e 0%, #097969 100%)" },
+  { name: "Soumya Shyam", src: "/logos/soumyashyam.png", grad: "linear-gradient(135deg, #ffd43b 0%, #f59f00 100%)" },
+  { name: "Nutriboxx", src: "/logos/nutriboxx.png", grad: "linear-gradient(135deg, #20c997 0%, #0ca678 100%)" },
+  { name: "Bambrush", src: "/logos/bambrush.webp", grad: "linear-gradient(135deg, #15aabf 0%, #0b7285 100%)" },
+  { name: "Magnate Academy", src: "/logos/magnateacademy.svg", grad: "linear-gradient(135deg, #4c6ef5 0%, #364fc7 100%)" },
+  { name: "Magnate Study Abroad", src: "/logos/magnatestudyabroad.svg", grad: "linear-gradient(135deg, #228be6 0%, #1864ab 100%)" },
+  { name: "Magnate Global", src: "/logos/magnateglobal.svg", grad: "linear-gradient(135deg, #12b886 0%, #087f5b 100%)" },
 ];
 
 /* ----- Service 1 props (study abroad ERP) ----- */
@@ -828,7 +835,6 @@ export default function ServicesPage() {
       </section>
 
       <LogoMarquee />
-      <ClosingCTA />
     </div>
   );
 }

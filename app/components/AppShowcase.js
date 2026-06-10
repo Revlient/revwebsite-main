@@ -311,10 +311,6 @@ export default function AppShowcase() {
       <span className="appshow__orbit" aria-hidden="true" />
 
       <header className="appshow__head">
-        <span className="appshow__eyebrow">
-          <span className="appshow__dot" />
-          Now shipping · iOS & Android
-        </span>
         <h2 className="appshow__title">Your study-abroad journey, in your pocket.</h2>
         <p className="appshow__sub">
           Explore top colleges, save the courses worth shortlisting,

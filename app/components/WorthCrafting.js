@@ -31,10 +31,6 @@ export default function WorthCrafting() {
     <section className="worth" aria-label="Something worth crafting">
       <div className="worth__inner">
         <Reveal className="worth__head">
-          <span className="worth__eyebrow">
-            <span className="worth__eyebrow-dot" />
-            Manifesto · Worth crafting
-          </span>
           <h2 className="worth__title">
             How we build,<br />
             <em>in four notes.</em>
