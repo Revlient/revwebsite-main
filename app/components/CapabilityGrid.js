@@ -30,8 +30,28 @@ function VisualAi() {
 }
 
 function VisualWeb() {
+  // Stacked translucent browser fragments — premium product reveal.
   return (
-    <div className="cap-v cap-v--video" aria-hidden="true">
+    <div className="cap-v cap-v--web" aria-hidden="true">
+      <div className="cap-v__pane cap-v__pane--3" />
+      <div className="cap-v__pane cap-v__pane--2" />
+      <div className="cap-v__pane cap-v__pane--1">
+        <div className="cap-v__pane-bar">
+          <span /><span /><span />
+        </div>
+        <div className="cap-v__pane-body">
+          <span className="cap-v__pane-h" />
+          <span className="cap-v__pane-l" />
+          <span className="cap-v__pane-l cap-v__pane-l--short" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function VisualFlightVideo() {
+  return (
+    <div className="cap-v cap-v--video cap-v--video-padded" aria-hidden="true">
       <video
         src="/Flight_graphic_glides_across_das…_202606090343.mp4"
         autoPlay
@@ -95,8 +115,9 @@ const CAPS = [
     body:
       "Instead of generic chatbots, we engineer custom AI pipelines and intelligent agents that handle real operational workflows — transforming raw intake into audited, paid invoices.",
     tags: ["Agents", "Pipelines", "AI ops", "Integrations"],
-    Visual: VisualAi,
+    Visual: VisualFlightVideo,
     span: "wide",
+    hideBody: true,
   },
   {
     id: "web",
@@ -163,16 +184,18 @@ export default function CapabilityGrid() {
               <div className="cap__card-visual">
                 <c.Visual />
               </div>
-              <div className="cap__card-body">
-                <span className="cap__card-eyebrow">{c.eyebrow}</span>
-                <h3 className="cap__card-h">{c.headline}</h3>
-                <p className="cap__card-p">{c.body}</p>
-                <div className="cap__card-tags">
-                  {c.tags.map((t) => (
-                    <span key={t} className="cap__card-tag">{t}</span>
-                  ))}
+              {!c.hideBody && (
+                <div className="cap__card-body">
+                  <span className="cap__card-eyebrow">{c.eyebrow}</span>
+                  <h3 className="cap__card-h">{c.headline}</h3>
+                  <p className="cap__card-p">{c.body}</p>
+                  <div className="cap__card-tags">
+                    {c.tags.map((t) => (
+                      <span key={t} className="cap__card-tag">{t}</span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </Reveal>
           ))}
         </div>

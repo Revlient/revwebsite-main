@@ -143,8 +143,8 @@ html.lenis, html.lenis body {
 :root {
 
   /* New premium type system */
-  --font-clash: "Sentient", "Clash Display", var(--font-body);
-  --font-body: "Sentient", var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-clash: var(--font-figtree), sans-serif;
+  --font-body: var(--font-figtree), sans-serif;
   --font-mono: var(--font-ibm-mono), "SF Mono", Menlo, monospace;
 }
 
@@ -158,6 +158,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-clash);
   font-weight: 600;
   letter-spacing: -0.02em;
+}
+em {
+  font-family: var(--font-cormorant), var(--font-philosopher), var(--font-instrument-serif), serif !important;
+  font-style: italic !important;
 }
 
 :root {
@@ -22618,6 +22622,15 @@ a.feat2-reach__line:hover {
   height: 100%;
   padding: 0;
   overflow: hidden;
+}
+.cap-v--video-padded {
+  top: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  width: calc(100% - 3rem);
+  height: calc(100% - 3rem);
+  border-radius: 14px;
 }
 .cap-v--video video {
   width: 100%;
