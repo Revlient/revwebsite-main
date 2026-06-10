@@ -11,6 +11,7 @@ import {
   Noto_Sans_Devanagari,
   Philosopher,
 } from "next/font/google";
+import localFont from "next/font/local";
 import { BRAND } from "./lib/site";
 import MusicToggle from "./components/MusicToggle";
 import GlobalOptimizer from "./components/GlobalOptimizer";
@@ -89,6 +90,12 @@ const philosopher = Philosopher({
   display: "swap",
 });
 
+const palisade = localFont({
+  src: "../public/fonts/Palisade.otf",
+  variable: "--font-palisade",
+  display: "swap",
+});
+
 // FOLLOW-ON TASK (SEO pass): per-page metadata, real OG image, favicon,
 // sitemap.xml, robots.txt. This is a sound baseline only.
 export const metadata = {
@@ -130,7 +137,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${caveat.variable} ${instrumentSerif.variable} ${cormorant.variable} ${inter.variable} ${barlow.variable} ${ibmPlexMono.variable} ${figtree.variable} ${notoSansDevanagari.variable} ${philosopher.variable}`}
+      className={`${dmSans.variable} ${caveat.variable} ${instrumentSerif.variable} ${cormorant.variable} ${inter.variable} ${barlow.variable} ${ibmPlexMono.variable} ${figtree.variable} ${notoSansDevanagari.variable} ${philosopher.variable} ${palisade.variable}`}
     >
       <body>
         {/* Runs before paint: enables scroll-reveal animation only when JS

@@ -707,12 +707,181 @@ export default function ServicesPage() {
       <section className="services-list-v3">
         <div className="services-list-v3__container">
           
-          {/* Service 1: Experience Design */}
-          <div className="services-row-v3" id="experience-design">
+          {/* Service 1: Web Design */}
+          <div className="services-row-v3" id="web-design">
+            <div className="services-row-v3__content-col">
+              <Reveal>
+                <span className="services-row-v3__tag">Layout & Aesthetics</span>
+                <h2 className="services-row-v3__title">Web Design</h2>
+                <p className="services-row-v3__desc">
+                  Tailored interface layouts and responsive web designs crafted to reflect your brand's unique narrative. We focus on premium aesthetics, clean typography, and interactive fluidity.
+                </p>
+                <div className="services-row-v3__details">
+                  <span className="services-row-v3__detail-item">Responsive Layouts</span>
+                  <span className="services-row-v3__detail-item">Custom Typography</span>
+                  <span className="services-row-v3__detail-item">Interactive Prototypes</span>
+                </div>
+                <a href={CTA_HREF} className="services-row-v3__link cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+                  <span>Free consultation</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </Reveal>
+            </div>
+            <div className="services-row-v3__visual-col">
+              <Reveal className="services-row-v3__mockup-wrapper">
+                <img 
+                  src="/services/web_design_service.png" 
+                  alt="Web Design Visual Mockup" 
+                  className="services-row-v3__img"
+                />
+              </Reveal>
+            </div>
+          </div>
+
+          {/* Service 2: Study abroad OS */}
+          <div className="services-row-v3" id="study-abroad-os">
+            <div className="services-row-v3__content-col">
+              <Reveal>
+                <span className="services-row-v3__tag">ERP & CRM Architectures</span>
+                <h2 className="services-row-v3__title">Study abroad OS</h2>
+                <p className="services-row-v3__desc">
+                  A complete operational engine for study abroad agencies. Manage quotations, students, applications, invoicing, visa tracking, and partner commissions in real-time.
+                </p>
+                <div className="services-row-v3__details">
+                  <span className="services-row-v3__detail-item">Student Pipeline</span>
+                  <span className="services-row-v3__detail-item">Automated Invoicing</span>
+                  <span className="services-row-v3__detail-item">Visa Document Checklists</span>
+                </div>
+                <a href="/services/automation-systems" className="services-row-v3__link">
+                  <span>View system details</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </Reveal>
+            </div>
+            <div className="services-row-v3__visual-col">
+              <Reveal className="services-row-v3__mockup-wrapper">
+                <video
+                  src="/work/saas-demo.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="services-row-v3__img"
+                  style={{ borderRadius: "20px", width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              </Reveal>
+            </div>
+          </div>
+
+          {/* Service 3: App Development */}
+          <div className="services-row-v3" id="app-development">
+            <div className="services-row-v3__content-col">
+              <Reveal>
+                <span className="services-row-v3__tag">iOS / Android / Web</span>
+                <h2 className="services-row-v3__title">App Development</h2>
+                <p className="services-row-v3__desc">
+                  High-performance mobile and cross-platform apps designed to feel natively polished on every screen. Backed by offline-first architectures and instant notifications.
+                </p>
+                <div className="services-row-v3__details">
+                  <span className="services-row-v3__detail-item">Native Performance</span>
+                  <span className="services-row-v3__detail-item">Cross-Platform Builds</span>
+                  <span className="services-row-v3__detail-item">Offline-First Sync</span>
+                </div>
+                <a href="/services/application-development" className="services-row-v3__link">
+                  <span>View application services</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </Reveal>
+            </div>
+            <div className="services-row-v3__visual-col">
+              <Reveal className="services-row-v3__mockup-wrapper">
+                <img 
+                  src="/services/app_development_service.png" 
+                  alt="App Development Mockup" 
+                  className="services-row-v3__img"
+                />
+              </Reveal>
+            </div>
+          </div>
+
+          {/* Service 4: E-commerce setup */}
+          <div className="services-row-v3" id="ecommerce-setup">
+            <div className="services-row-v3__content-col">
+              <Reveal>
+                <span className="services-row-v3__tag">Storefronts & Billing</span>
+                <h2 className="services-row-v3__title">E-commerce setup</h2>
+                <p className="services-row-v3__desc">
+                  Sleek, headless e-commerce architectures integrated with Stripe billing, real-time inventory tracking, and automated fulfillment workflows.
+                </p>
+                <div className="services-row-v3__details">
+                  <span className="services-row-v3__detail-item">Headless Storefronts</span>
+                  <span className="services-row-v3__detail-item">Stripe Integration</span>
+                  <span className="services-row-v3__detail-item">Inventory Automation</span>
+                </div>
+                <a href="/services/web-development" className="services-row-v3__link">
+                  <span>View e-commerce storefronts</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </Reveal>
+            </div>
+            <div className="services-row-v3__visual-col">
+              <Reveal className="services-row-v3__mockup-wrapper">
+                <img 
+                  src="/services/ecom.png" 
+                  alt="E-commerce setup" 
+                  className="services-row-v3__img"
+                />
+              </Reveal>
+            </div>
+          </div>
+
+          {/* Service 5: AI automation */}
+          <div className="services-row-v3" id="ai-automation">
+            <div className="services-row-v3__content-col">
+              <Reveal>
+                <span className="services-row-v3__tag">Chatbots & Integrations</span>
+                <h2 className="services-row-v3__title">AI automation</h2>
+                <p className="services-row-v3__desc">
+                  Intelligent AI WhatsApp chatbots integrated directly with your ERP, custom databases, and existing operations to handle customer queries, bookings, and notifications.
+                </p>
+                <div className="services-row-v3__details">
+                  <span className="services-row-v3__detail-item">WhatsApp API Chatbots</span>
+                  <span className="services-row-v3__detail-item">ERP Database Integration</span>
+                  <span className="services-row-v3__detail-item">Custom LLM Workflows</span>
+                </div>
+                <a href={CTA_HREF} className="services-row-v3__link cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+                  <span>Free consultation</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </Reveal>
+            </div>
+            <div className="services-row-v3__visual-col">
+              <Reveal className="services-row-v3__mockup-wrapper">
+                <img 
+                  src="/services/aiassistant.png" 
+                  alt="AI assistant setup" 
+                  className="services-row-v3__img"
+                />
+              </Reveal>
+            </div>
+          </div>
+
+          {/* Service 6: UI/UX */}
+          <div className="services-row-v3" id="ui-ux">
             <div className="services-row-v3__content-col">
               <Reveal>
                 <span className="services-row-v3__tag">UI/UX Design</span>
-                <h2 className="services-row-v3__title">Experience Design</h2>
+                <h2 className="services-row-v3__title">UI/UX Design</h2>
                 <p className="services-row-v3__desc">
                   We shape high-fidelity interfaces and custom design systems. Our digital blueprints blend elegant brand storytelling with intuitive interaction mechanics.
                 </p>
@@ -736,97 +905,6 @@ export default function ServicesPage() {
                   alt="Experience Design Map Mockup" 
                   className="services-row-v3__img"
                 />
-              </Reveal>
-            </div>
-          </div>
-
-          {/* Service 2: Web Development */}
-          <div className="services-row-v3" id="web-development">
-            <div className="services-row-v3__content-col">
-              <Reveal>
-                <span className="services-row-v3__tag">Frontends & CMS</span>
-                <h2 className="services-row-v3__title">Web Development</h2>
-                <p className="services-row-v3__desc">
-                  Stunning Jamstack storefronts and marketing websites built with Next.js, React, and fully manageable CMS editors. Engineered for 95+ Lighthouse scores.
-                </p>
-                <div className="services-row-v3__details">
-                  <span className="services-row-v3__detail-item">Next.js & React</span>
-                  <span className="services-row-v3__detail-item">Headless Stripe Commerce</span>
-                  <span className="services-row-v3__detail-item">Editable CMS Integrations</span>
-                </div>
-                <a href="/services/web-development" className="services-row-v3__link">
-                  <span>View web services</span>
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </Reveal>
-            </div>
-            <div className="services-row-v3__visual-col">
-              <Reveal className="services-row-v3__mockup-wrapper">
-                <img 
-                  src="/web-development-mockup.png" 
-                  alt="Web Development Project Mockup" 
-                  className="services-row-v3__img"
-                />
-              </Reveal>
-            </div>
-          </div>
-
-          {/* Service 3: Application Development */}
-          <div className="services-row-v3" id="application-development">
-            <div className="services-row-v3__content-col">
-              <Reveal>
-                <span className="services-row-v3__tag">iOS / Android / Web</span>
-                <h2 className="services-row-v3__title">Application Development</h2>
-                <p className="services-row-v3__desc">
-                  Product-grade custom applications that feel natively polished on every screen. Highly performant frontends backed by Sentry error tracing.
-                </p>
-                <div className="services-row-v3__details">
-                  <span className="services-row-v3__detail-item">Cross-Platform Builds</span>
-                  <span className="services-row-v3__detail-item">Push Notification Hubs</span>
-                  <span className="services-row-v3__detail-item">Offline-First Workflows</span>
-                </div>
-                <a href="/services/application-development" className="services-row-v3__link">
-                  <span>View application services</span>
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </Reveal>
-            </div>
-            <div className="services-row-v3__visual-col">
-              <Reveal className="services-row-v3__mockup-wrapper">
-                <AppShowcaseServices />
-              </Reveal>
-            </div>
-          </div>
-
-          {/* Service 4: Automation Systems */}
-          <div className="services-row-v3" id="automation-systems">
-            <div className="services-row-v3__content-col">
-              <Reveal>
-                <span className="services-row-v3__tag">ERP & CRM Architectures</span>
-                <h2 className="services-row-v3__title">Automation Systems</h2>
-                <p className="services-row-v3__desc">
-                  Tailored management software designed around how your industry actually works. Drastically reduce operational lag with auto-quoting and reporting ledger synchronization.
-                </p>
-                <div className="services-row-v3__details">
-                  <span className="services-row-v3__detail-item">Tuition & Commissions ERP</span>
-                  <span className="services-row-v3__detail-item">Tally & Invoicing Ledgers</span>
-                  <span className="services-row-v3__detail-item">Visa Document Checklists</span>
-                </div>
-                <a href="/services/automation-systems" className="services-row-v3__link">
-                  <span>View system services</span>
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </Reveal>
-            </div>
-            <div className="services-row-v3__visual-col">
-              <Reveal className="services-row-v3__mockup-wrapper">
-                <BeforeAfter />
               </Reveal>
             </div>
           </div>

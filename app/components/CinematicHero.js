@@ -111,18 +111,6 @@ export default function CinematicHero() {
         </div>
       </div>
 
-      {/* Star Solution Box overlay */}
-      <div className="cinhero__solution-card">
-        <div className="cinhero__solution-icon-wrapper">
-          <svg className="cinhero__star-icon" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
-            <path d="M12 0L14.8 9.2L24 12L14.8 14.8L12 24L9.2 14.8L0 12L9.2 9.2L12 0Z" />
-          </svg>
-        </div>
-        <div className="cinhero__solution-text">
-          DIGITAL SOLUTIONS THAT MOVE BRANDS BEYOND TOMORROW.
-        </div>
-      </div>
-
       {/* Right Sidebar (Avatars + Built for Visionaries) */}
       <div className="cinhero__right-sidebar">
         <div className="cinhero__avatar-stack">
@@ -134,58 +122,6 @@ export default function CinematicHero() {
           BUILT FOR VISIONARIES
         </div>
         <div className="cinhero__sidebar-line" />
-      </div>
-
-      {/* Bottom right nebula orb */}
-      <div className="cinhero__bottom-right-decor">
-        <div className="cinhero__orb">
-          <div className="cinhero__orb-inner" />
-        </div>
-      </div>
-
-      {/* Bottom Left 'N' badge */}
-      <div className="cinhero__badge-left">
-        <div className="cinhero__badge-circle">
-          <span>N</span>
-        </div>
-      </div>
-
-      {/* Bottom partner logo ticker */}
-      <div className="cinhero__ticker">
-        <div className="cinhero__ticker-row">
-          <div className="cinhero__ticker-item">
-            <span className="cinhero__ticker-text cinhero__ticker-text--bold">ACME</span>
-          </div>
-          <div className="cinhero__ticker-item">
-            <span className="cinhero__ticker-icon">○</span>
-            <span className="cinhero__ticker-text">QUANTUM</span>
-          </div>
-          <div className="cinhero__ticker-item">
-            <span className="cinhero__ticker-icon">☾</span>
-            <span className="cinhero__ticker-text">ECLIPSE</span>
-          </div>
-          <div className="cinhero__ticker-item">
-            <span className="cinhero__ticker-icon-box">
-              <svg viewBox="0 0 24 24" width="8" height="8" fill="none" stroke="currentColor" strokeWidth="3">
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <path d="M9 9h6v6H9z" fill="currentColor" />
-              </svg>
-            </span>
-            <span className="cinhero__ticker-text">NEXTGEN</span>
-          </div>
-          <div className="cinhero__ticker-item">
-            <span className="cinhero__ticker-text">VISIONIX</span>
-          </div>
-          <div className="cinhero__ticker-item">
-            <span className="cinhero__ticker-icon-altrix">
-              <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="3">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 7v10M7 12h10" />
-              </svg>
-            </span>
-            <span className="cinhero__ticker-text">ALTRIX</span>
-          </div>
-        </div>
       </div>
 
       {/* Linear bottom fade overlay */}

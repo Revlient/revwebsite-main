@@ -30,28 +30,22 @@ function VisualAi() {
 }
 
 function VisualWeb() {
-  // Stacked translucent browser fragments — premium product reveal.
   return (
-    <div className="cap-v cap-v--web" aria-hidden="true">
-      <div className="cap-v__pane cap-v__pane--3" />
-      <div className="cap-v__pane cap-v__pane--2" />
-      <div className="cap-v__pane cap-v__pane--1">
-        <div className="cap-v__pane-bar">
-          <span /><span /><span />
-        </div>
-        <div className="cap-v__pane-body">
-          <span className="cap-v__pane-h" />
-          <span className="cap-v__pane-l" />
-          <span className="cap-v__pane-l cap-v__pane-l--short" />
-        </div>
-      </div>
+    <div className="cap-v cap-v--video" aria-hidden="true">
+      <video
+        src="/webdevvid.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
     </div>
   );
 }
 
 function VisualFlightVideo() {
   return (
-    <div className="cap-v cap-v--video cap-v--video-padded" aria-hidden="true">
+    <div className="cap-v cap-v--video" aria-hidden="true">
       <video
         src="/Flight_graphic_glides_across_das…_202606090343.mp4"
         autoPlay
@@ -177,7 +171,7 @@ export default function CapabilityGrid() {
             <Reveal
               key={c.id}
               as="article"
-              className={`cap__card cap__card--${c.span} cap__card--${c.id}`}
+              className={`cap__card cap__card--${c.span} cap__card--${c.id} ${c.hideBody ? "cap__card--full-visual" : ""}`.trim()}
               delay={i * 80}
             >
               <div className="cap__card-glow" aria-hidden="true" />

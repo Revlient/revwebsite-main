@@ -101,7 +101,47 @@ const POSTS = [
     date: "July 15, 2026",
     readMins: "12",
     cover: "/blog-laptop.png",
-  }
+  },
+  {
+    slug: "clean-code-standards-2026",
+    category: "Blog",
+    title: "Clean Code Standards for Modern Engineering Teams",
+    excerpt: "Writing readable, maintainable, and self-documenting code in fast-moving dev shops.",
+    author: "Engineering Team",
+    date: "April 28, 2026",
+    readMins: "8",
+    cover: "/blog-code.png",
+  },
+  {
+    slug: "crafting-digital-creativity",
+    category: "Blog",
+    title: "Crafting Digital Creativity: Design Principles That Wow",
+    excerpt: "Balancing aesthetics, motion design, and performance to build digital masterpieces.",
+    author: "Design Team",
+    date: "May 05, 2026",
+    readMins: "7",
+    cover: "/blog-creativity.png",
+  },
+  {
+    slug: "scaling-cloud-infrastructure",
+    category: "Blog",
+    title: "Scaling Cloud Infrastructure for Millions of Users",
+    excerpt: "Best practices for container orchestration, zero-downtime deployments, and edge networking.",
+    author: "DevOps Lead",
+    date: "May 12, 2026",
+    readMins: "11",
+    cover: "/blog-laptop.png",
+  },
+  {
+    slug: "optimizing-web-performance",
+    category: "Blog",
+    title: "Optimizing Web Performance: The Core Web Vitals Audit",
+    excerpt: "Deep dive into page load budgets, image encoding, CSS delivery, and JavaScript execution paths.",
+    author: "Frontend Lead",
+    date: "May 19, 2026",
+    readMins: "6",
+    cover: "/blog-ranking.png",
+  },
 ];
 
 export default function BlogList() {
@@ -123,6 +163,14 @@ export default function BlogList() {
   );
   const popularPosts = filteredPosts.filter((p) => p.popular);
 
+  const morePosts = filteredPosts.filter(
+    (p) =>
+      p.slug !== "ai-for-ecommerce" &&
+      p.slug !== "new-visual-commerce" &&
+      p.slug !== "best-programming-languages-2026" &&
+      !p.popular
+  );
+
   return (
     <div className="blog">
       <div className="blog__container">
@@ -143,83 +191,119 @@ export default function BlogList() {
         </Reveal>
 
         {activeCategory === "Blogs" ? (
-          <div className="blog__layout">
-            {/* Column 1: Left column */}
-            <div className="blog__col-left">
-              {leftColumnPosts.map((post) => (
-                <Reveal key={post.slug} as="article" className="blog-card-small">
-                  {post.cover && (
-                    <a href={`/blog/${post.slug}`} className="blog-card-small__cover-link">
-                      <div
-                        className="blog-card-small__cover"
-                        style={{ backgroundImage: `url(${post.cover})` }}
-                      />
-                    </a>
-                  )}
-                  <div className="blog-card-small__body">
-                    <div className="blog-card__meta-row">
-                      <span className="blog-card__cat-read">
-                        {post.category} • {post.readMins} mins read
-                      </span>
-                      <span className="blog-card__date">{post.date}</span>
-                    </div>
-                    <h3 className="blog-card-small__title">
-                      <a href={`/blog/${post.slug}`}>{post.title}</a>
-                    </h3>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-
-            {/* Column 2: Center Column (Featured Post) */}
-            <div className="blog__col-center">
-              {featuredPost && (
-                <Reveal as="article" className="blog-card-featured">
-                  {featuredPost.cover && (
-                    <a href={`/blog/${featuredPost.slug}`} className="blog-card-featured__cover-link">
-                      <div
-                        className="blog-card-featured__cover"
-                        style={{ backgroundImage: `url(${featuredPost.cover})` }}
-                      />
-                    </a>
-                  )}
-                  <div className="blog-card-featured__body">
-                    <div className="blog-card__meta-row">
-                      <span className="blog-card__cat-read">
-                        {featuredPost.category} • {featuredPost.readMins} mins read
-                      </span>
-                      <span className="blog-card__date">{featuredPost.date}</span>
-                    </div>
-                    <h2 className="blog-card-featured__title">
-                      <a href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</a>
-                    </h2>
-                  </div>
-                </Reveal>
-              )}
-            </div>
-
-            {/* Column 3: Right Column (Most popular) */}
-            <div className="blog__col-right">
-              <Reveal className="blog__col-right-inner">
-                <h3 className="blog__popular-heading">Most popular</h3>
-                <div className="blog__popular-list">
-                  {popularPosts.map((post) => (
-                    <article key={post.slug} className="blog-card-popular">
+          <>
+            <div className="blog__layout">
+              {/* Column 1: Left column */}
+              <div className="blog__col-left">
+                {leftColumnPosts.map((post) => (
+                  <Reveal key={post.slug} as="article" className="blog-card-small">
+                    {post.cover && (
+                      <a href={`/blog/${post.slug}`} className="blog-card-small__cover-link">
+                        <div
+                          className="blog-card-small__cover"
+                          style={{ backgroundImage: `url(${post.cover})` }}
+                        />
+                      </a>
+                    )}
+                    <div className="blog-card-small__body">
                       <div className="blog-card__meta-row">
                         <span className="blog-card__cat-read">
-                          {post.category} • {post.readMins} mins
+                          {post.category} • {post.readMins} mins read
                         </span>
                         <span className="blog-card__date">{post.date}</span>
                       </div>
-                      <h4 className="blog-card-popular__title">
+                      <h3 className="blog-card-small__title">
                         <a href={`/blog/${post.slug}`}>{post.title}</a>
-                      </h4>
-                    </article>
+                      </h3>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+
+              {/* Column 2: Center Column (Featured Post) */}
+              <div className="blog__col-center">
+                {featuredPost && (
+                  <Reveal as="article" className="blog-card-featured">
+                    {featuredPost.cover && (
+                      <a href={`/blog/${featuredPost.slug}`} className="blog-card-featured__cover-link">
+                        <div
+                          className="blog-card-featured__cover"
+                          style={{ backgroundImage: `url(${featuredPost.cover})` }}
+                        />
+                      </a>
+                    )}
+                    <div className="blog-card-featured__body">
+                      <div className="blog-card__meta-row">
+                        <span className="blog-card__cat-read">
+                          {featuredPost.category} • {featuredPost.readMins} mins read
+                        </span>
+                        <span className="blog-card__date">{featuredPost.date}</span>
+                      </div>
+                      <h2 className="blog-card-featured__title">
+                        <a href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</a>
+                      </h2>
+                    </div>
+                  </Reveal>
+                )}
+              </div>
+
+              {/* Column 3: Right Column (Most popular) */}
+              <div className="blog__col-right">
+                <Reveal className="blog__col-right-inner">
+                  <h3 className="blog__popular-heading">Most popular</h3>
+                  <div className="blog__popular-list">
+                    {popularPosts.map((post) => (
+                      <article key={post.slug} className="blog-card-popular">
+                        <div className="blog-card__meta-row">
+                          <span className="blog-card__cat-read">
+                            {post.category} • {post.readMins} mins
+                          </span>
+                          <span className="blog-card__date">{post.date}</span>
+                        </div>
+                        <h4 className="blog-card-popular__title">
+                          <a href={`/blog/${post.slug}`}>{post.title}</a>
+                        </h4>
+                      </article>
+                    ))}
+                  </div>
+                </Reveal>
+              </div>
+            </div>
+
+            {/* More Stories Section */}
+            {morePosts.length > 0 && (
+              <div className="blog__more-section">
+                <div className="blog__more-divider" />
+                <h2 className="blog__more-heading">More Stories</h2>
+                <div className="blog__more-grid">
+                  {morePosts.map((post) => (
+                    <Reveal key={post.slug} as="article" className="blog-card-more">
+                      {post.cover && (
+                        <a href={`/blog/${post.slug}`} className="blog-card-more__cover-link">
+                          <div
+                            className="blog-card-more__cover"
+                            style={{ backgroundImage: `url(${post.cover})` }}
+                          />
+                        </a>
+                      )}
+                      <div className="blog-card-more__body">
+                        <div className="blog-card__meta-row">
+                          <span className="blog-card__cat-read">
+                            {post.category} • {post.readMins} mins read
+                          </span>
+                          <span className="blog-card__date">{post.date}</span>
+                        </div>
+                        <h3 className="blog-card-more__title">
+                          <a href={`/blog/${post.slug}`}>{post.title}</a>
+                        </h3>
+                        <p className="blog-card-more__excerpt">{post.excerpt}</p>
+                      </div>
+                    </Reveal>
                   ))}
                 </div>
-              </Reveal>
-            </div>
-          </div>
+              </div>
+            )}
+          </>
         ) : (
           /* For News/Events, render a simple clean grid */
           <div className="blog__fallback-grid">
