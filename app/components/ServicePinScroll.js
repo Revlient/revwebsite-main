@@ -413,10 +413,11 @@ export default function ServicePinScroll() {
               </a>
               <a
                 href={CTA_HREF}
-                className="svcpin__outro-btn svcpin__outro-btn--ghost"
+                className="svcpin__outro-btn svcpin__outro-btn--ghost cta-with-tooltip cta-with-tooltip--above"
+                data-tooltip="get a reservation in under 3 clicks"
                 tabIndex={isOutroSlot ? 0 : -1}
               >
-                <span>Start a project</span>
+                <span>Free consultation</span>
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M7 17L17 7" />
                   <path d="M7 7h10v10" />

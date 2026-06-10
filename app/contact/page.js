@@ -4,7 +4,7 @@ import { BRAND } from "../lib/site";
 
 export const metadata = {
   title: "Contact",
-  description: `Start a project with ${BRAND.name}. Reach the studio by email, phone, or WhatsApp with a short brief and we will reply with a clear next step.`,
+  description: `Free consultation with ${BRAND.name}. Reach the studio by email, phone, or WhatsApp with a short brief and we will reply with a clear next step.`,
 };
 
 export default function ContactRoute() {

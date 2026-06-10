@@ -113,8 +113,8 @@ export default function WorkHero() {
             <a href="#projects" className="whero__cta whero__cta--primary">
               View work
             </a>
-            <a href={CTA_HREF} className="whero__cta whero__cta--secondary">
-              Start a project
+            <a href={CTA_HREF} className="whero__cta whero__cta--secondary cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+              Free consultation
             </a>
           </div>
         </div>

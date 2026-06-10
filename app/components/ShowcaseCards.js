@@ -155,8 +155,8 @@ export default function ShowcaseCards() {
               A quieter look at the teams and operators who bring us in when
               the product has to be clear, usable, and ready to ship.
             </p>
-            <a href={CTA_HREF} className="wol__cta">
-              <span>Start a project</span>
+            <a href={CTA_HREF} className="wol__cta cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+              <span>Free consultation</span>
               <span aria-hidden="true">
                 <Arrow />
               </span>

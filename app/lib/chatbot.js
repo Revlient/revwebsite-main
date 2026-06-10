@@ -14,7 +14,7 @@ export const GREETING =
   "Hi — I'm the Revlient assistant. What can I point you to?";
 
 export const QUICK_REPLIES = [
-  "Start a project",
+  "Free consultation",
   "What do you do?",
   "Pricing & timeline",
   "Talk to a human",
@@ -25,7 +25,7 @@ export function botReply(input) {
   if (/(price|pricing|cost|budget|quote|timeline|how long)/.test(q)) {
     return {
       text: "Every project is scoped to its goals, so we don't list flat prices. Share a short brief and we'll come back with a clear estimate and timeline.",
-      actions: [{ label: "Start a project", href: CTA_HREF }],
+      actions: [{ label: "Free consultation", href: CTA_HREF }],
     };
   }
   if (/(human|person|call|whatsapp|talk|contact|speak|sales)/.test(q)) {
@@ -57,20 +57,20 @@ export function botReply(input) {
     return {
       text: "Great — tell us the goal, budget range and a short brief and we'll take it from there.",
       actions: [
-        { label: "Start a project", href: CTA_HREF },
+        { label: "Free consultation", href: CTA_HREF },
         { label: "WhatsApp us", href: WHATSAPP_URL, external: true },
       ],
     };
   }
   if (/(hi|hello|hey|yo|good)/.test(q)) {
     return {
-      text: "Hello! Ask me about what we do, pricing, or starting a project — or tap a human channel below.",
+      text: "Hello! Ask me about what we do, pricing, or getting a free consultation — or tap a human channel below.",
     };
   }
   return {
     text: "Thanks for the detail — I'll route this to the team. Meanwhile:",
     actions: [
-      { label: "Start a project", href: CTA_HREF },
+      { label: "Free consultation", href: CTA_HREF },
       { label: "WhatsApp us", href: WHATSAPP_URL, external: true },
     ],
   };

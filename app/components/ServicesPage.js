@@ -384,8 +384,8 @@ function ServicesHero() {
             ))}
           </p>
           <div className="svc-hero-v2__cta-row">
-            <a href={CTA_HREF} className="svc-hero-v2__cta svc-hero-v2__cta--primary">
-              Start a project
+            <a href={CTA_HREF} className="svc-hero-v2__cta svc-hero-v2__cta--primary cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+              Free consultation
             </a>
             <a href="#study-abroad-erp" className="svc-hero-v2__cta svc-hero-v2__cta--secondary">
               View services
@@ -675,8 +675,8 @@ function ClosingCTA() {
         <p className="svc-cta-v2__sub">
           Tell us what you&apos;re building. The first conversation is always free.
         </p>
-        <a href={CTA_HREF} className="svc-cta-v2__btn">
-          Start a project
+        <a href={CTA_HREF} className="svc-cta-v2__btn cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+          Free consultation
         </a>
         <div className="svc-cta-v2__meta">
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
@@ -721,8 +721,8 @@ export default function ServicesPage() {
                   <span className="services-row-v3__detail-item">Vector Style Guides</span>
                   <span className="services-row-v3__detail-item">Typographic Scales</span>
                 </div>
-                <a href={CTA_HREF} className="services-row-v3__link">
-                  <span>Start a project</span>
+                <a href={CTA_HREF} className="services-row-v3__link cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+                  <span>Free consultation</span>
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>

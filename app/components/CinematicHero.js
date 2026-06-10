@@ -87,13 +87,12 @@ export default function CinematicHero() {
       {/* Main content column */}
       <div className="cinhero__content">
         <div className="cinhero__typography">
-          <span className="cinhero__kicker">WE KNOW WHAT YOU</span>
           <h1 className="cinhero__headline">
-            <span className="cinhero__line cinhero__line--1">TIME FOR</span>
-            <span className="cinhero__line cinhero__line--2">
-              YOU TO <span className="cinhero__outline">KNOW</span>
+            <span className="cinhero__line cinhero__line--1">We Craft</span>
+            <span className="cinhero__line cinhero__line--2">Digital</span>
+            <span className="cinhero__line cinhero__line--3">
+              <span className="hero-legacies">Legacies</span>
             </span>
-            <span className="cinhero__line cinhero__line--3">HOW WE ARE.</span>
           </h1>
         </div>
 
@@ -102,8 +101,8 @@ export default function CinematicHero() {
           <div className="cinhero__skills">
             STRATEGY. DESIGN.<br />ENGINEERING. LAUNCH.
           </div>
-          <a ref={ctaRef} href={CTA_HREF} className="cinhero__btn-pill">
-            <span>START A PROJECT</span>
+          <a ref={ctaRef} href={CTA_HREF} className="cinhero__btn-pill cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+            <span>FREE CONSULTATION</span>
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M7 17L17 7" />
               <path d="M7 7h10v10" />

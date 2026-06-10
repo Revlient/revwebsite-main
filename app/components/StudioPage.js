@@ -45,8 +45,8 @@ function StudioHero() {
         </Reveal>
         <Reveal delay={240}>
           <div className="stp-hero__cta">
-            <a href={CTA_HREF} className="stp-btn stp-btn--primary">
-              Start a project
+            <a href={CTA_HREF} className="stp-btn stp-btn--primary cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+              Free consultation
               <span className="stp-btn__arrow" aria-hidden="true">→</span>
             </a>
             <a href="/work" className="stp-btn stp-btn--ghost">
@@ -678,7 +678,7 @@ function StudioCta() {
     <section
       className="stp-section stp-cta"
       id="stp-contact"
-      aria-label="Start a project"
+      aria-label="Free consultation"
     >
       <div className="stp-cta__halo" aria-hidden="true" />
       <div className="stp-container stp-cta__inner">
@@ -694,8 +694,8 @@ function StudioCta() {
           </p>
         </Reveal>
         <Reveal delay={180}>
-          <a href={CTA_HREF} className="stp-btn stp-btn--primary stp-cta__btn">
-            Start a project
+          <a href={CTA_HREF} className="stp-btn stp-btn--primary stp-cta__btn cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+            Free consultation
             <span className="stp-btn__arrow" aria-hidden="true">→</span>
           </a>
         </Reveal>
@@ -724,7 +724,7 @@ function StudioFooter() {
           </div>
           <div>
             <p className="stp-foot__h">Reach</p>
-            <a href={CTA_HREF}>Start a project</a>
+            <a href={CTA_HREF} className="cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">Free consultation</a>
             <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             <a href="/blog">Journal</a>
           </div>

@@ -80,7 +80,7 @@ export default function Nav({ className = "" }) {
               {link.label}
             </a>
           ))}
-          <a href={CTA_HREF} className="nav__cta">
+          <a href={CTA_HREF} className="nav__cta cta-with-tooltip cta-with-tooltip--below" data-tooltip="get a reservation in under 3 clicks">
             {CTA_LABEL}
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M7 17L17 7" />
@@ -125,7 +125,7 @@ export default function Nav({ className = "" }) {
             ))}
           </ul>
           <div className="nav__mobile-bottom">
-            <a href={CTA_HREF} className="nav__mobile-cta" onClick={() => setOpen(false)}>
+            <a href={CTA_HREF} className="nav__mobile-cta cta-with-tooltip cta-with-tooltip--below" data-tooltip="get a reservation in under 3 clicks" onClick={() => setOpen(false)}>
               {CTA_LABEL}
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M7 17L17 7" />

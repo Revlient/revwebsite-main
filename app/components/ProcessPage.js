@@ -259,8 +259,8 @@ export default function ProcessPage() {
               iteration.
             </p>
             <div className="proc-hero__actions">
-              <a href={CTA_HREF} className="proc-hero__btn proc-hero__btn--primary">
-                Start a project
+              <a href={CTA_HREF} className="proc-hero__btn proc-hero__btn--primary cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+                Free consultation
               </a>
               <a href="#process-stages" className="proc-hero__btn proc-hero__btn--ghost">
                 See the method
@@ -304,13 +304,13 @@ export default function ProcessPage() {
         <span className="proc-cta__spot" aria-hidden="true" />
         <Reveal className="proc-cta__inner">
           <h2 className="proc-cta__title">
-            Ready to start your <span className="proc-step__hi">project?</span>
+            Ready for a <span className="proc-step__hi">free consultation?</span>
           </h2>
           <p className="proc-cta__sub">
             Send us the rough version — we&apos;ll shape the rest with you.
           </p>
-          <a href={CTA_HREF} className="proc-cta__btn">
-            <span>Start a project</span>
+          <a href={CTA_HREF} className="proc-cta__btn cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+            <span>Free consultation</span>
             <Icon name="arrow" className="proc-cta__arrow" />
           </a>
         </Reveal>

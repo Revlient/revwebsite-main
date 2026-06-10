@@ -260,8 +260,8 @@ export default function XeroHeroCard() {
             <br />
             four deliberate stages, with no surprises.
           </p>
-          <a href={CTA_HREF} className="xhero__cta">
-            Start a project
+          <a href={CTA_HREF} className="xhero__cta cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
+            Free consultation
           </a>
         </div>
       </div>

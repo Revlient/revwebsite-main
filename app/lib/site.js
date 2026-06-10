@@ -11,7 +11,7 @@ export const BRAND = {
 
 // The persistent "Start a project" target.
 export const CTA_HREF = "/contact";
-export const CTA_LABEL = "Start a project";
+export const CTA_LABEL = "Free consultation";
 
 // Revlient Systems — the separate site that serves ERP / CRM / automation buyers.
 export const SYSTEMS_URL = "https://systems.revlient.com";

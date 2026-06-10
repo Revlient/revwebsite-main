@@ -47,7 +47,7 @@ export default function HomePage() {
       />
       <Nav className="page-home-nav" />
 
-      <main>
+      <main className="page-home">
         <CinematicHero />
 
         {/* <div className="h-chat-light">

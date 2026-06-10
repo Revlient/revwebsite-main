@@ -54,8 +54,12 @@ export default function BundleShowcaseServices({
 
         <div className="wfs__actions">
           <span className="wfs__cta-wrap">
-            <a href={CTA_HREF} className="wfs__cta wfs__cta--primary">
-              Start a project
+            <a
+              href={CTA_HREF}
+              className="wfs__cta wfs__cta--primary cta-with-tooltip cta-with-tooltip--above"
+              data-tooltip="get a reservation in under 3 clicks"
+            >
+              Free consultation
             </a>
           </span>
           <a href="/process" className="wfs__cta wfs__cta--ghost">

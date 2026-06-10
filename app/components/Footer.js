@@ -46,7 +46,7 @@ const NAV_COL = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "Studio", href: "/studio" },
-  { label: "Start a project", href: CTA_HREF },
+  { label: "Free consultation", href: CTA_HREF },
 ];
 
 const COMPANY_COL = [
@@ -164,11 +164,19 @@ export default function Footer() {
             <div className="footer-nav-cols">
               <div className="footer-col">
                 <h4 className="footer-col-title">Navigation</h4>
-                {NAV_COL.map((l) => (
-                  <a key={l.label} href={l.href}>
-                    {l.label}
-                  </a>
-                ))}
+                {NAV_COL.map((l) => {
+                  const isCta = l.label === "Free consultation";
+                  return (
+                    <a
+                      key={l.label}
+                      href={l.href}
+                      className={isCta ? "cta-with-tooltip cta-with-tooltip--above" : ""}
+                      data-tooltip={isCta ? "get a reservation in under 3 clicks" : undefined}
+                    >
+                      {l.label}
+                    </a>
+                  );
+                })}
               </div>
               <div className="footer-col">
                 <h4 className="footer-col-title">Company</h4>

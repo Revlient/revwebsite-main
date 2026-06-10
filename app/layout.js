@@ -7,6 +7,9 @@ import {
   Inter,
   Barlow,
   IBM_Plex_Mono,
+  Figtree,
+  Noto_Sans_Devanagari,
+  Philosopher,
 } from "next/font/google";
 import { BRAND } from "./lib/site";
 import MusicToggle from "./components/MusicToggle";
@@ -64,6 +67,28 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const figtree = Figtree({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-figtree",
+  display: "swap",
+});
+
+const notoSansDevanagari = Noto_Sans_Devanagari({
+  subsets: ["devanagari", "latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-noto-devanagari",
+  display: "swap",
+});
+
+const philosopher = Philosopher({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-philosopher",
+  display: "swap",
+});
+
 // FOLLOW-ON TASK (SEO pass): per-page metadata, real OG image, favicon,
 // sitemap.xml, robots.txt. This is a sound baseline only.
 export const metadata = {
@@ -105,7 +130,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${caveat.variable} ${instrumentSerif.variable} ${cormorant.variable} ${inter.variable} ${barlow.variable} ${ibmPlexMono.variable}`}
+      className={`${dmSans.variable} ${caveat.variable} ${instrumentSerif.variable} ${cormorant.variable} ${inter.variable} ${barlow.variable} ${ibmPlexMono.variable} ${figtree.variable} ${notoSansDevanagari.variable} ${philosopher.variable}`}
     >
       <body>
         {/* Runs before paint: enables scroll-reveal animation only when JS

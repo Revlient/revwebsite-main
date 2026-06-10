@@ -3,173 +3,131 @@
 import { useState } from "react";
 import Reveal from "./Reveal";
 
-/* /blog landing — hero + grid of post cards. Vanilla JS + plain CSS,
-   inline SVGs in place of lucide-react. */
+/* /blog landing — Insights header + 3-column post grid matching the reference design.
+   Vanilla JS + plain CSS, minimal metadata representation. */
 
 const POSTS = [
   {
-    slug: "shipping-at-revlient",
-    category: "Creativity",
-    title: "Crafting digital momentum: What 'shipping' actually means at Revlient",
-    excerpt:
-      "A deep dive into our core product philosophy — why shipping fast is a design feature, how we balance aesthetic polish with runtime performance, and the systems we use to ship premium interfaces on budget.",
+    slug: "ai-for-ecommerce",
+    category: "Blog",
+    title: "AI for Ecommerce: Driving the Next Digital Revolution",
+    excerpt: "How artificial intelligence is shaping the future of online retail and next-gen customer journeys.",
     author: "Revlient Studio",
-    date: "Jun 2026",
+    date: "April 13, 2026",
     readMins: "6",
-    cover: "/blog-creativity.png",
+    cover: "/blog-ai-ecommerce.png",
   },
   {
-    slug: "custom-headless-cms",
-    category: "Code",
-    title: "The architectural choice: Custom headless CMS vs legacy suites",
-    excerpt:
-      "When the headless option wins, when the legacy monolithic option wins, and the third hybrid path that most technical teams overlook. An engineering analysis of content rendering speed, security boundaries, and editing experience.",
+    slug: "new-visual-commerce",
+    category: "Blog",
+    title: "The New Visual Commerce: Driving Next-Gen Purchases",
+    excerpt: "Re-engineering visual shopping experiences with modern digital assets and interactive media.",
+    author: "Product Team",
+    date: "April 06, 2026",
+    readMins: "10",
+    cover: "/blog-visual-commerce.png",
+  },
+  {
+    slug: "best-programming-languages-2026",
+    category: "Blog",
+    title: "Best Programming Languages in 2026 for Future-Ready Development",
+    excerpt: "An in-depth analysis of high-performance coding architectures and language trends this year.",
     author: "Engineering Team",
-    date: "May 2026",
-    readMins: "8",
-    cover: "/blog-code.png",
-  },
-  {
-    slug: "designing-skeptical-buyer",
-    category: "Creativity",
-    title: "Designing for the conversion threshold: Building skepticism-proof trust",
-    excerpt:
-      "How visual decisions, font hierarchies, micro-animations, and loaded state handling inside a homepage build or burn trust with a technical buyer in the first five critical seconds of interaction.",
-    author: "Design Group",
-    date: "Apr 2026",
-    readMins: "5",
-    cover: "/blog-creativity.png",
-  },
-  {
-    slug: "practical-ai-erp",
-    category: "Code",
-    title: "Enterprise ERP systems: Integrating practical AI agents in production",
-    excerpt:
-      "A technical walkthrough of how we shipped a live AI assistant, semantic matching engines, and auto-quotation processors inside the custom Revlient OS without bloat or token latency issues.",
-    author: "AI Lab",
-    date: "Mar 2026",
+    date: "April 20, 2026",
     readMins: "9",
-    cover: "/blog-code.png",
+    cover: "/blog-programming-languages.png",
   },
   {
-    slug: "seo-organic-playbook",
-    category: "Seo",
-    title: "The organic playbook: Advanced SEO strategies for modern scale",
-    excerpt:
-      "Stop chasing algorithm updates. Learn the semantic indexing, site architecture, core web vitals, and structured schema schemas we use to generate millions in high-intent organic traffic without paid ads.",
-    author: "SEO Team",
-    date: "Feb 2026",
+    slug: "advantages-disadvantages-social-media",
+    category: "Blog",
+    title: "Top 20 Advantages and Disadvantages of Social Media",
+    excerpt: "Exploring the dual nature of social networking platforms on business and personal communication.",
+    author: "Marketing Group",
+    date: "January 18, 2024",
+    readMins: "10",
+    cover: "",
+    popular: true,
+  },
+  {
+    slug: "advantages-disadvantages-technology",
+    category: "Blog",
+    title: "Top 20 Advantages and Disadvantages of Technology",
+    excerpt: "A critical look at modern tech solutions and their impact on efficiency and human interaction.",
+    author: "AI Lab",
+    date: "September 09, 2024",
+    readMins: "8",
+    cover: "",
+    popular: true,
+  },
+  {
+    slug: "top-11-backend-programming-languages-2026",
+    category: "Blog",
+    title: "Top 11 Backend Programming Languages in 2026",
+    excerpt: "Choosing the right backend stack for scalable cloud APIs and semantic data query engines.",
+    author: "Engineering Team",
+    date: "November 13, 2024",
     readMins: "7",
+    cover: "",
+    popular: true,
+  },
+  {
+    slug: "what-is-ecommerce-applications",
+    category: "Blog",
+    title: "What Is E-commerce and What Are Its Applications?",
+    excerpt: "A comprehensive guide to electronic commerce systems, platforms, and operational architectures.",
+    author: "Product Team",
+    date: "September 24, 2024",
+    readMins: "12",
+    cover: "",
+    popular: true,
+  },
+  // Mock News & Events to keep tabs functional and dynamic
+  {
+    slug: "revlient-raises-seed-funding",
+    category: "News",
+    title: "Revlient Raises $4M Seed Funding to Scale Custom AI Agent Suite",
+    excerpt: "Announcing our recent seed round to expand research and support larger production integrations.",
+    author: "Press Release",
+    date: "May 22, 2026",
+    readMins: "4",
     cover: "/blog-ranking.png",
   },
   {
-    slug: "study2india-case-study",
-    category: "Marketing",
-    title: "Unlocking counsellor momentum: Rebuilding Study2India from the ground up",
-    excerpt:
-      "What the education platform was selling before, how we re-engineered the user acquisition funnel, and what changed for the international counsellors on day one of launching the new portal.",
-    author: "Product Team",
-    date: "Jan 2026",
-    readMins: "11",
+    slug: "design-systems-meetup-2026",
+    category: "Events",
+    title: "Web Performance & Design Systems Meetup 2026",
+    excerpt: "Join us in our studio or online for an evening of talks on micro-animations and core web vitals.",
+    author: "Host Team",
+    date: "July 15, 2026",
+    readMins: "12",
     cover: "/blog-laptop.png",
-  },
+  }
 ];
 
-function Arrow({ className = "" }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M5 12 H19" />
-      <path d="M13 6 L19 12 L13 18" />
-    </svg>
-  );
-}
-
-function PostCover({ coverUrl, category }) {
-  if (coverUrl) {
-    return (
-      <div
-        className="blog-card__cover"
-        style={{
-          backgroundImage: `url(${coverUrl})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <span className="blog-card__cover-grid" />
-        <span className="blog-card__cover-orb" />
-      </div>
-    );
-  }
-  return (
-    <div className="blog-card__cover">
-      <span className="blog-card__cover-grid" />
-      <span className="blog-card__cover-orb" />
-    </div>
-  );
-}
-
-function BlogCard({ post }) {
-  return (
-    <Reveal as="article" className="blog-card">
-      <PostCover coverUrl={post.cover} category={post.category} />
-      <div className="blog-card__body">
-        <span className="blog-card__tag">{post.category}</span>
-        <h3 className="blog-card__title">{post.title}</h3>
-        <p className="blog-card__excerpt">{post.excerpt}</p>
-        <div className="blog-card__foot">
-          <div className="blog-card__meta">
-            <span className="blog-card__author">{post.author}</span>
-            <span className="blog-card__dot" aria-hidden="true">·</span>
-            <span>{post.date}</span>
-            <span className="blog-card__dot" aria-hidden="true">·</span>
-            <span>{post.readMins} min read</span>
-          </div>
-          <span className="blog-card__cta">
-            Read article
-            <Arrow className="blog-card__cta-icon" />
-          </span>
-        </div>
-      </div>
-    </Reveal>
-  );
-}
-
 export default function BlogList() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("Blogs");
+  const categories = ["Blogs", "News", "Events"];
 
-  const categories = ["All", "Seo", "Marketing", "Creativity", "Code"];
+  const filteredPosts = POSTS.filter((p) => {
+    if (activeCategory === "Blogs") return p.category === "Blog";
+    if (activeCategory === "News") return p.category === "News";
+    if (activeCategory === "Events") return p.category === "Events";
+    return true;
+  });
 
-  const filteredPosts = activeCategory === "All"
-    ? POSTS
-    : POSTS.filter(p => p.category.toLowerCase() === activeCategory.toLowerCase());
+  const leftColumnPosts = filteredPosts.filter(
+    (p) => p.slug === "ai-for-ecommerce" || p.slug === "new-visual-commerce"
+  );
+  const featuredPost = filteredPosts.find(
+    (p) => p.slug === "best-programming-languages-2026"
+  );
+  const popularPosts = filteredPosts.filter((p) => p.popular);
 
   return (
     <div className="blog">
-      <header className="blog__hero">
-        <span className="blog__hero-spot" aria-hidden="true" />
-        <Reveal className="blog__hero-inner">
-          <div className="blog__hero-grid">
-            <div className="blog__hero-left">
-              <h1 className="blog__title">
-                Blogs and<br />Insights
-              </h1>
-            </div>
-            <div className="blog__hero-right">
-              <p className="blog__sub">
-                Insights, ideas, and strategies shaping the future of digital and business transformation
-              </p>
-            </div>
-          </div>
-
+      <div className="blog__container">
+        <Reveal className="blog__header">
+          <h1 className="blog__insights-title">Insights</h1>
           <div className="blog__filters">
             {categories.map((cat) => (
               <button
@@ -183,17 +141,119 @@ export default function BlogList() {
             ))}
           </div>
         </Reveal>
-      </header>
 
-      <section className="blog__list">
-        <div className="blog__grid">
-          {filteredPosts.map((p) => (
-            <BlogCard key={p.slug} post={p} />
-          ))}
-        </div>
-      </section>
+        {activeCategory === "Blogs" ? (
+          <div className="blog__layout">
+            {/* Column 1: Left column */}
+            <div className="blog__col-left">
+              {leftColumnPosts.map((post) => (
+                <Reveal key={post.slug} as="article" className="blog-card-small">
+                  {post.cover && (
+                    <a href={`/blog/${post.slug}`} className="blog-card-small__cover-link">
+                      <div
+                        className="blog-card-small__cover"
+                        style={{ backgroundImage: `url(${post.cover})` }}
+                      />
+                    </a>
+                  )}
+                  <div className="blog-card-small__body">
+                    <div className="blog-card__meta-row">
+                      <span className="blog-card__cat-read">
+                        {post.category} • {post.readMins} mins read
+                      </span>
+                      <span className="blog-card__date">{post.date}</span>
+                    </div>
+                    <h3 className="blog-card-small__title">
+                      <a href={`/blog/${post.slug}`}>{post.title}</a>
+                    </h3>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
 
+            {/* Column 2: Center Column (Featured Post) */}
+            <div className="blog__col-center">
+              {featuredPost && (
+                <Reveal as="article" className="blog-card-featured">
+                  {featuredPost.cover && (
+                    <a href={`/blog/${featuredPost.slug}`} className="blog-card-featured__cover-link">
+                      <div
+                        className="blog-card-featured__cover"
+                        style={{ backgroundImage: `url(${featuredPost.cover})` }}
+                      />
+                    </a>
+                  )}
+                  <div className="blog-card-featured__body">
+                    <div className="blog-card__meta-row">
+                      <span className="blog-card__cat-read">
+                        {featuredPost.category} • {featuredPost.readMins} mins read
+                      </span>
+                      <span className="blog-card__date">{featuredPost.date}</span>
+                    </div>
+                    <h2 className="blog-card-featured__title">
+                      <a href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</a>
+                    </h2>
+                  </div>
+                </Reveal>
+              )}
+            </div>
 
+            {/* Column 3: Right Column (Most popular) */}
+            <div className="blog__col-right">
+              <Reveal className="blog__col-right-inner">
+                <h3 className="blog__popular-heading">Most popular</h3>
+                <div className="blog__popular-list">
+                  {popularPosts.map((post) => (
+                    <article key={post.slug} className="blog-card-popular">
+                      <div className="blog-card__meta-row">
+                        <span className="blog-card__cat-read">
+                          {post.category} • {post.readMins} mins
+                        </span>
+                        <span className="blog-card__date">{post.date}</span>
+                      </div>
+                      <h4 className="blog-card-popular__title">
+                        <a href={`/blog/${post.slug}`}>{post.title}</a>
+                      </h4>
+                    </article>
+                  ))}
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        ) : (
+          /* For News/Events, render a simple clean grid */
+          <div className="blog__fallback-grid">
+            {filteredPosts.map((post) => (
+              <Reveal key={post.slug} as="article" className="blog-card-small">
+                {post.cover && (
+                  <a href={`/blog/${post.slug}`} className="blog-card-small__cover-link">
+                    <div
+                      className="blog-card-small__cover"
+                      style={{ backgroundImage: `url(${post.cover})` }}
+                    />
+                  </a>
+                )}
+                <div className="blog-card-small__body">
+                  <div className="blog-card__meta-row">
+                    <span className="blog-card__cat-read">
+                      {post.category} • {post.readMins} mins read
+                    </span>
+                    <span className="blog-card__date">{post.date}</span>
+                  </div>
+                  <h3 className="blog-card-small__title">
+                    <a href={`/blog/${post.slug}`}>{post.title}</a>
+                  </h3>
+                </div>
+              </Reveal>
+            ))}
+            {filteredPosts.length === 0 && (
+              <div className="blog__empty-state">
+                <p>No articles found in this category.</p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
