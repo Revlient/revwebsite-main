@@ -43,6 +43,24 @@ function VisualWeb() {
   );
 }
 
+function Visual2ndTile() {
+  return (
+    <div className="cap-v cap-v--video" aria-hidden="true">
+      <img
+        src="/2ndtile.png"
+        alt="Premium Websites"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          position: "absolute",
+          inset: 0,
+        }}
+      />
+    </div>
+  );
+}
+
 function VisualFlightVideo() {
   return (
     <div className="cap-v cap-v--video" aria-hidden="true">
@@ -120,7 +138,7 @@ const CAPS = [
     body:
       "Immersive, 3D-grade brand experiences designed to convert high-value buyers. We hold our load times, micro-interactions, and accessibility to a rigorous standard.",
     tags: ["Web", "Motion", "Performance"],
-    Visual: VisualWeb,
+    Visual: Visual2ndTile,
     span: "half",
   },
   {
@@ -130,7 +148,7 @@ const CAPS = [
     body:
       "Stop warping your business to fit rigid software. We build tailormade ERPs and client pipelines designed around your team's exact workflow.",
     tags: ["ERP", "Internal tools", "Scale"],
-    Visual: VisualErp,
+    Visual: VisualWeb,
     span: "third",
   },
   {

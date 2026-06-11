@@ -732,7 +732,7 @@ export default function ServicesPage() {
             <div className="services-row-v3__visual-col">
               <Reveal className="services-row-v3__mockup-wrapper">
                 <img 
-                  src="/services/web_design_service.png" 
+                  src="/services/webdevservice.png" 
                   alt="Web Design Visual Mockup" 
                   className="services-row-v3__img"
                 />
