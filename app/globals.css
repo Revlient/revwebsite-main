@@ -27786,9 +27786,9 @@ a.feat2-reach__line:hover {
 
 /* Tagline Noto Sans Devanagari / Philosopher font override */
 .hero-legacies {
-  font-family: var(--font-palisade), sans-serif !important;
+  font-family: var(--font-cormorant), var(--font-philosopher), var(--font-instrument-serif), serif !important;
   font-weight: 400;
-  font-style: normal !important;
+  font-style: italic !important;
   text-transform: none;
   letter-spacing: normal;
   display: inline-block;
