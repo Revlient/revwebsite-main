@@ -140,6 +140,7 @@ const CAPS = [
     tags: ["Web", "Motion", "Performance"],
     Visual: Visual2ndTile,
     span: "half",
+    hideBody: true,
   },
   {
     id: "erp",
