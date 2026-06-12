@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CTA_HREF } from "../lib/site";
+import AiFunnelModal from "./AiFunnelModal";
 
 export default function CinematicHero() {
   const ctaRef = useRef(null);
+  const aiBtnRef = useRef(null);
+  const [aiOpen, setAiOpen] = useState(false);
 
   useEffect(() => {
     const cta = ctaRef.current;
@@ -79,6 +82,60 @@ export default function CinematicHero() {
     };
   }, []);
 
+  // Cursor-tracked spotlight for the "Figure out with AI" pill. Button-scoped
+  // (no global listener), sets only CSS custom properties — never transform, so
+  // it can't fight the CSS hover/press — and bails on touch / reduced-motion.
+  useEffect(() => {
+    const btn = aiBtnRef.current;
+    if (!btn) return;
+
+    const hoverMq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!hoverMq.matches || reduceMq.matches) return;
+
+    let tx = 50;
+    let ty = 50;
+    let cx = 50;
+    let cy = 50;
+    let frameId = null;
+
+    const onMove = (e) => {
+      const r = btn.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width) * 100;
+      ty = ((e.clientY - r.top) / r.height) * 100;
+    };
+
+    const animate = () => {
+      cx += (tx - cx) * 0.2;
+      cy += (ty - cy) * 0.2;
+      btn.style.setProperty("--mx", `${cx.toFixed(2)}%`);
+      btn.style.setProperty("--my", `${cy.toFixed(2)}%`);
+      frameId = requestAnimationFrame(animate);
+    };
+
+    const onEnter = () => {
+      if (frameId == null) frameId = requestAnimationFrame(animate);
+    };
+
+    const onLeave = () => {
+      if (frameId != null) cancelAnimationFrame(frameId);
+      frameId = null;
+    };
+
+    btn.addEventListener("mouseenter", onEnter, { passive: true });
+    btn.addEventListener("mousemove", onMove, { passive: true });
+    btn.addEventListener("mouseleave", onLeave, { passive: true });
+
+    return () => {
+      btn.removeEventListener("mouseenter", onEnter);
+      btn.removeEventListener("mousemove", onMove);
+      btn.removeEventListener("mouseleave", onLeave);
+      if (frameId != null) cancelAnimationFrame(frameId);
+      btn.style.removeProperty("--mx");
+      btn.style.removeProperty("--my");
+    };
+  }, []);
+
   return (
     <section className="cinhero" aria-label="Hero">
       {/* Background sculpture */}
@@ -96,11 +153,9 @@ export default function CinematicHero() {
           </h1>
         </div>
 
-        {/* Bottom left strategy list and CTA button */}
+        {/* Bottom left CTA row: editorial divider line + the two buttons */}
         <div className="cinhero__bottom-left">
-          <div className="cinhero__skills">
-            STRATEGY. DESIGN.<br />ENGINEERING. LAUNCH.
-          </div>
+          <span className="cinhero__divider" aria-hidden="true" />
           <a ref={ctaRef} href={CTA_HREF} className="cinhero__btn-pill cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
             <span>FREE CONSULTATION</span>
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -108,6 +163,17 @@ export default function CinematicHero() {
               <path d="M7 7h10v10" />
             </svg>
           </a>
+          <button
+            ref={aiBtnRef}
+            type="button"
+            className="cinhero__btn-ai"
+            onClick={() => setAiOpen(true)}
+            aria-haspopup="dialog"
+            aria-expanded={aiOpen}
+          >
+            <span className="cinhero__btn-ai-fx" aria-hidden="true" />
+            <span className="cinhero__btn-ai-label">FIGURE OUT WITH AI</span>
+          </button>
         </div>
       </div>
 
@@ -126,6 +192,9 @@ export default function CinematicHero() {
 
       {/* Linear bottom fade overlay */}
       <div className="cinhero__fade" aria-hidden="true" />
+
+      {/* AI funnel chat modal */}
+      <AiFunnelModal open={aiOpen} onClose={() => setAiOpen(false)} />
     </section>
   );
 }

@@ -22763,16 +22763,260 @@ a.feat2-reach__line:hover {
   margin-top: 1rem;
 }
 
-.cinhero__skills {
+/* Standalone editorial line that used to sit beside the strategy text.
+   The text is gone; the line stays to anchor the CTA row. */
+.cinhero__divider {
+  display: block;
+  width: 1px;
+  height: 2.6rem;
+  flex: 0 0 auto;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 9, 12, 0) 0%,
+    rgba(8, 9, 12, 0.22) 22%,
+    rgba(8, 9, 12, 0.22) 78%,
+    rgba(8, 9, 12, 0) 100%
+  );
+}
+
+/* ============================================================
+   Secondary CTA — "Figure out with AI"  ·  AURORA aura
+   A light neumorphic pill on the white hero wrapped in a living
+   blue→indigo→violet aura:
+     ::before  — breathing radial bloom BEHIND the opaque pill
+                 (z-index:-1, no isolation, so it radiates onto
+                 the page; the pill body hides it over the face)
+     ::after   — a thin rotating conic gradient RIM hugging the
+                 edge (mask-composite border = correct on a
+                 stadium pill, not an ellipse)
+     .fx       — on-face layer: a cursor-tracked spotlight +
+                 a one-shot specular sweep on hover
+   The orb is the light source (dual ripple). --aura scales the
+   whole effect through idle / hover / active / focus.
+   ============================================================ */
+
+/* Registered so they interpolate smoothly (no snap on hover). */
+@property --aura {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+@property --ring-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.cinhero__btn-ai {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: linear-gradient(145deg, #f4f5f9, #e4e7ee);
+  color: #08090c;
   font-family: var(--font-body);
-  font-size: clamp(0.7rem, 0.9vw, 0.85rem);
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  line-height: 1.6;
-  color: rgba(8, 9, 12, 0.5);
+  font-size: clamp(0.7rem, 0.8vw, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  border-left: 1px solid rgba(8, 9, 12, 0.15);
-  padding-left: 1rem;
+  cursor: pointer;
+  /* one scalar drives the whole aura; cursor position for the spotlight */
+  --aura: 1;
+  --mx: 50%;
+  --my: 50%;
+  top: 0;
+  box-shadow: -6px -6px 16px rgba(255, 255, 255, 0.9),
+    6px 6px 18px rgba(8, 9, 12, 0.16);
+  /* Lift via `top`, NOT transform: a transform would make the button a
+     stacking context and trap the z-index:-1 bloom on the pill face. */
+  transition: box-shadow 0.35s var(--ease), top 0.35s var(--ease),
+    color 0.35s var(--ease);
+}
+
+/* The label sits above every aura layer (contrast preserved). */
+.cinhero__btn-ai-label {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---- Layer 1: breathing bloom behind the opaque pill ---- */
+.cinhero__btn-ai::before {
+  content: "";
+  position: absolute;
+  z-index: -1; /* behind the pill's own opaque background */
+  inset: -55% -34%;
+  border-radius: 9999px;
+  background: radial-gradient(closest-side at 24% 50%,
+        rgba(43, 95, 255, 0.55), transparent 72%),
+    radial-gradient(closest-side at 58% 46%,
+        rgba(99, 102, 241, 0.46), transparent 70%),
+    radial-gradient(closest-side at 84% 56%,
+        rgba(139, 92, 246, 0.42), transparent 72%);
+  filter: blur(16px) saturate(125%);
+  transform: scale(0.95);
+  transform-origin: 30% 50%;
+  transition: transform 0.5s var(--ease), filter 0.5s var(--ease);
+  animation: cinhero-ai-breathe 6s ease-in-out infinite;
+  will-change: transform, opacity, filter;
+  pointer-events: none;
+}
+
+/* ---- Layer 2: rotating conic rim (correct on a stadium pill) ---- */
+.cinhero__btn-ai::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 1.4px; /* = rim thickness */
+  border-radius: 9999px;
+  background: conic-gradient(from var(--ring-angle),
+      rgba(43, 95, 255, 0) 0deg,
+      rgba(43, 95, 255, 0.9) 65deg,
+      rgba(99, 102, 241, 0.95) 150deg,
+      rgba(139, 92, 246, 0) 222deg,
+      rgba(74, 120, 255, 0.85) 312deg,
+      rgba(43, 95, 255, 0) 360deg);
+  /* carve out the centre so only the padding ring paints */
+  -webkit-mask: linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: calc(0.5 * var(--aura));
+  transition: opacity 0.45s var(--ease), filter 0.45s var(--ease);
+  animation: cinhero-ai-ring 9s linear infinite;
+  pointer-events: none;
+}
+
+/* ---- Layer 3: on-face spotlight + specular sweep ---- */
+.cinhero__btn-ai-fx {
+  position: absolute;
+  z-index: 1; /* above the pill face, below label + orb */
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden; /* clip both effects to the pill face */
+  pointer-events: none;
+  /* the cursor-tracked light (JS drives --mx/--my; eased) */
+  background: radial-gradient(120px circle at var(--mx) var(--my),
+      rgba(99, 124, 255, 0.30),
+      rgba(123, 92, 255, 0.12) 40%,
+      transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+/* the specular streak — a tinted light pass (reads on the light pill;
+   no mix-blend-mode, which is invisible on near-white). Parked off-screen. */
+.cinhero__btn-ai-fx::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(105deg,
+      transparent 38%,
+      rgba(120, 150, 255, 0.35) 46%,
+      rgba(244, 247, 255, 0.85) 50%,
+      rgba(120, 150, 255, 0.35) 54%,
+      transparent 62%);
+  background-size: 260% 100%;
+  background-position: 160% 0;
+  opacity: 0;
+}
+
+/* ---- HOVER: the aura blooms, the face lights up, one sweep passes ---- */
+.cinhero__btn-ai:hover {
+  --aura: 1.7;
+  top: -1px;
+  box-shadow: -8px -8px 20px rgba(255, 255, 255, 0.95),
+    8px 8px 22px rgba(8, 9, 12, 0.2), 0 10px 30px rgba(43, 95, 255, 0.16);
+}
+.cinhero__btn-ai:hover::before {
+  transform: scale(1.12);
+  filter: blur(20px) saturate(140%);
+}
+.cinhero__btn-ai:hover::after {
+  filter: brightness(1.25);
+}
+.cinhero__btn-ai:hover .cinhero__btn-ai-fx {
+  opacity: 1;
+}
+.cinhero__btn-ai:hover .cinhero__btn-ai-fx::after {
+  opacity: 1;
+  animation: cinhero-ai-sheen 1.1s var(--ease);
+}
+
+/* ---- ACTIVE: the aura tucks inward as the pill presses ---- */
+.cinhero__btn-ai:active {
+  --aura: 0.9;
+  top: 0;
+  box-shadow: inset -4px -4px 10px rgba(255, 255, 255, 0.9),
+    inset 5px 5px 12px rgba(8, 9, 12, 0.18);
+}
+.cinhero__btn-ai:active::before {
+  transform: scale(0.88);
+  filter: blur(13px) saturate(115%);
+}
+
+/* keyboard focus gets the same delightful bloom, plus a clear ring */
+.cinhero__btn-ai:focus-visible {
+  --aura: 1.45;
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+
+/* Breathing bloom: opacity swell only (scaled by --aura), plus a gentle
+   hue drift so it shifts blue→indigo→violet as it breathes. */
+@keyframes cinhero-ai-breathe {
+  0%, 100% {
+    opacity: calc(0.42 * var(--aura));
+    filter: blur(16px) saturate(125%) hue-rotate(0deg);
+  }
+  50% {
+    opacity: calc(0.6 * var(--aura));
+    filter: blur(16px) saturate(135%) hue-rotate(14deg);
+  }
+}
+
+/* Conic rim: sweep the gradient's start angle (no geometry rotation). */
+@keyframes cinhero-ai-ring {
+  to {
+    --ring-angle: 360deg;
+  }
+}
+
+/* One decisive specular streak across the pill face. */
+@keyframes cinhero-ai-sheen {
+  from {
+    background-position: 160% 0;
+  }
+  to {
+    background-position: -80% 0;
+  }
+}
+
+/* ---- Calm everything for reduced-motion users ---- */
+@media (prefers-reduced-motion: reduce) {
+  .cinhero__btn-ai::before,
+  .cinhero__btn-ai::after {
+    animation: none;
+  }
+  .cinhero__btn-ai::before {
+    opacity: calc(0.45 * var(--aura)); /* a tasteful static bloom remains */
+  }
+  .cinhero__btn-ai:hover .cinhero__btn-ai-fx::after {
+    animation: none;
+  }
+  .cinhero__btn-ai,
+  .cinhero__btn-ai::before,
+  .cinhero__btn-ai::after,
+  .cinhero__btn-ai-fx {
+    transition-duration: 0.001s;
+  }
+  .cinhero__btn-ai:hover::before {
+    transform: scale(1.05); /* hover still brightens, just no motion */
+  }
 }
 
 .cinhero__btn-pill {
@@ -23084,24 +23328,34 @@ a.feat2-reach__line:hover {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 2rem;
+    gap: 1.2rem;
     margin-top: 3rem;
   }
 
-  .cinhero__skills {
-    border-left: none;
-    border-top: none;
-    padding-left: 0;
-    padding-top: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 0.85rem;
-    letter-spacing: 0.12em;
+  /* The vertical line reads as a horizontal accent above the stacked buttons */
+  .cinhero__divider {
+    width: 2.6rem;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      rgba(8, 9, 12, 0) 0%,
+      rgba(8, 9, 12, 0.22) 22%,
+      rgba(8, 9, 12, 0.22) 78%,
+      rgba(8, 9, 12, 0) 100%
+    );
   }
 
   .cinhero__btn-pill {
     font-size: 0.95rem !important;
     padding: 1.1rem 2.2rem !important;
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+
+  .cinhero__btn-ai {
+    font-size: 0.95rem;
+    padding: 1.1rem 2.2rem;
     width: 100%;
     max-width: 280px;
     justify-content: center;
@@ -27784,10 +28038,11 @@ a.feat2-reach__line:hover {
   font-family: var(--font-figtree), sans-serif !important;
 }
 
-/* Tagline Noto Sans Devanagari / Philosopher font override */
+/* "Legacies" — matches the "in four notes." treatment:
+   Cormorant Garamond, italic, weight 500. */
 .hero-legacies {
   font-family: var(--font-cormorant), var(--font-philosopher), var(--font-instrument-serif), serif !important;
-  font-weight: 400;
+  font-weight: 500;
   font-style: italic !important;
   text-transform: none;
   letter-spacing: normal;
@@ -28123,6 +28378,404 @@ a.feat2-reach__line:hover {
 @media (min-width: 768px) {
   .blog-post__related-grid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ============================================================
+   "Figure out with AI" — neumorphic chat funnel modal
+   Soft-UI (light) surface to match the white hero. Dual shadows
+   (white highlight top-left, soft dark bottom-right) create the
+   extruded feel; pressed states flip to inset shadows.
+   ============================================================ */
+
+.aifunnel {
+  --neu-bg: #fdfdfd;
+  --neu-light: #ffffff;
+  --neu-dark: rgba(174, 182, 198, 0.6);
+  --neu-text: #2a2d35;
+  --neu-muted: #767a86;
+
+  position: fixed;
+  inset: 0;
+  z-index: 10000; /* above the fixed side bar & tooltips (9999) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  pointer-events: none;
+}
+
+.aifunnel__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 24, 34, 0.28);
+  -webkit-backdrop-filter: blur(0px);
+  backdrop-filter: blur(0px);
+  opacity: 0;
+  transition: opacity 0.36s var(--ease), backdrop-filter 0.36s var(--ease),
+    -webkit-backdrop-filter 0.36s var(--ease);
+  pointer-events: auto;
+}
+
+.aifunnel.is-open .aifunnel__overlay {
+  opacity: 1;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.aifunnel__card {
+  position: relative;
+  width: min(820px, 100%);
+  max-height: min(600px, 90vh);
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem 1.3rem 1.1rem;
+  border-radius: 30px;
+  background: var(--neu-bg);
+  box-shadow: -10px -10px 30px var(--neu-light),
+    12px 12px 36px var(--neu-dark);
+  color: var(--neu-text);
+  font-family: var(--font-body);
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateY(28px) scale(0.94);
+  transition: opacity 0.36s var(--ease), transform 0.42s cubic-bezier(0.2, 1.1, 0.32, 1);
+}
+
+.aifunnel.is-open .aifunnel__card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Header ------------------------------------------------------ */
+.aifunnel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.35rem 0.4rem 0.9rem;
+}
+
+.aifunnel__brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.aifunnel__title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--neu-text);
+}
+
+.aifunnel__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 50%;
+  background: var(--neu-bg);
+  color: var(--neu-muted);
+  cursor: pointer;
+  box-shadow: -4px -4px 9px var(--neu-light), 4px 4px 9px var(--neu-dark);
+  transition: box-shadow 0.25s var(--ease), color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+
+.aifunnel__close:hover {
+  color: var(--neu-text);
+}
+
+.aifunnel__close:active {
+  box-shadow: inset -3px -3px 7px var(--neu-light),
+    inset 3px 3px 7px var(--neu-dark);
+  transform: scale(0.96);
+}
+
+/* Thread ------------------------------------------------------ */
+.aifunnel__thread {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0.6rem 0.7rem;
+  border-radius: 22px;
+  background: var(--neu-bg);
+  box-shadow: inset -5px -5px 12px var(--neu-light),
+    inset 6px 6px 14px var(--neu-dark);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 130, 150, 0.4) transparent;
+}
+
+.aifunnel__thread::-webkit-scrollbar {
+  width: 7px;
+}
+
+.aifunnel__thread::-webkit-scrollbar-thumb {
+  background: rgba(120, 130, 150, 0.4);
+  border-radius: 99px;
+}
+
+.aifunnel__msg {
+  max-width: min(84%, 560px);
+  animation: aifunnel-msg-in 0.4s var(--ease) both;
+}
+
+@keyframes aifunnel-msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.aifunnel__msg p {
+  margin: 0;
+  padding: 0.7rem 0.95rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.aifunnel__msg.is-bot {
+  align-self: flex-start;
+}
+
+.aifunnel__msg.is-bot p {
+  border-radius: 18px 18px 18px 6px;
+  background: var(--neu-bg);
+  color: var(--neu-text);
+  box-shadow: -4px -4px 9px var(--neu-light), 5px 5px 11px var(--neu-dark);
+}
+
+.aifunnel__msg.is-user {
+  align-self: flex-end;
+}
+
+.aifunnel__msg.is-user p {
+  border-radius: 18px 18px 6px 18px;
+  background: linear-gradient(145deg, #1c1f27, #0a0b0f);
+  color: #f4f5f9;
+  box-shadow: -3px -3px 8px var(--neu-light), 5px 5px 12px var(--neu-dark);
+}
+
+/* Action chips returned by the rule-based fallback */
+.aifunnel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.aifunnel__chip {
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: var(--neu-bg);
+  color: var(--neu-text);
+  box-shadow: -3px -3px 7px var(--neu-light), 3px 3px 7px var(--neu-dark);
+  transition: box-shadow 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.aifunnel__chip:hover {
+  color: var(--blue);
+  box-shadow: inset -2px -2px 5px var(--neu-light),
+    inset 3px 3px 6px var(--neu-dark);
+}
+
+/* Typing indicator */
+.aifunnel__typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.aifunnel__typing span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--neu-muted);
+  animation: aifunnel-typing 1.2s var(--ease) infinite;
+}
+
+.aifunnel__typing span:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.aifunnel__typing span:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+@keyframes aifunnel-typing {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+.aifunnel__notice {
+  align-self: stretch;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--neu-muted);
+  padding: 0.5rem 0.7rem;
+  border-radius: 12px;
+  background: rgba(43, 95, 255, 0.07);
+}
+
+/* Quick replies ---------------------------------------------- */
+.aifunnel__quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.85rem 0.25rem 0.2rem;
+}
+
+.aifunnel__quick-pill {
+  border: 0;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  background: var(--neu-bg);
+  color: var(--neu-text);
+  cursor: pointer;
+  box-shadow: -4px -4px 9px var(--neu-light), 4px 4px 9px var(--neu-dark);
+  transition: box-shadow 0.22s var(--ease), transform 0.22s var(--ease),
+    color 0.22s var(--ease);
+}
+
+.aifunnel__quick-pill:hover {
+  transform: translateY(-1px);
+  color: var(--blue);
+}
+
+.aifunnel__quick-pill:active {
+  transform: translateY(0);
+  box-shadow: inset -3px -3px 7px var(--neu-light),
+    inset 3px 3px 7px var(--neu-dark);
+}
+
+/* Input bar --------------------------------------------------- */
+.aifunnel__inputbar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+  padding: 0.4rem 0.4rem 0.4rem 1.1rem;
+  border-radius: 999px;
+  background: var(--neu-bg);
+  box-shadow: inset -4px -4px 10px var(--neu-light),
+    inset 5px 5px 12px var(--neu-dark);
+}
+
+.aifunnel__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--neu-text);
+  padding: 0.55rem 0;
+}
+
+.aifunnel__input::placeholder {
+  color: var(--neu-muted);
+}
+
+.aifunnel__input:focus {
+  outline: none;
+}
+
+.aifunnel__send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #3a6bff, #2049db);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: -4px -4px 9px var(--neu-light), 4px 4px 10px var(--neu-dark);
+  transition: box-shadow 0.22s var(--ease), transform 0.22s var(--ease),
+    filter 0.22s var(--ease);
+}
+
+.aifunnel__send:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.aifunnel__send:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: inset -3px -3px 7px rgba(255, 255, 255, 0.4),
+    inset 3px 3px 8px rgba(8, 9, 12, 0.4);
+}
+
+.aifunnel__send:disabled {
+  background: var(--neu-bg);
+  color: var(--neu-muted);
+  cursor: not-allowed;
+  box-shadow: inset -3px -3px 7px var(--neu-light),
+    inset 3px 3px 7px var(--neu-dark);
+}
+
+.aifunnel__legal {
+  margin: 0.7rem 0.5rem 0.1rem;
+  font-size: 0.68rem;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--neu-muted);
+}
+
+@media (max-width: 768px) {
+  .aifunnel {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .aifunnel__card {
+    width: 100%;
+    max-height: 88vh;
+    border-radius: 26px 26px 0 0;
+    transform: translateY(40px) scale(1);
+  }
+
+  .aifunnel.is-open .aifunnel__card {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aifunnel__overlay,
+  .aifunnel__card {
+    transition-duration: 0.01ms;
+  }
+
+  .aifunnel__msg,
+  .aifunnel__typing span {
+    animation: none;
   }
 }
 
