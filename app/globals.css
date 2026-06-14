@@ -22748,16 +22748,16 @@ a.feat2-reach__line:hover {
 .cinhero__headline {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0;
   margin: 0;
 }
 
 .cinhero__line {
   font-family: var(--font-grotesque);
-  font-size: clamp(3rem, 6vw, 6.5rem);
-  font-weight: 700;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.2rem, 4.4vw, 4.8rem);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
   text-transform: none;
 }
 
@@ -23346,8 +23346,8 @@ a.feat2-reach__line:hover {
   }
 
   .cinhero__line {
-    font-size: clamp(2.8rem, 11vw, 4.2rem);
-    line-height: 1.0;
+    font-size: clamp(2.1rem, 9.5vw, 3.4rem);
+    line-height: 0.96;
   }
 
   .cinhero__line--2 {
