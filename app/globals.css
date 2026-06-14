@@ -28071,16 +28071,15 @@ a.feat2-reach__line:hover {
 
 /* "Legacies" — matches the "in four notes." treatment:
    Cormorant Garamond, italic, weight 500. */
-.hero-legacies {
+/* Editorial italic accent word — sits inline within a headline
+   line (currently applied to "digital"). */
+.hero-accent {
   font-family: var(--font-editorial) !important;
   font-weight: 400;
   font-style: italic !important;
   text-transform: none;
   letter-spacing: normal;
-  display: inline-block;
-  font-size: 1.35em;
-  line-height: 0.8;
-  transform: none;
+  font-size: 1.1em;
 }
 
 /* Tooltip styling for CTAs */
