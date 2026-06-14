@@ -22715,6 +22715,36 @@ a.feat2-reach__line:hover {
   margin-bottom: 0.5rem;
 }
 
+/* Hero heading two-font system.
+   "We Craft Digital" -> PP Neue Montreal (heavy neo-grotesque)
+   "Legacies"         -> PP Editorial New Italic
+   Both are commercial Pangram Pangram fonts. Drop the licensed
+   .woff2 files into /public/fonts and uncomment the @font-face
+   blocks below to upgrade — the variables already list the real
+   family first, so they activate automatically. Until then the
+   free near-equivalents (Inter heavy / Instrument Serif italic)
+   carry the same look. */
+/*
+@font-face {
+  font-family: "PP Neue Montreal";
+  src: url("/fonts/PPNeueMontreal-Bold.woff2") format("woff2");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("/fonts/PPEditorialNew-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+*/
+.cinhero {
+  --font-grotesque: "PP Neue Montreal", var(--font-inter), system-ui, sans-serif;
+  --font-editorial: "PP Editorial New", var(--font-instrument-serif), Georgia, serif;
+}
+
 .cinhero__headline {
   display: flex;
   flex-direction: column;
@@ -22723,9 +22753,9 @@ a.feat2-reach__line:hover {
 }
 
 .cinhero__line {
-  font-family: var(--font-clash);
+  font-family: var(--font-grotesque);
   font-size: clamp(3rem, 6vw, 6.5rem);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.03em;
   text-transform: none;
@@ -28041,8 +28071,8 @@ a.feat2-reach__line:hover {
 /* "Legacies" — matches the "in four notes." treatment:
    Cormorant Garamond, italic, weight 500. */
 .hero-legacies {
-  font-family: var(--font-cormorant), var(--font-philosopher), var(--font-instrument-serif), serif !important;
-  font-weight: 500;
+  font-family: var(--font-editorial) !important;
+  font-weight: 400;
   font-style: italic !important;
   text-transform: none;
   letter-spacing: normal;
