@@ -145,10 +145,10 @@ export default function CinematicHero() {
       <div className="cinhero__content">
         <div className="cinhero__typography">
           <h1 className="cinhero__headline">
-            <span className="cinhero__line cinhero__line--1">We Craft</span>
-            <span className="cinhero__line cinhero__line--2">Digital</span>
+            <span className="cinhero__line cinhero__line--1">We craft</span>
+            <span className="cinhero__line cinhero__line--2">digital</span>
             <span className="cinhero__line cinhero__line--3">
-              <span className="hero-legacies">Legacies</span>
+              <span className="hero-legacies">legacies</span>
             </span>
           </h1>
         </div>
