@@ -22763,6 +22763,7 @@ a.feat2-reach__line:hover {
 
 .cinhero__line--1 {
   color: #08090c;
+  white-space: nowrap;
 }
 
 .cinhero__line--2 {
