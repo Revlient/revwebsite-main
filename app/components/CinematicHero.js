@@ -154,7 +154,6 @@ export default function CinematicHero() {
 
         {/* Bottom left CTA row: editorial divider line + the two buttons */}
         <div className="cinhero__bottom-left">
-          <span className="cinhero__divider" aria-hidden="true" />
           <a ref={ctaRef} href={CTA_HREF} className="cinhero__btn-pill cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
             <span>FREE CONSULTATION</span>
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

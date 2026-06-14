@@ -22789,25 +22789,9 @@ a.feat2-reach__line:hover {
 .cinhero__bottom-left {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: 1.5rem;
   pointer-events: auto;
-  margin-top: 1rem;
-}
-
-/* Standalone editorial line that used to sit beside the strategy text.
-   The text is gone; the line stays to anchor the CTA row. */
-.cinhero__divider {
-  display: block;
-  width: 1px;
-  height: 2.6rem;
-  flex: 0 0 auto;
-  background: linear-gradient(
-    to bottom,
-    rgba(8, 9, 12, 0) 0%,
-    rgba(8, 9, 12, 0.22) 22%,
-    rgba(8, 9, 12, 0.22) 78%,
-    rgba(8, 9, 12, 0) 100%
-  );
+  margin-top: 1.6rem;
 }
 
 /* ============================================================
@@ -23361,19 +23345,6 @@ a.feat2-reach__line:hover {
     text-align: center;
     gap: 1.2rem;
     margin-top: 3rem;
-  }
-
-  /* The vertical line reads as a horizontal accent above the stacked buttons */
-  .cinhero__divider {
-    width: 2.6rem;
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      rgba(8, 9, 12, 0) 0%,
-      rgba(8, 9, 12, 0.22) 22%,
-      rgba(8, 9, 12, 0.22) 78%,
-      rgba(8, 9, 12, 0) 100%
-    );
   }
 
   .cinhero__btn-pill {
