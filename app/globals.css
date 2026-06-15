@@ -24024,8 +24024,14 @@ a.feat2-reach__line:hover {
   line-height: 1;
   letter-spacing: -0.025em;
   color: #0A0A0C;
-  text-transform: uppercase;
+  text-transform: none;
   max-width: 22ch;
+}
+.csscroll__title-italic {
+  font-family: var(--font-editorial, var(--font-instrument-serif), Georgia, serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 .csscroll__meta {
   display: flex;
