@@ -37,7 +37,25 @@ export default function Footer() {
 
   return (
     <section className="footer-section">
-      <CalEmbed instanceId="footer" />
+      <div className="cal-hero">
+        <div className="cal-hero__intro">
+          <span className="cal-hero__kicker">The studio behind your launch</span>
+          <h2 className="cal-hero__title">
+            Build with Revlient.<br />
+            Ship your <span className="cal-hero__italic">next</span> legacy.
+          </h2>
+          <p className="cal-hero__sub">
+            A studio-built website, ERP or app, scoped on a single call.
+            No retainer, no slide deck — just clear next steps.
+          </p>
+          <a href="/contact" className="cal-hero__link">
+            Book a free 15-minute call — pick a slot <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <div className="cal-hero__card-wrap">
+          <CalEmbed instanceId="footer" />
+        </div>
+      </div>
 
       <div className="rfoot">
         <div className="rfoot__grid">

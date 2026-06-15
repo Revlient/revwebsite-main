@@ -182,44 +182,8 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal className="contact-hero__visual contact__fade" delay={80}>
-            <div className="contact-hero__frame">
-              <img
-                src="https://picsum.photos/seed/revlient-contact-desk/1400/1700"
-                alt=""
-              />
-              <div className="contact-hero__overlay">
-                <span className="contact-hero__overlay-label">Studio contact</span>
-                <strong>Clean brief, clean reply.</strong>
-              </div>
-            </div>
-            <div className="contact-hero__aside">
-              {CONTACT_ROWS.map((row) => (
-                <a
-                  key={row.label}
-                  href={row.href}
-                  className="contact-hero__row"
-                  target={row.external ? "_blank" : undefined}
-                  rel={row.external ? "noopener noreferrer" : undefined}
-                >
-                  <span>{row.label}</span>
-                  <strong>{row.value}</strong>
-                </a>
-              ))}
-            </div>
+            <CalEmbed instanceId="contact" className="contact-hero__cal" />
           </Reveal>
-        </section>
-
-        <section className="contact-cal contact__fade">
-          <CalEmbed
-            instanceId="contact"
-            kicker="Free consultation"
-            title={
-              <>
-                Book your <span className="cal-embed__italic">15-minute</span> slot.
-              </>
-            }
-            subtitle="Pick a time and we'll walk through your project together — no slide decks, no sales pitch. Just a clear next step."
-          />
         </section>
 
         <section className="contact-signals contact__fade">
