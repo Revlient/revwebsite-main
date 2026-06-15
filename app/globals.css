@@ -24115,6 +24115,60 @@ a.feat2-reach__line:hover {
   opacity: 0.6;
 }
 
+/* ---- Card media (industry photo, when present) ---- */
+.csscroll__card-media {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 52%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.csscroll__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: saturate(0.95) contrast(1.02);
+}
+.csscroll__card-media-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(255, 255, 255, 0.7) 18%,
+    rgba(255, 255, 255, 0.18) 42%,
+    rgba(255, 255, 255, 0) 72%
+  );
+}
+.csscroll__card.has-image .csscroll__card-body,
+.csscroll__card.has-image .csscroll__card-head,
+.csscroll__card.has-image .csscroll__card-foot {
+  max-width: 56%;
+}
+@media (max-width: 768px) {
+  .csscroll__card-media {
+    width: 100%;
+    height: 40%;
+    inset: 0 0 auto 0;
+  }
+  .csscroll__card-media-fade {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.4) 55%,
+      rgba(255, 255, 255, 0.95) 90%
+    );
+  }
+  .csscroll__card.has-image .csscroll__card-body,
+  .csscroll__card.has-image .csscroll__card-head,
+  .csscroll__card.has-image .csscroll__card-foot {
+    max-width: 100%;
+  }
+}
+
 /* head */
 .csscroll__card-head {
   position: relative;

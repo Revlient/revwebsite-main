@@ -17,6 +17,8 @@ const INDUSTRIES = [
     body:
       "Custom ERPs, lead-to-enrolment workflows, and student portals for academies and consultancies. Operations that scale without the manual chase.",
     services: ["ERP", "Websites", "CRM", "Mobile apps"],
+    image: "/industries/education-training.jpg",
+    imageAlt: "Instructor leading a leadership-skills training session",
   },
   {
     num: "02",
@@ -132,8 +134,19 @@ export default function CaseStudiesScroll() {
             {INDUSTRIES.map((ind, i) => (
               <article
                 key={ind.num}
-                className={`csscroll__card${i === activeIndex ? " is-active" : ""}`}
+                className={`csscroll__card${i === activeIndex ? " is-active" : ""}${ind.image ? " has-image" : ""}`}
               >
+                {ind.image && (
+                  <div className="csscroll__card-media" aria-hidden="true">
+                    <img
+                      src={ind.image}
+                      alt={ind.imageAlt || ""}
+                      className="csscroll__card-img"
+                      loading="lazy"
+                    />
+                    <div className="csscroll__card-media-fade" />
+                  </div>
+                )}
                 <header className="csscroll__card-head">
                   <span className="csscroll__card-num">{ind.num}</span>
                   <span className="csscroll__card-tag">{ind.tag}</span>
