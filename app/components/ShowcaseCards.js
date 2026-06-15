@@ -149,7 +149,7 @@ export default function ShowcaseCards() {
           <div className="wol__intro">
             <p className="wol__kicker">Selected trust</p>
             <h2>
-              Loved by builders who need the work to feel considered.
+              Loved by <span className="wol__italic">builders</span> who need the work to feel considered.
             </h2>
             <p>
               A quieter look at the teams and operators who bring us in when

@@ -14757,6 +14757,13 @@ a.feat-reach__line:hover {
   color: rgba(21, 19, 15, 0.62);
 }
 
+.wol__italic {
+  font-family: var(--font-editorial, var(--font-instrument-serif), Georgia, serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
 .wol__cta {
   display: inline-flex;
   min-height: 3rem;
