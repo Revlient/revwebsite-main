@@ -43,6 +43,8 @@ const INDUSTRIES = [
     body:
       "Storefronts, catalog systems and back-office automations for brands shipping product — premium on the customer side, ruthless on operations.",
     services: ["Storefronts", "Headless", "CMS", "Ops"],
+    image: "/industries/retail-ecommerce.png",
+    imageAlt: "Retail and e-commerce storefront imagery",
   },
 ];
 
