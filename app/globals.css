@@ -3726,6 +3726,21 @@ body.no-scroll {
 }
 
 /* ---- Cal.com inline booking embed (top of footer) ---- */
+.footer-minimal {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.footer-minimal__copy {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
 .cal-embed {
   max-width: 1150px;
   margin: 0 auto clamp(2.5rem, 1.5rem + 2.5vw, 4.5rem);
