@@ -84,7 +84,7 @@ export default function IndustriesListSection() {
         <Reveal className="indlist__head">
           
           <h2 className="indlist__title">
-            Featured Projects
+            Featured <span className="indlist__title-italic">Projects</span>
           </h2>
           <p className="indlist__sub">
             Hover over each project to preview our high-fidelity digital builds. Click to explore our full body of work.

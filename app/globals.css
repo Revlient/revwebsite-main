@@ -24615,6 +24615,12 @@ a.feat2-reach__line:hover {
   color: var(--text);
   margin-bottom: 1.2rem;
 }
+.indlist__title-italic {
+  font-family: var(--font-editorial, var(--font-instrument-serif), Georgia, serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
 
 .indlist__sub {
   font-family: var(--font-body);
