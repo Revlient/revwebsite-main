@@ -2,12 +2,13 @@
 
 import { useEffect } from "react";
 
-// Cal.com inline embed — Designjoy-style dark theme calendar.
-// Pass `instanceId` when mounting more than one on the same page
-// so each gets its own DOM id and Cal namespace.
+// Cal.com inline embed — Designjoy-style dark theme calendar
+// for 30-minute consultations. Pass `instanceId` when mounting
+// more than one on the same page so each gets its own DOM id
+// and Cal namespace.
 export default function CalEmbed({ instanceId = "primary", className = "" }) {
   const elementId = `cal-inline-${instanceId}`;
-  const namespace = `15min-${instanceId}`;
+  const namespace = `30min-${instanceId}`;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -56,7 +57,7 @@ export default function CalEmbed({ instanceId = "primary", className = "" }) {
         useSlotsViewOnSmallScreen: "true",
         theme: "dark",
       },
-      calLink: "revlient-intercontinental/15min",
+      calLink: "revlient-intercontinental/30min",
     });
 
     window.Cal.ns[namespace]("ui", {
