@@ -32,11 +32,13 @@ const INDUSTRIES = [
   },
   {
     num: "03",
-    name: "Fintech & Banking",
-    tag: "Lending · Payments · Wealth",
+    name: "Construction",
+    tag: "Builders · Contractors · Developers",
     body:
-      "Compliance-aware dashboards, transaction flows, and analytics surfaces for fintech operators. Fast on the rails, calm on the eye.",
-    services: ["SaaS", "Dashboards", "APIs", "Compliance"],
+      "Project portals, on-site coordination dashboards, and client-facing builds for construction firms — moving paper trails and walkie-talkies into one system.",
+    services: ["Portals", "Dashboards", "Mobile apps", "CRM"],
+    image: "/industries/construction.png",
+    imageAlt: "Construction site and project workflow",
   },
   {
     num: "04",
