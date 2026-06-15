@@ -3726,19 +3726,162 @@ body.no-scroll {
 }
 
 /* ---- Cal.com inline booking embed (top of footer) ---- */
-.footer-minimal {
-  max-width: 1150px;
+/* ---- Revlient Workmate-style footer (under Cal embed) ---- */
+.rfoot {
+  max-width: 1340px;
   margin: 0 auto;
-  padding-top: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: clamp(2rem, 1.4rem + 1.8vw, 3.2rem) clamp(0.5rem, 0.25rem + 0.8vw, 1.25rem) 0;
+  position: relative;
 }
-.footer-minimal__copy {
-  font-size: 12px;
-  letter-spacing: 0.04em;
+.rfoot__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(1.25rem, 0.75rem + 1.5vw, 2.4rem);
+  align-items: start;
+  color: #fff;
+}
+.rfoot__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  min-width: 0;
+}
+.rfoot__col--wide {
+  grid-column: span 2;
+}
+.rfoot__col--meta {
+  align-items: flex-end;
+  text-align: right;
+}
+.rfoot__col-title {
+  margin: 0;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+}
+.rfoot__col-title--dot {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 0.88rem + 0.25vw, 1.05rem);
+  letter-spacing: 0;
+  text-transform: none;
+  color: #fff;
+  font-weight: 500;
+  position: relative;
+  padding-left: 1rem;
+}
+.rfoot__col-title--dot::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3b82f6;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
+}
+.rfoot__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.rfoot__list a {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.rfoot__list a:hover {
+  color: rgba(255, 255, 255, 0.65);
+}
+.rfoot__link-strong {
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  padding-bottom: 1px;
+}
+.rfoot__muted {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+.rfoot__body {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 28ch;
+}
+.rfoot__meta-line {
+  margin: 0;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+.rfoot__meta-line a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+.rfoot__meta-line a:hover {
+  color: #fff;
+}
+.rfoot__meta-line span[aria-hidden] {
+  color: rgba(255, 255, 255, 0.35);
+}
+.rfoot__meta-sub {
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
   color: rgba(255, 255, 255, 0.45);
+}
+
+/* Giant watermark */
+.rfoot__watermark {
+  margin-top: clamp(2rem, 1.5rem + 2vw, 4rem);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(7rem, 4rem + 18vw, 26rem);
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+  color: rgba(255, 255, 255, 0.04);
+  text-align: center;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media (max-width: 1080px) {
+  .rfoot__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 2rem;
+  }
+  .rfoot__col--wide {
+    grid-column: span 3;
+  }
+  .rfoot__col--meta {
+    grid-column: span 3;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+@media (max-width: 640px) {
+  .rfoot__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .rfoot__col--wide {
+    grid-column: span 2;
+  }
+  .rfoot__col--meta {
+    grid-column: span 2;
+  }
 }
 
 .cal-embed {
