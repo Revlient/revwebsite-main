@@ -17,7 +17,7 @@ const INDUSTRIES = [
     body:
       "Custom ERPs, lead-to-enrolment workflows, and student portals for academies and consultancies. Operations that scale without the manual chase.",
     services: ["ERP", "Websites", "CRM", "Mobile apps"],
-    image: "/industries/education-training.jpg",
+    image: "/industries/education-training.png",
     imageAlt: "Instructor leading a leadership-skills training session",
   },
   {
