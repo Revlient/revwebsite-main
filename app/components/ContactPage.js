@@ -163,7 +163,9 @@ export default function ContactPage() {
           <Reveal className="contact-hero__copy">
             <p className="contact-hero__eyebrow">Contact</p>
             <h1 className="contact-hero__title">
-              <span className="contact__title-line">Let&apos;s shape</span>
+              <span className="contact__title-line">
+                Let&apos;s <span className="contact__title-italic">shape</span>
+              </span>
               <span className="contact__title-line">the next project</span>
             </h1>
             <p className="contact-hero__lead contact__fade">

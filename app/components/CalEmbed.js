@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 
-// Cal.com inline embed — renders just the calendar widget in a
-// white rounded card. Pass `instanceId` when mounting more than
-// one on the same page so each gets its own DOM id and namespace.
+// Cal.com inline embed — Designjoy-style dark theme calendar.
+// Pass `instanceId` when mounting more than one on the same page
+// so each gets its own DOM id and Cal namespace.
 export default function CalEmbed({ instanceId = "primary", className = "" }) {
   const elementId = `cal-inline-${instanceId}`;
   const namespace = `15min-${instanceId}`;
@@ -54,17 +54,27 @@ export default function CalEmbed({ instanceId = "primary", className = "" }) {
       config: {
         layout: "month_view",
         useSlotsViewOnSmallScreen: "true",
-        theme: "light",
+        theme: "dark",
       },
       calLink: "revlient-intercontinental/15min",
     });
 
     window.Cal.ns[namespace]("ui", {
-      theme: "light",
+      theme: "dark",
       hideEventTypeDetails: true,
       layout: "month_view",
       cssVarsPerTheme: {
-        light: { "cal-brand": "#0a0a0c" },
+        dark: {
+          "cal-brand": "#ffffff",
+          "cal-bg": "#000000",
+          "cal-bg-emphasis": "rgba(255, 255, 255, 0.08)",
+          "cal-bg-muted": "rgba(255, 255, 255, 0.04)",
+          "cal-text": "#ffffff",
+          "cal-text-emphasis": "#ffffff",
+          "cal-text-muted": "rgba(255, 255, 255, 0.55)",
+          "cal-border": "rgba(255, 255, 255, 0.08)",
+          "cal-border-emphasis": "rgba(255, 255, 255, 0.18)",
+        },
       },
     });
   }, [elementId, namespace]);

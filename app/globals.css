@@ -3884,38 +3884,46 @@ body.no-scroll {
   }
 }
 
-/* ---- Cal.com calendar widget (white card with the iframe) ---- */
+/* ---- Cal.com calendar widget — Designjoy dark style.
+   Narrow max-width forces the slot view to stack below the month
+   grid (Cal switches to its mobile/stacked layout at narrower
+   widths), giving the picker the same single-column rhythm. ---- */
 .cal-widget {
-  background: #ffffff;
-  border-radius: 22px;
-  padding: clamp(0.5rem, 0.25rem + 0.5vw, 1rem);
-  box-shadow:
-    0 30px 80px -20px rgba(0, 0, 0, 0.45),
-    0 4px 14px -4px rgba(0, 0, 0, 0.25);
+  background: #000000;
+  border-radius: 18px;
+  padding: 0;
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
   overflow: hidden;
 }
 .cal-widget__frame {
-  min-height: 560px;
+  min-height: 760px;
   width: 100%;
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
-  background: #ffffff;
+  background: #000000;
 }
 .cal-widget__frame iframe {
   width: 100% !important;
   height: 100% !important;
+  min-height: 760px !important;
   border: 0 !important;
   display: block;
-  background: #ffffff !important;
+  background: #000000 !important;
+  color-scheme: dark;
 }
 
-/* Contact-hero variant of the calendar — sits inside the existing
-   contact-hero__visual slot so it inherits column sizing from there. */
 .contact-hero__cal {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .contact-hero__cal .cal-widget__frame {
-  min-height: 620px;
+  min-height: 820px;
+}
+.contact-hero__cal .cal-widget__frame iframe {
+  min-height: 820px !important;
 }
 
 /* ---- Footer Cal section: left intro + right calendar ---- */
@@ -15356,6 +15364,13 @@ a.feat-reach__line:hover {
 
 .contact__title-line {
   display: block;
+}
+
+.contact__title-italic {
+  font-family: var(--font-editorial, var(--font-instrument-serif), Georgia, serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
 .contact-hero__lead {
