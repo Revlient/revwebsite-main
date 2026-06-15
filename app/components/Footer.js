@@ -9,6 +9,7 @@ import {
   WHATSAPP_URL,
 } from "../lib/site";
 import Logo from "./Logo";
+import CalEmbed from "./CalEmbed";
 
 // Inspired by the Kresna footer composition (video card + light card +
 // floating lucky badge + giant watermark) — rebuilt in vanilla JS +
@@ -96,6 +97,7 @@ export default function Footer() {
 
   return (
     <section className="footer-section">
+      <CalEmbed />
       <div className="footer-wrapper">
         <div className="footer-left">
           <video

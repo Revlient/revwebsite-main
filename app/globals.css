@@ -3725,6 +3725,95 @@ body.no-scroll {
   font-family: var(--font-body);
 }
 
+/* ---- Cal.com inline booking embed (top of footer) ---- */
+.cal-embed {
+  max-width: 1150px;
+  margin: 0 auto clamp(2.5rem, 1.5rem + 2.5vw, 4.5rem);
+  padding: clamp(1.5rem, 1rem + 1.5vw, 2.6rem);
+  border-radius: 24px;
+  background:
+    radial-gradient(120% 80% at 0% 0%, rgba(255, 255, 255, 0.06), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+  gap: clamp(1.5rem, 1rem + 1.5vw, 2.6rem);
+  align-items: stretch;
+}
+.cal-embed__intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.9rem;
+  padding-right: 0.5rem;
+}
+.cal-embed__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+.cal-embed__kicker::before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.4);
+}
+.cal-embed__title {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(1.8rem, 1.3rem + 2vw, 3rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  color: #fff;
+}
+.cal-embed__italic {
+  font-family: var(--font-editorial, var(--font-instrument-serif), Georgia, serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.cal-embed__sub {
+  margin: 0;
+  max-width: 32ch;
+  font-size: clamp(0.95rem, 0.9rem + 0.15vw, 1.05rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
+}
+.cal-embed__frame {
+  min-height: 540px;
+  height: 100%;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.cal-embed__frame iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
+  display: block;
+}
+@media (max-width: 880px) {
+  .cal-embed {
+    grid-template-columns: 1fr;
+    padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  }
+  .cal-embed__intro {
+    padding-right: 0;
+  }
+  .cal-embed__frame {
+    min-height: 620px;
+  }
+}
+
 .footer-section *,
 .footer-section *::before,
 .footer-section *::after {
