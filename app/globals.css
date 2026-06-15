@@ -25202,7 +25202,7 @@ a.feat2-reach__line:hover {
 
 /* Morphing Title */
 .side-fixed-bar__title {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   letter-spacing: 0.08em;
   text-transform: lowercase;
   white-space: nowrap;
