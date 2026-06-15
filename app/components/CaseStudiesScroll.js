@@ -27,6 +27,8 @@ const INDUSTRIES = [
     body:
       "Patient management, appointment systems, and HIPAA-conscious portals for healthcare providers — built for clinicians, not bureaucrats.",
     services: ["EMR", "Booking", "Portals", "Integrations"],
+    image: "/industries/healthcare.png",
+    imageAlt: "Healthcare professionals at work",
   },
   {
     num: "03",
