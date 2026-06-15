@@ -3424,6 +3424,13 @@ body.no-scroll {
   will-change: opacity, transform;
 }
 
+.finale__word--italic {
+  font-family: var(--font-editorial, var(--font-instrument-serif), Georgia, serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
 .finale__inline-image {
   display: inline-block;
   width: clamp(4.25rem, 7.2vw, 7rem);

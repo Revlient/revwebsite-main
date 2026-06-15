@@ -103,17 +103,20 @@ export default function FinalCTA() {
         <Reveal className="finale__inner">
           <div className="finale__copy">
             <h2 className="finale__heading" aria-label={headingWords.join(" ")}>
-              {headingWords.map((word, index) => (
-                <span
-                  key={`${word}-${index}`}
-                  ref={(node) => {
-                    if (node) wordRefs.current[index] = node;
-                  }}
-                  className="finale__word"
-                >
-                  {word}
-                </span>
-              ))}
+              {headingWords.map((word, index) => {
+                const isItalic = word.replace(/[^a-zA-Z]/g, "").toLowerCase() === "deserves";
+                return (
+                  <span
+                    key={`${word}-${index}`}
+                    ref={(node) => {
+                      if (node) wordRefs.current[index] = node;
+                    }}
+                    className={`finale__word${isItalic ? " finale__word--italic" : ""}`}
+                  >
+                    {word}
+                  </span>
+                );
+              })}
               <span className="finale__inline-image" aria-hidden="true" />
             </h2>
 
