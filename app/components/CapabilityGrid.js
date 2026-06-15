@@ -47,7 +47,7 @@ function Visual2ndTile() {
   return (
     <div className="cap-v cap-v--video" aria-hidden="true">
       <img
-        src="/2ndtile.png"
+        src="/2ndtile.webp"
         alt="Premium Websites"
         style={{
           width: "100%",

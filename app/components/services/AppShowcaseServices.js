@@ -80,10 +80,10 @@ export default function AppShowcaseServices() {
               </div>
               <div className="float-card-2__avatars">
                 <div className="float-card-2__avatar">
-                  <img src="/services/alex-clare.png" alt="User 1" />
+                  <img src="/services/alex-clare.webp" alt="User 1" />
                 </div>
                 <div className="float-card-2__avatar">
-                  <img src="/services/male-user.png" alt="User 2" />
+                  <img src="/services/male-user.webp" alt="User 2" />
                 </div>
                 <div className="float-card-2__avatar-placeholder">+4</div>
               </div>
@@ -134,7 +134,7 @@ export default function AppShowcaseServices() {
                 <div className="phone-screen__card speaking-card">
                   <div className="speaking-card__user">
                     <div className="speaking-card__avatar">
-                      <img src="/services/alex-clare.png" alt="Alex Clare" />
+                      <img src="/services/alex-clare.webp" alt="Alex Clare" />
                       <span className="speaking-card__mic-indicator">🎙</span>
                     </div>
                     <div className="speaking-card__info">
@@ -156,7 +156,7 @@ export default function AppShowcaseServices() {
                 <div className="phone-screen__card discuss-card">
                   <div className="discuss-card__avatars">
                     <div className="discuss-card__avatar">
-                      <img src="/services/male-user.png" alt="Participant 1" />
+                      <img src="/services/male-user.webp" alt="Participant 1" />
                     </div>
                     <div className="discuss-card__avatar">
                       <span className="avatar-placeholder-svg">

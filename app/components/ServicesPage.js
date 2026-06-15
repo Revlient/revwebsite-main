@@ -17,17 +17,17 @@ import { CTA_HREF, CONTACT_EMAIL } from "../lib/site";
 const VIDEO_SRC = "/whyrev/blackhole.mp4";
 
 const LOGOS = [
-  { name: "House of Eleven", src: "/logos/houseof11.png", grad: "linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%)" },
-  { name: "IBS Consultants", src: "/logos/ibs.jpg", grad: "linear-gradient(135deg, #4dabf7 0%, #1971c2 100%)" },
-  { name: "Covspace", src: "/logos/covspace.png", grad: "linear-gradient(135deg, #37b24d 0%, #2b8a3e 100%)" },
+  { name: "House of Eleven", src: "/logos/houseof11.webp", grad: "linear-gradient(135deg, #ff6b6b 0%, #c92a2a 100%)" },
+  { name: "IBS Consultants", src: "/logos/ibs.webp", grad: "linear-gradient(135deg, #4dabf7 0%, #1971c2 100%)" },
+  { name: "Covspace", src: "/logos/covspace.webp", grad: "linear-gradient(135deg, #37b24d 0%, #2b8a3e 100%)" },
   { name: "Ronspire", src: "/logos/ronspire.svg", grad: "linear-gradient(135deg, #f783ac 0%, #d6336c 100%)" },
   { name: "Perpex B-School", src: "/logos/perpexbschool.svg", grad: "linear-gradient(135deg, #7048e8 0%, #5f3dc4 100%)" },
-  { name: "Perpex Group", src: "/logos/perpex.png", grad: "linear-gradient(135deg, #ae3ec9 0%, #862e9c 100%)" },
-  { name: "Mathlete", src: "/logos/mathlete.png", grad: "linear-gradient(135deg, #f76707 0%, #d9480f 100%)" },
+  { name: "Perpex Group", src: "/logos/perpex.webp", grad: "linear-gradient(135deg, #ae3ec9 0%, #862e9c 100%)" },
+  { name: "Mathlete", src: "/logos/mathlete.webp", grad: "linear-gradient(135deg, #f76707 0%, #d9480f 100%)" },
   { name: "The Magnates", src: "/logos/themagnates.svg", grad: "linear-gradient(135deg, #fcc419 0%, #e67700 100%)" },
-  { name: "UniGo", src: "/logos/unigo.png", grad: "linear-gradient(135deg, #2b8a3e 0%, #097969 100%)" },
-  { name: "Soumya Shyam", src: "/logos/soumyashyam.png", grad: "linear-gradient(135deg, #ffd43b 0%, #f59f00 100%)" },
-  { name: "Nutriboxx", src: "/logos/nutriboxx.png", grad: "linear-gradient(135deg, #20c997 0%, #0ca678 100%)" },
+  { name: "UniGo", src: "/logos/unigo.webp", grad: "linear-gradient(135deg, #2b8a3e 0%, #097969 100%)" },
+  { name: "Soumya Shyam", src: "/logos/soumyashyam.webp", grad: "linear-gradient(135deg, #ffd43b 0%, #f59f00 100%)" },
+  { name: "Nutriboxx", src: "/logos/nutriboxx.webp", grad: "linear-gradient(135deg, #20c997 0%, #0ca678 100%)" },
   { name: "Bambrush", src: "/logos/bambrush.webp", grad: "linear-gradient(135deg, #15aabf 0%, #0b7285 100%)" },
   { name: "Magnate Academy", src: "/logos/magnateacademy.svg", grad: "linear-gradient(135deg, #4c6ef5 0%, #364fc7 100%)" },
   { name: "Magnate Study Abroad", src: "/logos/magnatestudyabroad.svg", grad: "linear-gradient(135deg, #228be6 0%, #1864ab 100%)" },
@@ -732,7 +732,7 @@ export default function ServicesPage() {
             <div className="services-row-v3__visual-col">
               <Reveal className="services-row-v3__mockup-wrapper">
                 <img 
-                  src="/services/webdevservice.png" 
+                  src="/services/webdevservice.webp" 
                   alt="Web Design Visual Mockup" 
                   className="services-row-v3__img"
                 />
@@ -802,7 +802,7 @@ export default function ServicesPage() {
             <div className="services-row-v3__visual-col">
               <Reveal className="services-row-v3__mockup-wrapper">
                 <img 
-                  src="/services/app_development_service.png" 
+                  src="/services/app_development_service.webp" 
                   alt="App Development Mockup" 
                   className="services-row-v3__img"
                 />
@@ -835,7 +835,7 @@ export default function ServicesPage() {
             <div className="services-row-v3__visual-col">
               <Reveal className="services-row-v3__mockup-wrapper">
                 <img 
-                  src="/services/ecom.png" 
+                  src="/services/ecom.webp" 
                   alt="E-commerce setup" 
                   className="services-row-v3__img"
                 />
@@ -868,7 +868,7 @@ export default function ServicesPage() {
             <div className="services-row-v3__visual-col">
               <Reveal className="services-row-v3__mockup-wrapper">
                 <img 
-                  src="/services/aiassistant.png" 
+                  src="/services/aiassistant.webp" 
                   alt="AI assistant setup" 
                   className="services-row-v3__img"
                 />
@@ -901,7 +901,7 @@ export default function ServicesPage() {
             <div className="services-row-v3__visual-col">
               <Reveal className="services-row-v3__mockup-wrapper">
                 <img 
-                  src="/experience-design-mockup.png" 
+                  src="/experience-design-mockup.webp" 
                   alt="Experience Design Map Mockup" 
                   className="services-row-v3__img"
                 />

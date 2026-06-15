@@ -121,13 +121,13 @@ export default function WorkHero() {
 
         <div className="whero__gallery" aria-label="Selected project previews">
           <figure className="whero__plate whero__plate--main">
-            <img src="/work/project-houseof11.png" alt="House of Eleven project preview" />
+            <img src="/work/project-houseof11.webp" alt="House of Eleven project preview" />
           </figure>
           <figure className="whero__plate whero__plate--top">
-            <img src="/work/project-covspace.png" alt="Covspace project preview" />
+            <img src="/work/project-covspace.webp" alt="Covspace project preview" />
           </figure>
           <figure className="whero__plate whero__plate--bottom">
-            <img src="/work/project-ronspire.png" alt="Ronspire project preview" />
+            <img src="/work/project-ronspire.webp" alt="Ronspire project preview" />
           </figure>
         </div>
       </div>

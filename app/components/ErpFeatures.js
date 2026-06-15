@@ -225,7 +225,7 @@ export default function ErpFeatures() {
               {/* Faithful inline replica of the actual Revlient OS
                   dashboard screenshot (real numbers shared by the
                   team). To swap to the raw PNG instead, drop the
-                  file at public/work/revlient-os-dashboard.png and
+                  file at public/work/revlient-os-dashboard.webp and
                   replace this block with <img src=… />. */}
               <div className="rosphone" aria-label="Revlient OS dashboard">
                 <div className="rosphone__notch" aria-hidden="true" />
@@ -408,7 +408,7 @@ export default function ErpFeatures() {
                 {/* Faithful inline replica of the Revlient OS Tally
                     screen. Numbers are exactly what the team showed
                     in the shared screenshot. Swap this whole block
-                    for <img src="/work/revlient-os-tally.png" /> when
+                    for <img src="/work/revlient-os-tally.webp" /> when
                     the real PNG is committed. */}
                 <div className="tally" aria-label="Revlient OS — Tally module">
                   <header className="tally__head">
@@ -514,7 +514,7 @@ export default function ErpFeatures() {
                 {/* Faithful inline replica of the Revlient OS
                     Sales-funnel screen. Real numbers from the
                     shared screenshot. Swap for
-                    <img src="/work/revlient-os-funnel.png" /> once
+                    <img src="/work/revlient-os-funnel.webp" /> once
                     the real PNG is committed. */}
                 <div className="rfunnel" aria-label="Revlient OS — Sales funnel">
                   <header className="rfunnel__head">
@@ -584,7 +584,7 @@ export default function ErpFeatures() {
 
                 {/* Faithful inline replica of the Revlient OS Projects
                     screen (real values from the shared screenshot).
-                    Swap for <img src="/work/revlient-os-projects.png" />
+                    Swap for <img src="/work/revlient-os-projects.webp" />
                     once the real PNG is committed. */}
                 <div className="rprojects" aria-label="Revlient OS — Projects">
                   <header className="rprojects__head">

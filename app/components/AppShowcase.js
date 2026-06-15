@@ -10,7 +10,7 @@ import { CTA_HREF } from "../lib/site";
    line. Each device renders a faithful inline replica of one of the
    real Revlient student-app screens (Home in the centre, AI Match
    on the left, Explore Colleges on the right). Swap any
-   <Screen /> for an <img src="/work/app-<key>.png" /> when the real
+   <Screen /> for an <img src="/work/app-<key>.webp" /> when the real
    PNGs are committed. */
 
 function ArrowDown({ className = "" }) {

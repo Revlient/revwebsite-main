@@ -16,7 +16,7 @@ const POSTS = [
     author: "Revlient Studio",
     date: "April 13, 2026",
     readMins: "6",
-    cover: "/blog-ai-ecommerce.png",
+    cover: "/blog-ai-ecommerce.webp",
     content: (
       <>
         <p className="blog-post__intro">
@@ -48,7 +48,7 @@ const POSTS = [
     author: "Product Team",
     date: "April 06, 2026",
     readMins: "10",
-    cover: "/blog-visual-commerce.png",
+    cover: "/blog-visual-commerce.webp",
     content: (
       <>
         <p className="blog-post__intro">
@@ -80,7 +80,7 @@ const POSTS = [
     author: "Engineering Team",
     date: "April 20, 2026",
     readMins: "9",
-    cover: "/blog-programming-languages.png",
+    cover: "/blog-programming-languages.webp",
     content: (
       <>
         <p className="blog-post__intro">
@@ -112,7 +112,7 @@ const POSTS = [
     author: "Marketing Group",
     date: "January 18, 2024",
     readMins: "10",
-    cover: "/blog-ranking.png",
+    cover: "/blog-ranking.webp",
     content: (
       <>
         <p className="blog-post__intro">
@@ -143,7 +143,7 @@ const POSTS = [
     author: "AI Lab",
     date: "September 09, 2024",
     readMins: "8",
-    cover: "/blog-laptop.png",
+    cover: "/blog-laptop.webp",
     content: (
       <>
         <p className="blog-post__intro">
@@ -168,7 +168,7 @@ const POSTS = [
     author: "Engineering Team",
     date: "November 13, 2024",
     readMins: "7",
-    cover: "/blog-code.png",
+    cover: "/blog-code.webp",
     content: (
       <>
         <p className="blog-post__intro">
@@ -196,7 +196,7 @@ const POSTS = [
     author: "Product Team",
     date: "September 24, 2024",
     readMins: "12",
-    cover: "/blog-visual-commerce.png",
+    cover: "/blog-visual-commerce.webp",
     content: (
       <>
         <p className="blog-post__intro">
@@ -224,7 +224,7 @@ const POSTS = [
     author: "Engineering Team",
     date: "April 28, 2026",
     readMins: "8",
-    cover: "/blog-code.png",
+    cover: "/blog-code.webp",
     content: (
       <>
         <p className="blog-post__intro">
@@ -252,7 +252,7 @@ const POSTS = [
     author: "Design Team",
     date: "May 05, 2026",
     readMins: "7",
-    cover: "/blog-creativity.png",
+    cover: "/blog-creativity.webp",
     content: (
       <>
         <p className="blog-post__intro">
@@ -280,7 +280,7 @@ const POSTS = [
     author: "DevOps Lead",
     date: "May 12, 2026",
     readMins: "11",
-    cover: "/blog-laptop.png",
+    cover: "/blog-laptop.webp",
     content: (
       <>
         <p className="blog-post__intro">
@@ -305,7 +305,7 @@ const POSTS = [
     author: "Frontend Lead",
     date: "May 19, 2026",
     readMins: "6",
-    cover: "/blog-ranking.png",
+    cover: "/blog-ranking.webp",
     content: (
       <>
         <p className="blog-post__intro">

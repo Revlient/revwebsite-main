@@ -17,7 +17,7 @@ const INDUSTRIES = [
     body:
       "Custom ERPs, lead-to-enrolment workflows, and student portals for academies and consultancies. Operations that scale without the manual chase.",
     services: ["ERP", "Websites", "CRM", "Mobile apps"],
-    image: "/industries/education-training.png",
+    image: "/industries/education-training.webp",
     imageAlt: "Instructor leading a leadership-skills training session",
   },
   {
@@ -27,7 +27,7 @@ const INDUSTRIES = [
     body:
       "Patient management, appointment systems, and HIPAA-conscious portals for healthcare providers — built for clinicians, not bureaucrats.",
     services: ["EMR", "Booking", "Portals", "Integrations"],
-    image: "/industries/healthcare.png",
+    image: "/industries/healthcare.webp",
     imageAlt: "Healthcare professionals at work",
   },
   {
@@ -37,7 +37,7 @@ const INDUSTRIES = [
     body:
       "Project portals, on-site coordination dashboards, and client-facing builds for construction firms — moving paper trails and walkie-talkies into one system.",
     services: ["Portals", "Dashboards", "Mobile apps", "CRM"],
-    image: "/industries/construction.png",
+    image: "/industries/construction.webp",
     imageAlt: "Construction site and project workflow",
   },
   {
@@ -47,7 +47,7 @@ const INDUSTRIES = [
     body:
       "Storefronts, catalog systems and back-office automations for brands shipping product — premium on the customer side, ruthless on operations.",
     services: ["Storefronts", "Headless", "CMS", "Ops"],
-    image: "/industries/retail-ecommerce.png",
+    image: "/industries/retail-ecommerce.webp",
     imageAlt: "Retail and e-commerce storefront imagery",
   },
   {
@@ -57,7 +57,7 @@ const INDUSTRIES = [
     body:
       "Portfolio sites, project management portals, and visual-first catalogs for interior studios and architects — built to showcase craft and run the studio behind it.",
     services: ["Portfolios", "CMS", "CRM", "Showrooms"],
-    image: "/industries/interior-design.png",
+    image: "/industries/interior-design.webp",
     imageAlt: "Interior design studio workspace",
   },
 ];

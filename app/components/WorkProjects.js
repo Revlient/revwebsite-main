@@ -19,7 +19,7 @@ const PROJECTS = [
     year: "2024",
     accent: "gold",
     url: "https://houseof11.in",
-    image: "/project-houseof11.png",
+    image: "/project-houseof11.webp",
     imageAlt: "House of Eleven hero",
   },
   {
@@ -31,7 +31,7 @@ const PROJECTS = [
     year: "2024",
     accent: "gold",
     url: "https://ibsconsultants.in",
-    image: "/project-ibs.png",
+    image: "/project-ibs.webp",
     imageAlt: "IBS Consultants hero",
   },
   {
@@ -43,7 +43,7 @@ const PROJECTS = [
     year: "2024",
     accent: "neutral",
     url: "https://covspace.in",
-    image: "/project-covspace.png",
+    image: "/project-covspace.webp",
     imageAlt: "Covspace hero",
   },
   {
@@ -55,7 +55,7 @@ const PROJECTS = [
     year: "2024",
     accent: "neutral",
     url: "https://ronspire.com",
-    image: "/project-ronspire.png",
+    image: "/project-ronspire.webp",
     imageAlt: "Ronspire hero",
   },
   {
@@ -67,7 +67,7 @@ const PROJECTS = [
     year: "2024",
     accent: "gold",
     url: "https://www.perpexbschool.com",
-    image: "/project-perpexbschool.png",
+    image: "/project-perpexbschool.webp",
     imageAlt: "Perpex B-School hero",
   },
   {
@@ -79,7 +79,7 @@ const PROJECTS = [
     year: "2024",
     accent: "neutral",
     url: "https://www.perpex.in",
-    image: "/project-perpex.png",
+    image: "/project-perpex.webp",
     imageAlt: "Perpex Corporate hero",
   },
   {
@@ -91,7 +91,7 @@ const PROJECTS = [
     year: "2024",
     accent: "gold",
     url: "https://mathleteonline.com",
-    image: "/project-mathlete.png",
+    image: "/project-mathlete.webp",
     imageAlt: "Mathlete Online hero",
   },
   {
@@ -103,7 +103,7 @@ const PROJECTS = [
     year: "2024",
     accent: "gold",
     url: "https://themagnates.in",
-    image: "/project-themagnates.png",
+    image: "/project-themagnates.webp",
     imageAlt: "The Magnates hero",
   },
   {
@@ -115,7 +115,7 @@ const PROJECTS = [
     year: "2024",
     accent: "neutral",
     url: "https://www.unigo.co",
-    image: "/project-unigo.png",
+    image: "/project-unigo.webp",
     imageAlt: "UniGo hero",
   },
   {
@@ -127,7 +127,7 @@ const PROJECTS = [
     year: "2024",
     accent: "neutral",
     url: "https://www.soumyashyammakeup.com",
-    image: "/project-soumyashyam.png",
+    image: "/project-soumyashyam.webp",
     imageAlt: "Soumya Shyam Studio hero",
   },
   {
@@ -139,7 +139,7 @@ const PROJECTS = [
     year: "2024",
     accent: "neutral",
     url: "https://www.nutriboxx.co.in",
-    image: "/project-nutriboxx.png",
+    image: "/project-nutriboxx.webp",
     imageAlt: "Nutriboxx hero",
   },
   {
@@ -151,7 +151,7 @@ const PROJECTS = [
     year: "2024",
     accent: "neutral",
     url: "https://www.bambrush.co.in",
-    image: "/project-bambrush.png",
+    image: "/project-bambrush.webp",
     imageAlt: "Bambrush hero",
   },
   {
@@ -163,7 +163,7 @@ const PROJECTS = [
     year: "2025",
     accent: "gold",
     url: "https://www.magnateacademy.com",
-    image: "/project-magnateacademy.png",
+    image: "/project-magnateacademy.webp",
     imageAlt: "Magnate Academy screenshot",
   },
   {
@@ -175,7 +175,7 @@ const PROJECTS = [
     year: "2025",
     accent: "gold",
     url: "https://magnate-studyabroad2.vercel.app",
-    image: "/project-magnatestudyabroad2.png",
+    image: "/project-magnatestudyabroad2.webp",
     imageAlt: "Magnate Study Abroad screenshot",
   },
   {
@@ -187,7 +187,7 @@ const PROJECTS = [
     year: "2025",
     accent: "neutral",
     url: "https://magnatestudyaborad.vercel.app",
-    image: "/project-magnatestudyaborad.png",
+    image: "/project-magnatestudyaborad.webp",
     imageAlt: "Magnate Global screenshot",
   },
 ];

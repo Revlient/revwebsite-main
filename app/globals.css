@@ -1404,7 +1404,7 @@ body.no-scroll {
 .herobd__image {
   position: absolute;
   inset: 0;
-  background-image: url("/hero-bg.jpg");
+  background-image: url("/hero-bg.webp");
   background-repeat: no-repeat;
   background-position: right center;
   background-size: cover;
@@ -12154,7 +12154,7 @@ a.feat-reach__line:hover {
 
 /* placeholder screen — refined, restrained UI that reads as real
    product rather than chunky toy blocks. Swap any block for an
-   <img src="/work/app-*.png" /> when the real screenshot is ready. */
+   <img src="/work/app-*.webp" /> when the real screenshot is ready. */
 .appshow__placeholder {
   width: 100%;
   height: 100%;
@@ -22995,7 +22995,7 @@ a.feat2-reach__line:hover {
   top: 0;
   width: 70%;
   height: 100%;
-  background: url('/hero-sculpture.png') no-repeat right center;
+  background: url('/hero-sculpture.webp') no-repeat right center;
   background-size: cover;
   z-index: 1;
   pointer-events: none;
@@ -25849,7 +25849,7 @@ a.feat2-reach__line:hover {
   inset: 0;
   background:
     linear-gradient(180deg, rgba(7, 8, 10, 0.28) 0%, rgba(7, 8, 10, 0.82) 100%),
-    url("/hero-bg.jpg") center / cover no-repeat;
+    url("/hero-bg.webp") center / cover no-repeat;
   filter: grayscale(0.25) saturate(0.78) contrast(1.05);
   opacity: 0.28;
   transform: scale(1.06);
@@ -26075,7 +26075,7 @@ a.feat2-reach__line:hover {
   background:
     linear-gradient(180deg, rgba(8, 9, 8, 0.18), rgba(8, 9, 8, 0.92)),
     linear-gradient(90deg, rgba(8, 9, 8, 0.9), rgba(8, 9, 8, 0.3) 52%, rgba(8, 9, 8, 0.94)),
-    url("/hero-bg.jpg") center / cover no-repeat;
+    url("/hero-bg.webp") center / cover no-repeat;
   filter: grayscale(0.8) contrast(1.24) saturate(0.72);
   opacity: 0.44;
   transform: scale(1.02);
@@ -26142,7 +26142,7 @@ a.feat2-reach__line:hover {
   vertical-align: 0.06em;
   background:
     linear-gradient(rgba(10, 11, 10, 0.08), rgba(10, 11, 10, 0.14)),
-    url("/services/abstract-capsule.png") center center / cover no-repeat;
+    url("/services/abstract-capsule.webp") center center / cover no-repeat;
   filter: none;
   box-shadow:
     0 0 0 1px rgba(244, 240, 232, 0.22),
@@ -26380,7 +26380,7 @@ a.feat2-reach__line:hover {
 .services-hero-v3__bg {
   position: absolute;
   inset: 0;
-  background: url('/services-fluid-bg.png') no-repeat center center;
+  background: url('/services-fluid-bg.webp') no-repeat center center;
   background-size: cover;
   z-index: 1;
 }

@@ -178,9 +178,9 @@ export default function CinematicHero() {
       {/* Right Sidebar (Avatars + Built for Visionaries) */}
       <div className="cinhero__right-sidebar">
         <div className="cinhero__avatar-stack">
-          <img src="/avatar1.png" alt="Creative portrait" className="cinhero__avatar" />
-          <img src="/avatar2.png" alt="Developer portrait" className="cinhero__avatar" />
-          <img src="/avatar3.png" alt="Engineer portrait" className="cinhero__avatar" />
+          <img src="/avatar1.webp" alt="Creative portrait" className="cinhero__avatar" />
+          <img src="/avatar2.webp" alt="Developer portrait" className="cinhero__avatar" />
+          <img src="/avatar3.webp" alt="Engineer portrait" className="cinhero__avatar" />
         </div>
         <div className="cinhero__sidebar-label">
           BUILT FOR VISIONARIES

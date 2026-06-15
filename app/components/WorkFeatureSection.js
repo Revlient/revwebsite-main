@@ -90,7 +90,7 @@ export default function WorkFeatureSection({
 
       {/* Faithful inline replica of the live Revlient OS web dashboard
           (erp.revlient.com). Real numbers shared by the team. Swap
-          for <img src="/work/revlient-os-erp.png" /> once the real
+          for <img src="/work/revlient-os-erp.webp" /> once the real
           PNG is committed. */}
       <div className="wfs__screenwrap wfs__screenwrap--full">
         <span className="wfs__screen-fade" aria-hidden="true" />

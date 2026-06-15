@@ -13,25 +13,25 @@ const INDUSTRIES = [
     id: "houseofeleven",
     name: "House of Eleven",
     num: "01",
-    imageUrl: "/work/project-houseof11.png"
+    imageUrl: "/work/project-houseof11.webp"
   },
   {
     id: "magnateacademy",
     name: "Magnate Academy",
     num: "02",
-    imageUrl: "/work/project-magnateacademy.png"
+    imageUrl: "/work/project-magnateacademy.webp"
   },
   {
     id: "perpex",
     name: "Perpex",
     num: "03",
-    imageUrl: "/work/project-perpex.png"
+    imageUrl: "/work/project-perpex.webp"
   },
   {
     id: "magnatestudyabroad",
     name: "Magnate Study Abroad",
     num: "04",
-    imageUrl: "/work/project-magnatestudyabroad2.png"
+    imageUrl: "/work/project-magnatestudyabroad2.webp"
   }
 ];
 
