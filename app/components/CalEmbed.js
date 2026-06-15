@@ -2,15 +2,17 @@
 
 import { useEffect } from "react";
 
-// Cal.com inline embed. Loads the SDK once, then renders the 15-min
-// booking widget. Pass a unique `instanceId` when mounting more than
-// one CalEmbed on the same page (each one needs its own DOM id and
-// Cal.com namespace so the widgets don't fight for the same target).
+// Cal.com inline embed, presented as a hero-style booking section.
+// Left: oversized headline + subtitle + slot link. Right: the actual
+// month-view calendar in a rounded white card. Pass `instanceId`
+// when mounting more than one embed on the same page — each needs
+// its own DOM id and Cal namespace.
 export default function CalEmbed({
   instanceId = "primary",
+  kicker = "The studio behind your launch",
   title,
-  kicker = "Book a call",
   subtitle,
+  ctaText = "Book a free 15-minute call — pick a slot",
 }) {
   const elementId = `cal-inline-${instanceId}`;
   const namespace = `15min-${instanceId}`;
@@ -60,35 +62,58 @@ export default function CalEmbed({
       config: {
         layout: "month_view",
         useSlotsViewOnSmallScreen: "true",
-        theme: "dark",
+        theme: "light",
       },
       calLink: "revlient-intercontinental/15min",
     });
 
     window.Cal.ns[namespace]("ui", {
-      theme: "dark",
+      theme: "light",
       hideEventTypeDetails: true,
       layout: "month_view",
+      cssVarsPerTheme: {
+        light: {
+          "cal-brand": "#0a0a0c",
+        },
+      },
     });
   }, [elementId, namespace]);
 
   return (
-    <div className="cal-embed">
-      <div className="cal-embed__intro">
-        <span className="cal-embed__kicker">{kicker}</span>
-        <h3 className="cal-embed__title">
+    <div className="cal-hero">
+      <div className="cal-hero__intro">
+        <span className="cal-hero__kicker">{kicker}</span>
+        <h2 className="cal-hero__title">
           {title || (
             <>
-              Grab a <span className="cal-embed__italic">15-minute</span> slot.
+              Build with Revlient.
+              <br />
+              Ship your{" "}
+              <span className="cal-hero__italic">next</span> legacy.
             </>
           )}
-        </h3>
-        <p className="cal-embed__sub">
+        </h2>
+        <p className="cal-hero__sub">
           {subtitle ||
-            "Pick a time that works — we’ll walk through your project, scope it together, and tell you honestly if we’re a fit."}
+            "A studio-built website, ERP or app, scoped on a single call. No retainer, no slide deck — just clear next steps."}
         </p>
+        <a
+          href={`#${elementId}`}
+          className="cal-hero__link"
+          onClick={(e) => {
+            e.preventDefault();
+            const target = document.getElementById(elementId);
+            if (target)
+              target.scrollIntoView({ behavior: "smooth", block: "center" });
+          }}
+        >
+          {ctaText} <span aria-hidden="true">→</span>
+        </a>
       </div>
-      <div className="cal-embed__frame" id={elementId} />
+
+      <div className="cal-hero__card">
+        <div className="cal-hero__frame" id={elementId} />
+      </div>
     </div>
   );
 }
