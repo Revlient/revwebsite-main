@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Reveal from "./Reveal";
+import CalEmbed from "./CalEmbed";
 import {
   BRAND,
   CONTACT_EMAIL,
@@ -206,6 +207,19 @@ export default function ContactPage() {
               ))}
             </div>
           </Reveal>
+        </section>
+
+        <section className="contact-cal contact__fade">
+          <CalEmbed
+            instanceId="contact"
+            kicker="Free consultation"
+            title={
+              <>
+                Book your <span className="cal-embed__italic">15-minute</span> slot.
+              </>
+            }
+            subtitle="Pick a time and we'll walk through your project together — no slide decks, no sales pitch. Just a clear next step."
+          />
         </section>
 
         <section className="contact-signals contact__fade">

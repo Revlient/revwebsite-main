@@ -37,7 +37,7 @@ export default function Footer() {
 
   return (
     <section className="footer-section">
-      <CalEmbed />
+      <CalEmbed instanceId="footer" />
 
       <div className="rfoot">
         <div className="rfoot__grid">
