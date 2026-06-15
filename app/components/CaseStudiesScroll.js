@@ -50,6 +50,16 @@ const INDUSTRIES = [
     image: "/industries/retail-ecommerce.png",
     imageAlt: "Retail and e-commerce storefront imagery",
   },
+  {
+    num: "05",
+    name: "Interior Design",
+    tag: "Studios · Architects · Showrooms",
+    body:
+      "Portfolio sites, project management portals, and visual-first catalogs for interior studios and architects — built to showcase craft and run the studio behind it.",
+    services: ["Portfolios", "CMS", "CRM", "Showrooms"],
+    image: "/industries/interior-design.png",
+    imageAlt: "Interior design studio workspace",
+  },
 ];
 
 export default function CaseStudiesScroll() {
