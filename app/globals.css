@@ -26538,8 +26538,8 @@ a.feat2-reach__line:hover {
 }
 .wclogos__grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.6rem, 0.4rem + 0.5vw, 1rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 0.6rem + 1vw, 1.6rem);
 }
 .wclogos__card {
   position: relative;
@@ -26580,19 +26580,14 @@ a.feat2-reach__line:hover {
   transform: scale(1.04);
 }
 
-@media (max-width: 1024px) {
-  .wclogos__grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
 @media (max-width: 720px) {
   .wclogos__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-@media (max-width: 460px) {
+@media (max-width: 420px) {
   .wclogos__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
 }
 
