@@ -26391,8 +26391,7 @@ a.feat2-reach__line:hover {
   overflow: hidden;
   isolation: isolate;
 }
-.services-hero-v3::before,
-.services-hero-v3::after {
+.services-hero-v3::before {
   content: "";
   position: absolute;
   pointer-events: none;
@@ -26403,13 +26402,6 @@ a.feat2-reach__line:hover {
   background:
     radial-gradient(60% 50% at 12% 18%, rgba(8, 9, 12, 0.04), transparent 70%),
     radial-gradient(45% 40% at 92% 12%, rgba(8, 9, 12, 0.03), transparent 70%);
-}
-.services-hero-v3::after {
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background: rgba(8, 9, 12, 0.08);
 }
 
 .services-hero-v3__inner {
