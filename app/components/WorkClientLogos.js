@@ -13,10 +13,10 @@ const CLIENT_VISUALS = {
   Mathlete: { card: "/logos/cards/mathlete.png" },
   "Magnate Academy": { card: "/logos/cards/magnate-academy.png" },
   "Magnate Study Abroad": { card: "/logos/cards/magnate-studyabroad.png" },
+  "Perpex Group": { card: "/logos/cards/perpex.png" },
+  Ronspire: { card: "/logos/cards/ronspire.png" },
 
-  Ronspire: { logo: "/logos/ronspire.svg" },
   "Perpex B-School": { logo: "/logos/perpexbschool.svg" },
-  "Perpex Group": { logo: "/logos/perpex.png" },
   "The Magnates": { logo: "/logos/themagnates.svg" },
   UniGo: { logo: "/logos/unigo.png" },
   "Soumya Shyam": { logo: "/logos/soumyashyam.png" },
