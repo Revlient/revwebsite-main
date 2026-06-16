@@ -26400,6 +26400,8 @@ a.feat2-reach__line:hover {
 .services-hero-v3::before {
   inset: 0;
   background:
+    radial-gradient(55% 70% at 0% 35%, rgba(59, 130, 246, 0.16), transparent 65%),
+    radial-gradient(55% 70% at 100% 65%, rgba(99, 102, 241, 0.14), transparent 65%),
     radial-gradient(60% 50% at 12% 18%, rgba(8, 9, 12, 0.04), transparent 70%),
     radial-gradient(45% 40% at 92% 12%, rgba(8, 9, 12, 0.03), transparent 70%);
 }
@@ -26508,6 +26510,7 @@ a.feat2-reach__line:hover {
    services list. White background continues from the hero so the
    transition reads as one composition. */
 .services-reel {
+  position: relative;
   background: #ffffff;
   padding:
     0
@@ -26515,6 +26518,22 @@ a.feat2-reach__line:hover {
     clamp(3rem, 2rem + 2.5vw, 5rem);
   display: flex;
   justify-content: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+.services-reel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(45% 75% at 0% 50%, rgba(59, 130, 246, 0.18), transparent 65%),
+    radial-gradient(45% 75% at 100% 50%, rgba(99, 102, 241, 0.16), transparent 65%);
+}
+.services-reel__frame {
+  position: relative;
+  z-index: 1;
 }
 .services-reel__frame {
   width: 100%;
