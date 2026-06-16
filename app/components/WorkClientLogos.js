@@ -15,14 +15,14 @@ const CLIENT_VISUALS = {
   "Magnate Study Abroad": { card: "/logos/cards/magnate-studyabroad.png" },
   "Perpex Group": { card: "/logos/cards/perpex.png" },
   Ronspire: { card: "/logos/cards/ronspire.png" },
+  "Magnate Global": { card: "/logos/cards/magnate-global.png" },
+  Nutriboxx: { card: "/logos/cards/nutriboxx.png" },
+  Bambrush: { card: "/logos/cards/bambrush.png" },
+  "Soumya Shyam": { card: "/logos/cards/soumyashyam.png" },
 
   "Perpex B-School": { logo: "/logos/perpexbschool.svg" },
   "The Magnates": { logo: "/logos/themagnates.svg" },
   UniGo: { logo: "/logos/unigo.png" },
-  "Soumya Shyam": { logo: "/logos/soumyashyam.png" },
-  Nutriboxx: { logo: "/logos/nutriboxx.png" },
-  Bambrush: { logo: "/logos/bambrush.webp" },
-  "Magnate Global": { logo: "/logos/magnateglobal.svg" },
 };
 
 // Square client cards. Each tile links to the client's live site;
