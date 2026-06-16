@@ -305,7 +305,9 @@ export default function ProcessSpine() {
       <ProcessDust />
       <div className="spine__head">
         <span className="spine__eyebrow">A simple step-by-step process</span>
-        <h2 className="spine__title">Design without the hassle</h2>
+        <h2 className="spine__title">
+          Design <span className="spine__title-italic">without</span> the hassle
+        </h2>
         <p className="spine__sub">
           Six deliberate stages — from the first conversation to the day
           after launch. You always know exactly where the project sits.
