@@ -26527,8 +26527,8 @@ a.feat2-reach__line:hover {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(50% 80% at 0% 50%, rgba(36, 86, 230, 0.30), transparent 65%),
-    radial-gradient(50% 80% at 100% 50%, rgba(36, 86, 230, 0.26), transparent 65%);
+    radial-gradient(50% 80% at 0% 50%, rgba(59, 130, 246, 0.32), transparent 65%),
+    radial-gradient(50% 80% at 100% 50%, rgba(59, 130, 246, 0.28), transparent 65%);
 }
 .services-reel__frame {
   position: relative;
