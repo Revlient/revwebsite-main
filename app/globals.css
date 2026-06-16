@@ -3919,11 +3919,14 @@ body.no-scroll {
   display: flex;
   justify-content: center;
 }
+.contact-hero__cal .cal-widget {
+  max-width: 100%;
+}
 .contact-hero__cal .cal-widget__frame {
-  min-height: 820px;
+  min-height: 720px;
 }
 .contact-hero__cal .cal-widget__frame iframe {
-  min-height: 820px !important;
+  min-height: 720px !important;
 }
 
 /* ---- Footer Cal section: left intro + right calendar ---- */

@@ -184,7 +184,11 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal className="contact-hero__visual contact__fade" delay={80}>
-            <CalEmbed instanceId="contact" className="contact-hero__cal" />
+            <CalEmbed
+              instanceId="contact"
+              layout="column_view"
+              className="contact-hero__cal"
+            />
           </Reveal>
         </section>
 

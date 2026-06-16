@@ -6,7 +6,11 @@ import { useEffect } from "react";
 // for 30-minute consultations. Pass `instanceId` when mounting
 // more than one on the same page so each gets its own DOM id
 // and Cal namespace.
-export default function CalEmbed({ instanceId = "primary", className = "" }) {
+export default function CalEmbed({
+  instanceId = "primary",
+  className = "",
+  layout = "month_view",
+}) {
   const elementId = `cal-inline-${instanceId}`;
   const namespace = `30min-${instanceId}`;
 
@@ -53,7 +57,7 @@ export default function CalEmbed({ instanceId = "primary", className = "" }) {
     window.Cal.ns[namespace]("inline", {
       elementOrSelector: `#${elementId}`,
       config: {
-        layout: "month_view",
+        layout,
         useSlotsViewOnSmallScreen: "true",
         theme: "dark",
       },
@@ -63,7 +67,7 @@ export default function CalEmbed({ instanceId = "primary", className = "" }) {
     window.Cal.ns[namespace]("ui", {
       theme: "dark",
       hideEventTypeDetails: true,
-      layout: "month_view",
+      layout,
       cssVarsPerTheme: {
         dark: {
           "cal-brand": "#ffffff",
@@ -78,7 +82,7 @@ export default function CalEmbed({ instanceId = "primary", className = "" }) {
         },
       },
     });
-  }, [elementId, namespace]);
+  }, [elementId, namespace, layout]);
 
   return (
     <div className={`cal-widget ${className}`.trim()}>
