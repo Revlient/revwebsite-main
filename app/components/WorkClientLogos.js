@@ -19,9 +19,9 @@ const CLIENT_VISUALS = {
   Nutriboxx: { card: "/logos/cards/nutriboxx.png" },
   Bambrush: { card: "/logos/cards/bambrush.png" },
   "Soumya Shyam": { card: "/logos/cards/soumyashyam.png" },
+  "The Magnates": { card: "/logos/cards/themagnates.png" },
 
   "Perpex B-School": { logo: "/logos/perpexbschool.svg" },
-  "The Magnates": { logo: "/logos/themagnates.svg" },
   UniGo: { logo: "/logos/unigo.png" },
 };
 
