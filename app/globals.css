@@ -26556,6 +26556,9 @@ a.feat2-reach__line:hover {
   transition: border-color 0.25s ease, transform 0.25s ease,
     box-shadow 0.25s ease, background 0.25s ease;
 }
+.wclogos__card--image {
+  padding: 0;
+}
 .wclogos__card:hover {
   border-color: rgba(8, 9, 12, 0.2);
   transform: translateY(-2px);
@@ -26573,6 +26576,17 @@ a.feat2-reach__line:hover {
   transition: transform 0.25s ease;
 }
 .wclogos__card:hover .wclogos__logo {
+  transform: scale(1.04);
+}
+.wclogos__cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.wclogos__card--image:hover .wclogos__cover {
   transform: scale(1.04);
 }
 
