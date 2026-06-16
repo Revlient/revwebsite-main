@@ -4,18 +4,20 @@ import Reveal from "./Reveal";
 import { PROJECTS } from "./WorkProjects";
 
 // Map each project slug to a logo asset. Files are in /public/logos.
+// Originals as uploaded — SVG for vector marks, PNG/JPG for raster.
+// No WebP conversions here so the logos render at their intended fidelity.
 const LOGO_MAP = {
-  "House of Eleven": "/logos/houseof11.webp",
-  "IBS Consultants": "/logos/ibs.webp",
-  Covspace: "/logos/covspace.webp",
+  "House of Eleven": "/logos/houseof11.png",
+  "IBS Consultants": "/logos/ibs.jpg",
+  Covspace: "/logos/covspace.png",
   Ronspire: "/logos/ronspire.svg",
   "Perpex B-School": "/logos/perpexbschool.svg",
-  "Perpex Group": "/logos/perpex.webp",
-  Mathlete: "/logos/mathlete.webp",
+  "Perpex Group": "/logos/perpex.png",
+  Mathlete: "/logos/mathlete.png",
   "The Magnates": "/logos/themagnates.svg",
-  UniGo: "/logos/unigo.webp",
-  "Soumya Shyam": "/logos/soumyashyam.webp",
-  Nutriboxx: "/logos/nutriboxx.webp",
+  UniGo: "/logos/unigo.png",
+  "Soumya Shyam": "/logos/soumyashyam.png",
+  Nutriboxx: "/logos/nutriboxx.png",
   Bambrush: "/logos/bambrush.webp",
   "Magnate Academy": "/logos/magnateacademy.svg",
   "Magnate Study Abroad": "/logos/magnatestudyabroad.svg",

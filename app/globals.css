@@ -26565,18 +26565,14 @@ a.feat2-reach__line:hover {
   background: #fafafb;
 }
 .wclogos__logo {
-  max-width: 78%;
-  max-height: 60%;
+  max-width: 70%;
+  max-height: 55%;
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: grayscale(1) contrast(1.05);
-  opacity: 0.78;
-  transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+  transition: transform 0.25s ease;
 }
 .wclogos__card:hover .wclogos__logo {
-  filter: grayscale(0);
-  opacity: 1;
   transform: scale(1.04);
 }
 
