@@ -25,9 +25,9 @@ const CLIENT_VISUALS = {
   "Magnate Global": { logo: "/logos/magnateglobal.svg" },
 };
 
-// Square client cards. Each cell is either a full-bleed cover image
-// or a centred logo; the whole tile is a link to the client's live
-// site. No copy on or around the cards.
+// Square client cards. Each tile links to the client's live site;
+// the industry tag and a short 3-line description sit underneath
+// (industry + brief read, no card-side copy).
 export default function WorkClientLogos() {
   return (
     <section className="wclogos" aria-label="Our clients">
@@ -45,15 +45,23 @@ export default function WorkClientLogos() {
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`wclogos__card ${isImage ? "wclogos__card--image" : ""}`}
+                className="wclogos__item"
                 aria-label={`Visit ${p.title}`}
               >
-                <img
-                  src={isImage ? v.card : v.logo}
-                  alt={p.title}
-                  className={isImage ? "wclogos__cover" : "wclogos__logo"}
-                  loading="lazy"
-                />
+                <div
+                  className={`wclogos__card ${isImage ? "wclogos__card--image" : ""}`}
+                >
+                  <img
+                    src={isImage ? v.card : v.logo}
+                    alt={p.title}
+                    className={isImage ? "wclogos__cover" : "wclogos__logo"}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="wclogos__meta">
+                  <span className="wclogos__industry">{p.category}</span>
+                  <p className="wclogos__desc">{p.description}</p>
+                </div>
               </a>
             );
           })}

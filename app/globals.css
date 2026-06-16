@@ -26541,6 +26541,13 @@ a.feat2-reach__line:hover {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(1rem, 0.6rem + 1vw, 1.6rem);
 }
+.wclogos__item {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+}
 .wclogos__card {
   position: relative;
   display: flex;
@@ -26549,22 +26556,18 @@ a.feat2-reach__line:hover {
   aspect-ratio: 1 / 1;
   background: #ffffff;
   border: 1px solid rgba(8, 9, 12, 0.08);
-  border-radius: 16px;
+  border-radius: 0;
   padding: clamp(1rem, 0.6rem + 1vw, 1.6rem);
-  text-decoration: none;
   overflow: hidden;
-  transition: border-color 0.25s ease, transform 0.25s ease,
-    box-shadow 0.25s ease, background 0.25s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 .wclogos__card--image {
   padding: 0;
 }
-.wclogos__card:hover {
-  border-color: rgba(8, 9, 12, 0.2);
-  transform: translateY(-2px);
-  box-shadow:
-    0 18px 40px -16px rgba(8, 9, 12, 0.18),
-    0 2px 6px -2px rgba(8, 9, 12, 0.08);
+.wclogos__item:hover .wclogos__card {
+  border-color: rgba(8, 9, 12, 0.22);
+  box-shadow: 0 18px 40px -16px rgba(8, 9, 12, 0.18);
   background: #fafafb;
 }
 .wclogos__logo {
@@ -26575,7 +26578,7 @@ a.feat2-reach__line:hover {
   object-fit: contain;
   transition: transform 0.25s ease;
 }
-.wclogos__card:hover .wclogos__logo {
+.wclogos__item:hover .wclogos__logo {
   transform: scale(1.04);
 }
 .wclogos__cover {
@@ -26586,8 +26589,38 @@ a.feat2-reach__line:hover {
   display: block;
   transition: transform 0.4s ease;
 }
-.wclogos__card--image:hover .wclogos__cover {
+.wclogos__item:hover .wclogos__cover {
   transform: scale(1.04);
+}
+
+/* Under-card meta — industry tag + 3-line description */
+.wclogos__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.wclogos__industry {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(8, 9, 12, 0.55);
+}
+.wclogos__desc {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 0.9rem + 0.15vw, 1.05rem);
+  line-height: 1.45;
+  color: #08090c;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wclogos__item:hover .wclogos__desc {
+  color: #08090c;
 }
 
 @media (max-width: 720px) {
