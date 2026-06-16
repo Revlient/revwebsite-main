@@ -14,13 +14,13 @@ const CLIENT_VISUALS = {
   "Magnate Academy": { card: "/logos/cards/magnate-academy.png" },
   "Magnate Study Abroad": { card: "/logos/cards/magnate-studyabroad.png" },
   "Perpex Group": { card: "/logos/cards/perpex.png" },
-  Ronspire: { card: "/logos/cards/ronspire.png" },
   "Magnate Global": { card: "/logos/cards/magnate-global.png" },
   Nutriboxx: { card: "/logos/cards/nutriboxx.png" },
   Bambrush: { card: "/logos/cards/bambrush.png" },
   "Soumya Shyam": { card: "/logos/cards/soumyashyam.png" },
   "The Magnates": { card: "/logos/cards/themagnates.png" },
 
+  Ronspire: { logo: "/logos/ronspire.svg" },
   "Perpex B-School": { logo: "/logos/perpexbschool.svg" },
   UniGo: { logo: "/logos/unigo.png" },
 };
