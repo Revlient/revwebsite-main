@@ -694,11 +694,43 @@ export default function ServicesPage() {
       <Nav className="services-page-v3-nav" />
 
       {/* Hero Section */}
-      <section className="services-hero-v3">
-        <div className="services-hero-v3__bg" aria-hidden="true" />
-        <div className="services-hero-v3__content">
+      <section className="services-hero-v3" aria-labelledby="services-hero-title">
+        <div className="services-hero-v3__inner">
           <Reveal>
-            <h1 className="services-hero-v3__title">Our Services</h1>
+            <span className="services-hero-v3__eyebrow">What we build</span>
+          </Reveal>
+          <Reveal delay={80}>
+            <h1 id="services-hero-title" className="services-hero-v3__title">
+              <span className="services-hero-v3__italic">Studio-built</span>{" "}
+              systems,
+              <br />
+              sites &amp; apps.
+            </h1>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="services-hero-v3__sub">
+              Four disciplines under one roof — websites, web &amp; mobile apps,
+              ERP / CRM platforms, and AI automations. Scoped on a single call,
+              shipped as one considered build.
+            </p>
+          </Reveal>
+          <Reveal delay={220}>
+            <div className="services-hero-v3__actions">
+              <a
+                href={CTA_HREF}
+                className="services-hero-v3__cta cta-with-tooltip cta-with-tooltip--above"
+                data-tooltip="get a reservation in under 3 clicks"
+              >
+                <span>Free consultation</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </a>
+              <a href="/work" className="services-hero-v3__ghost">
+                See our work
+              </a>
+            </div>
           </Reveal>
         </div>
       </section>
