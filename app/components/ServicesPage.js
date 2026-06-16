@@ -735,6 +735,21 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* Hero showreel — sits between the hero and the services list */}
+      <section className="services-reel" aria-label="Services showreel">
+        <div className="services-reel__frame">
+          <video
+            className="services-reel__video"
+            src="/videos/services-hero-clip.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          />
+        </div>
+      </section>
+
       {/* Services Grid List */}
       <section className="services-list-v3">
         <div className="services-list-v3__container">
