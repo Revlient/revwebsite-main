@@ -26526,9 +26526,9 @@ a.feat2-reach__line:hover {
 }
 .services-reel__frame {
   width: 100%;
-  max-width: 1100px;
+  max-width: 720px;
   aspect-ratio: 16 / 9;
-  border-radius: 22px;
+  border-radius: 18px;
   overflow: hidden;
   background: #08090c;
   box-shadow:
