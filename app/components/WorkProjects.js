@@ -174,7 +174,7 @@ export const PROJECTS = [
     tags: ["Global", "Education", "Portal"],
     year: "2025",
     accent: "gold",
-    url: "https://magnate-studyabroad2.vercel.app",
+    url: "https://www.magnatestudyabroad.com",
     image: "/project-magnatestudyabroad2.webp",
     imageAlt: "Magnate Study Abroad screenshot",
   },
