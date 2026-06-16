@@ -9,7 +9,7 @@ import Reveal from "./Reveal";
    - Interactive 3D card tilt transformations and pointer border glow updates.
    - Real cover screenshots loaded directly from public/work directory. */
 
-const PROJECTS = [
+export const PROJECTS = [
   {
     number: "01",
     category: "Architecture & Interior Design",

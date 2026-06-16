@@ -1,5 +1,6 @@
 import Nav from "../components/Nav";
 import WorkPageHero from "../components/WorkPageHero";
+import WorkClientLogos from "../components/WorkClientLogos";
 import WorkHero from "../components/WorkHero";
 import WorkProjects from "../components/WorkProjects";
 import WorkFeatureSection from "../components/WorkFeatureSection";
@@ -26,6 +27,7 @@ export default function WorkPage() {
       <Nav />
       <main className="page-work">
         <WorkPageHero />
+        <WorkClientLogos />
         <WorkHero />
         {/* <WorkFeatureSection /> */}
         <ErpFeatures />

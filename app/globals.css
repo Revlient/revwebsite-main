@@ -26505,6 +26505,97 @@ a.feat2-reach__line:hover {
   background: rgba(8, 9, 12, 0.04);
 }
 
+/* ---- /work client logo grid (square tiles, no copy) ---- */
+.wclogos {
+  background: #ffffff;
+  padding:
+    clamp(2rem, 1rem + 3vw, 4rem)
+    clamp(1.5rem, 0.5rem + 3vw, 4rem)
+    clamp(4rem, 3rem + 4vw, 7rem);
+}
+.wclogos__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 1rem + 1.5vw, 2.4rem);
+}
+.wclogos__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(8, 9, 12, 0.55);
+}
+.wclogos__eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: rgba(8, 9, 12, 0.4);
+}
+.wclogos__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.6rem, 0.4rem + 0.5vw, 1rem);
+}
+.wclogos__card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  background: #ffffff;
+  border: 1px solid rgba(8, 9, 12, 0.08);
+  border-radius: 16px;
+  padding: clamp(1rem, 0.6rem + 1vw, 1.6rem);
+  text-decoration: none;
+  overflow: hidden;
+  transition: border-color 0.25s ease, transform 0.25s ease,
+    box-shadow 0.25s ease, background 0.25s ease;
+}
+.wclogos__card:hover {
+  border-color: rgba(8, 9, 12, 0.2);
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 40px -16px rgba(8, 9, 12, 0.18),
+    0 2px 6px -2px rgba(8, 9, 12, 0.08);
+  background: #fafafb;
+}
+.wclogos__logo {
+  max-width: 78%;
+  max-height: 60%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.05);
+  opacity: 0.78;
+  transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+}
+.wclogos__card:hover .wclogos__logo {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+@media (max-width: 1024px) {
+  .wclogos__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 720px) {
+  .wclogos__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 460px) {
+  .wclogos__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* ---- Editorial /work intro hero (white bg, italic accent) ---- */
 .work-intro-hero {
   position: relative;
