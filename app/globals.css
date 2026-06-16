@@ -4688,6 +4688,10 @@ body.no-scroll {
   overflow: hidden;
   box-shadow: 0 30px 80px -20px rgba(8, 9, 12, 0.18);
   backdrop-filter: blur(20px);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+.chatbot * {
+  font-family: inherit;
 }
 
 .chatbot__head {
