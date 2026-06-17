@@ -2,6 +2,7 @@
 
 import Reveal from "./Reveal";
 import Nav from "./Nav";
+import AiAuraCta from "./AiAuraCta";
 import WorkFeatureSection from "./WorkFeatureSection";
 import AppShowcaseServices from "./services/AppShowcaseServices";
 import BundleShowcaseServices from "./services/BundleShowcaseServices";
@@ -716,17 +717,11 @@ export default function ServicesPage() {
           </Reveal>
           <Reveal delay={220}>
             <div className="services-hero-v3__actions">
-              <a
+              <AiAuraCta
                 href={CTA_HREF}
-                className="services-hero-v3__cta cta-with-tooltip cta-with-tooltip--above"
-                data-tooltip="get a reservation in under 3 clicks"
-              >
-                <span>Free consultation</span>
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M7 17L17 7" />
-                  <path d="M7 7h10v10" />
-                </svg>
-              </a>
+                label="FREE CONSULTATION"
+                className="services-hero-v3__ai-cta"
+              />
               <a href="/work" className="services-hero-v3__ghost">
                 See our work
               </a>

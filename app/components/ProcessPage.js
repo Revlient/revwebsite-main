@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import Reveal from "./Reveal";
+import AiAuraCta from "./AiAuraCta";
 import { CTA_HREF } from "../lib/site";
 import {
   ChatMockup,
@@ -246,22 +247,20 @@ export default function ProcessPage() {
         <div className="proc-hero__inner">
           <div className="proc-hero__copy">
             <h1 className="proc-hero__title">
-              Build from the first sharp idea{" "}
-              <span
-                className="proc-hero__inline-img"
-                aria-hidden="true"
-              />
-              to the release people can trust.
+              Build with <span className="proc-hero__italic">discipline</span>.
+              <br />
+              Ship with confidence.
             </h1>
             <p className="proc-hero__sub">
-              A disciplined studio rhythm for turning unclear requirements into
-              designed flows, reviewed code, launch checks, and the next useful
-              iteration.
+              A disciplined studio rhythm — from unclear requirements to
+              designed flows, reviewed code, and a release people can trust.
             </p>
             <div className="proc-hero__actions">
-              <a href={CTA_HREF} className="proc-hero__btn proc-hero__btn--primary cta-with-tooltip cta-with-tooltip--above" data-tooltip="get a reservation in under 3 clicks">
-                Free consultation
-              </a>
+              <AiAuraCta
+                href={CTA_HREF}
+                label="FREE CONSULTATION"
+                className="proc-hero__ai-cta"
+              />
               <a href="#process-stages" className="proc-hero__btn proc-hero__btn--ghost">
                 See the method
               </a>
