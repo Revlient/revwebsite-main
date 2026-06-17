@@ -1,7 +1,6 @@
 import Nav from "../components/Nav";
 import WorkPageHero from "../components/WorkPageHero";
 import WorkClientLogos from "../components/WorkClientLogos";
-import WorkProjects from "../components/WorkProjects";
 import ErpFeatures from "../components/ErpFeatures";
 import AppShowcase from "../components/AppShowcase";
 import AppFeatures from "../components/AppFeatures";
@@ -30,7 +29,6 @@ export default function WorkPage() {
         <ErpFeatures />
         <AppShowcase />
         <AppFeatures />
-        <WorkProjects />
         <WorthCrafting />
         <FinalCTA />
       </main>
