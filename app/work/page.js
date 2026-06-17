@@ -1,9 +1,7 @@
 import Nav from "../components/Nav";
 import WorkPageHero from "../components/WorkPageHero";
 import WorkClientLogos from "../components/WorkClientLogos";
-import WorkHero from "../components/WorkHero";
 import WorkProjects from "../components/WorkProjects";
-import WorkFeatureSection from "../components/WorkFeatureSection";
 import ErpFeatures from "../components/ErpFeatures";
 import AppShowcase from "../components/AppShowcase";
 import AppFeatures from "../components/AppFeatures";
@@ -19,8 +17,9 @@ export const metadata = {
   description: `Selected work from ${BRAND.name}, projects shipped end-to-end through our four-pillar service core.`,
 };
 
-/* Dedicated /work route. The redesigned WorkHero opens the page,
-   then the existing case-study and service sections continue unchanged. */
+/* Dedicated /work route. Editorial intro hero + the client card grid
+   open the page; ErpFeatures takes the page back into its native
+   themed sections from there. */
 export default function WorkPage() {
   return (
     <>
@@ -28,8 +27,6 @@ export default function WorkPage() {
       <main className="page-work">
         <WorkPageHero />
         <WorkClientLogos />
-        <WorkHero />
-        {/* <WorkFeatureSection /> */}
         <ErpFeatures />
         <AppShowcase />
         <AppFeatures />
