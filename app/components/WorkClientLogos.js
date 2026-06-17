@@ -21,8 +21,7 @@ const CLIENT_VISUALS = {
   "Soumya Shyam": { card: "/logos/cards/soumyashyam.png" },
   "The Magnates": { card: "/logos/cards/themagnates.png" },
   UniGo: { card: "/logos/cards/unigo.png" },
-
-  "Perpex B-School": { logo: "/logos/perpexbschool.svg" },
+  "Perpex B-School": { card: "/logos/cards/perpexbschool.png" },
 };
 
 // Square client cards. Each tile links to the client's live site;
