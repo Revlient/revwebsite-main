@@ -87,8 +87,7 @@ export default function WorkPageHero() {
           <a
             ref={ctaRef}
             href={CTA_HREF}
-            className="cinhero__btn-ai work-intro-hero__ai-cta cta-with-tooltip cta-with-tooltip--above"
-            data-tooltip="get a reservation in under 3 clicks"
+            className="cinhero__btn-ai work-intro-hero__ai-cta"
           >
             <span className="cinhero__btn-ai-fx" aria-hidden="true" />
             <span className="cinhero__btn-ai-label">FREE CONSULTATION</span>
