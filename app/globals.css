@@ -26597,21 +26597,24 @@ a.feat2-reach__line:hover {
 .wclogos__meta {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.65rem;
 }
 .wclogos__industry {
-  font-family: var(--font-mono, monospace);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(8, 9, 12, 0.55);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 500;
+  color: rgba(8, 9, 12, 0.6);
 }
 .wclogos__desc {
   margin: 0;
   font-family: var(--font-body);
-  font-size: clamp(0.95rem, 0.9rem + 0.15vw, 1.05rem);
-  line-height: 1.45;
-  color: #08090c;
+  font-size: clamp(1.05rem, 1rem + 0.25vw, 1.2rem);
+  line-height: 1.4;
+  font-weight: 400;
+  color: #0a0a0a;
+  letter-spacing: -0.005em;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   line-clamp: 3;
@@ -26620,7 +26623,7 @@ a.feat2-reach__line:hover {
   text-overflow: ellipsis;
 }
 .wclogos__item:hover .wclogos__desc {
-  color: #08090c;
+  color: #0a0a0a;
 }
 
 @media (max-width: 720px) {
