@@ -120,7 +120,7 @@ export default function Footer() {
           <div className="rfoot__col rfoot__col--meta">
             <h4 className="rfoot__col-title">© {year} {BRAND.name}</h4>
             <p className="rfoot__meta-line">
-              <a href="#">Privacy</a>
+              <a href="/privacy">Privacy</a>
               <span aria-hidden="true">·</span>
               <a href="#">Terms</a>
               <span aria-hidden="true">·</span>
