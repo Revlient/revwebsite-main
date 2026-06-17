@@ -26509,7 +26509,7 @@ a.feat2-reach__line:hover {
 .wclogos {
   background: #ffffff;
   padding:
-    clamp(2rem, 1rem + 3vw, 4rem)
+    0
     clamp(1.5rem, 0.5rem + 3vw, 4rem)
     clamp(4rem, 3rem + 4vw, 7rem);
 }
@@ -26634,36 +26634,42 @@ a.feat2-reach__line:hover {
   }
 }
 
-/* ---- Editorial /work intro hero (white bg, italic accent) ---- */
+/* ---- Editorial /work intro hero (centred, blue side gradients) ---- */
 .work-intro-hero {
   position: relative;
   width: 100%;
   background: #ffffff;
   color: #08090c;
+  min-height: clamp(540px, 78vh, 760px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding:
-    clamp(7rem, 5rem + 8vw, 11rem)
+    clamp(7rem, 5rem + 6vw, 10rem)
     clamp(1.5rem, 0.5rem + 3vw, 4rem)
-    clamp(4rem, 3rem + 3vw, 6rem);
+    clamp(2.5rem, 1.5rem + 2vw, 4rem);
   overflow: hidden;
   isolation: isolate;
+  text-align: center;
 }
-.work-intro-hero::before {
-  content: "";
+.work-intro-hero__bg {
   position: absolute;
   inset: 0;
-  pointer-events: none;
   z-index: 0;
+  pointer-events: none;
   background:
-    radial-gradient(60% 50% at 12% 18%, rgba(8, 9, 12, 0.04), transparent 70%),
-    radial-gradient(45% 40% at 92% 12%, rgba(8, 9, 12, 0.03), transparent 70%);
+    radial-gradient(45% 75% at 0% 50%, rgba(59, 130, 246, 0.32), transparent 65%),
+    radial-gradient(45% 75% at 100% 50%, rgba(59, 130, 246, 0.28), transparent 65%);
 }
 .work-intro-hero__inner {
   position: relative;
   z-index: 1;
-  max-width: 1280px;
+  max-width: 920px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: clamp(1.1rem, 0.8rem + 0.6vw, 1.6rem);
 }
 .work-intro-hero__eyebrow {
@@ -26674,7 +26680,7 @@ a.feat2-reach__line:hover {
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(8, 9, 12, 0.55);
+  color: rgba(8, 9, 12, 0.6);
 }
 .work-intro-hero__eyebrow::before {
   content: "";
@@ -26685,10 +26691,10 @@ a.feat2-reach__line:hover {
 .work-intro-hero__title {
   margin: 0;
   font-family: var(--font-clash), var(--font-body), sans-serif;
-  font-size: clamp(2.6rem, 1.6rem + 5vw, 6.4rem);
+  font-size: clamp(2.6rem, 1.6rem + 5vw, 6.2rem);
   font-weight: 600;
   letter-spacing: -0.035em;
-  line-height: 0.96;
+  line-height: 0.98;
   color: #08090c;
   max-width: 22ch;
   text-wrap: balance;
@@ -26701,24 +26707,19 @@ a.feat2-reach__line:hover {
   color: #3b82f6;
 }
 .work-intro-hero__sub {
-  margin: 0.6rem 0 0;
-  max-width: 56ch;
+  margin: 0.4rem auto 0;
+  max-width: 50ch;
   font-family: var(--font-body);
   font-size: clamp(1rem, 0.95rem + 0.25vw, 1.18rem);
   line-height: 1.55;
   color: rgba(8, 9, 12, 0.65);
 }
-.work-intro-hero__actions {
-  margin-top: clamp(1rem, 0.5rem + 1vw, 1.8rem);
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
 .work-intro-hero__cta {
+  margin-top: clamp(0.8rem, 0.4rem + 0.8vw, 1.5rem);
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.95rem 1.4rem;
+  padding: 1rem 1.6rem;
   border-radius: 999px;
   background: #08090c;
   color: #fff;
@@ -26733,25 +26734,11 @@ a.feat2-reach__line:hover {
   background: #1a1c22;
   transform: translateY(-1px);
 }
-.work-intro-hero__ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.95rem 1.4rem;
-  border-radius: 999px;
-  border: 1px solid rgba(8, 9, 12, 0.18);
-  background: transparent;
-  color: #08090c;
-  font-family: var(--font-mono, monospace);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: border-color 0.25s ease, background 0.25s ease;
-}
-.work-intro-hero__ghost:hover {
-  border-color: #08090c;
-  background: rgba(8, 9, 12, 0.04);
+
+@media (max-width: 640px) {
+  .work-intro-hero {
+    min-height: clamp(500px, 70vh, 640px);
+  }
 }
 
 /* Services hero showreel — centred clip between the hero and the
