@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET(req) {
   const mode = req.nextUrl.searchParams.get("hub.mode");
   const token = req.nextUrl.searchParams.get("hub.verify_token");
   const challenge = req.nextUrl.searchParams.get("hub.challenge");
@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   return new NextResponse("Verification failed", { status: 403 });
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req) {
   try {
     const body = await req.json();
 
