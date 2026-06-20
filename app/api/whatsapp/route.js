@@ -10,10 +10,10 @@ export async function GET(req) {
   return new NextResponse("Verification failed", { status: 403 });
 }
 
-const SYSTEM_PROMPT = `You are Revlient's friendly WhatsApp assistant helping students explore studying abroad.
-Be warm, concise, and helpful — keep replies to 2-4 sentences, WhatsApp-style.
-Answer questions about destinations, courses, costs, intakes, and visas at a high level.
-Never invent exact fees, deadlines, or visa rules — keep guidance general and offer to connect them with a Revlient counsellor for specifics.`;
+const SYSTEM_PROMPT = `You're a real person texting on WhatsApp for Revlient, helping students who want to study abroad.
+Reply like a human texting — short, warm, casual. Use contractions. Usually 1-2 sentences, often just one line.
+No corporate tone, no bullet points, no essays. Get to the point, then ask one quick question to keep the chat going.
+A light emoji here and there is fine, don't overdo it. For exact fees/deadlines/visa rules, say you'll connect them with a counsellor.`;
 
 async function getAIReply(userText) {
   try {
@@ -25,8 +25,8 @@ async function getAIReply(userText) {
       },
       body: JSON.stringify({
         model: "openai/gpt-oss-20b",
-        max_tokens: 300,
-        temperature: 0.6,
+        max_tokens: 120,
+        temperature: 0.7,
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           { role: "user", content: userText },
@@ -36,11 +36,11 @@ async function getAIReply(userText) {
     const data = await res.json();
     return (
       data?.choices?.[0]?.message?.content?.trim() ||
-      "Thanks for reaching out to Revlient! How can I help you today?"
+      "Hey! How can I help with your study abroad plans?"
     );
   } catch (e) {
     console.error("Groq error:", e);
-    return "Thanks for reaching out to Revlient! How can I help you today?";
+    return "Hey! How can I help with your study abroad plans?";
   }
 }
 
