@@ -94,8 +94,10 @@ async function getAIReply(history) {
       },
       body: JSON.stringify({
         model: "openai/gpt-oss-20b",
-        max_tokens: 120,
+        max_tokens: 512,
         temperature: 0.7,
+        reasoning_effort: "low",
+        include_reasoning: false,
         messages: [{ role: "system", content: SYSTEM_PROMPT }, ...history],
       }),
     });
