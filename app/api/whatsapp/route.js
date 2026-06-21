@@ -3,11 +3,6 @@ import { NextResponse } from "next/server";
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const SYSTEM_PROMPT = `You're a friendly, knowledgeable Revlient assistant on WhatsApp, helping students who want to study abroad.
-Answer every question helpfully — budget, tuition, living costs, part-time work, placements, visas, intakes, courses, everything.
-Always give a useful ballpark estimate or range. Never refuse or say you can't — these are rough figures that naturally vary, so an approximate answer is exactly what's wanted. Make clear they're estimates with words like "roughly", "around", or "typically".
-Reply like a human texting — short, warm, casual, 1-2 sentences. Use contractions; the odd emoji is fine. Use the conversation so far for context — don't re-ask things they already told you.
-Only mention a counsellor for precise, personalised planning — as a bonus, never as a reason to dodge the question.`;
 export async function GET(req) {
   const mode = req.nextUrl.searchParams.get("hub.mode");
   const token = req.nextUrl.searchParams.get("hub.verify_token");
@@ -18,24 +13,47 @@ export async function GET(req) {
   return new NextResponse("Verification failed", { status: 403 });
 }
 
-// --- Voice note: download from Meta + transcribe with Groq Whisper ---
+async function loadProperties() {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/properties?status=eq.available&select=title,type,location,price,bedrooms,area_sqft,description`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    );
+    const rows = await res.json();
+    if (!Array.isArray(rows) || rows.length === 0) return "No properties currently listed.";
+    return rows
+      .map(
+        (p, i) =>
+          `${i + 1}. ${p.title} — ${p.type}, ${p.location}. Price: ${p.price}.` +
+          `${p.bedrooms ? ` ${p.bedrooms} BHK.` : ""}${p.area_sqft ? ` ${p.area_sqft} sqft.` : ""} ${p.description || ""}`
+      )
+      .join("\n");
+  } catch (e) {
+    console.error("loadProperties error:", e);
+    return "Property list unavailable right now.";
+  }
+}
+
+function buildSystemPrompt(propertyList) {
+  return `You're a friendly WhatsApp assistant for Revlient Realty, a real estate agency. Help clients with properties we have for sale.
+ONLY use the listings below — never invent properties, prices, or details. If there's no match, say we don't have one right now and offer to pass their requirement to an agent.
+Share the real price and key details (location, type, beds, area) concisely. Reply like a human texting — short, warm, casual, 1-2 sentences. Use the conversation so far for context. Ask a quick follow-up to narrow budget/location/type.
+
+AVAILABLE PROPERTIES:
+${propertyList}`;
+}
+
 async function transcribeAudio(mediaId) {
   try {
-    // 1. Get the media URL from Meta
     const metaRes = await fetch(`https://graph.facebook.com/v21.0/${mediaId}`, {
       headers: { Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}` },
     });
     const meta = await metaRes.json();
-    if (!meta?.url) {
-      console.log("⚠️ MEDIA URL MISSING:", JSON.stringify(meta));
-      return "";
-    }
-    // 2. Download the audio bytes (this URL needs the same auth header)
+    if (!meta?.url) return "";
     const audioRes = await fetch(meta.url, {
       headers: { Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}` },
     });
     const audioBlob = await audioRes.blob();
-    // 3. Transcribe with Groq
     const form = new FormData();
     form.append("file", audioBlob, "voice.ogg");
     form.append("model", "whisper-large-v3-turbo");
@@ -45,7 +63,6 @@ async function transcribeAudio(mediaId) {
       body: form,
     });
     const tr = await trRes.json();
-    if (!tr?.text) console.log("⚠️ TRANSCRIBE NON-SUCCESS:", trRes.status, JSON.stringify(tr));
     return tr?.text?.trim() || "";
   } catch (e) {
     console.error("transcribe error:", e);
@@ -84,7 +101,7 @@ async function saveHistory(phone, messages) {
   }
 }
 
-async function getAIReply(history) {
+async function getAIReply(history, systemPrompt) {
   try {
     const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
@@ -95,16 +112,14 @@ async function getAIReply(history) {
       body: JSON.stringify({
         model: "openai/gpt-oss-20b",
         max_tokens: 512,
-        temperature: 0.7,
+        temperature: 0.6,
         reasoning_effort: "low",
         include_reasoning: false,
-        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...history],
+        messages: [{ role: "system", content: systemPrompt }, ...history],
       }),
     });
     const data = await res.json();
-    if (!data?.choices?.[0]) {
-      console.log("⚠️ GROQ NON-SUCCESS:", res.status, JSON.stringify(data));
-    }
+    if (!data?.choices?.[0]) console.log("⚠️ GROQ NON-SUCCESS:", res.status, JSON.stringify(data));
     return (
       data?.choices?.[0]?.message?.content?.trim() ||
       "Sorry, I dropped that — can you say it again?"
@@ -142,22 +157,21 @@ export async function POST(req) {
   try {
     const message = body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
 
-    // Get text from either a typed message or a voice note
     let userText = null;
-    if (message?.type === "text") {
-      userText = message.text.body;
-    } else if (message?.type === "audio") {
-      userText = await transcribeAudio(message.audio.id);
-    }
+    if (message?.type === "text") userText = message.text.body;
+    else if (message?.type === "audio") userText = await transcribeAudio(message.audio.id);
 
     if (message && userText) {
       const phone = message.from;
+
+      const propertyList = await loadProperties();
+      const systemPrompt = buildSystemPrompt(propertyList);
 
       const history = await loadHistory(phone);
       history.push({ role: "user", content: userText });
 
       const recent = history.slice(-10);
-      const reply = await getAIReply(recent);
+      const reply = await getAIReply(recent, systemPrompt);
 
       recent.push({ role: "assistant", content: reply });
       await saveHistory(phone, recent.slice(-10));
