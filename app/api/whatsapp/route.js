@@ -1,5 +1,13 @@
 import { NextResponse } from "next/server";
 
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+const SYSTEM_PROMPT = `You're a real person texting on WhatsApp for Revlient, helping students who want to study abroad.
+Reply like a human texting — short, warm, casual. Use contractions. Usually 1-2 sentences, often just one line.
+No corporate tone, no bullet points, no essays. Use the conversation so far for context — don't ask things they already told you.
+For exact fees/deadlines/visa rules, say you'll connect them with a counsellor instead of guessing numbers.`;
+
 export async function GET(req) {
   const mode = req.nextUrl.searchParams.get("hub.mode");
   const token = req.nextUrl.searchParams.get("hub.verify_token");
@@ -10,12 +18,38 @@ export async function GET(req) {
   return new NextResponse("Verification failed", { status: 403 });
 }
 
-const SYSTEM_PROMPT = `You're a real person texting on WhatsApp for Revlient, helping students who want to study abroad.
-Reply like a human texting — short, warm, casual. Use contractions. Usually 1-2 sentences, often just one line.
-No corporate tone, no bullet points, no essays. Get to the point, then ask one quick question to keep the chat going.
-A light emoji here and there is fine, don't overdo it. For exact fees/deadlines/visa rules, say you'll connect them with a counsellor.`;
+async function loadHistory(phone) {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/wa_conversations?phone=eq.${phone}&select=messages`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    );
+    const rows = await res.json();
+    return rows?.[0]?.messages || [];
+  } catch (e) {
+    console.error("loadHistory error:", e);
+    return [];
+  }
+}
 
-async function getAIReply(userText) {
+async function saveHistory(phone, messages) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/wa_conversations`, {
+      method: "POST",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+        Prefer: "resolution=merge-duplicates",
+      },
+      body: JSON.stringify({ phone, messages, updated_at: new Date().toISOString() }),
+    });
+  } catch (e) {
+    console.error("saveHistory error:", e);
+  }
+}
+
+async function getAIReply(history) {
   try {
     const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
@@ -27,20 +61,17 @@ async function getAIReply(userText) {
         model: "openai/gpt-oss-20b",
         max_tokens: 120,
         temperature: 0.7,
-        messages: [
-          { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: userText },
-        ],
+        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...history],
       }),
     });
     const data = await res.json();
     return (
       data?.choices?.[0]?.message?.content?.trim() ||
-      "Hey! How can I help with your study abroad plans?"
+      "Sorry, I dropped that — can you say it again?"
     );
   } catch (e) {
     console.error("Groq error:", e);
-    return "Hey! How can I help with your study abroad plans?";
+    return "Sorry, I dropped that — can you say it again?";
   }
 }
 
@@ -53,11 +84,7 @@ async function sendWhatsApp(to, text) {
         Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        messaging_product: "whatsapp",
-        to,
-        text: { body: text },
-      }),
+      body: JSON.stringify({ messaging_product: "whatsapp", to, text: { body: text } }),
     }
   );
 }
@@ -75,8 +102,19 @@ export async function POST(req) {
   try {
     const message = body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
     if (message && message.type === "text") {
-      const reply = await getAIReply(message.text.body);
-      await sendWhatsApp(message.from, reply);
+      const phone = message.from;
+      const userText = message.text.body;
+
+      const history = await loadHistory(phone);
+      history.push({ role: "user", content: userText });
+
+      const recent = history.slice(-10);
+      const reply = await getAIReply(recent);
+
+      recent.push({ role: "assistant", content: reply });
+      await saveHistory(phone, recent.slice(-10));
+
+      await sendWhatsApp(phone, reply);
     }
   } catch (err) {
     console.error("Handler error:", err);
