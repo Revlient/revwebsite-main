@@ -18,6 +18,41 @@ export async function GET(req) {
   return new NextResponse("Verification failed", { status: 403 });
 }
 
+// --- Voice note: download from Meta + transcribe with Groq Whisper ---
+async function transcribeAudio(mediaId) {
+  try {
+    // 1. Get the media URL from Meta
+    const metaRes = await fetch(`https://graph.facebook.com/v21.0/${mediaId}`, {
+      headers: { Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}` },
+    });
+    const meta = await metaRes.json();
+    if (!meta?.url) {
+      console.log("⚠️ MEDIA URL MISSING:", JSON.stringify(meta));
+      return "";
+    }
+    // 2. Download the audio bytes (this URL needs the same auth header)
+    const audioRes = await fetch(meta.url, {
+      headers: { Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}` },
+    });
+    const audioBlob = await audioRes.blob();
+    // 3. Transcribe with Groq
+    const form = new FormData();
+    form.append("file", audioBlob, "voice.ogg");
+    form.append("model", "whisper-large-v3-turbo");
+    const trRes = await fetch("https://api.groq.com/openai/v1/audio/transcriptions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}` },
+      body: form,
+    });
+    const tr = await trRes.json();
+    if (!tr?.text) console.log("⚠️ TRANSCRIBE NON-SUCCESS:", trRes.status, JSON.stringify(tr));
+    return tr?.text?.trim() || "";
+  } catch (e) {
+    console.error("transcribe error:", e);
+    return "";
+  }
+}
+
 async function loadHistory(phone) {
   try {
     const res = await fetch(
@@ -65,6 +100,9 @@ async function getAIReply(history) {
       }),
     });
     const data = await res.json();
+    if (!data?.choices?.[0]) {
+      console.log("⚠️ GROQ NON-SUCCESS:", res.status, JSON.stringify(data));
+    }
     return (
       data?.choices?.[0]?.message?.content?.trim() ||
       "Sorry, I dropped that — can you say it again?"
@@ -101,9 +139,17 @@ export async function POST(req) {
 
   try {
     const message = body?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];
-    if (message && message.type === "text") {
+
+    // Get text from either a typed message or a voice note
+    let userText = null;
+    if (message?.type === "text") {
+      userText = message.text.body;
+    } else if (message?.type === "audio") {
+      userText = await transcribeAudio(message.audio.id);
+    }
+
+    if (message && userText) {
       const phone = message.from;
-      const userText = message.text.body;
 
       const history = await loadHistory(phone);
       history.push({ role: "user", content: userText });
