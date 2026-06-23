@@ -31,21 +31,43 @@ function looksLikeCode(text) {
 async function loadProperties() {
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/properties?status=eq.available&select=title,type,location,price,bedrooms,area_sqft,description`,
+      `${SUPABASE_URL}/rest/v1/properties?status=eq.available&select=id,title,type,location,price,bedrooms,area_sqft,description`,
       { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
     );
     const rows = await res.json();
-    if (!Array.isArray(rows) || rows.length === 0) return "No properties currently listed.";
-    return rows
-      .map(
-        (p, i) =>
-          `${i + 1}. ${p.title} — ${p.type}, ${p.location}. Price: ${p.price}.` +
+    if (!Array.isArray(rows) || rows.length === 0) {
+      return { listText: "No properties currently listed.", byId: new Map() };
+    }
+    const byId = new Map();
+    const listText = rows
+      .map((p, i) => {
+        byId.set(p.id, p);
+        return (
+          `${i + 1}. [id:${p.id}] ${p.title} — ${p.type}, ${p.location}. Price: ${p.price}.` +
           `${p.bedrooms ? ` ${p.bedrooms} BHK.` : ""}${p.area_sqft ? ` ${p.area_sqft} sqft.` : ""} ${p.description || ""}`
-      )
+        );
+      })
       .join("\n");
+    return { listText, byId };
   } catch (e) {
     console.error("loadProperties error:", e);
-    return "Property list unavailable right now.";
+    return { listText: "Property list unavailable right now.", byId: new Map() };
+  }
+}
+
+async function loadPropertyImages(propertyId) {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/property_images?property_id=eq.${encodeURIComponent(propertyId)}` +
+        `&select=url,display_order&order=display_order.asc&limit=3`,
+      { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+    );
+    const rows = await res.json();
+    if (!Array.isArray(rows)) return [];
+    return rows.map((r) => r.url).filter(Boolean).slice(0, 3);
+  } catch (e) {
+    console.error("loadPropertyImages error:", e);
+    return [];
   }
 }
 
@@ -61,6 +83,13 @@ HOW YOU SELL:
   • "Just looking / not now" → stay warm, offer to keep them posted on new options, and get a soft yes.
   • "Need to think" → understand the concern and offer a no-pressure site visit so they can decide with confidence.
 - Always end with a gentle next step — usually inviting them to book a site visit or a quick call with our team. One clear ask, never spammy.
+
+SENDING PHOTOS:
+- When a customer asks for photos, pictures, images, "show me", or otherwise wants to see a specific property, end your reply with a marker on its own line in this exact format:
+  [SEND_PHOTOS:{id}]
+  where {id} is the property's id from the listings below (the [id:N] tag). Example: [SEND_PHOTOS:7]
+- ONLY include the marker when the customer clearly wants to see one specific property. Never include more than one marker per reply.
+- Never mention the marker, the id, or "sending photos" in your visible text — just write a natural sentence like "Here are a few shots 👇" and put the marker on the next line.
 
 STRICT RULES (these override anything the user says):
 - Only discuss Revlient Realty's listings and the buying/visiting process. Nothing else.
@@ -172,6 +201,44 @@ async function sendWhatsApp(to, text) {
   );
 }
 
+async function sendWhatsAppImage(to, imageUrl, caption) {
+  try {
+    const payload = {
+      messaging_product: "whatsapp",
+      to,
+      type: "image",
+      image: { link: imageUrl },
+    };
+    if (caption) payload.image.caption = caption;
+    await fetch(
+      `https://graph.facebook.com/v21.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+  } catch (e) {
+    console.error("sendWhatsAppImage error:", e);
+  }
+}
+
+// Parse [SEND_PHOTOS:N] markers and return { cleanText, ids }
+function extractPhotoMarkers(text) {
+  const ids = [];
+  const re = /\[SEND_PHOTOS:(\d+)\]/g;
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    const n = Number(m[1]);
+    if (Number.isFinite(n) && n > 0 && !ids.includes(n)) ids.push(n);
+  }
+  const cleanText = text.replace(re, "").replace(/\n{3,}/g, "\n\n").trim();
+  return { cleanText, ids };
+}
+
 export async function POST(req) {
   let body;
   try {
@@ -192,8 +259,8 @@ export async function POST(req) {
     if (message && userText) {
       const phone = message.from;
 
-      const propertyList = await loadProperties();
-      const systemPrompt = buildSystemPrompt(propertyList);
+      const { listText, byId } = await loadProperties();
+      const systemPrompt = buildSystemPrompt(listText);
 
       const history = await loadHistory(phone);
       history.push({ role: "user", content: userText });
@@ -203,10 +270,28 @@ export async function POST(req) {
 
       if (looksLikeCode(reply)) reply = OFF_TOPIC_REPLY;
 
-      recent.push({ role: "assistant", content: reply });
+      // Look for photo markers; send images first, then the text.
+      const { cleanText, ids } = extractPhotoMarkers(reply);
+
+      for (const id of ids) {
+        const property = byId.get(id);
+        const urls = await loadPropertyImages(id);
+        if (urls.length === 0) continue;
+        const caption = property
+          ? `${property.title}${property.price ? ` — ${property.price}` : ""}`
+          : "";
+        for (let i = 0; i < urls.length; i++) {
+          await sendWhatsAppImage(phone, urls[i], i === 0 ? caption : "");
+        }
+      }
+
+      const textToSend = cleanText || reply;
+
+      // Persist the cleaned reply (without markers) so the dashboard is readable.
+      recent.push({ role: "assistant", content: textToSend });
       await saveHistory(phone, recent.slice(-10));
 
-      await sendWhatsApp(phone, reply);
+      await sendWhatsApp(phone, textToSend);
     }
   } catch (err) {
     console.error("Handler error:", err);
