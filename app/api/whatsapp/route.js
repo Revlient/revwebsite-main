@@ -130,22 +130,37 @@ async function transcribeAudio(mediaId) {
   }
 }
 
-async function loadHistory(phone) {
+async function loadConversation(phone) {
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/wa_conversations?phone=eq.${phone}&select=messages`,
+      `${SUPABASE_URL}/rest/v1/wa_conversations?phone=eq.${phone}&select=messages,bot_paused`,
       { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
     );
     const rows = await res.json();
-    return rows?.[0]?.messages || [];
+    return {
+      messages: rows?.[0]?.messages || [],
+      bot_paused: Boolean(rows?.[0]?.bot_paused),
+    };
   } catch (e) {
-    console.error("loadHistory error:", e);
-    return [];
+    console.error("loadConversation error:", e);
+    return { messages: [], bot_paused: false };
   }
 }
 
-async function saveHistory(phone, messages) {
+async function saveHistory(phone, messages, { resetFollowup = true } = {}) {
   try {
+    const now = new Date().toISOString();
+    const payload = {
+      phone,
+      messages,
+      updated_at: now,
+      last_inbound_at: now,
+    };
+    // When the customer pings, restart their follow-up clock
+    if (resetFollowup) {
+      payload.followup_stage = 0;
+      payload.last_followup_at = null;
+    }
     await fetch(`${SUPABASE_URL}/rest/v1/wa_conversations`, {
       method: "POST",
       headers: {
@@ -154,7 +169,7 @@ async function saveHistory(phone, messages) {
         "Content-Type": "application/json",
         Prefer: "resolution=merge-duplicates",
       },
-      body: JSON.stringify({ phone, messages, updated_at: new Date().toISOString() }),
+      body: JSON.stringify(payload),
     });
   } catch (e) {
     console.error("saveHistory error:", e);
@@ -259,12 +274,20 @@ export async function POST(req) {
     if (message && userText) {
       const phone = message.from;
 
+      const conv = await loadConversation(phone);
+
+      // If the admin has taken over this chat, just record the inbound
+      // and skip the auto-reply entirely.
+      if (conv.bot_paused) {
+        const newMessages = [...conv.messages, { role: "user", content: userText }].slice(-50);
+        await saveHistory(phone, newMessages);
+        return NextResponse.json({ ok: true });
+      }
+
       const { listText, byId } = await loadProperties();
       const systemPrompt = buildSystemPrompt(listText);
 
-      const history = await loadHistory(phone);
-      history.push({ role: "user", content: userText });
-
+      const history = [...conv.messages, { role: "user", content: userText }];
       const recent = history.slice(-10);
       let reply = await getAIReply(recent, systemPrompt);
 

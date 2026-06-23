@@ -38,7 +38,11 @@ export default function ConversationsPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [live, setLive] = useState(false);
+  const [draft, setDraft] = useState("");
+  const [sending, setSending] = useState(false);
+  const [togglingPause, setTogglingPause] = useState(false);
   const esRef = useRef(null);
+  const bodyRef = useRef(null);
 
   const selected = useMemo(
     () => conversations.find((c) => c.phone === selectedPhone) || null,
@@ -113,7 +117,67 @@ export default function ConversationsPage() {
     };
   }, [authedKey]);
 
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    if (bodyRef.current) {
+      bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+    }
+  }, [selected?.phone, selected?.messages?.length]);
+
   const messages = Array.isArray(selected?.messages) ? selected.messages : [];
+  const botPaused = Boolean(selected?.bot_paused);
+
+  const togglePause = async () => {
+    if (!selected) return;
+    setTogglingPause(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/conversations/${encodeURIComponent(selected.phone)}`, {
+        method: "PATCH",
+        headers: {
+          "x-dashboard-key": authedKey,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bot_paused: !botPaused }),
+      });
+      if (res.status === 401) { signOut(); return; }
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d?.error || `Failed (${res.status})`);
+      }
+    } catch (err) {
+      setError(err?.message || "Toggle failed");
+    } finally {
+      setTogglingPause(false);
+    }
+  };
+
+  const sendMessage = async (e) => {
+    e?.preventDefault?.();
+    if (!selected || !draft.trim()) return;
+    setSending(true);
+    setError(null);
+    try {
+      const res = await fetch(`/api/conversations/${encodeURIComponent(selected.phone)}/send`, {
+        method: "POST",
+        headers: {
+          "x-dashboard-key": authedKey,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: draft.trim() }),
+      });
+      if (res.status === 401) { signOut(); return; }
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({}));
+        throw new Error(d?.error || `Send failed (${res.status})`);
+      }
+      setDraft("");
+    } catch (err) {
+      setError(err?.message || "Send failed");
+    } finally {
+      setSending(false);
+    }
+  };
 
   return (
     <>
@@ -145,7 +209,10 @@ export default function ConversationsPage() {
                   <span className="dash-list__phone">{c.phone}</span>
                   <span className="dash-list__time">{relativeTime(c.updated_at)}</span>
                 </div>
-                <div className="dash-list__preview">{previewOf(c.messages)}</div>
+                <div className="dash-list__preview">
+                  {c.bot_paused && <span className="dash-list__tag">YOU</span>}
+                  {previewOf(c.messages)}
+                </div>
               </button>
             );
           })}
@@ -155,19 +222,36 @@ export default function ConversationsPage() {
           {selected ? (
             <>
               <header className="dash-thread__head">
-                <div className="dash-thread__phone">{selected.phone}</div>
-                <div className="dash-thread__meta">
-                  {messages.length} message{messages.length === 1 ? "" : "s"}
-                  {selected.updated_at && (
-                    <>
-                      <span aria-hidden="true"> · </span>
-                      <span>Updated {relativeTime(selected.updated_at)}</span>
-                    </>
-                  )}
+                <div>
+                  <div className="dash-thread__phone">{selected.phone}</div>
+                  <div className="dash-thread__meta">
+                    {messages.length} message{messages.length === 1 ? "" : "s"}
+                    {selected.updated_at && (
+                      <>
+                        <span aria-hidden="true"> · </span>
+                        <span>Updated {relativeTime(selected.updated_at)}</span>
+                      </>
+                    )}
+                  </div>
                 </div>
+                <button
+                  type="button"
+                  className={`dash-bar__btn ${botPaused ? "" : "dash-bar__btn--ghost"}`}
+                  onClick={togglePause}
+                  disabled={togglingPause}
+                  title={botPaused ? "Resume Aleena" : "Pause Aleena and reply manually"}
+                >
+                  {togglingPause ? "…" : botPaused ? "Hand to bot" : "Take over"}
+                </button>
               </header>
 
-              <div className="dash-thread__body">
+              {botPaused && (
+                <div className="dash-thread__banner">
+                  Bot paused — you&apos;re replying manually. Customer sees your messages normally.
+                </div>
+              )}
+
+              <div className="dash-thread__body" ref={bodyRef}>
                 {messages.length === 0 && (
                   <div className="dash-thread__empty">
                     This conversation has no messages.
@@ -176,15 +260,35 @@ export default function ConversationsPage() {
                 {messages.map((m, i) => {
                   const role = m?.role === "user" ? "user" : "assistant";
                   const content = String(m?.content ?? "").trim();
+                  const tag = m?.by === "admin" ? "You" : m?.by === "followup" ? "Follow-up" : null;
                   return (
                     <div key={i} className={`dash-msg dash-msg--${role}`}>
                       <div className="dash-msg__bubble">
+                        {tag && <span className="dash-msg__tag">{tag}</span>}
                         {content || <em className="dash-msg__placeholder">(empty)</em>}
                       </div>
                     </div>
                   );
                 })}
               </div>
+
+              <form className="dash-composer" onSubmit={sendMessage}>
+                <input
+                  type="text"
+                  className="dash-composer__input"
+                  placeholder={botPaused ? "Reply as admin…" : "Type to take over and reply…"}
+                  value={draft}
+                  onChange={(e) => setDraft(e.target.value)}
+                  disabled={sending}
+                />
+                <button
+                  type="submit"
+                  className="dash-bar__btn"
+                  disabled={sending || !draft.trim()}
+                >
+                  {sending ? "Sending…" : "Send"}
+                </button>
+              </form>
             </>
           ) : (
             <div className="dash-thread__placeholder">

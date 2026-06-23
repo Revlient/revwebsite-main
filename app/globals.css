@@ -30051,6 +30051,76 @@ a.feat2-reach__line:hover {
   color: rgba(8, 9, 12, 0.4);
   font-style: italic;
 }
+.dash-msg__tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(43, 95, 255, 0.12);
+  color: #2b5fff;
+  margin-right: 0.45rem;
+  vertical-align: middle;
+}
+.dash-list__tag {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(43, 95, 255, 0.15);
+  color: #2b5fff;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+}
+
+/* Takeover banner above the thread body */
+.dash-thread__banner {
+  padding: 0.55rem 1.25rem;
+  font-size: 0.82rem;
+  background: rgba(43, 95, 255, 0.08);
+  color: #1e3a8a;
+  border-bottom: 1px solid rgba(43, 95, 255, 0.18);
+}
+
+/* Composer at the bottom of the thread */
+.dash-composer {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: #ffffff;
+  border-top: 1px solid rgba(8, 9, 12, 0.08);
+}
+.dash-composer__input {
+  flex: 1;
+  height: 38px;
+  padding: 0 0.85rem;
+  border: 1px solid rgba(8, 9, 12, 0.15);
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  background: #ffffff;
+  color: #0a0a0a;
+  outline: none;
+  transition: border-color 0.18s ease;
+}
+.dash-composer__input:focus {
+  border-color: #2b5fff;
+}
+.dash-composer__input:disabled {
+  background: rgba(8, 9, 12, 0.03);
+}
+
+/* Adjust thread layout so the composer sticks to the bottom */
+.dash-thread {
+  position: relative;
+}
+.dash-thread__body {
+  max-height: none;
+}
 
 /* ── Dashboard shell with sidebar ─────────────────────────── */
 .dash--shell {
