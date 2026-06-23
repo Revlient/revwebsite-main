@@ -17,8 +17,6 @@ import { CTA_HREF } from "../lib/site";
 
 const JOURNEY_VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260507_150203_44a5bd32-516a-47ce-a077-8acbf9aa8991.mp4";
-const TIER_VIDEO =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260507_154543_d5b83fc1-9cea-44f3-b5e8-8f325935211a.mp4";
 const COUNTRIES_VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260507_153148_d7a3e1dd-e5d0-4ce6-8306-00d7522ecc44.mp4";
 
@@ -187,16 +185,7 @@ export default function AppFeatures() {
               </div>
             </article>
 
-            <article className="feat-card feat-card--video feat-card--metric">
-              <video
-                className="feat-card__video"
-                src={TIER_VIDEO}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-              />
+            <article className="feat-card feat-card--software feat-card--metric">
               <div className="feat-card__inner feat-card__inner--center">
                 <span className="feat-metric__big">3</span>
                 <span className="feat-metric__cap">
