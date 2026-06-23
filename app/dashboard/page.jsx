@@ -1,14 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 // Password-gated read-only conversations dashboard. All Supabase
-// access happens server-side via /api/conversations; this page
-// holds the password in sessionStorage and fetches the conversation
-// list when authenticated. Auto-refresh every 15s, manual button.
+// access happens server-side via /api/conversations/stream (SSE);
+// this page holds the password in sessionStorage and subscribes to
+// the stream when authenticated. Falls back to a one-shot fetch for
+// the initial load.
 
 const STORAGE_KEY = "revlient-dashboard-key";
-const REFRESH_MS = 15000;
 
 function relativeTime(iso) {
   if (!iso) return "";
@@ -38,15 +38,6 @@ function previewOf(messages) {
   return text.length > 80 ? `${text.slice(0, 80)}…` : text;
 }
 
-function formatTimestamp(iso) {
-  if (!iso) return "";
-  try {
-    return new Date(iso).toLocaleString();
-  } catch {
-    return "";
-  }
-}
-
 export default function DashboardPage() {
   const [password, setPassword] = useState("");
   const [authedKey, setAuthedKey] = useState(null);
@@ -55,108 +46,129 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [wrongPassword, setWrongPassword] = useState(false);
-  const intervalRef = useRef(null);
+  const [live, setLive] = useState(false);
+  const esRef = useRef(null);
 
   const selected = useMemo(
     () => conversations.find((c) => c.phone === selectedPhone) || null,
     [conversations, selectedPhone]
   );
 
-  const fetchConversations = useCallback(
-    async (key, { silent = false } = {}) => {
-      if (!key) return;
-      if (!silent) setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch("/api/conversations", {
-          headers: { "x-dashboard-key": key },
-          cache: "no-store",
-        });
+  const applyList = (list) => {
+    if (!Array.isArray(list)) return;
+    setConversations(list);
+    setSelectedPhone((current) => {
+      if (current && list.some((c) => c.phone === current)) return current;
+      return list.length > 0 ? list[0].phone : null;
+    });
+  };
 
-        if (res.status === 401) {
-          setAuthedKey(null);
-          setConversations([]);
-          setSelectedPhone(null);
-          setWrongPassword(true);
-          try {
-            sessionStorage.removeItem(STORAGE_KEY);
-          } catch {}
-          return;
-        }
-
-        if (!res.ok) {
-          throw new Error(`Request failed (${res.status})`);
-        }
-
-        const data = await res.json();
-        const list = Array.isArray(data?.conversations) ? data.conversations : [];
-        setConversations(list);
-        setWrongPassword(false);
-
-        if (list.length > 0) {
-          setSelectedPhone((current) => {
-            if (current && list.some((c) => c.phone === current)) return current;
-            return list[0].phone;
-          });
-        } else {
-          setSelectedPhone(null);
-        }
-      } catch (err) {
-        setError(err?.message || "Failed to load conversations");
-      } finally {
-        if (!silent) setLoading(false);
+  // One-shot fetch for the initial load (before SSE is connected)
+  const fetchOnce = async (key) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/conversations", {
+        headers: { "x-dashboard-key": key },
+        cache: "no-store",
+      });
+      if (res.status === 401) {
+        setAuthedKey(null);
+        setWrongPassword(true);
+        try { sessionStorage.removeItem(STORAGE_KEY); } catch {}
+        return;
       }
-    },
-    []
-  );
+      if (!res.ok) throw new Error(`Request failed (${res.status})`);
+      const data = await res.json();
+      applyList(data?.conversations);
+      setWrongPassword(false);
+    } catch (err) {
+      setError(err?.message || "Failed to load");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  // On mount: restore the password from sessionStorage and try a fetch.
+  // Open SSE stream while authenticated
+  useEffect(() => {
+    if (!authedKey) return;
+
+    let es;
+    let reconnectTimer;
+
+    const connect = () => {
+      es = new EventSource(
+        `/api/conversations/stream?key=${encodeURIComponent(authedKey)}`
+      );
+      esRef.current = es;
+
+      es.onopen = () => {
+        setLive(true);
+        setError(null);
+      };
+
+      es.onmessage = (e) => {
+        try {
+          const data = JSON.parse(e.data);
+          if (data.error) { setError(data.error); return; }
+          applyList(data.conversations);
+        } catch {}
+      };
+
+      es.onerror = () => {
+        setLive(false);
+        es.close();
+        // Reconnect after 4 s
+        reconnectTimer = setTimeout(connect, 4000);
+      };
+    };
+
+    connect();
+
+    return () => {
+      clearTimeout(reconnectTimer);
+      es?.close();
+      esRef.current = null;
+      setLive(false);
+    };
+  }, [authedKey]);
+
+  // On mount: restore key from sessionStorage
   useEffect(() => {
     let stored = null;
-    try {
-      stored = sessionStorage.getItem(STORAGE_KEY);
-    } catch {}
+    try { stored = sessionStorage.getItem(STORAGE_KEY); } catch {}
     if (stored) {
       setAuthedKey(stored);
-      fetchConversations(stored);
+      fetchOnce(stored);
     }
-  }, [fetchConversations]);
-
-  // Auto-refresh on a timer while authenticated.
-  useEffect(() => {
-    if (!authedKey) return undefined;
-    intervalRef.current = setInterval(() => {
-      fetchConversations(authedKey, { silent: true });
-    }, REFRESH_MS);
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    };
-  }, [authedKey, fetchConversations]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSignIn = (e) => {
     e?.preventDefault?.();
     const key = password.trim();
     if (!key) return;
-    try {
-      sessionStorage.setItem(STORAGE_KEY, key);
-    } catch {}
+    try { sessionStorage.setItem(STORAGE_KEY, key); } catch {}
     setAuthedKey(key);
     setPassword("");
-    fetchConversations(key);
+    fetchOnce(key);
   };
 
   const handleSignOut = () => {
-    try {
-      sessionStorage.removeItem(STORAGE_KEY);
-    } catch {}
+    try { sessionStorage.removeItem(STORAGE_KEY); } catch {}
+    esRef.current?.close();
+    esRef.current = null;
     setAuthedKey(null);
     setConversations([]);
     setSelectedPhone(null);
     setError(null);
+    setLive(false);
   };
 
-  // ── Password gate ────────────────────────────────────────────
+  // SSE passes the key as a query param — the stream route reads it
+  // Note: EventSource doesn't support custom headers, so we use ?key=
+
+  // ── Password gate ─────────────────────────────────────────────
   if (!authedKey) {
     return (
       <main className="dash dash--gate">
@@ -183,7 +195,7 @@ export default function DashboardPage() {
     );
   }
 
-  // ── Authenticated view ───────────────────────────────────────
+  // ── Authenticated view ────────────────────────────────────────
   const messages = Array.isArray(selected?.messages) ? selected.messages : [];
 
   return (
@@ -192,16 +204,9 @@ export default function DashboardPage() {
         <div className="dash-bar__title">
           Conversations
           <span className="dash-bar__count">{conversations.length}</span>
+          <span className={`dash-bar__live ${live ? "is-live" : ""}`} title={live ? "Live" : "Connecting…"} />
         </div>
         <div className="dash-bar__actions">
-          <button
-            type="button"
-            className="dash-bar__btn"
-            onClick={() => fetchConversations(authedKey)}
-            disabled={loading}
-          >
-            {loading ? "Refreshing…" : "Refresh"}
-          </button>
           <button
             type="button"
             className="dash-bar__btn dash-bar__btn--ghost"

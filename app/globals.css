@@ -29859,6 +29859,26 @@ a.feat2-reach__line:hover {
   background: rgba(8, 9, 12, 0.04);
 }
 
+.dash-bar__live {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d1d5db;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  transition: background 0.3s;
+}
+.dash-bar__live.is-live {
+  background: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
+  animation: dash-live-pulse 2s ease-in-out infinite;
+}
+@keyframes dash-live-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25); }
+  50% { box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.08); }
+}
+
 .dash-error {
   background: #fef2f2;
   color: #b91c1c;
