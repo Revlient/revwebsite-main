@@ -4522,6 +4522,18 @@ body.no-scroll {
   border-color: rgba(43, 95, 255, 0.3);
 }
 
+/* Mobile: move out of the way of the hamburger (top-right) and the
+   chat widget (bottom-right). Park it bottom-left. */
+@media (max-width: 879px) {
+  .musictog {
+    top: auto;
+    right: auto;
+    bottom: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+    left: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+    opacity: 0.55;
+  }
+}
+
 .cwidget {
   position: fixed;
   right: clamp(1rem, 0.5rem + 1.5vw, 2rem);
