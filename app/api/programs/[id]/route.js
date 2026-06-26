@@ -1,5 +1,5 @@
-// Properties detail endpoint — password-gated. PATCH updates fields;
-// DELETE removes the property (property_images rows cascade).
+// Programs detail endpoint — password-gated. PATCH updates fields;
+// DELETE removes the program (program_images rows cascade).
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -7,9 +7,10 @@ const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const DASHBOARD_PASSWORD = process.env.DASHBOARD_PASSWORD;
 
-const PROPERTY_FIELDS = [
-  "title", "type", "location", "price",
-  "bedrooms", "area_sqft", "status", "description",
+const PROGRAM_FIELDS = [
+  "title", "type", "country", "university", "location",
+  "tuition_fees", "intake_months", "ielts_required", "duration",
+  "status", "description",
 ];
 
 function json(body, status = 200) {
@@ -27,7 +28,7 @@ function checkAuth(req) {
 
 function pickFields(body) {
   const out = {};
-  for (const k of PROPERTY_FIELDS) {
+  for (const k of PROGRAM_FIELDS) {
     if (body[k] !== undefined) out[k] = body[k];
   }
   return out;
@@ -54,7 +55,7 @@ export async function PATCH(request, { params }) {
 
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/properties?id=eq.${encodeURIComponent(id)}`,
+      `${SUPABASE_URL}/rest/v1/programs?id=eq.${encodeURIComponent(id)}`,
       {
         method: "PATCH",
         headers: {
@@ -74,7 +75,7 @@ export async function PATCH(request, { params }) {
 
     const rows = await res.json();
     const row = Array.isArray(rows) ? rows[0] : rows;
-    return json({ property: row });
+    return json({ program: row });
   } catch (err) {
     return json({ error: "Update failed", detail: String(err?.message || err) }, 500);
   }
@@ -89,7 +90,7 @@ export async function DELETE(request, { params }) {
 
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/properties?id=eq.${encodeURIComponent(id)}`,
+      `${SUPABASE_URL}/rest/v1/programs?id=eq.${encodeURIComponent(id)}`,
       {
         method: "DELETE",
         headers: {

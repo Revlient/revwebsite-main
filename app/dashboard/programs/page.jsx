@@ -3,20 +3,24 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDashboard } from "../DashboardContext";
 
-// Properties admin — list + create + edit + delete + image upload.
-// All Supabase access goes through /api/properties/*. The
-// service-role key never reaches this component.
+// Programs admin — list + create + edit + delete + image upload.
+// All Supabase access goes through /api/programs/*. The service-role
+// key never reaches this component.
 
-const STATUS_OPTIONS = ["available", "reserved", "sold", "draft"];
-const TYPE_OPTIONS = ["apartment", "villa", "plot", "commercial", "house", "studio"];
+const STATUS_OPTIONS = ["available", "closed", "on-hold"];
+const TYPE_OPTIONS = ["Masters", "Bachelors", "MBA", "Diploma", "Foundation"];
+const COUNTRY_OPTIONS = ["UK", "USA", "Canada", "Australia", "Ireland", "Germany", "Other"];
 
 const EMPTY_FORM = {
   title: "",
-  type: "apartment",
+  university: "",
+  type: "Masters",
+  country: "UK",
   location: "",
-  price: "",
-  bedrooms: "",
-  area_sqft: "",
+  tuition_fees: "",
+  duration: "",
+  intake_months: "",
+  ielts_required: "",
   status: "available",
   description: "",
 };
@@ -25,11 +29,14 @@ function toFormState(p) {
   if (!p) return { ...EMPTY_FORM };
   return {
     title: p.title ?? "",
-    type: p.type ?? "apartment",
+    university: p.university ?? "",
+    type: p.type ?? "Masters",
+    country: p.country ?? "UK",
     location: p.location ?? "",
-    price: p.price ?? "",
-    bedrooms: p.bedrooms ?? "",
-    area_sqft: p.area_sqft ?? "",
+    tuition_fees: p.tuition_fees ?? "",
+    duration: p.duration ?? "",
+    intake_months: p.intake_months ?? "",
+    ielts_required: p.ielts_required ?? "",
     status: p.status ?? "available",
     description: p.description ?? "",
   };
@@ -38,23 +45,26 @@ function toFormState(p) {
 function toPayload(form) {
   return {
     title: form.title.trim(),
+    university: form.university.trim() || null,
     type: form.type || null,
+    country: form.country || null,
     location: form.location.trim() || null,
-    price: form.price === "" ? null : form.price,
-    bedrooms: form.bedrooms === "" ? null : Number(form.bedrooms),
-    area_sqft: form.area_sqft === "" ? null : Number(form.area_sqft),
+    tuition_fees: form.tuition_fees.trim() || null,
+    duration: form.duration.trim() || null,
+    intake_months: form.intake_months.trim() || null,
+    ielts_required: form.ielts_required.trim() || null,
     status: form.status || "available",
     description: form.description.trim() || null,
   };
 }
 
-export default function PropertiesPage() {
+export default function ProgramsPage() {
   const { authedKey, signOut } = useDashboard();
-  const [properties, setProperties] = useState([]);
+  const [programs, setPrograms] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const [editingId, setEditingId] = useState(null); // "new" or property id or null
+  const [editingId, setEditingId] = useState(null); // "new" or program id or null
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -64,23 +74,23 @@ export default function PropertiesPage() {
   const fileInputRef = useRef(null);
 
   const editing = editingId && editingId !== "new"
-    ? properties.find((p) => String(p.id) === String(editingId))
+    ? programs.find((p) => String(p.id) === String(editingId))
     : null;
 
   // ── Load ─────────────────────────────────────────────────────
-  const loadProperties = useCallback(async () => {
+  const loadPrograms = useCallback(async () => {
     if (!authedKey) return;
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/properties", {
+      const res = await fetch("/api/programs", {
         headers: { "x-dashboard-key": authedKey },
         cache: "no-store",
       });
       if (res.status === 401) { signOut(); return; }
       if (!res.ok) throw new Error(`Request failed (${res.status})`);
       const data = await res.json();
-      setProperties(Array.isArray(data?.properties) ? data.properties : []);
+      setPrograms(Array.isArray(data?.programs) ? data.programs : []);
     } catch (err) {
       setError(err?.message || "Failed to load");
     } finally {
@@ -88,7 +98,7 @@ export default function PropertiesPage() {
     }
   }, [authedKey, signOut]);
 
-  useEffect(() => { loadProperties(); }, [loadProperties]);
+  useEffect(() => { loadPrograms(); }, [loadPrograms]);
 
   // ── Open / close panel ───────────────────────────────────────
   const openNew = () => {
@@ -126,7 +136,7 @@ export default function PropertiesPage() {
       const payload = toPayload(form);
       let res;
       if (editingId === "new") {
-        res = await fetch("/api/properties", {
+        res = await fetch("/api/programs", {
           method: "POST",
           headers: {
             "x-dashboard-key": authedKey,
@@ -135,7 +145,7 @@ export default function PropertiesPage() {
           body: JSON.stringify(payload),
         });
       } else {
-        res = await fetch(`/api/properties/${editingId}`, {
+        res = await fetch(`/api/programs/${editingId}`, {
           method: "PATCH",
           headers: {
             "x-dashboard-key": authedKey,
@@ -150,8 +160,8 @@ export default function PropertiesPage() {
         throw new Error(d?.error || `Save failed (${res.status})`);
       }
       const data = await res.json();
-      await loadProperties();
-      // If creating, switch into edit mode for the new property so the user
+      await loadPrograms();
+      // If creating, switch into edit mode for the new program so the user
       // can upload photos immediately.
       if (editingId === "new" && data?.id) {
         setEditingId(data.id);
@@ -163,14 +173,14 @@ export default function PropertiesPage() {
     }
   };
 
-  // ── Delete property ──────────────────────────────────────────
+  // ── Delete program ───────────────────────────────────────────
   const handleDelete = async () => {
     if (editingId === "new" || !editingId) return;
-    if (!confirm("Delete this property and all its photos? This can't be undone.")) return;
+    if (!confirm("Delete this program and all its photos? This can't be undone.")) return;
     setDeleting(true);
     setError(null);
     try {
-      const res = await fetch(`/api/properties/${editingId}`, {
+      const res = await fetch(`/api/programs/${editingId}`, {
         method: "DELETE",
         headers: { "x-dashboard-key": authedKey },
       });
@@ -180,7 +190,7 @@ export default function PropertiesPage() {
         throw new Error(d?.error || `Delete failed (${res.status})`);
       }
       closePanel();
-      await loadProperties();
+      await loadPrograms();
     } catch (err) {
       setError(err?.message || "Delete failed");
     } finally {
@@ -205,12 +215,12 @@ export default function PropertiesPage() {
     setUploads((prev) => [...prev, ...entries]);
 
     try {
-      const form = new FormData();
-      for (const f of arr) form.append("files", f);
-      const res = await fetch(`/api/properties/${editingId}/images`, {
+      const fd = new FormData();
+      for (const f of arr) fd.append("files", f);
+      const res = await fetch(`/api/programs/${editingId}/images`, {
         method: "POST",
         headers: { "x-dashboard-key": authedKey },
-        body: form,
+        body: fd,
       });
       if (res.status === 401) { signOut(); return; }
       if (!res.ok) {
@@ -220,7 +230,7 @@ export default function PropertiesPage() {
       setUploads((prev) =>
         prev.map((u) => entries.some((e) => e.id === u.id) ? { ...u, status: "done" } : u)
       );
-      await loadProperties();
+      await loadPrograms();
       // Clear "done" entries after a moment
       setTimeout(() => {
         setUploads((prev) => prev.filter((u) => !entries.some((e) => e.id === u.id)));
@@ -252,7 +262,7 @@ export default function PropertiesPage() {
     if (!confirm("Remove this photo?")) return;
     try {
       const res = await fetch(
-        `/api/properties/${editingId}/images?image_id=${encodeURIComponent(imageId)}`,
+        `/api/programs/${editingId}/images?image_id=${encodeURIComponent(imageId)}`,
         { method: "DELETE", headers: { "x-dashboard-key": authedKey } }
       );
       if (res.status === 401) { signOut(); return; }
@@ -260,7 +270,7 @@ export default function PropertiesPage() {
         const d = await res.json().catch(() => ({}));
         throw new Error(d?.error || `Delete failed (${res.status})`);
       }
-      await loadProperties();
+      await loadPrograms();
     } catch (err) {
       setError(err?.message || "Delete failed");
     }
@@ -271,8 +281,8 @@ export default function PropertiesPage() {
     <>
       <header className="dash-bar">
         <div className="dash-bar__title">
-          Properties
-          <span className="dash-bar__count">{properties.length}</span>
+          Programs
+          <span className="dash-bar__count">{programs.length}</span>
         </div>
         <div className="dash-bar__actions">
           <button
@@ -280,7 +290,7 @@ export default function PropertiesPage() {
             className="dash-bar__btn"
             onClick={openNew}
           >
-            + Add property
+            + Add program
           </button>
         </div>
       </header>
@@ -288,16 +298,16 @@ export default function PropertiesPage() {
       {error && <div className="dash-error">{error}</div>}
 
       <div className="props-shell">
-        {loading && properties.length === 0 && (
+        {loading && programs.length === 0 && (
           <div className="props-empty">Loading…</div>
         )}
-        {!loading && properties.length === 0 && (
+        {!loading && programs.length === 0 && (
           <div className="props-empty">
-            No properties yet. Click <strong>+ Add property</strong> to create one.
+            No programs yet. Click <strong>+ Add program</strong> to create one.
           </div>
         )}
         <div className="props-grid">
-          {properties.map((p) => {
+          {programs.map((p) => {
             const thumb = p.images?.[0]?.url || null;
             return (
               <button
@@ -322,8 +332,8 @@ export default function PropertiesPage() {
                 <div className="props-card__body">
                   <div className="props-card__title">{p.title || "Untitled"}</div>
                   <div className="props-card__meta">
-                    {p.location || "—"}{p.location && p.price ? " · " : ""}
-                    {p.price ? <strong>{p.price}</strong> : null}
+                    {p.country || "—"}{p.country && p.tuition_fees ? " · " : ""}
+                    {p.tuition_fees ? <strong>{p.tuition_fees}</strong> : null}
                   </div>
                 </div>
               </button>
@@ -339,11 +349,11 @@ export default function PropertiesPage() {
             className="props-panel"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
-            aria-label={editingId === "new" ? "Add property" : "Edit property"}
+            aria-label={editingId === "new" ? "Add program" : "Edit program"}
           >
             <header className="props-panel__head">
               <div className="props-panel__title">
-                {editingId === "new" ? "Add property" : "Edit property"}
+                {editingId === "new" ? "Add program" : "Edit program"}
               </div>
               <button type="button" className="props-panel__close" onClick={closePanel}>
                 ×
@@ -356,9 +366,21 @@ export default function PropertiesPage() {
                 <input
                   className="props-field__input"
                   type="text"
+                  placeholder="e.g. MSc Computer Science"
                   value={form.title}
                   onChange={(e) => updateField("title", e.target.value)}
                   required
+                />
+              </label>
+
+              <label className="props-field">
+                <span className="props-field__label">University</span>
+                <input
+                  className="props-field__input"
+                  type="text"
+                  placeholder="e.g. University of Toronto"
+                  value={form.university}
+                  onChange={(e) => updateField("university", e.target.value)}
                 />
               </label>
 
@@ -372,6 +394,18 @@ export default function PropertiesPage() {
                   >
                     {TYPE_OPTIONS.map((t) => (
                       <option key={t} value={t}>{t}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className="props-field">
+                  <span className="props-field__label">Country</span>
+                  <select
+                    className="props-field__input"
+                    value={form.country}
+                    onChange={(e) => updateField("country", e.target.value)}
+                  >
+                    {COUNTRY_OPTIONS.map((c) => (
+                      <option key={c} value={c}>{c}</option>
                     ))}
                   </select>
                 </label>
@@ -390,10 +424,11 @@ export default function PropertiesPage() {
               </div>
 
               <label className="props-field">
-                <span className="props-field__label">Location</span>
+                <span className="props-field__label">Location / City</span>
                 <input
                   className="props-field__input"
                   type="text"
+                  placeholder="e.g. Toronto"
                   value={form.location}
                   onChange={(e) => updateField("location", e.target.value)}
                 />
@@ -401,33 +436,46 @@ export default function PropertiesPage() {
 
               <div className="props-field-row">
                 <label className="props-field">
-                  <span className="props-field__label">Price</span>
+                  <span className="props-field__label">Tuition fees</span>
                   <input
                     className="props-field__input"
                     type="text"
-                    placeholder="e.g. ₹1.2 Cr"
-                    value={form.price}
-                    onChange={(e) => updateField("price", e.target.value)}
+                    placeholder="e.g. CAD 58,000/year"
+                    value={form.tuition_fees}
+                    onChange={(e) => updateField("tuition_fees", e.target.value)}
                   />
                 </label>
                 <label className="props-field">
-                  <span className="props-field__label">Bedrooms</span>
+                  <span className="props-field__label">Duration</span>
                   <input
                     className="props-field__input"
-                    type="number"
-                    min="0"
-                    value={form.bedrooms}
-                    onChange={(e) => updateField("bedrooms", e.target.value)}
+                    type="text"
+                    placeholder="e.g. 2 years"
+                    value={form.duration}
+                    onChange={(e) => updateField("duration", e.target.value)}
+                  />
+                </label>
+              </div>
+
+              <div className="props-field-row">
+                <label className="props-field">
+                  <span className="props-field__label">Intake months</span>
+                  <input
+                    className="props-field__input"
+                    type="text"
+                    placeholder="e.g. Jan, May, Sep"
+                    value={form.intake_months}
+                    onChange={(e) => updateField("intake_months", e.target.value)}
                   />
                 </label>
                 <label className="props-field">
-                  <span className="props-field__label">Area (sqft)</span>
+                  <span className="props-field__label">IELTS required</span>
                   <input
                     className="props-field__input"
-                    type="number"
-                    min="0"
-                    value={form.area_sqft}
-                    onChange={(e) => updateField("area_sqft", e.target.value)}
+                    type="text"
+                    placeholder="e.g. 6.5"
+                    value={form.ielts_required}
+                    onChange={(e) => updateField("ielts_required", e.target.value)}
                   />
                 </label>
               </div>
@@ -457,7 +505,7 @@ export default function PropertiesPage() {
                     onClick={handleDelete}
                     disabled={deleting}
                   >
-                    {deleting ? "Deleting…" : "Delete property"}
+                    {deleting ? "Deleting…" : "Delete program"}
                   </button>
                 )}
               </div>
@@ -467,7 +515,7 @@ export default function PropertiesPage() {
             {editingId !== "new" && (
               <div className="props-photos">
                 <div className="props-photos__head">
-                  Photos
+                  Brochure photos
                   <span className="dash-bar__count">{editing?.images?.length || 0}</span>
                 </div>
 

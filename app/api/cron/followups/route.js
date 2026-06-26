@@ -40,36 +40,35 @@ function authorized(request) {
   return false;
 }
 
-async function loadProperties() {
+async function loadPrograms() {
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/properties?status=eq.available&select=id,title,type,location,price,bedrooms,area_sqft,description`,
+      `${SUPABASE_URL}/rest/v1/programs?status=eq.available&select=id,title,type,country,university,location,tuition_fees,intake_months,ielts_required,duration,description`,
       { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
     );
     const rows = await res.json();
     if (!Array.isArray(rows) || rows.length === 0) {
-      return { listText: "No properties currently listed.", byId: new Map() };
+      return { listText: "No programs currently listed.", byId: new Map() };
     }
     const byId = new Map();
     const listText = rows
       .map((p, i) => {
         byId.set(p.id, p);
         return (
-          `${i + 1}. [id:${p.id}] ${p.title} — ${p.type}, ${p.location}. Price: ${p.price}.` +
-          `${p.bedrooms ? ` ${p.bedrooms} BHK.` : ""}${p.area_sqft ? ` ${p.area_sqft} sqft.` : ""} ${p.description || ""}`
+          `${i + 1}. [id:${p.id}] ${p.title}${p.university ? ' at ' + p.university : ''} — ${p.type} in ${p.location}. Fees: ${p.tuition_fees}.${p.duration ? ' Duration: ' + p.duration + '.' : ''}${p.ielts_required ? ' IELTS: ' + p.ielts_required + '.' : ''} ${p.description || ''}`
         );
       })
       .join("\n");
     return { listText, byId };
   } catch {
-    return { listText: "Property list unavailable.", byId: new Map() };
+    return { listText: "Program list unavailable.", byId: new Map() };
   }
 }
 
-async function loadPropertyImages(propertyId) {
+async function loadProgramImages(programId) {
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/property_images?property_id=eq.${encodeURIComponent(propertyId)}` +
+      `${SUPABASE_URL}/rest/v1/program_images?program_id=eq.${encodeURIComponent(programId)}` +
         `&select=url,display_order&order=display_order.asc&limit=3`,
       { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
     );
@@ -220,7 +219,7 @@ export async function GET(request) {
   const leads = await pickEligibleLeads();
   if (leads.length === 0) return json({ ok: true, sent: 0 });
 
-  const { listText, byId } = await loadProperties();
+  const { listText, byId } = await loadPrograms();
   const prompt = buildFollowupPrompt(listText);
 
   let sent = 0;
@@ -242,11 +241,11 @@ export async function GET(request) {
 
       // Photos first
       for (const id of ids) {
-        const property = byId.get(id);
-        const urls = await loadPropertyImages(id);
+        const program = byId.get(id);
+        const urls = await loadProgramImages(id);
         if (urls.length === 0) continue;
-        const caption = property
-          ? `${property.title}${property.price ? ` — ${property.price}` : ""}`
+        const caption = program
+          ? `${program.title}${program.tuition_fees ? ` — ${program.tuition_fees}` : ""}`
           : "";
         for (let i = 0; i < urls.length; i++) {
           await sendWhatsAppImage(lead.phone, urls[i], i === 0 ? caption : "");

@@ -1,6 +1,8 @@
-// Property images endpoint — password-gated.
-// POST: multipart upload to Supabase Storage + insert property_images rows.
+// Program images endpoint — password-gated.
+// POST: multipart upload to Supabase Storage + insert program_images rows.
 // DELETE: ?image_id=N — removes the DB row AND the file from storage.
+// Bucket name is kept as "property-images" so existing uploaded files
+// continue to resolve unchanged.
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
@@ -42,9 +44,9 @@ function pathFromPublicUrl(url) {
   return url.slice(i + marker.length);
 }
 
-async function getMaxDisplayOrder(propertyId) {
+async function getMaxDisplayOrder(programId) {
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/property_images?property_id=eq.${encodeURIComponent(propertyId)}` +
+    `${SUPABASE_URL}/rest/v1/program_images?program_id=eq.${encodeURIComponent(programId)}` +
       `&select=display_order&order=display_order.desc&limit=1`,
     {
       headers: {
@@ -65,7 +67,7 @@ export async function POST(request, { params }) {
   if (!SUPABASE_URL || !SUPABASE_KEY) return json({ error: "Server not configured" }, 500);
 
   const { id } = await params;
-  if (!id) return json({ error: "Missing property id" }, 400);
+  if (!id) return json({ error: "Missing program id" }, 400);
 
   let form;
   try {
@@ -112,7 +114,7 @@ export async function POST(request, { params }) {
       }
 
       const url = publicUrlFor(path);
-      const insRes = await fetch(`${SUPABASE_URL}/rest/v1/property_images`, {
+      const insRes = await fetch(`${SUPABASE_URL}/rest/v1/program_images`, {
         method: "POST",
         headers: {
           apikey: SUPABASE_KEY,
@@ -121,7 +123,7 @@ export async function POST(request, { params }) {
           Prefer: "return=representation",
         },
         body: JSON.stringify({
-          property_id: Number(id),
+          program_id: Number(id),
           url,
           display_order: nextOrder,
         }),
@@ -160,7 +162,7 @@ export async function DELETE(request) {
   try {
     // 1. Look up the row so we know the storage path
     const lookupRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/property_images?id=eq.${encodeURIComponent(imageId)}&select=id,url`,
+      `${SUPABASE_URL}/rest/v1/program_images?id=eq.${encodeURIComponent(imageId)}&select=id,url`,
       {
         headers: {
           apikey: SUPABASE_KEY,
@@ -191,7 +193,7 @@ export async function DELETE(request) {
 
     // 3. Delete the DB row
     const delRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/property_images?id=eq.${encodeURIComponent(imageId)}`,
+      `${SUPABASE_URL}/rest/v1/program_images?id=eq.${encodeURIComponent(imageId)}`,
       {
         method: "DELETE",
         headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },

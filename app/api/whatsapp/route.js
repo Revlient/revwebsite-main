@@ -112,10 +112,10 @@ function looksLikeCode(text) {
   return patterns.filter((re) => re.test(text)).length >= 1;
 }
 
-async function loadProperties() {
+async function loadPrograms() {
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/properties?status=eq.available&select=id,title,type,location,price,bedrooms,area_sqft,description`,
+      `${SUPABASE_URL}/rest/v1/programs?status=eq.available&select=id,title,type,country,university,location,tuition_fees,intake_months,ielts_required,duration,description`,
       { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
     );
     const rows = await res.json();
@@ -126,20 +126,22 @@ async function loadProperties() {
     const listText = rows
       .map((p, i) => {
         byId.set(p.id, p);
-        return `${i + 1}. [id:${p.id}] ${p.title} — ${p.type} in ${p.location}. Fees: ${p.price}. ${p.description || ""}`;
+        return (
+          `${i + 1}. [id:${p.id}] ${p.title}${p.university ? ' at ' + p.university : ''} — ${p.type} in ${p.location}. Fees: ${p.tuition_fees}.${p.duration ? ' Duration: ' + p.duration + '.' : ''}${p.ielts_required ? ' IELTS: ' + p.ielts_required + '.' : ''} ${p.description || ''}`
+        );
       })
       .join("\n");
     return { listText, byId };
   } catch (e) {
-    console.error("loadProperties error:", e);
+    console.error("loadPrograms error:", e);
     return { listText: "Program list unavailable right now.", byId: new Map() };
   }
 }
 
-async function loadPropertyImages(propertyId) {
+async function loadProgramImages(programId) {
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/property_images?property_id=eq.${encodeURIComponent(propertyId)}` +
+      `${SUPABASE_URL}/rest/v1/program_images?program_id=eq.${encodeURIComponent(programId)}` +
         `&select=url,display_order&order=display_order.asc&limit=3`,
       { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
     );
@@ -147,12 +149,12 @@ async function loadPropertyImages(propertyId) {
     if (!Array.isArray(rows)) return [];
     return rows.map((r) => r.url).filter(Boolean).slice(0, 3);
   } catch (e) {
-    console.error("loadPropertyImages error:", e);
+    console.error("loadProgramImages error:", e);
     return [];
   }
 }
 
-function buildSystemPrompt(propertyList) {
+function buildSystemPrompt(programList) {
   return `You're Isha, a warm and experienced study abroad counsellor for Magnate Study Abroad, an education consultancy in Kerala. You chat with students and parents on WhatsApp to help them find the right program AND to move them toward booking a free counselling session — that's your goal in every conversation.
 
 HOW YOU COUNSEL:
@@ -180,7 +182,7 @@ PHOTOS: If a student or parent wants to see photos / pictures / images of a spec
 STYLE: Text like a real person — warm, concise, 1-3 short sentences. Light emoji is fine (🎓 ✈️ 📚 — sparingly). Use the conversation so far; don't re-ask what they've already told you.
 
 AVAILABLE PROGRAMS:
-${propertyList}`;
+${programList}`;
 }
 
 async function transcribeAudio(mediaId) {
@@ -375,7 +377,7 @@ export async function POST(req) {
         return NextResponse.json({ ok: true });
       }
 
-      const { listText, byId } = await loadProperties();
+      const { listText, byId } = await loadPrograms();
       const systemPrompt = buildSystemPrompt(listText);
 
       const history = [...conv.messages, { role: "user", content: userText }];
@@ -387,11 +389,11 @@ export async function POST(req) {
       const { cleanText, ids } = extractPhotoMarkers(reply);
 
       for (const id of ids) {
-        const property = byId.get(id);
-        const urls = await loadPropertyImages(id);
+        const program = byId.get(id);
+        const urls = await loadProgramImages(id);
         if (urls.length === 0) continue;
-        const caption = property
-          ? `${property.title}${property.price ? ` — ${property.price}` : ""}`
+        const caption = program
+          ? `${program.title}${program.tuition_fees ? ` — ${program.tuition_fees}` : ""}`
           : "";
         for (let i = 0; i < urls.length; i++) {
           await sendWhatsAppImage(phone, urls[i], i === 0 ? caption : "");

@@ -14,7 +14,7 @@ const STORAGE_KEY = "revlient-dashboard-key";
 
 const NAV_ITEMS = [
   { href: "/dashboard/conversations", label: "Conversations" },
-  { href: "/dashboard/properties", label: "Properties" },
+  { href: "/dashboard/programs", label: "Programs" },
 ];
 
 export default function DashboardLayout({ children }) {
