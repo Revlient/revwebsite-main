@@ -30309,11 +30309,15 @@ a.feat2-reach__line:hover {
 }
 .props-panel {
   width: min(540px, 100%);
-  height: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
   background: #ffffff;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  display: block;
   box-shadow: -12px 0 32px -12px rgba(8, 9, 12, 0.25);
   animation: props-slide 0.22s ease;
 }
