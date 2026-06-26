@@ -32,7 +32,7 @@ export async function GET(request) {
 
   const url =
     `${SUPABASE_URL}/rest/v1/wa_conversations` +
-    `?select=phone,messages,updated_at` +
+    `?select=phone,messages,updated_at,bot_paused` +
     `&order=updated_at.desc`;
 
   try {
