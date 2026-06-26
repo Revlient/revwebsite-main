@@ -30299,27 +30299,32 @@ a.feat2-reach__line:hover {
   inset: 0;
   background: rgba(8, 9, 12, 0.45);
   z-index: 50;
-  display: flex;
-  justify-content: flex-end;
   animation: props-fade 0.18s ease;
 }
 @keyframes props-fade {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+/* Panel is anchored directly to the viewport (not via flex) so iOS
+   Safari and iPadOS can resolve the height correctly and the inner
+   overflow scrolls. */
 .props-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
   width: min(540px, 100%);
-  height: 100vh;
-  height: 100dvh;
-  max-height: 100vh;
-  max-height: 100dvh;
   background: #ffffff;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  display: block;
   box-shadow: -12px 0 32px -12px rgba(8, 9, 12, 0.25);
   animation: props-slide 0.22s ease;
+  z-index: 51;
+}
+/* Lock body scroll while the panel is open */
+body.props-panel-open {
+  overflow: hidden;
 }
 @keyframes props-slide {
   from { transform: translateX(8%); opacity: 0.6; }

@@ -100,6 +100,15 @@ export default function ProgramsPage() {
 
   useEffect(() => { loadPrograms(); }, [loadPrograms]);
 
+  // Lock body scroll while the detail panel is open so the panel's
+  // own overflow handles touch scrolling without competing with the page.
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const open = editingId !== null;
+    document.body.classList.toggle("props-panel-open", open);
+    return () => document.body.classList.remove("props-panel-open");
+  }, [editingId]);
+
   // ── Open / close panel ───────────────────────────────────────
   const openNew = () => {
     setForm({ ...EMPTY_FORM });
