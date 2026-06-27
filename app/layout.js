@@ -13,7 +13,9 @@ import {
 } from "next/font/google";
 import localFont from "next/font/local";
 import { BRAND } from "./lib/site";
-import MusicToggle from "./components/MusicToggle";
+// Background music removed for now — restore by uncommenting this and
+// the <MusicToggle /> below once a new track is ready.
+// import MusicToggle from "./components/MusicToggle";
 import GlobalOptimizer from "./components/GlobalOptimizer";
 import SmoothScroll from "./components/SmoothScroll";
 import SideFixedBar from "./components/SideFixedBar";
@@ -151,8 +153,7 @@ export default function RootLayout({ children }) {
           <TransitionOverlay />
           {children}
         </TransitionProvider>
-        {/* Persists across route changes (lives in the root layout). */}
-        <MusicToggle />
+        {/* Background music removed for now — restore <MusicToggle /> here. */}
         <GlobalOptimizer />
         <SmoothScroll />
         <SideFixedBar />
