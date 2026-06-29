@@ -112,6 +112,11 @@ export default function Footer() {
               </li>
               <li>
                 <a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY}</a>
+                <span className="rfoot__muted"> · India</span>
+              </li>
+              <li>
+                <a href="tel:+16823746781">+1 682 374 6781</a>
+                <span className="rfoot__muted"> · USA</span>
               </li>
               <li className="rfoot__muted">Mon–Fri · 10am–7pm IST</li>
             </ul>
