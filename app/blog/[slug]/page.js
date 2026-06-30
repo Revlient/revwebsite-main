@@ -6,6 +6,33 @@ import ContactWidget from "../../components/ContactWidget";
 import Reveal from "../../components/Reveal";
 import { notFound } from "next/navigation";
 
+// Case studies live in Supabase (auto-generated, admin-published). Unknown
+// slugs that aren't in the hardcoded POSTS below are looked up here on
+// demand and rendered as a case-study article.
+export const dynamicParams = true;
+
+async function loadCaseStudy(slug) {
+  const SUPABASE_URL = process.env.SUPABASE_URL;
+  const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!SUPABASE_URL || !SUPABASE_KEY) return null;
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/case_studies` +
+        `?select=slug,title,excerpt,body,cover_url,created_at` +
+        `&status=eq.published&slug=eq.${encodeURIComponent(slug)}&limit=1`,
+      {
+        headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
+        cache: "no-store",
+      }
+    );
+    if (!res.ok) return null;
+    const rows = await res.json();
+    return Array.isArray(rows) ? rows[0] || null : null;
+  } catch {
+    return null;
+  }
+}
+
 // Reuse the same mock dataset for consistency
 const POSTS = [
   {
@@ -338,8 +365,55 @@ export default async function BlogPostPage({ params }) {
   const { slug } = await params;
   const post = POSTS.find((p) => p.slug === slug);
 
+  // Not a hardcoded post → try a published case study from Supabase.
   if (!post) {
-    notFound();
+    const cs = await loadCaseStudy(slug);
+    if (!cs) notFound();
+
+    const paragraphs = String(cs.body || "")
+      .split(/\n{2,}/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    return (
+      <>
+        <Nav />
+        <main className="page-blog-post">
+          <article className="blog-post">
+            <div className="blog-post__container">
+              <Reveal className="blog-post__back-wrap">
+                <a href="/blog" className="blog-post__back">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <line x1="19" y1="12" x2="5" y2="12" />
+                    <polyline points="12 19 5 12 12 5" />
+                  </svg>
+                  <span>Back to Insights</span>
+                </a>
+              </Reveal>
+
+              <div className="cs-article">
+                <span className="cs-article__tag">Case Study</span>
+                <h1 className="cs-article__title">{cs.title}</h1>
+                {cs.cover_url && (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img className="cs-article__cover" src={cs.cover_url} alt={cs.title || ""} />
+                )}
+                <div className="cs-article__body">
+                  {paragraphs.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <FinalCTA />
+        </main>
+        <Footer />
+        <StickyCTA />
+        <ContactWidget />
+      </>
+    );
   }
 
   // Get related articles (exclude current, prefer visual posts)

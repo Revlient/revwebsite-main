@@ -1,7 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Reveal from "./Reveal";
+
+function fmtDate(iso) {
+  if (!iso) return "";
+  try {
+    return new Date(iso).toLocaleDateString("en-US", {
+      year: "numeric", month: "long", day: "2-digit",
+    });
+  } catch {
+    return "";
+  }
+}
 
 /* /blog landing — Insights header + 3-column post grid matching the reference design.
    Vanilla JS + plain CSS, minimal metadata representation. */
@@ -146,7 +157,37 @@ const POSTS = [
 
 export default function BlogList() {
   const [activeCategory, setActiveCategory] = useState("Blogs");
+  const [caseStudies, setCaseStudies] = useState([]);
   const categories = ["Blogs", "News", "Events"];
+
+  // Pull published, AI-generated case studies and shape them like blog
+  // posts so they slot into the same grid, tagged "Case Study".
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/case-studies/published", { cache: "no-store" });
+        if (!res.ok) return;
+        const data = await res.json();
+        const list = Array.isArray(data?.case_studies) ? data.case_studies : [];
+        if (cancelled) return;
+        setCaseStudies(
+          list.map((c) => ({
+            slug: c.slug,
+            category: "Case Study",
+            title: c.title,
+            excerpt: c.excerpt || "",
+            author: "Revlient Studio",
+            date: fmtDate(c.created_at),
+            readMins: "5",
+            cover: c.cover_url || "",
+            isCaseStudy: true,
+          }))
+        );
+      } catch {}
+    })();
+    return () => { cancelled = true; };
+  }, []);
 
   const filteredPosts = POSTS.filter((p) => {
     if (activeCategory === "Blogs") return p.category === "Blog";
@@ -170,6 +211,10 @@ export default function BlogList() {
       p.slug !== "best-programming-languages-2026" &&
       !p.popular
   );
+
+  // Case studies lead the "More Stories" grid when viewing Blogs.
+  const moreWithCaseStudies =
+    activeCategory === "Blogs" ? [...caseStudies, ...morePosts] : morePosts;
 
   return (
     <div className="blog">
@@ -271,12 +316,12 @@ export default function BlogList() {
             </div>
 
             {/* More Stories Section */}
-            {morePosts.length > 0 && (
+            {moreWithCaseStudies.length > 0 && (
               <div className="blog__more-section">
                 <div className="blog__more-divider" />
                 <h2 className="blog__more-heading">More Stories</h2>
                 <div className="blog__more-grid">
-                  {morePosts.map((post) => (
+                  {moreWithCaseStudies.map((post) => (
                     <Reveal key={post.slug} as="article" className="blog-card-more">
                       {post.cover && (
                         <a href={`/blog/${post.slug}`} className="blog-card-more__cover-link">
